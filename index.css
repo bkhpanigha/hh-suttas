@@ -293,7 +293,7 @@ br {
   display: flex;
   flex-direction: row;
   gap: 1rem;
-  justify-content: center;
+  justify-content: left;
   margin-top: 2rem;
 }
 
