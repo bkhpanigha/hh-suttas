@@ -178,7 +178,7 @@ function buildSutta(slug) {
 
         html += `${openHtml}<span class="segment" id ="${segment}"><span class="pli-lang" lang="pi">${root_text[segment] ? root_text[segment] : ""}</span><span class="eng-lang" lang="en">${translation_text[segment]}</span></span>${closeHtml}\n\n`;
       });
-      const scLink = `<p class="sc-link"><a href="https://.net/${slug}/en/${translator}"></p>`;
+      const scLink = `<p class="sc-link"></p>`;
 
       const translatorByline = `<div class="byline"><p>Translated by ${suttaplex.translation.author}</p></div>`;
       suttaArea.innerHTML = scLink + html + translatorByline;
