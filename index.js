@@ -5,7 +5,55 @@ const bodyTag = document.querySelector("body");
 const previous = document.getElementById("previous");
 const next = document.getElementById("next");
 
-const welcomeText = `<div class="instructions">
+
+
+
+async function getJsonFilesFromRepo() {
+  const apiUrl = `https://api.github.com/repos/bkhpanigha/hh-suttas/contents/`;
+  
+  try {
+      const response = await fetch(apiUrl);
+      if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      const jsonFiles = data
+          .filter(item => item.type === 'file' && item.name.endsWith('.json'))
+          .map(file => file.path);
+      
+      return jsonFiles;
+  } catch (error) {
+      console.error('Error fetching repository data:', error);
+      return [];
+  }
+}
+
+const availableSuttasArray = await getJsonFilesFromRepo();
+
+
+const suttasArrayMod = availableSuttasArray.map(str => {
+  const capitalized = str.slice(0,2).toUpperCase() // Capitalize the first letter
+  const num = str.slice(2).split(".");
+  return capitalized.slice(0, 2) + " " + num[0]; // Insert a space at index 2
+
+});
+
+
+const availableSuttasString = suttasArrayMod.join(", ");
+
+
+
+
+
+// const currentDirectory = process.cwd();
+// const jsonFilesArray = [];
+
+
+
+const welcomeText = `<div class="instructions"><p>Available Suttas: ${availableSuttasString}.</p></div>`;
+
+const oldwelcomeText = `<div class="instructions">
+
 <p>Citations must exactly match those found on .net. Separate chapter and sutta with a period. The following collections work. Click them to add to input box.</p>
 <div class="lists">
 
@@ -61,6 +109,7 @@ const welcomeText = `<div class="instructions">
 <p>Suttas that are part of a series require that you enter the exact series. 
 (Such as Dhp and some SN and AN.)</p>
 <p>You can put the Pāli next to the English by pressing the s key</p>
+
 </div>
 `;
 
