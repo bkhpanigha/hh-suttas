@@ -180,7 +180,7 @@ function buildSutta(slug) {
       });
       const scLink = `<p class="sc-link"></p>`;
 
-      const translatorByline = `<div class="byline"><p>Translated by ${suttaplex.translation.author}</p></div>`;
+      const translatorByline = `<div class="byline"><p>Translated by Bhikkhu Anīgha</p></div>`;
       suttaArea.innerHTML = scLink + html + translatorByline;
       document.title = `${suttaplex.suttaplex.acronym} ${suttaplex.bilara_root_text.title}: ${suttaplex.bilara_translated_text.title}`;
 
