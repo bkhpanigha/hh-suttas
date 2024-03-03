@@ -146,11 +146,12 @@ if (localStorage.sideBySide) {
 }
 
 if (localStorage.theme) {
-  if (localStorage.theme === "light") {
-    bodyTag.classList.remove("dark");
+  if (localStorage.theme === "dark") {
+    bodyTag.classList.remove("light");
+    bodyTag.classList.add("dark");
   }
 } else {
-  bodyTag.classList.add("dark");
+  bodyTag.classList.add("light");
 }
 
 themeButton.addEventListener("click", () => {
