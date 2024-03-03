@@ -232,6 +232,7 @@ function buildSutta(slug) {
 
       const translatorByline = `<div class="byline"><p>Translated by Bhikkhu Anīgha</p></div>`;
       suttaArea.innerHTML = scLink + html + translatorByline;
+      // TODO fix the way these pages are rendered
       document.title = `${suttaplex.suttaplex.acronym} ${suttaplex.bilara_root_text.title}: ${suttaplex.bilara_translated_text.title}`;
 
       toggleThePali();
@@ -285,6 +286,7 @@ function toggleThePali() {
   }
 
   hideButton.addEventListener("click", () => {
+    const previousScrollPosition = window.scrollY;
     if (localStorage.paliToggle === "show") {
       suttaArea.classList.add("hide-pali");
       localStorage.paliToggle = "hide";
@@ -293,6 +295,10 @@ function toggleThePali() {
       suttaArea.classList.remove("hide-pali");
       localStorage.paliToggle = "show";
     }
+    setTimeout(() => {
+      const currentScrollPosition = window.scrollY;
+      window.scrollTo(0, currentScrollPosition - (previousScrollPosition - currentScrollPosition));
+  }, 0); 
   });
 }
 
