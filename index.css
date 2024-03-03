@@ -240,6 +240,11 @@ dt {
   display: none !important;
 }
 
+/* .hide-pali .pli-lang {
+  visibility: hidden;
+} */
+
+
 #sutta.hide-pali p span.eng-lang {
   display: inline !important;
 }
@@ -359,6 +364,8 @@ a:hover {
   background-color: var(--blue);
   color: var(--off-white);
 }
+
+
 
 .side-by-side .segment {
   display: flex;
