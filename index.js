@@ -5,11 +5,8 @@ const bodyTag = document.querySelector("body");
 const previous = document.getElementById("previous");
 const next = document.getElementById("next");
 
-
-
-
 async function getJsonFilesFromRepo() {
-  const apiUrl = `https://api.github.com/repos/bkhpanigha/hh-suttas/contents/`;
+  const apiUrl = `https://api.github.com/repos/bkhpanigha/hh-suttas/contents/suttas/`;
   
   try {
       const response = await fetch(apiUrl);
@@ -19,7 +16,8 @@ async function getJsonFilesFromRepo() {
       const data = await response.json();
       const jsonFiles = data
           .filter(item => item.type === 'file' && item.name.endsWith('.json'))
-          .map(file => file.path);
+          .map(file => file.path.split('/').pop()) // Extract filename from path
+          .sort(naturalSort); // Sort filenames in natural order
       
       return jsonFiles;
   } catch (error) {
@@ -27,6 +25,24 @@ async function getJsonFilesFromRepo() {
       return [];
   }
 }
+
+// Custom sorting function for natural sorting
+function naturalSort(a, b) {
+  const ax = [], bx = [];
+
+  a.replace(/(\d+)|(\D+)/g, (_, $1, $2) => { ax.push([$1 || Infinity, $2 || '']); });
+  b.replace(/(\d+)|(\D+)/g, (_, $1, $2) => { bx.push([$1 || Infinity, $2 || '']); });
+
+  while (ax.length && bx.length) {
+    const an = ax.shift();
+    const bn = bx.shift();
+    const nn = (an[0] - bn[0]) || an[1].localeCompare(bn[1]);
+    if (nn) return nn;
+  }
+
+  return ax.length - bx.length;
+}
+
 
 const availableSuttasArray = await getJsonFilesFromRepo();
 
