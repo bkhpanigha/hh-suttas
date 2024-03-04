@@ -161,7 +161,6 @@ citation.addEventListener("keypress", e => {
 });
 
 citation.value = document.location.search.replace("?q=", "").replace(/%20/g, "").replace(/\s/g, "");
-
 function buildSutta(slug) {
   let translator = "";
   let slugArray = slug.split("&");
@@ -194,12 +193,20 @@ function buildSutta(slug) {
 
   const suttaplex = fetch(`https://suttacentral.net/api/suttas/${slug}/${translator}?lang=en&siteLanguage=en`).then(response => response.json());
 
+  // Get Suttas from local repo
+  //Promise.all([contentResponse, suttaplex, fetch(`suttas/${slug}.json`).then(response => response.json())])
+  // Get Suttas from online repo
   Promise.all([contentResponse, suttaplex, fetch(`https://raw.githubusercontent.com/bkhpanigha/hh-suttas/main/suttas/${slug}.json`).then(response => response.json())])
     .then(responses => {
       const [contentResponse, suttaplex, ourTranslation] = responses;
       const { html_text, translation_text1, root_text, keys_order } = contentResponse;
+      if (slug == "mn4"){
+        html_text["mn4:2.11"] = "{}";
+        html_text["mn4:2.12"] = "{}</p>";
+      }
       let translation_text = ourTranslation;
       keys_order.forEach(segment => {
+
         if (translation_text[segment] === undefined) {
           translation_text[segment] = "";
         }
@@ -211,11 +218,14 @@ function buildSutta(slug) {
         }
 
         html += `${openHtml}<span class="segment" id ="${segment}"><span class="pli-lang" lang="pi">${root_text[segment] ? root_text[segment] : ""}</span><span class="eng-lang" lang="en">${translation_text[segment]}</span></span>${closeHtml}\n\n`;
+
       });
+      //console.log(html);
       const scLink = `<p class="sc-link"></p>`;
 
       const translatorByline = `<div class="byline"><p>Translated by Bhikkhu Anīgha</p></div>`;
       suttaArea.innerHTML = scLink + html + translatorByline;
+
       // TODO fix the way these pages are rendered
       document.title = `${suttaplex.suttaplex.acronym} ${suttaplex.bilara_root_text.title}: ${suttaplex.bilara_translated_text.title}`;
 
@@ -241,13 +251,10 @@ function buildSutta(slug) {
       </g>
       </svg>${suttaplex.root_text.previous.name}</a>`
         : "";
-      // After the content has been added to the DOM, call scrollToHash
-      scrollToHash();
     })
-
     .catch(error => {
       suttaArea.innerHTML = `<p>Sorry, "${decodeURIComponent(slug)}" is not a valid sutta citation.
-    
+
     Note: Suttas that are part of a series require that you enter the exact series. For example, <code>an1.1</code> will not work, but <code>an1.1-10</code> will.<br>
     ${welcomeText}`;
     });
