@@ -156,15 +156,82 @@ themeButton.addEventListener("click", () => {
   }
 });
 
+let fuse; // holds our search engine
+let fuseOptions = {
+  includeScore: true,
+  keys: ['title', 'id'], // the keys to sx for searching
+};
+
+async function createFuseSearch() {
+  const availableSuttas = await getAvailableSuttasWithTitles();
+  fuse = new Fuse(availableSuttas, fuseOptions);
+}
+
+// Call this function when the page loads or when the available suttas are fetchedq
+createFuseSearch();
+
+// Step 3: Create a search function
+function searchSuttas(pattern) {
+  if (!fuse) return []; // if Fuse isn't initialized, return empty array
+  return fuse.search(pattern).map(result => result.item);
+  // return fuse.search(pattern).map(result => result.item).sort((a, b) => {
+  //   const getNumber = text => parseInt(text.match(/MN(\d+)/)[1], 10);
+  //   return getNumber(a) - getNumber(b);
+  // });
+}
+
+
+function generateSuttaListHTML(suttas) {
+  return suttas.map(sutta => {
+    const parts = sutta.split(':');
+    const id = parts[0].trim();
+    const title = parts[1].trim();
+    return `<li><a href="/?q=${id.toLowerCase()}">${id}: ${title}</a></li>`;
+  }).join('');
+}
+
+function displaySuttas(suttas) {
+  suttaArea.innerHTML = `<ul>${generateSuttaListHTML(suttas)}</ul>`;
+}
+
+// Refactored displaySearchResults to use displaySuttas
+function displaySearchResults(results) {
+  // Clear previous results
+  suttaArea.innerHTML = '';
+  // Generate and display HTML for the results
+  displaySuttas(results);
+}
+
+// Call displaySuttas with availableSuttasArray on DOMContentLoaded
+document.addEventListener('DOMContentLoaded', async () => {
+  displaySuttas(availableSuttasArray);
+  createFuseSearch();
+});
+
+
 const form = document.getElementById("form");
 const citation = document.getElementById("citation");
 citation.focus();
 
-form.addEventListener("submit", e => {
-  e.preventDefault();
-  if (citation.value) {
-    buildSutta(citation.value.replace(/\s/g, ""));
-    history.pushState({ page: citation.value.replace(/\s/g, "") }, "", `?q=${citation.value.replace(/\s/g, "")}`);
+citation.addEventListener("input", e => {
+  const searchQuery = e.target.value.trim();
+  if (searchQuery) {
+    const searchResults = searchSuttas(searchQuery);
+    displaySearchResults(searchResults);
+  }
+  else {
+    displaySuttas(availableSuttasArray);
+  }
+});
+
+citation.addEventListener("keypress", e => {
+  if (e.key === "Enter") {
+    e.preventDefault();
+    const citationValue = e.target.value.trim().replace(/\s/g, "");
+    if (citationValue) {
+      buildSutta(citationValue);
+      history.pushState({ page: citationValue }, "", `?q=${citationValue}`);
+    }
   }
 });
 
@@ -290,7 +357,7 @@ function toggleThePali() {
     setTimeout(() => {
       const currentScrollPosition = window.scrollY;
       window.scrollTo(0, currentScrollPosition - (previousScrollPosition - currentScrollPosition));
-  }, 0); 
+    }, 0);
   });
 }
 
@@ -302,3 +369,4 @@ abbreviations.forEach(book => {
     citation.focus();
   });
 });
+
