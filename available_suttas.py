@@ -18,7 +18,7 @@ for file_path in suttas_dir.glob('*.json'):
         key = f"mn{match.group(1)}:0.2"
         if key:
             sutta_title = data.get(key)
-            available_suttas.append({"id": f"MN{match.group(1)}", "title": sutta_title})
+            available_suttas.append({"id": f"MN {match.group(1)}", "title": sutta_title})
 
 # Sort the list by the numeric part of the 'id' key
 available_suttas.sort(key=lambda x: int(x['id'][2:]))
