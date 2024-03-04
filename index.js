@@ -30,81 +30,12 @@ const suttasArrayMod = availableSuttasArray.map(sutta => {
 });
 
 
-
-
-
-// const currentDirectory = process.cwd();
-// const jsonFilesArray = [];
-
-
-
 const welcomeText = `<div class="instructions">
   <p>Available Suttas:</p>
   <ul>
     ${suttasArrayMod.join('')}
   </ul>
 </div>`;
-const oldwelcomeText = `<div class="instructions">
-
-<p>Citations must exactly match those found on .net. Separate chapter and sutta with a period. The following collections work. Click them to add to input box.</p>
-<div class="lists">
-
-<div class="suttas">
-<h2>Suttas</h2>
-<ul>
-    <li><span class="abbr">dn</span> Dīgha-nikāya</li>
-    <li><span class="abbr">mn</span> Majjhima-nikāya</li>
-    <li><span class="abbr">sn</span> Saṁyutta-nikāya</li>
-    <li><span class="abbr">an</span> Aṅguttara-nikāya</li>
-    <li><span class="abbr">kp</span> Khuddakapāṭha</li>
-    <li><span class="abbr">dhp</span> Dhammapada</li>
-    <li><span class="abbr">ud</span> Udāna</li>
-    <li><span class="abbr">iti</span> Itivuttaka (1–112)</li>
-    <li><span class="abbr">snp</span> Sutta-nipāta</li>
-    <li><span class="abbr">thag</span> Theragāthā</li>
-    <li><span class="abbr">thig</span> Therīgāthā</li>
-</ul>
-</div><div>
-<h2>Vinaya</h2>
-<div class="vinaya">
-<div>
-<h3>Bhikkhu</h3>
-<ul>
-<li><span class="abbr">bu-pj</span> Pārājikā</li>
-<li><span class="abbr">bu-ss</span> Saṅghādisesā</li>
-<li><span class="abbr">bu-ay</span> Aniyatā</li>
-<li><span class="abbr">bu-np</span> Nissaggiyā-pācittiyā</li>
-<li><span class="abbr">bu-pc</span> Pācittiyā</li>
-<li><span class="abbr">bu-pd</span> Pāṭidesanīyā</li>
-<li><span class="abbr">bu-sk</span> Sekhiyā</li>
-<li><span class="abbr">bu-as</span> Adhikarana-samatha</li>
-</ul>
-</div><div>
-<h3>Bhikkhuni</h3>
-<ul>
-<li><span class="abbr">bi-pj</span> Pārājikā</li>
-<li><span class="abbr">bi-ss</span> Saṅghādisesā</li>
-<li><span class="abbr">bi-np</span> Nissaggiyā-pācittiyā</li>
-<li><span class="abbr">bi-pc</span> Pācittiyā</li>
-<li><span class="abbr">bi-pd</span> Pāṭidesanīyā</li>
-<li><span class="abbr">bi-sk</span> Sekhiyā</li>
-<li><span class="abbr">bi-as</span> Adhikarana-samatha</li>
-</ul>
-</div>
-<ul>
-<li><span class="abbr">kd</span> Khandhakas</li>
-<li><span class="abbr">pvr</span> Parivāra</li>
-</ul>
-</div>
-</div></div>
-
-<p>Suttas that are part of a series require that you enter the exact series. 
-(Such as Dhp and some SN and AN.)</p>
-<p>You can put the Pāli next to the English by pressing the s key</p>
-
-</div>
-`;
-
 
 homeButton.addEventListener("click", () => {
   document.location.search = "";
@@ -201,12 +132,6 @@ function displaySearchResults(results) {
   // Generate and display HTML for the results
   displaySuttas(results);
 }
-
-// Call displaySuttas with availableSuttasArray on DOMContentLoaded
-document.addEventListener('DOMContentLoaded', async () => {
-  displaySuttas(availableSuttasArray);
-  createFuseSearch();
-});
 
 
 const form = document.getElementById("form");
@@ -316,7 +241,10 @@ function buildSutta(slug) {
       </g>
       </svg>${suttaplex.root_text.previous.name}</a>`
         : "";
+      // After the content has been added to the DOM, call scrollToHash
+      scrollToHash();
     })
+
     .catch(error => {
       suttaArea.innerHTML = `<p>Sorry, "${decodeURIComponent(slug)}" is not a valid sutta citation.
     
@@ -366,7 +294,89 @@ abbreviations.forEach(book => {
   book.addEventListener("click", e => {
     citation.value = e.target.innerHTML;
     // form.input.setSelectionRange(10, 10);
-    citation.focus();
+    // citation.focus();
   });
 });
+
+
+// function scrollToHash() {
+//   const hash = window.location.hash.substring(1); // Remove the '#' from the hash
+
+//   if (hash) {
+//     // No need to escape characters for getElementById
+//     const targetElement = document.getElementById(hash);
+//     if (targetElement) {
+//       targetElement.style.color = "#333366"; // Dark blue for a professional look
+//       targetElement.style.backgroundColor = "#f0f0f5"; // Light background to stand out
+//       targetElement.style.fontWeight = "bold";
+//       targetElement.style.padding = "4px 8px"; // Slight padding around the text
+//       targetElement.style.borderRadius = "4px"; // Rounded corners for the border
+//       targetElement.style.border = "1px solid #ccccff"; // Light border matching the color scheme
+//       targetElement.style.boxShadow = "2px 2px 4px #e0e0e0"; // Subtle shadow
+//       targetElement.style.fontSize = "1.5em"; // Slightly larger font size
+//       targetElement.style.transition = "background-color 0.3s, color 0.3s"; // Smooth transition for color and background
+//       targetElement.scrollIntoView();
+//     }
+//   }
+// }
+function scrollToHash() {
+  const hash = window.location.hash.substring(1); // Remove the '#' from the hash
+
+  if (hash) {
+    const rangeMatch = hash.match(/(.*?):(\d+\.\d+)-(.*?):(\d+\.\d+)/);
+    if (rangeMatch) {
+      const [, startIdPrefix, startIdSuffix, endIdPrefix, endIdSuffix] = rangeMatch;
+      const startFullId = `${startIdPrefix}:${startIdSuffix}`;
+      const endFullId = `${endIdPrefix}:${endIdSuffix}`;
+      const startElement = document.getElementById(startFullId);
+      const endElement = document.getElementById(endFullId);
+
+      if (startElement && endElement) {
+        let element = startElement;
+        let highlight = false;
+
+        // Loop through sibling elements until the end element is reached
+        while (element) {
+          if (element.id === startFullId) {
+            highlight = true;
+          }
+
+          if (highlight) {
+            applyHighlightStyle(element);
+          }
+
+          if (element.id === endFullId) {
+            break;
+          }
+
+          element = element.nextElementSibling;
+        }
+
+        startElement.scrollIntoView();
+      }
+    } else {
+      // Handle single element highlighting
+      const targetElement = document.getElementById(hash);
+      if (targetElement) {
+        applyHighlightStyle(targetElement);
+        targetElement.scrollIntoView();
+      }
+    }
+  }
+}
+
+function applyHighlightStyle(element) {
+  element.style.color = "#333366";
+  element.style.fontWeight = "bold";
+  // element.style.padding = "4px 8px";
+  // element.style.borderRadius = "4px";
+  // element.style.border = "1px solid #ccccff";
+  // element.style.boxShadow = "2px 2px 4px #e0e0e0";
+  element.style.fontSize = "1.5em";
+  // element.style.transition = "background-color 0.3s, color 0.3s";
+}
+
+
+// Call this function after the content that includes the element with the ID has been added to the DOM
+// scrollToHash();
 
