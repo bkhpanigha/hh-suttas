@@ -210,7 +210,7 @@ function buildSutta(slug) {
 
   const suttaplex = fetch(`https://suttacentral.net/api/suttas/${slug}/${translator}?lang=en&siteLanguage=en`).then(response => response.json());
 
-  Promise.all([contentResponse, suttaplex, fetch(`https://raw.githubusercontent.com/bkhpanigha/hh-suttas/main/${slug}.json`).then(response => response.json())])
+  Promise.all([contentResponse, suttaplex, fetch(`https://raw.githubusercontent.com/bkhpanigha/hh-suttas/main/suttas/${slug}.json`).then(response => response.json())])
     .then(responses => {
       const [contentResponse, suttaplex, ourTranslation] = responses;
       const { html_text, translation_text1, root_text, keys_order } = contentResponse;
