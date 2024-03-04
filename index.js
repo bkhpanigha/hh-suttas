@@ -5,57 +5,29 @@ const bodyTag = document.querySelector("body");
 const previous = document.getElementById("previous");
 const next = document.getElementById("next");
 
-async function getJsonFilesFromRepo() {
-  const apiUrl = `https://api.github.com/repos/bkhpanigha/hh-suttas/contents/suttas/`;
-  
+async function getAvailableSuttasWithTitles() {
   try {
-      const response = await fetch(apiUrl);
-      if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const data = await response.json();
-      const jsonFiles = data
-          .filter(item => item.type === 'file' && item.name.endsWith('.json'))
-          .map(file => file.path.split('/').pop()) // Extract filename from path
-          .sort(naturalSort); // Sort filenames in natural order
-      
-      return jsonFiles;
+    const response = await fetch('available_suttas.json');
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+    return data.available_suttas.map(sutta => `${sutta.id}: ${sutta.title.trim()}`);
   } catch (error) {
-      console.error('Error fetching repository data:', error);
-      return [];
+    console.error('Error fetching available suttas:', error);
+    return [];
   }
 }
 
-// Custom sorting function for natural sorting
-function naturalSort(a, b) {
-  const ax = [], bx = [];
 
-  a.replace(/(\d+)|(\D+)/g, (_, $1, $2) => { ax.push([$1 || Infinity, $2 || '']); });
-  b.replace(/(\d+)|(\D+)/g, (_, $1, $2) => { bx.push([$1 || Infinity, $2 || '']); });
+const availableSuttasArray = await getAvailableSuttasWithTitles();
 
-  while (ax.length && bx.length) {
-    const an = ax.shift();
-    const bn = bx.shift();
-    const nn = (an[0] - bn[0]) || an[1].localeCompare(bn[1]);
-    if (nn) return nn;
-  }
-
-  return ax.length - bx.length;
-}
-
-
-const availableSuttasArray = await getJsonFilesFromRepo();
-
-
-const suttasArrayMod = availableSuttasArray.map(str => {
-  const capitalized = str.slice(0,2).toUpperCase() // Capitalize the first letter
-  const num = str.slice(2).split(".");
-  return capitalized.slice(0, 2) + " " + num[0]; // Insert a space at index 2
-
+const suttasArrayMod = availableSuttasArray.map(sutta => {
+  const parts = sutta.split(':');
+  const id = parts[0].trim();
+  const title = parts[1].trim();
+  return `<li><a href="/?q=${id.toLowerCase()}">${id}: ${title}</a></li>`;
 });
-
-
-const availableSuttasString = suttasArrayMod.join(", ");
 
 
 
@@ -66,8 +38,12 @@ const availableSuttasString = suttasArrayMod.join(", ");
 
 
 
-const welcomeText = `<div class="instructions"><p>Available Suttas: ${availableSuttasString}.</p></div>`;
-
+const welcomeText = `<div class="instructions">
+  <p>Available Suttas:</p>
+  <ul>
+    ${suttasArrayMod.join('')}
+  </ul>
+</div>`;
 const oldwelcomeText = `<div class="instructions">
 
 <p>Citations must exactly match those found on .net. Separate chapter and sutta with a period. The following collections work. Click them to add to input box.</p>
