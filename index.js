@@ -211,10 +211,6 @@ function buildSutta(slug) {
     .then(responses => {
       const [html_text, root_text, translation_text] = responses;
       const keys_order = Object.keys(html_text)
-      if (slug == "mn4") {
-        html_text["mn4:2.11"] = "{}";
-        html_text["mn4:2.12"] = "{}</p>";
-      }
       keys_order.forEach(segment => {
 
         if (translation_text[segment] === undefined) {
