@@ -201,22 +201,20 @@ function buildSutta(slug) {
 
   let html = `<div class="button-area"><button id="hide-pali" class="hide-button">Toggle Pali</button></div>`;
 
-  const contentResponse = fetch(`https://suttacentral.net/api/bilarasuttas/${slug}/${translator}?lang=en`).then(response => response.json());
 
-  const suttaplex = fetch(`https://suttacentral.net/api/suttas/${slug}/${translator}?lang=en&siteLanguage=en`).then(response => response.json());
+  const rootResponse = fetch(`suttas/root/mn/${slug}_root-pli-ms.json`).then(response => response.json());
+  const translationResponse = fetch(`suttas/translation_en/${slug}.json`).then(response => response.json());
+  const htmlResponse = fetch(`suttas/html/mn/${slug}_html.json`).then(response => response.json());
 
-  // Get Suttas from local repo
-  //Promise.all([contentResponse, suttaplex, fetch(`suttas/${slug}.json`).then(response => response.json())])
-  // Get Suttas from online repo
-  Promise.all([contentResponse, suttaplex, fetch(`https://raw.githubusercontent.com/bkhpanigha/hh-suttas/main/suttas/${slug}.json`).then(response => response.json())])
+  // Get root, translation and html jsons from folder
+  Promise.all([htmlResponse, rootResponse, translationResponse])
     .then(responses => {
-      const [contentResponse, suttaplex, ourTranslation] = responses;
-      const { html_text, translation_text1, root_text, keys_order } = contentResponse;
-      if (slug == "mn4"){
+      const [html_text, root_text, translation_text] = responses;
+      const keys_order = Object.keys(html_text)
+      if (slug == "mn4") {
         html_text["mn4:2.11"] = "{}";
         html_text["mn4:2.12"] = "{}</p>";
       }
-      let translation_text = ourTranslation;
       keys_order.forEach(segment => {
 
         if (translation_text[segment] === undefined) {

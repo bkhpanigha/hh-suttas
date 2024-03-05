@@ -1,0 +1,15 @@
+{
+  "thag2.18:0.1": "<article id='thag2.18'><header><ul><li class='division'>{}</li>",
+  "thag2.18:0.2": "<li>{}</li>",
+  "thag2.18:0.3": "<li>{}</li></ul>",
+  "thag2.18:0.4": "<h1 class='sutta-title'>{}</h1></header>",
+  "thag2.18:1.1": "<blockquote class='gatha'><p><span class='verse-line'>{}</span>",
+  "thag2.18:1.2": "<span class='verse-line'>{}</span>",
+  "thag2.18:1.3": "<span class='verse-line'>{}</span>",
+  "thag2.18:1.4": "<span class='verse-line'>{}</span></p>",
+  "thag2.18:2.1": "<p><span class='verse-line'>{}</span>",
+  "thag2.18:2.2": "<span class='verse-line'>{}</span>",
+  "thag2.18:2.3": "<span class='verse-line'>{}</span>",
+  "thag2.18:2.4": "<span class='verse-line'>{}</span></p></blockquote>",
+  "thag2.18:2.5": "<p class='endsutta'>{}</p></article>"
+}

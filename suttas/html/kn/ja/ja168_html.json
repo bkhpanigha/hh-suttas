@@ -1,0 +1,15 @@
+{
+  "ja168:0.1": "<article id='ja168'><header><ul><li class='division'>{}</li>",
+  "ja168:0.2": "<li>{}</li>",
+  "ja168:0.3": "<li>{}</li></ul>",
+  "ja168:0.4": "<h1 class='sutta-title'>{}</h1></header>",
+  "ja168:1.1": "<blockquote class='gatha'><p><span class='verse-line'>{}</span>",
+  "ja168:1.2": "<span class='verse-line'>{}</span>",
+  "ja168:1.3": "<span class='verse-line'>{}</span>",
+  "ja168:1.4": "<span class='verse-line'>{}</span></p>",
+  "ja168:2.1": "<p><span class='verse-line'>{}</span>",
+  "ja168:2.2": "<span class='verse-line'>{}</span>",
+  "ja168:2.3": "<span class='verse-line'>{}</span>",
+  "ja168:2.4": "<span class='verse-line'>{}</span></p></blockquote>",
+  "ja168:3.1": "<p class='endsutta'>{}</p></article>"
+}
