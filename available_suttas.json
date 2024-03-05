@@ -1,3 +1,112 @@
 {
-    "available_suttas": []
+    "available_suttas": [
+        {
+            "id": "MN 1",
+            "title": "The Explanation of the Root "
+        },
+        {
+            "id": "MN 2",
+            "title": "All the Influxes "
+        },
+        {
+            "id": "MN 3",
+            "title": "Heirs of the Dhamma "
+        },
+        {
+            "id": "MN 4",
+            "title": "Fear and Dread "
+        },
+        {
+            "id": "MN 5",
+            "title": "Unblemished "
+        },
+        {
+            "id": "MN 6",
+            "title": "One Might Wish "
+        },
+        {
+            "id": "MN 7",
+            "title": "The Simile of the Cloth "
+        },
+        {
+            "id": "MN 8",
+            "title": "Wearing Away "
+        },
+        {
+            "id": "MN 9",
+            "title": "Right View "
+        },
+        {
+            "id": "MN 10",
+            "title": "Establishments of Recollection "
+        },
+        {
+            "id": "MN 11",
+            "title": "The Shorter Discourse on the Lion’s Roar "
+        },
+        {
+            "id": "MN 12",
+            "title": "The Longer Discourse on the Lion’s Roar "
+        },
+        {
+            "id": "MN 13",
+            "title": "The Longer Discourse on the Mass of Suffering "
+        },
+        {
+            "id": "MN 14",
+            "title": "The Shorter Discourse on the Mass of Suffering "
+        },
+        {
+            "id": "MN 15",
+            "title": "Evaluation "
+        },
+        {
+            "id": "MN 16",
+            "title": "Obstinacies "
+        },
+        {
+            "id": "MN 17",
+            "title": "Jungle Thickets "
+        },
+        {
+            "id": "MN 18",
+            "title": "The Lump of Honey "
+        },
+        {
+            "id": "MN 19",
+            "title": "Two Kinds of Thoughts "
+        },
+        {
+            "id": "MN 20",
+            "title": "The Settling of Thoughts "
+        },
+        {
+            "id": "MN 21",
+            "title": "The Simile of the Saw "
+        },
+        {
+            "id": "MN 22",
+            "title": "The Simile of the Venomous Snake "
+        },
+        {
+            "id": "MN 23",
+            "title": "The Ant-Hill "
+        },
+        {
+            "id": "MN 24",
+            "title": "The Relay Chariots "
+        },
+        {
+            "id": "MN 25",
+            "title": "Bait "
+        },
+        {
+            "id": "MN 27",
+            "title": "The Shorter Simile of the Elephant’s Footprint "
+        },
+        {
+            "id": "MN 28",
+            "title": "The Longer Simile of the Elephant’s Footprint "
+        }
+    ]
 }
