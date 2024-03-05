@@ -127,8 +127,7 @@ const suttasArrayMod = availableSuttasArray.map(sutta => {
 });
 
 
-const welcomeText = `<div class="instructions">
-  <p>Available Suttas:</p>
+const welcomeText = `
   <ul>
     ${suttasArrayMod.join('')}
   </ul>
