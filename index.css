@@ -85,28 +85,19 @@ p {
   margin-bottom: 1.5rem;
 }
 
-.instructions ul li {
-  line-height: 1.3;
+#sutta {
+  padding-top: 1.2em;
+
 }
 
-.instructions ul {
+#sutta ul {
   margin-top: 0rem;
   padding: 0rem;
   list-style-type: none;
 }
 
-.instructions h2 {
-  font-size: 1.2rem;
-  margin-top: 0rem;
-  margin-bottom: 0.1rem;
-  margin-left: 0rem;
-}
-
-.instructions h3 {
-  font-size: 1rem;
-  margin-top: 0rem;
-  margin-bottom: 0.1rem;
-  margin-left: 0rem;
+#sutta ul li {
+  line-height: 1.3;
 }
 
 .lists {
