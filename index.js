@@ -8,14 +8,19 @@ const next = document.getElementById("next");
 
 // functions
 
-async function getAvailableSuttasWithTitles() {
+async function getAvailableSuttas({ mergedTitle = true } = {}) {
   try {
     const response = await fetch('available_suttas.json');
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     const data = await response.json();
-    return data.available_suttas.map(sutta => `${sutta.id}: ${sutta.title.trim()}`);
+    if (mergedTitle) {
+      return data.available_suttas.map(sutta => `${sutta.id}: ${sutta.title.trim()}`);
+    }
+    else {
+      return data
+    }
   } catch (error) {
     console.error('Error fetching available suttas:', error);
     return [];
@@ -23,12 +28,11 @@ async function getAvailableSuttasWithTitles() {
 }
 
 function searchSuttas(pattern) {
-  if (!fuse) return []; // if Fuse isn't initialized, return empty array
-  return fuse.search(pattern).map(result => result.item);
-  // return fuse.search(pattern).map(result => result.item).sort((a, b) => {
-  //   const getNumber = text => parseInt(text.match(/MN(\d+)/)[1], 10);
-  //   return getNumber(a) - getNumber(b);
-  // });
+  if (!fuse) {pattern = ""}; // if Fuse isn't initialized, return empty array
+  pattern = pattern.replace(/([a-zA-Z]{2})(\d+)/, '$1 $2');
+  let results = fuse.search(pattern).map(result => result.item);
+  // join up the id with the titles to be displayed
+  return results.map(sutta => `${sutta.id}: ${sutta.title.trim()}`);
 }
 
 
@@ -71,8 +75,8 @@ function toggleThePali() {
 }
 
 async function createFuseSearch() {
-  const availableSuttas = await getAvailableSuttasWithTitles();
-  fuse = new Fuse(availableSuttas, fuseOptions);
+  const availableSuttas = await getAvailableSuttas({ mergedTitle: false });
+  fuse = new Fuse(availableSuttas['available_suttas'], fuseOptions);
   return fuse
 }
 
@@ -95,7 +99,7 @@ document.onkeyup = function (e) {
 
 let fuseOptions = {
   includeScore: true,
-  keys: ['title', 'id'], // the keys to sx for searching
+  keys: ['id', 'title'], // Id then title in terms of priority
 };
 
 
@@ -104,7 +108,7 @@ homeButton.addEventListener("click", () => {
 });
 
 
-const availableSuttasArray = await getAvailableSuttasWithTitles();
+const availableSuttasArray = await getAvailableSuttas();
 
 // initialize
 if (localStorage.sideBySide) {
