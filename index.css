@@ -6,7 +6,7 @@
 :root {
   --off-white: rgb(221, 221, 221);
   --light-off-white: rgb(241, 241, 241);
-  --off-black: rgb(4, 1, 19);
+  --black: rgb(0, 0, 0);
   --dark-gray: #5a5a5a;
   --light-gray: #8f8f8f;
   --dark-blue: #42426a;
@@ -20,7 +20,7 @@ body {
 }
 
 body.dark {
-  background-color: var(--off-black);
+  background-color: var(--black);
 }
 
 #form {
@@ -45,13 +45,13 @@ body.dark {
 
 #citation:focus {
   background-color: var(--off-white);
-  color: var(--off-black);
+  color: var(--black);
   outline: none;
 }
 
 .dark #citation:focus {
   background-color: var(--off-white);
-  color: var(--off-black);
+  color: var(--black);
   border-color: var(--off-white);
 }
 
@@ -159,7 +159,7 @@ h2,
 h3,
 h4,
 h5 {
-  color: var(--off-black);
+  color: var(--black);
 }
 
 .dark p,
@@ -183,7 +183,7 @@ h2 .pli-lang,
 h3 .pli-lang,
 h4 .pli-lang,
 h5 .pli-lang {
-  font-family: arial, sans-serif;
+  font-family: 'Times New Roman', Times, serif;
   color: var(--dark-gray);
 }
 
@@ -343,7 +343,7 @@ a:hover {
 
 .hide-button {
   background-color: var(--off-white);
-  color: var(--off-black);
+  color: var(--black);
   border: solid 2px var(--dark-gray);
   padding-bottom: 3px;
 }
