@@ -32,27 +32,14 @@ function searchSuttas(pattern) {
 }
 
 
-function generateSuttaListHTML(suttas) {
-  return suttas.map(sutta => {
+function displaySuttas(suttas) {
+  suttaArea.innerHTML = `<ul>${suttas.map(sutta => {
     const parts = sutta.split(':');
     const id = parts[0].trim();
     const title = parts[1].trim();
     return `<li><a href="/?q=${id.toLowerCase()}">${id}: ${title}</a></li>`;
-  }).join('');
+  }).join('')}</ul>`;
 }
-
-function displaySuttas(suttas) {
-  suttaArea.innerHTML = `<ul>${generateSuttaListHTML(suttas)}</ul>`;
-}
-
-// Refactored displaySearchResults to use displaySuttas
-function displaySearchResults(results) {
-  // Clear previous results
-  suttaArea.innerHTML = '';
-  // Generate and display HTML for the results
-  displaySuttas(results);
-}
-
 
 function toggleThePali() {
   const hideButton = document.getElementById("hide-pali");
@@ -119,21 +106,6 @@ homeButton.addEventListener("click", () => {
 
 const availableSuttasArray = await getAvailableSuttasWithTitles();
 
-const suttasArrayMod = availableSuttasArray.map(sutta => {
-  const parts = sutta.split(':');
-  const id = parts[0].trim();
-  const title = parts[1].trim();
-  return `<li><a href="/?q=${id.toLowerCase()}">${id}: ${title}</a></li>`;
-});
-
-
-const welcomeText = `
-  <ul>
-    ${suttasArrayMod.join('')}
-  </ul>
-</div>`;
-
-
 // initialize
 if (localStorage.sideBySide) {
   if (localStorage.sideBySide == "true") {
@@ -171,7 +143,7 @@ citation.addEventListener("input", e => {
   const searchQuery = e.target.value.trim();
   if (searchQuery) {
     const searchResults = searchSuttas(searchQuery);
-    displaySearchResults(searchResults);
+    displaySuttas(searchResults);
   }
   else {
     displaySuttas(availableSuttasArray);
@@ -284,8 +256,7 @@ function buildSutta(slug) {
     .catch(error => {
       suttaArea.innerHTML = `<p>Sorry, "${decodeURIComponent(slug)}" is not a valid sutta citation.
 
-    Note: Suttas that are part of a series require that you enter the exact series. For example, <code>an1.1</code> will not work, but <code>an1.1-10</code> will.<br>
-    ${welcomeText}`;
+    Note: Suttas that are part of a series require that you enter the exact series. For example, <code>an1.1</code> will not work, but <code>an1.1-10</code> will.<br>`;
     });
 }
 
@@ -293,5 +264,5 @@ function buildSutta(slug) {
 if (document.location.search) {
   buildSutta(document.location.search.replace("?q=", "").replace(/\s/g, "").replace(/%20/g, ""));
 } else {
-  suttaArea.innerHTML = welcomeText;
+  displaySuttas(availableSuttasArray);
 }
