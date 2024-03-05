@@ -1,9 +1,12 @@
+import { scrollToHash } from './utils.js'
 const suttaArea = document.getElementById("sutta");
 const homeButton = document.getElementById("home-button");
 const themeButton = document.getElementById("theme-button");
 const bodyTag = document.querySelector("body");
 const previous = document.getElementById("previous");
 const next = document.getElementById("next");
+
+// functions
 
 async function getAvailableSuttasWithTitles() {
   try {
@@ -19,89 +22,6 @@ async function getAvailableSuttasWithTitles() {
   }
 }
 
-
-const availableSuttasArray = await getAvailableSuttasWithTitles();
-
-const suttasArrayMod = availableSuttasArray.map(sutta => {
-  const parts = sutta.split(':');
-  const id = parts[0].trim();
-  const title = parts[1].trim();
-  return `<li><a href="/?q=${id.toLowerCase()}">${id}: ${title}</a></li>`;
-});
-
-
-const welcomeText = `<div class="instructions">
-  <p>Available Suttas:</p>
-  <ul>
-    ${suttasArrayMod.join('')}
-  </ul>
-</div>`;
-
-homeButton.addEventListener("click", () => {
-  document.location.search = "";
-});
-
-document.onkeyup = function (e) {
-  const paliHidden = document.getElementById("sutta").classList.contains("hide-pali");
-  if (e.altKey && e.key == "q") {
-    bodyTag.style.background = "#42428f";
-    window.addBreaks = true;
-  } else if (!paliHidden && e.target.id != "citation" && e.key == "s") {
-    if (localStorage.sideBySide === "true") {
-      bodyTag.classList.remove("side-by-side");
-      localStorage.sideBySide = "false";
-    } else {
-      bodyTag.classList.add("side-by-side");
-      localStorage.sideBySide = "true";
-    }
-
-    //bodyTag.classList.toggle("side-by-side");
-  }
-};
-
-// initialize
-if (localStorage.sideBySide) {
-  if (localStorage.sideBySide == "true") {
-    bodyTag.classList.add("side-by-side");
-  }
-} else {
-  bodyTag.classList.remove("side-by-side");
-}
-
-if (localStorage.theme) {
-  if (localStorage.theme === "dark") {
-    bodyTag.classList.remove("light");
-    bodyTag.classList.add("dark");
-  }
-} else {
-  bodyTag.classList.add("light");
-}
-
-themeButton.addEventListener("click", () => {
-  if (localStorage.theme === "light") {
-    bodyTag.classList.add("dark");
-    localStorage.theme = "dark";
-  } else {
-    bodyTag.classList.remove("dark");
-    localStorage.theme = "light";
-  }
-});
-
-let fuse; // holds our search engine
-let fuseOptions = {
-  includeScore: true,
-  keys: ['title', 'id'], // the keys to sx for searching
-};
-
-async function createFuseSearch() {
-  const availableSuttas = await getAvailableSuttasWithTitles();
-  fuse = new Fuse(availableSuttas, fuseOptions);
-}
-
-// Call this function when the page loads or when the available suttas are fetchedq
-createFuseSearch();
-
-// Step 3: Create a search function
 function searchSuttas(pattern) {
   if (!fuse) return []; // if Fuse isn't initialized, return empty array
   return fuse.search(pattern).map(result => result.item);
@@ -134,7 +54,117 @@ function displaySearchResults(results) {
 }
 
 
-const form = document.getElementById("form");
+function toggleThePali() {
+  const hideButton = document.getElementById("hide-pali");
+
+  // initial state
+  if (localStorage.paliToggle) {
+    if (localStorage.paliToggle === "hide") {
+      suttaArea.classList.add("hide-pali");
+    }
+  } else {
+    localStorage.paliToggle = "show";
+  }
+
+  hideButton.addEventListener("click", () => {
+    const previousScrollPosition = window.scrollY;
+    if (localStorage.paliToggle === "show") {
+      suttaArea.classList.add("hide-pali");
+      localStorage.paliToggle = "hide";
+      document.querySelector("body").classList.remove("side-by-side");
+    } else {
+      suttaArea.classList.remove("hide-pali");
+      localStorage.paliToggle = "show";
+    }
+    setTimeout(() => {
+      const currentScrollPosition = window.scrollY;
+      window.scrollTo(0, currentScrollPosition - (previousScrollPosition - currentScrollPosition));
+    }, 0);
+  });
+}
+
+async function createFuseSearch() {
+  const availableSuttas = await getAvailableSuttasWithTitles();
+  fuse = new Fuse(availableSuttas, fuseOptions);
+  return fuse
+}
+
+
+// Event listeners
+
+// Toggle side-by-side mode
+document.onkeyup = function (e) {
+  const paliHidden = document.getElementById("sutta").classList.contains("hide-pali");
+  if (!paliHidden && e.target.id != "citation" && e.key == "s") {
+    if (localStorage.sideBySide === "true") {
+      bodyTag.classList.remove("side-by-side");
+      localStorage.sideBySide = "false";
+    } else {
+      bodyTag.classList.add("side-by-side");
+      localStorage.sideBySide = "true";
+    }
+  }
+};
+
+let fuseOptions = {
+  includeScore: true,
+  keys: ['title', 'id'], // the keys to sx for searching
+};
+
+
+homeButton.addEventListener("click", () => {
+  document.location.search = "";
+});
+
+
+const availableSuttasArray = await getAvailableSuttasWithTitles();
+
+const suttasArrayMod = availableSuttasArray.map(sutta => {
+  const parts = sutta.split(':');
+  const id = parts[0].trim();
+  const title = parts[1].trim();
+  return `<li><a href="/?q=${id.toLowerCase()}">${id}: ${title}</a></li>`;
+});
+
+
+const welcomeText = `<div class="instructions">
+  <p>Available Suttas:</p>
+  <ul>
+    ${suttasArrayMod.join('')}
+  </ul>
+</div>`;
+
+
+// initialize
+if (localStorage.sideBySide) {
+  if (localStorage.sideBySide == "true") {
+    bodyTag.classList.add("side-by-side");
+  }
+} else {
+  bodyTag.classList.remove("side-by-side");
+}
+
+if (localStorage.theme) {
+  if (localStorage.theme === "dark") {
+    bodyTag.classList.remove("light");
+    bodyTag.classList.add("dark");
+  }
+} else {
+  bodyTag.classList.add("light");
+}
+
+themeButton.addEventListener("click", () => {
+  if (localStorage.theme === "light") {
+    bodyTag.classList.add("dark");
+    localStorage.theme = "dark";
+  } else {
+    bodyTag.classList.remove("dark");
+    localStorage.theme = "light";
+  }
+});
+
+let fuse = createFuseSearch(); // holds our search engine
+
 const citation = document.getElementById("citation");
 citation.focus();
 
@@ -251,6 +281,7 @@ function buildSutta(slug) {
       </g>
       </svg>${suttaplex.root_text.previous.name}</a>`
         : "";
+      scrollToHash()
     })
     .catch(error => {
       suttaArea.innerHTML = `<p>Sorry, "${decodeURIComponent(slug)}" is not a valid sutta citation.
@@ -266,124 +297,3 @@ if (document.location.search) {
 } else {
   suttaArea.innerHTML = welcomeText;
 }
-
-function toggleThePali() {
-  const hideButton = document.getElementById("hide-pali");
-
-  // initial state
-  if (localStorage.paliToggle) {
-    if (localStorage.paliToggle === "hide") {
-      suttaArea.classList.add("hide-pali");
-    }
-  } else {
-    localStorage.paliToggle = "show";
-  }
-
-  hideButton.addEventListener("click", () => {
-    const previousScrollPosition = window.scrollY;
-    if (localStorage.paliToggle === "show") {
-      suttaArea.classList.add("hide-pali");
-      localStorage.paliToggle = "hide";
-      document.querySelector("body").classList.remove("side-by-side");
-    } else {
-      suttaArea.classList.remove("hide-pali");
-      localStorage.paliToggle = "show";
-    }
-    setTimeout(() => {
-      const currentScrollPosition = window.scrollY;
-      window.scrollTo(0, currentScrollPosition - (previousScrollPosition - currentScrollPosition));
-    }, 0);
-  });
-}
-
-const abbreviations = document.querySelectorAll("span.abbr");
-abbreviations.forEach(book => {
-  book.addEventListener("click", e => {
-    citation.value = e.target.innerHTML;
-    // form.input.setSelectionRange(10, 10);
-    // citation.focus();
-  });
-});
-
-
-// function scrollToHash() {
-//   const hash = window.location.hash.substring(1); // Remove the '#' from the hash
-
-//   if (hash) {
-//     // No need to escape characters for getElementById
-//     const targetElement = document.getElementById(hash);
-//     if (targetElement) {
-//       targetElement.style.color = "#333366"; // Dark blue for a professional look
-//       targetElement.style.backgroundColor = "#f0f0f5"; // Light background to stand out
-//       targetElement.style.fontWeight = "bold";
-//       targetElement.style.padding = "4px 8px"; // Slight padding around the text
-//       targetElement.style.borderRadius = "4px"; // Rounded corners for the border
-//       targetElement.style.border = "1px solid #ccccff"; // Light border matching the color scheme
-//       targetElement.style.boxShadow = "2px 2px 4px #e0e0e0"; // Subtle shadow
-//       targetElement.style.fontSize = "1.5em"; // Slightly larger font size
-//       targetElement.style.transition = "background-color 0.3s, color 0.3s"; // Smooth transition for color and background
-//       targetElement.scrollIntoView();
-//     }
-//   }
-// }
-function scrollToHash() {
-  const hash = window.location.hash.substring(1); // Remove the '#' from the hash
-
-  if (hash) {
-    const rangeMatch = hash.match(/(.*?):(\d+\.\d+)-(.*?):(\d+\.\d+)/);
-    if (rangeMatch) {
-      const [, startIdPrefix, startIdSuffix, endIdPrefix, endIdSuffix] = rangeMatch;
-      const startFullId = `${startIdPrefix}:${startIdSuffix}`;
-      const endFullId = `${endIdPrefix}:${endIdSuffix}`;
-      const startElement = document.getElementById(startFullId);
-      const endElement = document.getElementById(endFullId);
-
-      if (startElement && endElement) {
-        let element = startElement;
-        let highlight = false;
-
-        // Loop through sibling elements until the end element is reached
-        while (element) {
-          if (element.id === startFullId) {
-            highlight = true;
-          }
-
-          if (highlight) {
-            applyHighlightStyle(element);
-          }
-
-          if (element.id === endFullId) {
-            break;
-          }
-
-          element = element.nextElementSibling;
-        }
-
-        startElement.scrollIntoView();
-      }
-    } else {
-      // Handle single element highlighting
-      const targetElement = document.getElementById(hash);
-      if (targetElement) {
-        applyHighlightStyle(targetElement);
-        targetElement.scrollIntoView();
-      }
-    }
-  }
-}
-
-function applyHighlightStyle(element) {
-  element.style.color = "#333366";
-  element.style.fontWeight = "bold";
-  // element.style.padding = "4px 8px";
-  // element.style.borderRadius = "4px";
-  // element.style.border = "1px solid #ccccff";
-  // element.style.boxShadow = "2px 2px 4px #e0e0e0";
-  element.style.fontSize = "1.5em";
-  // element.style.transition = "background-color 0.3s, color 0.3s";
-}
-
-
-// Call this function after the content that includes the element with the ID has been added to the DOM
-// scrollToHash();
-
