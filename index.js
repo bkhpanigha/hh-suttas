@@ -161,6 +161,15 @@ citation.addEventListener("input", e => {
   }
 });
 
+document.getElementById("form").addEventListener("submit", e => {
+  e.preventDefault();
+  const citationValue = document.getElementById("citation").value.trim().replace(/\s/g, "");
+  if (citationValue) {
+    buildSutta(citationValue);
+    history.pushState({ page: citationValue }, "", `?q=${citationValue}`);
+  }
+});
+
 citation.addEventListener("keypress", e => {
   if (e.key === "Enter") {
     e.preventDefault();
