@@ -1,0 +1,22 @@
+{
+  "iti1:0.1": "<article id='iti1'><header><ul><li class='division'>{}</li>",
+  "iti1:0.2": "<li class='nipata'>{}</li>",
+  "iti1:0.3": "<li class='vagga'>{}</li></ul>",
+  "iti1:0.4": "<h1 class='sutta-title'>{}</h1></header>",
+  "iti1:1.1": "<p>{}</p>",
+  "iti1:2.1": "<p>{}",
+  "iti1:2.2": "{}",
+  "iti1:2.3": "{}",
+  "iti1:2.4": "{}",
+  "iti1:2.5": "{}</p>",
+  "iti1:2.6": "<p>{}",
+  "iti1:2.7": "{}</p>",
+  "iti1:3.1": "<blockquote class='gatha'><p><span class='verse-line'>{}</span>",
+  "iti1:3.2": "<span class='verse-line'>{}</span>",
+  "iti1:3.3": "<span class='verse-line'>{}</span>",
+  "iti1:3.4": "<span class='verse-line'>{}</span>",
+  "iti1:3.5": "<span class='verse-line'>{}</span>",
+  "iti1:3.6": "<span class='verse-line'>{}</span></p></blockquote>",
+  "iti1:4.1": "<p>{}</p>",
+  "iti1:4.2": "<p class='endsutta'>{}</p></article>"
+}

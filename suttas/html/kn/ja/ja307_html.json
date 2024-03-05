@@ -1,0 +1,23 @@
+{
+  "ja307:0.1": "<article id='ja307'><header><ul><li class='division'>{}</li>",
+  "ja307:0.2": "<li>{}</li>",
+  "ja307:0.3": "<li>{}</li></ul>",
+  "ja307:0.4": "<h1 class='sutta-title'>{}</h1></header>",
+  "ja307:1.1": "<blockquote class='gatha'><p><span class='verse-line'>{}</span>",
+  "ja307:1.2": "<span class='verse-line'>{}</span>",
+  "ja307:1.3": "<span class='verse-line'>{}</span>",
+  "ja307:1.4": "<span class='verse-line'>{}</span></p>",
+  "ja307:2.1": "<p><span class='verse-line'>{}</span>",
+  "ja307:2.2": "<span class='verse-line'>{}</span>",
+  "ja307:2.3": "<span class='verse-line'>{}</span>",
+  "ja307:2.4": "<span class='verse-line'>{}</span></p>",
+  "ja307:3.1": "<p><span class='verse-line'>{}</span>",
+  "ja307:3.2": "<span class='verse-line'>{}</span>",
+  "ja307:3.3": "<span class='verse-line'>{}</span>",
+  "ja307:3.4": "<span class='verse-line'>{}</span></p>",
+  "ja307:4.1": "<p><span class='verse-line'>{}</span>",
+  "ja307:4.2": "<span class='verse-line'>{}</span>",
+  "ja307:4.3": "<span class='verse-line'>{}</span>",
+  "ja307:4.4": "<span class='verse-line'>{}</span></p></blockquote>",
+  "ja307:5.1": "<p class='endsutta'>{}</p></article>"
+}
