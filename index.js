@@ -281,6 +281,7 @@ function buildSutta(slug) {
       </g>
       </svg>${suttaplex.root_text.previous.name}</a>`
         : "";
+      scrollToHash()
     })
     .catch(error => {
       suttaArea.innerHTML = `<p>Sorry, "${decodeURIComponent(slug)}" is not a valid sutta citation.
