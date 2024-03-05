@@ -16,7 +16,19 @@
     <meta property="og:site_name" content="suttas.hillsidehermitage.org" />
     <meta property="og:image" itemprop="image" content="./images/favicon.jpg" />
     <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0"></script>
-
+    <script>
+        if ('serviceWorker' in navigator) {
+          window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/sw.js')
+              .then(registration => {
+                console.log('Service Worker registered:', registration);
+              })
+              .catch(error => {
+                console.error('Service Worker registration failed:', error);
+              });
+          });
+        }
+    </script>
 </head>
 
 <body class="light">
