@@ -58,5 +58,10 @@ function applyHighlightStyle(element) {
   element.style.fontSize = "1.5em";
   // element.style.transition = "background-color 0.3s, color 0.3s";
 }
-
-export {scrollToHash};
+function changeAcronymNumber(acronym, change) {
+  return acronym.replace(/(\D+)(\d+)/, (match, p1, p2) => {
+    let changedNumber = parseInt(p2, 10) + change;
+    return `${p1}${changedNumber}`;
+  });
+}
+export {scrollToHash, changeAcronymNumber};

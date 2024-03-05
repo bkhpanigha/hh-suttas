@@ -1,4 +1,4 @@
-import { scrollToHash } from './utils.js'
+import { scrollToHash, changeAcronymNumber } from './utils.js'
 const suttaArea = document.getElementById("sutta");
 const homeButton = document.getElementById("home-button");
 const themeButton = document.getElementById("theme-button");
@@ -28,11 +28,18 @@ async function getAvailableSuttas({ mergedTitle = true } = {}) {
 }
 
 function searchSuttas(pattern) {
-  if (!fuse) {pattern = ""}; // if Fuse isn't initialized, return empty array
+  if (!fuse) { pattern = "" }; // if Fuse isn't initialized, return empty array
   pattern = pattern.replace(/([a-zA-Z]{2})(\d+)/, '$1 $2');
   let results = fuse.search(pattern).map(result => result.item);
   // join up the id with the titles to be displayed
   return results.map(sutta => `${sutta.id}: ${sutta.title.trim()}`);
+}
+
+function getSuttaTitleById(id) {
+  // TODO this is inefficient
+  // change the structure of available_suttas.json to be able to look up by id
+  const sutta = availableSuttasJson['available_suttas'].find(sutta => sutta.id === id);
+  return sutta ? sutta.title.trim() : "";
 }
 
 
@@ -107,7 +114,7 @@ homeButton.addEventListener("click", () => {
   document.location.search = "";
 });
 
-
+const availableSuttasJson = await getAvailableSuttas({ mergedTitle: false })
 const availableSuttasArray = await getAvailableSuttas();
 
 // initialize
@@ -230,33 +237,36 @@ function buildSutta(slug) {
 
       const translatorByline = `<div class="byline"><p>Translated by Bhikkhu Anīgha</p></div>`;
       suttaArea.innerHTML = scLink + html + translatorByline;
-
+      const acronym = slug.replace(/([a-zA-Z]{2})(\d+)/, '$1 $2').toUpperCase();
       // TODO fix the way these pages are rendered
-      document.title = `${suttaplex.suttaplex.acronym} ${suttaplex.bilara_root_text.title}: ${suttaplex.bilara_translated_text.title}`;
+      document.title = `${acronym} ${root_text[`${slug}:0.2`]}: ${translation_text[`${slug}:0.2`]}`;
 
       toggleThePali();
 
-      next.innerHTML = suttaplex.root_text.next.name
-        ? `<a href="?q=${suttaplex.root_text.next.uid}">${suttaplex.root_text.next.name}<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="body_1" width="15" height="11">
+      let incrementedAcronym = changeAcronymNumber(acronym, 1);
+      let decrementedAcronym = changeAcronymNumber(acronym, -1);
 
-      <g transform="matrix(0.021484375 0 0 0.021484375 2 -0)">
-        <g>
-              <path d="M202.1 450C 196.03278 449.9987 190.56381 446.34256 188.24348 440.73654C 185.92316 435.13055 187.20845 428.67883 191.5 424.39L191.5 424.39L365.79 250.1L191.5 75.81C 185.81535 69.92433 185.89662 60.568687 191.68266 54.782654C 197.46869 48.996624 206.82434 48.91536 212.71 54.6L212.71 54.6L397.61 239.5C 403.4657 245.3575 403.4657 254.8525 397.61 260.71L397.61 260.71L212.70999 445.61C 209.89557 448.4226 206.07895 450.0018 202.1 450z" stroke="none" fill="#8f8f8f" fill-rule="nonzero" />
-        </g>
-      </g>
-      </svg></a>`
-        : "";
-      previous.innerHTML = suttaplex.root_text.previous.name
-        ? `<a href="?q=${suttaplex.root_text.previous.uid}"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="body_1" width="15" height="11">
+      const previousSuttaTitle = getSuttaTitleById(decrementedAcronym);
+      const nextSuttaTitle = getSuttaTitleById(incrementedAcronym);
+      next.innerHTML = nextSuttaTitle ? `<a href="?q=${incrementedAcronym.toLowerCase()}">${nextSuttaTitle}<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="body_1" width="15" height="11">
 
-      <g transform="matrix(0.021484375 0 0 0.021484375 2 -0)">
-        <g>
-              <path d="M353 450C 349.02106 450.0018 345.20444 448.4226 342.39 445.61L342.39 445.61L157.5 260.71C 151.64429 254.8525 151.64429 245.3575 157.5 239.5L157.5 239.5L342.39 54.6C 346.1788 50.809414 351.70206 49.328068 356.8792 50.713974C 362.05634 52.099876 366.10086 56.14248 367.4892 61.318974C 368.87753 66.49547 367.3988 72.01941 363.61002 75.81L363.61002 75.81L189.32 250.1L363.61 424.39C 367.90283 428.6801 369.18747 435.13425 366.8646 440.74118C 364.5417 446.34808 359.06903 450.00275 353 450z" stroke="none" fill="#8f8f8f" fill-rule="nonzero" />
+        <g transform="matrix(0.021484375 0 0 0.021484375 2 -0)">
+          <g>
+                <path d="M202.1 450C 196.03278 449.9987 190.56381 446.34256 188.24348 440.73654C 185.92316 435.13055 187.20845 428.67883 191.5 424.39L191.5 424.39L365.79 250.1L191.5 75.81C 185.81535 69.92433 185.89662 60.568687 191.68266 54.782654C 197.46869 48.996624 206.82434 48.91536 212.71 54.6L212.71 54.6L397.61 239.5C 403.4657 245.3575 403.4657 254.8525 397.61 260.71L397.61 260.71L212.70999 445.61C 209.89557 448.4226 206.07895 450.0018 202.1 450z" stroke="none" fill="#8f8f8f" fill-rule="nonzero" />
+          </g>
         </g>
-      </g>
-      </svg>${suttaplex.root_text.previous.name}</a>`
+        </svg></a>`
         : "";
-      scrollToHash()
+      previous.innerHTML = previousSuttaTitle ? `<a href="?q=${decrementedAcronym.toLowerCase()}"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="body_1" width="15" height="11">
+
+        <g transform="matrix(0.021484375 0 0 0.021484375 2 -0)">
+          <g>
+                <path d="M353 450C 349.02106 450.0018 345.20444 448.4226 342.39 445.61L342.39 445.61L157.5 260.71C 151.64429 254.8525 151.64429 245.3575 157.5 239.5L157.5 239.5L342.39 54.6C 346.1788 50.809414 351.70206 49.328068 356.8792 50.713974C 362.05634 52.099876 366.10086 56.14248 367.4892 61.318974C 368.87753 66.49547 367.3988 72.01941 363.61002 75.81L363.61002 75.81L189.32 250.1L363.61 424.39C 367.90283 428.6801 369.18747 435.13425 366.8646 440.74118C 364.5417 446.34808 359.06903 450.00275 353 450z" stroke="none" fill="#8f8f8f" fill-rule="nonzero" />
+          </g>
+        </g>
+        </svg>${previousSuttaTitle}</a>`
+        : "";
+      scrollToHash();
     })
     .catch(error => {
       suttaArea.innerHTML = `<p>Sorry, "${decodeURIComponent(slug)}" is not a valid sutta citation.
