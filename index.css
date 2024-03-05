@@ -234,7 +234,14 @@ dt {
 /* .hide-pali .pli-lang {
   visibility: hidden;
 } */
+#footer {
+  text-align: center;
+  padding-top: 1.5em;
+}
 
+.left-align {
+  text-align: left;
+}
 
 #sutta.hide-pali p span.eng-lang {
   display: inline !important;
