@@ -315,7 +315,7 @@ br {
 }
 
 .dark .links-area a {
-  filter: invert(50%);
+  filter: invert(90%);
 }
 
 .dark .links-area a:hover {
