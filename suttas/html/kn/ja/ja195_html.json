@@ -1,0 +1,15 @@
+{
+  "ja195:0.1": "<article id='ja195'><header><ul><li class='division'>{}</li>",
+  "ja195:0.2": "<li>{}</li>",
+  "ja195:0.3": "<li>{}</li></ul>",
+  "ja195:0.4": "<h1 class='sutta-title'>{}</h1></header>",
+  "ja195:1.1": "<blockquote class='gatha'><p><span class='verse-line'>{}</span>",
+  "ja195:1.2": "<span class='verse-line'>{}</span>",
+  "ja195:1.3": "<span class='verse-line'>{}</span>",
+  "ja195:1.4": "<span class='verse-line'>{}</span></p>",
+  "ja195:2.1": "<p><span class='verse-line'>{}</span>",
+  "ja195:2.2": "<span class='verse-line'>{}</span>",
+  "ja195:2.3": "<span class='verse-line'>{}</span>",
+  "ja195:2.4": "<span class='verse-line'>{}</span></p></blockquote>",
+  "ja195:3.1": "<p class='endsutta'>{}</p></article>"
+}

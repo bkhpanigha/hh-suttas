@@ -1,0 +1,19 @@
+{
+  "pv1:0.1": "<article id='pv1'><header><ul><li class='division'>{}</li>",
+  "pv1:0.2": "<li>{}</li></ul>",
+  "pv1:0.3": "<h1 class='sutta-title'>{}</h1></header>",
+  "pv1:1.1": "<p class='namo'>{}</p>",
+  "pv1:2.1": "<blockquote class='gatha'><p><span class='verse-line'>{}</span>",
+  "pv1:2.2": "<span class='verse-line'>{}</span>",
+  "pv1:2.3": "<span class='verse-line'>{}</span>",
+  "pv1:2.4": "<span class='verse-line'>{}</span></p>",
+  "pv1:3.1": "<p><span class='verse-line'>{}</span>",
+  "pv1:3.2": "<span class='verse-line'>{}</span>",
+  "pv1:3.3": "<span class='verse-line'>{}</span>",
+  "pv1:3.4": "<span class='verse-line'>{}</span></p>",
+  "pv1:4.1": "<p><span class='verse-line'>{}</span>",
+  "pv1:4.2": "<span class='verse-line'>{}</span>",
+  "pv1:4.3": "<span class='verse-line'>{}</span>",
+  "pv1:4.4": "<span class='verse-line'>{}</span></p></blockquote>",
+  "pv1:5.1": "<p class='endsutta'>{}</p></article>"
+}
