@@ -49,7 +49,22 @@ function displaySuttas(suttas) {
     const id = parts[0].trim();
     const title = parts[1].trim();
     return `<li><a href="/?q=${id.toLowerCase()}">${id}: ${title}</a></li>`;
-  }).join('')}</ul>`;
+  }).join('')}<button id="cacheButton">Download</button></ul>`;
+  //Add listener for Download button
+  document.getElementById('cacheButton').addEventListener('click', () => {
+      // Check if service worker is supported by the browser
+      if ('serviceWorker' in navigator) {
+          // Send message to service worker to trigger caching
+          try {
+          navigator.serviceWorker.controller.postMessage({ action: 'cacheResources' });
+          } catch (error) {
+            suttaArea.innerHTML += `<p>An error occurred while attempting to download. Please refresh the page, wait a few seconds, and retry.</p>`;
+
+          }
+      } 
+  });
+  
+  
 }
 
 function toggleThePali() {
@@ -274,3 +289,4 @@ if (document.location.search) {
 } else {
   displaySuttas(availableSuttasArray);
 }
+
