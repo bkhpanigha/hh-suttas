@@ -377,16 +377,15 @@ self.addEventListener('activate', event => {
 });
 
 
-
 self.addEventListener('message', event => {
   // Check if the message is to trigger caching
   if (event.data && event.data.action === 'cacheResources') {
     // Perform caching operations here
     caches.open(cacheName)
       .then(cache => {
-        cache.addAll(filesToCache);
-        console.log('Caching resources...');
-        // Send message to client indicating successful caching
+        return cache.addAll(filesToCache);
+      })
+      .then(() => {
         self.clients.matchAll().then(clients => {
           clients.forEach(client => {
             client.postMessage({ action: 'cachingSuccess' });
