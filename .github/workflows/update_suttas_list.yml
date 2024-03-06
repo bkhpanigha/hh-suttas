@@ -3,7 +3,7 @@ name: Update Suttas List
 on:
   push:
     paths:
-      - 'suttas/*.json'
+      - 'suttas/translation_en/*.json'
 
 jobs:
   update-suttas-list:
