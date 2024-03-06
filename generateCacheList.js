@@ -4,26 +4,24 @@ const path = require('path');
 // Function to recursively traverse a directory and collect file paths
 
 function collectFiles(directory) {
-    let filesToCache = [];
-  
-    fs.readdirSync(directory).forEach(file => {
-      const filePath = path.join(directory, file);
-      const stats = fs.statSync(filePath);
-  
-      if (!file.includes('.git') && file != 'CNAME') {
-        // Add file to the list if it doesn't contain .git in the filename
-        if (stats.isDirectory()) {
-          // Recursively collect files from subdirectories
-          filesToCache = filesToCache.concat(collectFiles(filePath));
-        } else {
-          // Add file to the list if it's not a directory
-          filesToCache.push(filePath);
-        }
+  let filesToCache = [];
+
+  fs.readdirSync(directory).forEach(file => {
+    const filePath = path.join(directory, file);
+    const stats = fs.statSync(filePath);
+    if (!file.includes('.git') && file != 'CNAME' && file != "an" && file != "dn" && file != "sn" && file != "kn") {
+      if (stats.isDirectory()) {
+        // Recursively collect files from subdirectories
+        filesToCache = filesToCache.concat(collectFiles(filePath));
+      } else {
+        // Add file to the list if it's not a directory
+        filesToCache.push(filePath);
       }
-    });
-  
-    return filesToCache;
-  }
+    }
+  });
+  return filesToCache;
+}
+
 
 // Define the directory to traverse (root directory of your project)
 const rootDirectory = './';
