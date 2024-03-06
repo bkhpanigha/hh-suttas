@@ -42,16 +42,17 @@ function getSuttaTitleById(id) {
   return sutta ? sutta.title.trim() : "";
 }
 
-
 function displaySuttas(suttas) {
   suttaArea.innerHTML = `<ul>${suttas.map(sutta => {
     const parts = sutta.split(':');
     const id = parts[0].trim();
     const title = parts[1].trim();
     return `<li><a href="/?q=${id.toLowerCase()}">${id}: ${title}</a></li>`;
-  }).join('')}<button id="cacheButton">Download</button></ul>`;
+  }).join('')}</ul>`;
   //Add listener for Download button
-  document.getElementById('cacheButton').addEventListener('click', () => {
+  setTimeout(function(){
+    suttaArea.innerHTML += `<button id="cacheButton">Download</button>`
+    document.getElementById('cacheButton').addEventListener('click', () => {
       // Check if service worker is supported by the browser
       if ('serviceWorker' in navigator) {
           // Send message to service worker to trigger caching
@@ -62,8 +63,22 @@ function displaySuttas(suttas) {
 
           }
       } 
-  });
+    })
+  }, 3000);
+ 
   
+  navigator.serviceWorker.addEventListener('message', event => {
+    if (event.data && event.data.action === 'cachingSuccess') {
+      // Update HTML or show a success message to the user
+      // For example, you can display a success message in a specific element with ID "successMessage"
+      suttaArea.innerHTML += `<p>Download successful.</p>`;
+    }
+    if (event.data && event.data.action === 'cachingError') {
+      // Update HTML or show a success message to the user
+      // For example, you can display a success message in a specific element with ID "successMessage"
+      suttaArea.innerHTML += `<p>Caching error. Please clear site data, refresh the page, and try again.</p>`;
+    }
+  });
   
 }
 
