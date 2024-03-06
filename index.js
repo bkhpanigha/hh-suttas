@@ -268,9 +268,13 @@ function buildSutta(slug) {
     });
 }
 
+
 // initialize the whole app
 if (document.location.search) {
   buildSutta(document.location.search.replace("?q=", "").replace(/\s/g, "").replace(/%20/g, ""));
 } else {
   displaySuttas(availableSuttasArray);
 }
+window.addEventListener('hashchange', function() {
+  scrollToHash();
+});
