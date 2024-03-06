@@ -161,16 +161,15 @@ citation.addEventListener("input", e => {
   }
 });
 
-citation.addEventListener("keypress", e => {
-  if (e.key === "Enter") {
-    e.preventDefault();
-    const citationValue = e.target.value.trim().replace(/\s/g, "");
-    if (citationValue) {
-      buildSutta(citationValue);
-      history.pushState({ page: citationValue }, "", `?q=${citationValue}`);
-    }
+document.getElementById("form").addEventListener("submit", e => {
+  e.preventDefault();
+  const citationValue = document.getElementById("citation").value.trim().replace(/\s/g, "");
+  if (citationValue) {
+    buildSutta(citationValue);
+    history.pushState({ page: citationValue }, "", `?q=${citationValue}`);
   }
 });
+
 
 citation.value = document.location.search.replace("?q=", "").replace(/%20/g, "").replace(/\s/g, "");
 function buildSutta(slug) {
