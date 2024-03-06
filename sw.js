@@ -427,16 +427,17 @@ self.addEventListener('fetch', event => {
         if (cachedResponse) {
           return cachedResponse;
         }
-        // If no match found in cache, respond with a basic offline page
-        return caches.match('/offline.html');
-      })
-      .catch(error => {
-        console.error('Error in fetching from cache:', error);
-        // Respond with the offline page in case of error
-        return caches.match('/offline.html');
+        // If no match found in cache, try fetching from the network
+        return fetch(event.request).then(networkResponse => {
+          // If the network fetch is successful, return the network response
+          return networkResponse;
+        }).catch(error => {
+          // Handle the network request failure, e.g., by serving a fallback page or logging
+          console.error('Network request failed and no cache match:', error);
+        });
       })
   );
-}); 
+});
 
 // self.addEventListener('fetch', function(event) {
 //   event.respondWith(
