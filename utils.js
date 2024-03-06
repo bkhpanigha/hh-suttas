@@ -29,7 +29,7 @@ function scrollToHash() {
           }
 
           if (highlight) {
-            applyHighlightStyle(element);
+            element.classList.add("highlight")
           }
 
           if (element.id === endFullId) {
@@ -49,7 +49,7 @@ function scrollToHash() {
       // Handle single element highlighting
       const targetElement = document.getElementById(hash);
       if (targetElement) {
-        applyHighlightStyle(targetElement);
+        targetElement.classList.add("highlight")
         targetElement.scrollIntoView();
       }
     }
@@ -70,12 +70,6 @@ function generateLink(idOrRange) {
   return `${baseUrl}?q=${hash.substring(1).split(':')[0]}${hash}`;
 }
 
-
-
-function applyHighlightStyle(element) {
-  element.classList.add("highlight")
-}
-
 function changeAcronymNumber(acronym, change) {
   return acronym.replace(/(\D+)(\d+)/, (match, p1, p2) => {
     let changedNumber = parseInt(p2, 10) + change;
@@ -91,8 +85,8 @@ function showCopyButton(x, y, ids) {
     copyButton.textContent = 'Copy Link';
     document.body.appendChild(copyButton);
 
-    copyButton.addEventListener('click', function() {
-      
+    copyButton.addEventListener('click', function () {
+
       let link = "";
       if (ids.length > 1) {
         const firstId = ids[0];
