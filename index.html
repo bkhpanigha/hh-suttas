@@ -17,17 +17,24 @@
     <meta property="og:image" itemprop="image" content="./images/favicon.jpg" />
     <script defer src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0"></script>
     <script>
-        if ('serviceWorker' in navigator) {
-          window.addEventListener('load', () => {
-            navigator.serviceWorker.register('/sw.js')
-              .then(registration => {
-                console.log('Service Worker registered:', registration);
-              })
-              .catch(error => {
-                console.error('Service Worker registration failed:', error);
-              });
-          });
-        }
+       if ('serviceWorker' in navigator) {
+		  window.addEventListener('load', () => {
+			navigator.serviceWorker.getRegistrations().then(registrations => {
+			  if (registrations.length === 0) {
+				// Service worker is not yet registered, so register it
+				navigator.serviceWorker.register('sw.js')
+				  .then(registration => {
+					console.log('Service Worker registered with scope:', registration.scope);
+				  })
+				  .catch(error => {
+					console.error('Service Worker registration failed:', error);
+				  });
+			  } else {
+				console.log('Service Worker is already registered');
+			  }
+			});
+		  });
+}
     </script>
 </head>
 
