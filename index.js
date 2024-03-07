@@ -42,7 +42,6 @@ function getSuttaTitleById(id) {
   return sutta ? sutta.title.trim() : "";
 }
 
-
 function displaySuttas(suttas) {
   suttaArea.innerHTML = `<ul>${suttas.map(sutta => {
     const parts = sutta.split(':');
@@ -50,6 +49,37 @@ function displaySuttas(suttas) {
     const title = parts[1].trim();
     return `<li><a href="/?q=${id.toLowerCase()}">${id}: ${title}</a></li>`;
   }).join('')}</ul>`;
+  //Add listener for Download button
+  setTimeout(function(){
+    suttaArea.innerHTML += `<button id="cacheButton">Download</button>`
+    document.getElementById('cacheButton').addEventListener('click', () => {
+      // Check if service worker is supported by the browser
+      if ('serviceWorker' in navigator) {
+          // Send message to service worker to trigger caching
+          try {
+          navigator.serviceWorker.controller.postMessage({ action: 'cacheResources' });
+          } catch (error) {
+            suttaArea.innerHTML += `<p>An error occurred while attempting to download. Please refresh the page, wait a few seconds, and retry.</p>`;
+
+          }
+      } 
+    })
+  }, 3000);
+ 
+  
+  navigator.serviceWorker.addEventListener('message', event => {
+    if (event.data && event.data.action === 'cachingSuccess') {
+      // Update HTML or show a success message to the user
+      // For example, you can display a success message in a specific element with ID "successMessage"
+      suttaArea.innerHTML += `<p>Download successful.</p>`;
+    }
+    if (event.data && event.data.action === 'cachingError') {
+      // Update HTML or show a success message to the user
+      // For example, you can display a success message in a specific element with ID "successMessage"
+      suttaArea.innerHTML += `<p>Caching error. Please clear site data, refresh the page, and try again.</p>`;
+    }
+  });
+  
 }
 
 function toggleThePali() {
@@ -268,13 +298,13 @@ function buildSutta(slug) {
     });
 }
 
-
 // initialize the whole app
 if (document.location.search) {
   buildSutta(document.location.search.replace("?q=", "").replace(/\s/g, "").replace(/%20/g, ""));
 } else {
   displaySuttas(availableSuttasArray);
 }
+
 window.addEventListener('hashchange', function() {
   scrollToHash();
 });
