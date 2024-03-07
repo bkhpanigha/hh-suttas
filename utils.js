@@ -80,27 +80,31 @@ function changeAcronymNumber(acronym, change) {
 function showCopyButton(x, y, ids) {
   let copyButton = document.getElementById('copyButton');
   if (!copyButton) {
-    copyButton = document.createElement('button');
-    copyButton.id = 'copyButton';
-    copyButton.textContent = 'Copy Link';
-    document.body.appendChild(copyButton);
+      copyButton = document.createElement('button');
+      copyButton.id = 'copyButton';
+      copyButton.textContent = 'Copy Link';
+      document.body.appendChild(copyButton);
+  }
 
-    copyButton.addEventListener('click', function () {
+  // Remove any existing click event listener
+  copyButton.removeEventListener('click', copyButton.clickHandler);
 
+  // Create a new click handler with current IDs
+  copyButton.clickHandler = function() {
       let link = "";
       if (ids.length > 1) {
-        const firstId = ids[0];
-        const lastId = ids[ids.length - 1];
-        link = generateLink([firstId, lastId].join('-'));
+          const firstId = ids[0];
+          const lastId = ids[ids.length - 1];
+          link = generateLink([firstId, lastId].join('-'));
       } else if (ids.length === 1) {
-        link = generateLink(ids[0]);
-      } else {
-        return;
+          link = generateLink(ids[0]);
       }
       copyToClipboard(link);
-      hideCopyButton()
-    });
-  }
+      hideCopyButton();
+  };
+
+  // Add the new click event listener
+  copyButton.addEventListener('click', copyButton.clickHandler);
 
   copyButton.style.left = x + 'px';
   copyButton.style.top = y + 'px';
@@ -125,7 +129,12 @@ function handleTextSelection() {
   const range = selection.getRangeAt(0);
   let spans = range.cloneContents().querySelectorAll('.segment');
   if (spans.length === 0) {
+    // case when single line has been fully selected
     spans = [selection.getRangeAt(0).commonAncestorContainer];
+  }
+  if (spans[0].nodeName == "#text") {
+    // case when single line has been partially selected
+    spans = [spans[0].parentElement.parentElement]
   }
   const ids = Array.from(spans).map(span => span.id);
   const rect = range.getBoundingClientRect();
@@ -145,6 +154,6 @@ function copyToClipboard(text) {
 }
 
 // Add event listener for text selection
-document.addEventListener('mouseup', handleTextSelection);
+document.addEventListener('selectionchange', handleTextSelection);
 
 export { scrollToHash, generateLink, changeAcronymNumber };
