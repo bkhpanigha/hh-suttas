@@ -399,6 +399,9 @@ self.addEventListener('message', event => {
 });
 
 self.addEventListener('fetch', function(event) {
+  if(!event.request.url.startsWith('http')){
+    return
+ }
   event.respondWith(
     // Fetch from network first
     fetch(event.request)
