@@ -155,26 +155,22 @@ if (localStorage.sideBySide) {
 } else {
   bodyTag.classList.remove("side-by-side");
 }
-
-if (localStorage.theme) {
-  if (localStorage.theme === "dark") {
-    bodyTag.classList.remove("light");
-    bodyTag.classList.add("dark");
-  }
-} else {
-  bodyTag.classList.add("light");
+// Function to toggle theme
+function toggleTheme(isDark) {
+  bodyTag.classList.remove(isDark ? "light" : "dark");
+  bodyTag.classList.add(isDark ? "dark" : "light");
+  localStorage.theme = isDark ? "dark" : "light";
 }
 
-themeButton.addEventListener("click", () => {
-  if (localStorage.theme === "light") {
-    bodyTag.classList.add("dark");
-    localStorage.theme = "dark";
-  } else {
-    bodyTag.classList.remove("dark");
-    localStorage.theme = "light";
-  }
-});
+// Set initial theme
+const initialThemeIsDark = localStorage.theme === "dark";
+toggleTheme(initialThemeIsDark);
 
+// Event listener for theme toggle
+themeButton.addEventListener("click", () => {
+  const currentThemeIsDark = localStorage.theme === "dark";
+  toggleTheme(!currentThemeIsDark);
+});
 let fuse = createFuseSearch(); // holds our search engine
 
 const citation = document.getElementById("citation");
