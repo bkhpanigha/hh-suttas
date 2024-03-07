@@ -14,7 +14,6 @@ const filesToCache = [
   "index.css",
   "index.html",
   "index.js",
-  "readMe.md",
   "roboto-lightest.woff",
   "suttas/html/mn/mn100_html.json",
   "suttas/html/mn/mn101_html.json",
@@ -347,57 +346,19 @@ const filesToCache = [
   "suttas/translation_en/mn7.json",
   "suttas/translation_en/mn8.json",
   "suttas/translation_en/mn9.json",
-  "images",
   "utils.js"
 ];
 
 
 const cacheName = 'hh-suttas-cache-v1';
 
-// self.addEventListener("install", async (event) => {
-//     try {
-//       const cache = await caches.open(cacheName);
-//       await cache.addAll(filesToCache);
-//     } catch (error) {
-//       console.error("Service Worker installation failed:", error);
-//     }
-// });
-
-// self.addEventListener("fetch", (event) => {
-//   console.log("Here");
-//   event.respondWith(
-//     (async () => {
-//       const cache = await caches.open(cacheName);
-
-//       try {
-//         const cachedResponse = await cache.match(event.request);
-//         if (cachedResponse) {
-//           console.log("cachedResponse: ", event.request.url);
-//           return cachedResponse;
-//         }
-
-//         const fetchResponse = await fetch(event.request);
-//         if (fetchResponse) {
-//           console.log("fetchResponse: ", event.request.url);
-//           await cache.put(event.request, fetchResponse.clone());
-//           return fetchResponse;
-//         }
-//       } catch (error) {
-//         console.log("Fetch failed: ", error);
-//         const cachedResponse = await cache.match("index.html");
-//         return cachedResponse;
-//       }
-//     })()
-//   );
-// });
-
 self.addEventListener('install', event => {
- 
-  event.waitUntil(
-    caches.open(cacheName)
-      .then(cache => cache.addAll(filesToCache))
-      .then(() => self.skipWaiting()) // Activate the new service worker immediately
-  );
+  
+  // event.waitUntil(
+  //   caches.open(cacheName)
+  //     .then(cache => cache.addAll(filesToCache))
+  //     .then(() => self.skipWaiting()) // Activate the new service worker immediately
+  // );
 });
 
 // Activate event: Clean up old caches
@@ -415,56 +376,58 @@ self.addEventListener('activate', event => {
   );
 });
 
-//Fetch event: Serve cached files only
 
-self.addEventListener('fetch', event => {
-  console.log("SW Fetching");
-  event.respondWith(
-    // Try to match the request from the cache
-    caches.match(event.request)
-      .then(cachedResponse => {
-        // If a cached response is found, return it
-        if (cachedResponse) {
-          return cachedResponse;
-        }
-        // If no match found in cache, try fetching from the network
-        return fetch(event.request).then(networkResponse => {
-          // If the network fetch is successful, return the network response
-          return networkResponse;
-        }).catch(error => {
-          // Handle the network request failure, e.g., by serving a fallback page or logging
-          console.error('Network request failed and no cache match:', error);
+self.addEventListener('message', event => {
+  // Check if the message is to trigger caching
+  if (event.data && event.data.action === 'cacheResources') {
+    // Perform caching operations here
+    caches.open(cacheName)
+      .then(cache => {
+        return cache.addAll(filesToCache);
+      })
+      .then(() => {
+        self.clients.matchAll().then(clients => {
+          clients.forEach(client => {
+            client.postMessage({ action: 'cachingSuccess' });
+          });
         });
+      })
+      .catch(error => {
+        client.postMessage({ action: 'cachingError' });
+      });
+  }
+});
+
+self.addEventListener('fetch', function(event) {
+  event.respondWith(
+    // Fetch from network first
+    fetch(event.request)
+      .then(function(response) {
+        // If successful response, clone it, cache it, and return
+        
+        if (response && response.status === 200) {
+          var responseToCache = response.clone();
+          caches.open(cacheName).then(function(cache) {
+            cache.put(event.request, responseToCache);
+          });
+        }
+        return response;
+      })
+      .catch(function() {
+        // If fetch fails, try to get the response from cache
+        console.log("index.html:")
+        return caches.match(event.request)
+          .then(function(response) {
+            // If found in cache, return response
+            if (response) {
+            
+              return response;
+            }
+            // If not found in cache, respond with a basic offline page
+            
+            return caches.match('/index.html');
+          });
+        
       })
   );
 });
-
-// self.addEventListener('fetch', function(event) {
-//   event.respondWith(
-//     // Fetch from network first
-//     fetch(event.request)
-//       .then(function(response) {
-//         // If successful response, clone it, cache it, and return
-//         if (response && response.status === 200) {
-//           var responseToCache = response.clone();
-//           caches.open(cacheName).then(function(cache) {
-//             cache.put(event.request, responseToCache);
-//           });
-//         }
-//         return response;
-//       })
-//       .catch(function() {
-//         // If fetch fails, try to get the response from cache
-//         return caches.match(event.request)
-//           .then(function(response) {
-//             // If found in cache, return response
-//             if (response) {
-              
-//               return response;
-//             }
-//             // If not found in cache, respond with a basic offline page
-//             return caches.match('/offline.html');
-//           });
-//       })
-//   );
-// });
