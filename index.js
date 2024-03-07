@@ -50,23 +50,23 @@ function displaySuttas(suttas) {
     return `<li><a href="/?q=${id.toLowerCase()}">${id}: ${title}</a></li>`;
   }).join('')}</ul>`;
   //Add listener for Download button
-  setTimeout(function(){
+  setTimeout(function () {
     suttaArea.innerHTML += `<button id="cacheButton">Download</button>`
     document.getElementById('cacheButton').addEventListener('click', () => {
       // Check if service worker is supported by the browser
       if ('serviceWorker' in navigator) {
-          // Send message to service worker to trigger caching
-          try {
+        // Send message to service worker to trigger caching
+        try {
           navigator.serviceWorker.controller.postMessage({ action: 'cacheResources' });
-          } catch (error) {
-            suttaArea.innerHTML += `<p>An error occurred while attempting to download. Please refresh the page, wait a few seconds, and retry.</p>`;
+        } catch (error) {
+          suttaArea.innerHTML += `<p>An error occurred while attempting to download. Please refresh the page, wait a few seconds, and retry.</p>`;
 
-          }
-      } 
+        }
+      }
     })
   }, 3000);
- 
-  
+
+
   navigator.serviceWorker.addEventListener('message', event => {
     if (event.data && event.data.action === 'cachingSuccess') {
       // Update HTML or show a success message to the user
@@ -79,7 +79,7 @@ function displaySuttas(suttas) {
       suttaArea.innerHTML += `<p>Caching error. Please clear site data, refresh the page, and try again.</p>`;
     }
   });
-  
+
 }
 
 function toggleThePali() {
@@ -303,7 +303,7 @@ if (document.location.search) {
 }
 
 
-window.addEventListener('hashchange', function() {
+window.addEventListener('hashchange', function () {
   scrollToHash();
 });
 
