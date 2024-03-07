@@ -305,6 +305,8 @@ if (document.location.search) {
   displaySuttas(availableSuttasArray);
 }
 
+
 window.addEventListener('hashchange', function() {
   scrollToHash();
 });
+
