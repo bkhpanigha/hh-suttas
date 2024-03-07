@@ -156,21 +156,22 @@ if (localStorage.sideBySide) {
   bodyTag.classList.remove("side-by-side");
 }
 // Function to toggle theme
-function toggleTheme(isDark) {
-  bodyTag.classList.remove(isDark ? "light" : "dark");
-  bodyTag.classList.add(isDark ? "dark" : "light");
-  localStorage.theme = isDark ? "dark" : "light";
+function toggleTheme(useDarkTheme) {
+  bodyTag.classList.remove(useDarkTheme ? "light" : "dark");
+  bodyTag.classList.add(useDarkTheme ? "dark" : "light");
+  localStorage.theme = useDarkTheme ? "dark" : "light";
 }
 
 // Set initial theme
-const initialThemeIsDark = localStorage.theme === "dark";
-toggleTheme(initialThemeIsDark);
+const initialUseDarkTheme = localStorage.theme === "dark";
+toggleTheme(initialUseDarkTheme);
 
 // Event listener for theme toggle
 themeButton.addEventListener("click", () => {
   const currentThemeIsDark = localStorage.theme === "dark";
   toggleTheme(!currentThemeIsDark);
 });
+
 let fuse = createFuseSearch(); // holds our search engine
 
 const citation = document.getElementById("citation");
