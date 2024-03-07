@@ -1,0 +1,22 @@
+{
+    "name": "Hillside Hermitage Sutta Translations",
+    "short_name": "HH Suttas",
+    "description": "Access early Buddhist Suttas from Hillside Hermitage.",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#FFFFFF",
+    "theme_color": "#000000",
+    "orientation": "portrait",
+    "icons": [
+      {
+        "src": "images/favicon-192x192.jpg",
+        "sizes": "192x192",
+        "type": "image/jpeg"
+      },
+      {
+        "src": "images/favicon-512x512.jpg",
+        "sizes": "512x512",
+        "type": "image/jpeg"
+      }
+    ]
+  }
