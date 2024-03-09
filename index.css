@@ -429,13 +429,15 @@ a:hover {
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
   text-align: center;
   font-size: 14px;
-  
+
 }
+
 .dark .comment[data-tooltip]::after {
   position: absolute;
   z-index: 10;
   left: 50%;
   display: none;
+  padding: 4px;
   /* Hidden by default */
   box-sizing: border-box;
   width: 300px;
