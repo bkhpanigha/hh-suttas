@@ -226,7 +226,7 @@ function buildSutta(slug) {
   const rootResponse = fetch(`suttas/root/mn/${slug}_root-pli-ms.json`).then(response => response.json());
   const translationResponse = fetch(`suttas/translation_en/${slug}.json`).then(response => response.json());
   const htmlResponse = fetch(`suttas/html/mn/${slug}_html.json`).then(response => response.json());
-  const commentResponse = fetch(`suttas/comment/${slug}_comment.json`).then(response => response.json());
+  const commentResponse = fetch(`suttas/comment/mn/${slug}_comment.json`).then(response => response.json());
 
   // Get root, translation and html jsons from folder
   Promise.all([htmlResponse, rootResponse, translationResponse, commentResponse])
