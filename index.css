@@ -382,7 +382,6 @@ a:hover {
 }
 
 
-
 .side-by-side .segment {
   display: flex;
   flex-direction: row;
@@ -396,4 +395,67 @@ a:hover {
 
 .segment {
   word-break: break-word
+}
+
+
+.comment:hover {
+  cursor: help;
+}
+
+.comment::before {
+  content: '*';
+  /* This will create the asterisk */
+  display: inline-block;
+  margin-right: 4px;
+}
+
+/* Tooltip styles */
+.comment[data-tooltip]::after {
+  position: absolute;
+  z-index: 10;
+  left: 50%;
+  display: none;
+  /* Hidden by default */
+  box-sizing: border-box;
+  width: 300px;
+  margin-left: -150px;
+  content: attr(data-tooltip);
+  /* Tooltip text */
+  white-space: normal;
+  color: #000000;
+  border-radius: 8px;
+  background-color: #f0f0f0;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  font-size: 14px;
+  
+}
+.dark .comment[data-tooltip]::after {
+  position: absolute;
+  z-index: 10;
+  left: 50%;
+  display: none;
+  /* Hidden by default */
+  box-sizing: border-box;
+  width: 300px;
+  margin-left: -150px;
+  content: attr(data-tooltip);
+  /* Tooltip text */
+  white-space: normal;
+  color: #FFFFFF;
+  border-radius: 8px;
+  background-color: #000000;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  font-size: 14px;
+}
+
+/* Show tooltip on hover */
+.comment:hover[data-tooltip]::after {
+  display: block;
+}
+
+/* Cursor change on hover over tooltip element */
+[data-tooltip]:hover {
+  cursor: inherit;
 }

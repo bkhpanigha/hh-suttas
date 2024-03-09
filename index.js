@@ -226,11 +226,12 @@ function buildSutta(slug) {
   const rootResponse = fetch(`suttas/root/mn/${slug}_root-pli-ms.json`).then(response => response.json());
   const translationResponse = fetch(`suttas/translation_en/${slug}.json`).then(response => response.json());
   const htmlResponse = fetch(`suttas/html/mn/${slug}_html.json`).then(response => response.json());
+  const commentResponse = fetch(`suttas/comment/${slug}_comment.json`).then(response => response.json());
 
   // Get root, translation and html jsons from folder
-  Promise.all([htmlResponse, rootResponse, translationResponse])
+  Promise.all([htmlResponse, rootResponse, translationResponse, commentResponse])
     .then(responses => {
-      const [html_text, root_text, translation_text] = responses;
+      const [html_text, root_text, translation_text, comment_text] = responses;
       const keys_order = Object.keys(html_text)
       keys_order.forEach(segment => {
 
@@ -244,8 +245,11 @@ function buildSutta(slug) {
           openHtml = openHtml.replace(/^<span class='verse-line'>/, "<br><span class='verse-line'>");
         }
 
-        html += `${openHtml}<span class="segment" id ="${segment}"><span class="pli-lang" lang="pi">${root_text[segment] ? root_text[segment] : ""}</span><span class="eng-lang" lang="en">${translation_text[segment]}</span></span>${closeHtml}\n\n`;
-
+        html += `${openHtml}<span class="segment" id="${segment}">` +
+          `<span class="pli-lang" lang="pi">${root_text[segment] || ""}</span>` +
+          `<span class="eng-lang" lang="en">${translation_text[segment]}` +
+          `${comment_text[segment] ? `<span class="comment" data-tooltip="${comment_text[segment]}"></span>` : ""}</span>` +
+          `</span>${closeHtml}\n\n`;
       });
       //console.log(html);
       const scLink = `<p class="sc-link"></p>`;
