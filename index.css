@@ -415,6 +415,7 @@ a:hover {
   z-index: 10;
   left: 50%;
   display: none;
+  padding: 4px;
   /* Hidden by default */
   box-sizing: border-box;
   width: 300px;
@@ -424,7 +425,7 @@ a:hover {
   white-space: normal;
   color: #000000;
   border-radius: 8px;
-  background-color: #f0f0f0;
+  background-color: #f5f4ef;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
   text-align: center;
   font-size: 14px;
