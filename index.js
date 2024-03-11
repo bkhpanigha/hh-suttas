@@ -139,6 +139,8 @@ homeButton.addEventListener("click", () => {
   document.location.search = "";
 });
 
+var converter = new showdown.Converter()
+
 const availableSuttasJson = await getAvailableSuttas({ mergedTitle: false })
 const availableSuttasArray = await getAvailableSuttas();
 
@@ -226,7 +228,15 @@ function buildSutta(slug) {
   const rootResponse = fetch(`suttas/root/mn/${slug}_root-pli-ms.json`).then(response => response.json());
   const translationResponse = fetch(`suttas/translation_en/${slug}.json`).then(response => response.json());
   const htmlResponse = fetch(`suttas/html/mn/${slug}_html.json`).then(response => response.json());
-  const commentResponse = fetch(`suttas/comment/mn/${slug}_comment.json`).then(response => response.json());
+  const commentResponse = fetch(`suttas/comment/mn/${slug}_comment.json`)
+    .then(response => {
+      if (!response.ok) throw new Error(`Comment file mn/${slug}_comment.json not found`);
+      return response.json();
+    })
+    .catch(error => {
+      console.warn(error.message);
+      return {}; // Return an empty object if the file is not found
+    });
 
   // Get root, translation and html jsons from folder
   Promise.all([htmlResponse, rootResponse, translationResponse, commentResponse])
@@ -285,7 +295,7 @@ function buildSutta(slug) {
         </g>
         </svg>${previousSuttaTitle}</a>`
         : "";
-      scrollToHash();
+      // render comments
       const commentElements = document.querySelectorAll('.comment');
 
       commentElements.forEach(element => {
@@ -304,8 +314,8 @@ function buildSutta(slug) {
 
         // Create the tooltip div
         const tooltipDiv = document.createElement('div');
-        // TODO render markdown to html here
-        tooltipDiv.innerHTML = tooltipText;
+        // .makeHtml wraps the whole thing in a <p> so we have to manually remove it
+        tooltipDiv.innerHTML = converter.makeHtml(tooltipText).replace(/^<p>(.*)<\/p>$/, '$1');
         tooltipDiv.classList.add('custom-tooltip'); // Use a class for styling
         tooltipDiv.style.display = 'none'; // Hidden initially
         // Positioning the tooltip
@@ -324,6 +334,7 @@ function buildSutta(slug) {
         });
 
       });
+      scrollToHash();
     })
     .catch(error => {
       suttaArea.innerHTML = `<p>Sorry, "${decodeURIComponent(slug)}" is not a valid sutta citation.
