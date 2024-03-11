@@ -1,4 +1,4 @@
-import { scrollToHash, changeAcronymNumber } from './utils.js'
+import { scrollToHash, showNotification, changeAcronymNumber } from './utils.js'
 const suttaArea = document.getElementById("sutta");
 const homeButton = document.getElementById("home-button");
 const themeButton = document.getElementById("theme-button");
@@ -50,28 +50,29 @@ function displaySuttas(suttas) {
     return `<li><a href="/?q=${id.toLowerCase()}">${id}: ${title}</a></li>`;
   }).join('')}</ul>`;
 
-  //Add Download button and listener
-  suttaArea.innerHTML += `<button id="cacheButton">Download</button>`
+  //Add listener for download button
   document.getElementById('cacheButton').addEventListener('click', () => {
     // Check if service worker is supported by the browser
     if ('serviceWorker' in navigator) {
       // Send message to service worker to trigger caching
       try {
-        suttaArea.innerHTML += `<p>Download in progress...</p>`;
+        showNotification("Downloading...")
         navigator.serviceWorker.controller.postMessage({ action: 'cacheResources' });
       } catch (error) {
         console.log(error);
-        suttaArea.innerHTML += `<p>An error occurred while attempting to download. Please refresh the page, wait a few seconds, and retry.</p>`;
+        // TODO maybe a red colour box here?
+        showNotification("An error occurred while attempting to download. Please refresh the page, wait a few seconds, and retry");
       }
     }
   });
 
   navigator.serviceWorker.addEventListener('message', event => {
     if (event.data && event.data.action === 'cachingSuccess') {
-      suttaArea.innerHTML += `<p>Download successful.</p>`;
+      showNotification("Download successful - site available offline.")
     }
     if (event.data && event.data.action === 'cachingError') {
-      suttaArea.innerHTML += `<p>Caching error. Please clear site data, refresh the page, and try again.</p>`;
+      // TODO again maybe a different colour box
+      showNotification("Caching error. Please clear site data, refresh the page, and try again.");
     }
   });
 
@@ -334,6 +335,11 @@ function buildSutta(slug) {
         });
 
       });
+
+      // remove download button
+      const cacheButton = document.getElementById('cacheButton');
+      if (cacheButton) cacheButton.style.display = 'none';
+      // scroll to the quote in the url if present
       scrollToHash();
     })
     .catch(error => {

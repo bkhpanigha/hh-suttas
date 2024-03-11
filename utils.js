@@ -147,13 +147,38 @@ function copyToClipboard(text) {
   document.body.focus();
   navigator.clipboard.writeText(text).then(function () {
     console.log('Async: Copying to clipboard was successful!');
-    alert("Link copied to clipboard: " + text);
+    showNotification("Link copied to clipboard");
   }, function (err) {
     console.error('Async: Could not copy text: ', err);
   });
 }
 
+function showNotification(message, duration = 3000) {
+  let notificationBox = document.querySelector('.notification-box');
+  if (!notificationBox) {
+    notificationBox = document.createElement('div');
+    notificationBox.classList.add('notification-box');
+    document.body.appendChild(notificationBox);
+  }
+
+  notificationBox.textContent = message;
+
+  // Show the notification with fade-in effect
+  notificationBox.style.display = 'block';
+  setTimeout(() => notificationBox.style.opacity = 1, 10); // Slight delay to ensure the element is visible before starting the transition
+
+  // Hide the notification with fade-out effect after 'duration' milliseconds
+  setTimeout(() => {
+    notificationBox.style.opacity = 0;
+    // Wait for the fade-out transition to finish before hiding the element
+    setTimeout(() => {
+      notificationBox.style.display = 'none';
+    }, 500); // This duration should match the transition duration in the CSS
+  }, duration);
+}
+
+
 // Add event listener for text selection
 document.addEventListener('selectionchange', handleTextSelection);
 
-export { scrollToHash, generateLink, changeAcronymNumber };
+export { scrollToHash, showNotification, changeAcronymNumber };
