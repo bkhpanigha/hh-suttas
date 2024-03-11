@@ -382,7 +382,6 @@ a:hover {
 }
 
 
-
 .side-by-side .segment {
   display: flex;
   flex-direction: row;
@@ -396,4 +395,31 @@ a:hover {
 
 .segment {
   word-break: break-word
+}
+
+
+.comment .custom-tooltip {
+  position: absolute;
+  z-index: 10;
+  left: 50%;
+  display: none;
+  padding: 4px;
+  box-sizing: border-box;
+  width: 300px;
+  margin-left: -150px;
+  content: attr(data-tooltip);
+  white-space: normal;
+  border-radius: 8px;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  font-size: 14px;
+  /* Default light theme colors */
+  color: #000000;
+  background-color: #f5f4ef;
+}
+
+/* Override for dark theme */
+.dark .comment .custom-tooltip {
+  color: #FFFFFF;
+  background-color: #000000;
 }

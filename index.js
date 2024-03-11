@@ -139,6 +139,8 @@ homeButton.addEventListener("click", () => {
   document.location.search = "";
 });
 
+var converter = new showdown.Converter()
+
 const availableSuttasJson = await getAvailableSuttas({ mergedTitle: false })
 const availableSuttasArray = await getAvailableSuttas();
 
@@ -226,11 +228,20 @@ function buildSutta(slug) {
   const rootResponse = fetch(`suttas/root/mn/${slug}_root-pli-ms.json`).then(response => response.json());
   const translationResponse = fetch(`suttas/translation_en/${slug}.json`).then(response => response.json());
   const htmlResponse = fetch(`suttas/html/mn/${slug}_html.json`).then(response => response.json());
+  const commentResponse = fetch(`suttas/comment/mn/${slug}_comment.json`)
+    .then(response => {
+      if (!response.ok) throw new Error(`Comment file mn/${slug}_comment.json not found`);
+      return response.json();
+    })
+    .catch(error => {
+      console.warn(error.message);
+      return {}; // Return an empty object if the file is not found
+    });
 
   // Get root, translation and html jsons from folder
-  Promise.all([htmlResponse, rootResponse, translationResponse])
+  Promise.all([htmlResponse, rootResponse, translationResponse, commentResponse])
     .then(responses => {
-      const [html_text, root_text, translation_text] = responses;
+      const [html_text, root_text, translation_text, comment_text] = responses;
       const keys_order = Object.keys(html_text)
       keys_order.forEach(segment => {
 
@@ -244,8 +255,11 @@ function buildSutta(slug) {
           openHtml = openHtml.replace(/^<span class='verse-line'>/, "<br><span class='verse-line'>");
         }
 
-        html += `${openHtml}<span class="segment" id ="${segment}"><span class="pli-lang" lang="pi">${root_text[segment] ? root_text[segment] : ""}</span><span class="eng-lang" lang="en">${translation_text[segment]}</span></span>${closeHtml}\n\n`;
-
+        html += `${openHtml}<span class="segment" id="${segment}">` +
+          `<span class="pli-lang" lang="pi">${root_text[segment] || ""}</span>` +
+          `<span class="eng-lang" lang="en">${translation_text[segment]}` +
+          `${comment_text[segment] ? `<span class="comment" data-tooltip="${comment_text[segment]}"></span>` : ""}</span>` +
+          `</span>${closeHtml}\n\n`;
       });
       //console.log(html);
       const scLink = `<p class="sc-link"></p>`;
@@ -281,6 +295,45 @@ function buildSutta(slug) {
         </g>
         </svg>${previousSuttaTitle}</a>`
         : "";
+      // render comments
+      const commentElements = document.querySelectorAll('.comment');
+
+      commentElements.forEach(element => {
+        // Create and prepend an asterisk element
+        const asterisk = document.createElement('span');
+        asterisk.textContent = '*';
+        asterisk.style.display = 'inline-block';
+        asterisk.style.marginRight = '4px';
+        asterisk.style.color = '#007bff'; // This color is often associated with links or clickable items
+        asterisk.style.cursor = 'pointer'; // Changes the cursor to indicate it's clickable
+        element.prepend(asterisk);
+
+        // Get the tooltip text and remove the attribute
+        const tooltipText = element.getAttribute('data-tooltip');
+        element.removeAttribute('data-tooltip');
+
+        // Create the tooltip div
+        const tooltipDiv = document.createElement('div');
+        // .makeHtml wraps the whole thing in a <p> so we have to manually remove it
+        tooltipDiv.innerHTML = converter.makeHtml(tooltipText).replace(/^<p>(.*)<\/p>$/, '$1');
+        tooltipDiv.classList.add('custom-tooltip'); // Use a class for styling
+        tooltipDiv.style.display = 'none'; // Hidden initially
+        // Positioning the tooltip
+        element.appendChild(tooltipDiv);
+
+        // Event listeners for showing/hiding the tooltip
+        element.addEventListener('click', (event) => {
+          event.stopPropagation();
+          tooltipDiv.style.display = 'block';
+        });
+
+        document.addEventListener('click', (event) => {
+          if (!tooltipDiv.contains(event.target)) { // Check if the click is outside the tooltipDiv
+            tooltipDiv.style.display = 'none';
+          }
+        });
+
+      });
       scrollToHash();
     })
     .catch(error => {
