@@ -286,6 +286,44 @@ function buildSutta(slug) {
         </svg>${previousSuttaTitle}</a>`
         : "";
       scrollToHash();
+      const commentElements = document.querySelectorAll('.comment');
+
+      commentElements.forEach(element => {
+        // Create and prepend an asterisk element
+        const asterisk = document.createElement('span');
+        asterisk.textContent = '*';
+        asterisk.style.display = 'inline-block';
+        asterisk.style.marginRight = '4px';
+        asterisk.style.color = '#007bff'; // This color is often associated with links or clickable items
+        asterisk.style.cursor = 'pointer'; // Changes the cursor to indicate it's clickable
+        element.prepend(asterisk);
+
+        // Get the tooltip text and remove the attribute
+        const tooltipText = element.getAttribute('data-tooltip');
+        element.removeAttribute('data-tooltip');
+
+        // Create the tooltip div
+        const tooltipDiv = document.createElement('div');
+        // TODO render markdown to html here
+        tooltipDiv.innerHTML = tooltipText;
+        tooltipDiv.classList.add('custom-tooltip'); // Use a class for styling
+        tooltipDiv.style.display = 'none'; // Hidden initially
+        // Positioning the tooltip
+        element.appendChild(tooltipDiv);
+
+        // Event listeners for showing/hiding the tooltip
+        element.addEventListener('click', (event) => {
+          event.stopPropagation();
+          tooltipDiv.style.display = 'block';
+        });
+
+        document.addEventListener('click', (event) => {
+          if (!tooltipDiv.contains(event.target)) { // Check if the click is outside the tooltipDiv
+            tooltipDiv.style.display = 'none';
+          }
+        });
+
+      });
     })
     .catch(error => {
       suttaArea.innerHTML = `<p>Sorry, "${decodeURIComponent(slug)}" is not a valid sutta citation.
