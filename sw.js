@@ -14,6 +14,8 @@ const filesToCache = [
   "index.css",
   "index.html",
   "index.js",
+  "js/fuse.js",
+  "js/showdown.min.js",
   "roboto-lightest.woff",
   "suttas/html/mn/mn100_html.json",
   "suttas/html/mn/mn101_html.json",
@@ -393,7 +395,7 @@ self.addEventListener('message', event => {
         });
       })
       .catch(error => {
-        client.postMessage({ action: 'cachingError' });
+        console.error(error)
       });
   }
 });

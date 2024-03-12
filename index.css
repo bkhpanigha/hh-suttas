@@ -423,3 +423,53 @@ a:hover {
   color: #FFFFFF;
   background-color: #000000;
 }
+
+.notification-box {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #28a745;
+  /* Green background */
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  display: none;
+  /* Initially hidden */
+  z-index: 1000;
+  /* Ensure it appears above other content */
+  text-align: center;
+  min-width: 200px;
+  /* Adjust as needed */
+  opacity: 0;
+  /* Start fully transparent */
+  transition: opacity 0.5s ease-in-out;
+  /* Smooth transition for the opacity */
+}
+
+#cacheButton {
+  /* Example padding, adjust as needed */
+  background-color: var(--light-gray);
+  /* Example background color, adjust as needed */
+  color: var(--black);
+  /* Text color */
+  /* border: 0.1px solid var(--dark-gray); */
+  /* Example border, adjust as needed */
+  cursor: pointer;
+  /* Changes cursor to pointer on hover */
+  margin-left: auto;
+  font-family: "Robto Serif", serif;
+  background-color: transparent;
+  border: 1px solid black;
+  /* Optional: adds a border */
+  color: black;
+  filter: opacity(65%);
+
+  /* Text color */
+}
+
+.dark #cacheButton {
+  background-color: var(--dark-blue);
+  color: var(--off-white);
+  border-color: var(--off-white);
+}
