@@ -398,7 +398,7 @@ a:hover {
 }
 
 
-.comment .custom-tooltip {
+.comment-text {
   position: absolute;
   z-index: 10;
   left: 50%;
@@ -419,7 +419,7 @@ a:hover {
 }
 
 /* Override for dark theme */
-.dark .comment .custom-tooltip {
+.dark .comment-text {
   color: #FFFFFF;
   background-color: #000000;
 }
@@ -472,4 +472,11 @@ a:hover {
   background-color: var(--dark-blue);
   color: var(--off-white);
   border-color: var(--off-white);
+}
+
+.comment {
+  display: inline-block;
+  margin-right: 4px;
+  color: #007bff; /* This color is often associated with links or clickable items */
+  cursor: pointer; /* Indicates it's clickable */
 }
