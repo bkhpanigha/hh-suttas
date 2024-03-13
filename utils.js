@@ -126,11 +126,23 @@ function handleTextSelection() {
     return;
   }
 
-  const range = selection.getRangeAt(0);
-  let segments = range.cloneContents().querySelectorAll('.segment');
-  if (segments.length === 0) {
-    let commonAncestor = selection.getRangeAt(0).commonAncestorContainer;
+  const start = selection.anchorNode.parentNode;
+  const end = selection.focusNode.parentNode;
+  if (start.classList.contains('comment-text') || end.classList.contains('comment-text')) {
+    return; // Selection is within a comment text, do not show copy button
+  }
+  let segments = start.querySelectorAll('.segment');
+  // if start == end then there is only one id
+  if (start != end) {
+    const range = selection.getRangeAt(0);
+    segments = range.cloneContents().querySelectorAll('.segment');
+  } else {
+    let commonAncestor = start.parentNode;
     while (commonAncestor) {
+      if (commonAncestor.classList && commonAncestor.classList.contains('comment-text')) {
+        // user has selected comment text
+        return
+      }
       if (commonAncestor.nodeType === Node.ELEMENT_NODE && commonAncestor.classList.contains('segment') && commonAncestor.id) {
         segments = [commonAncestor];
         break;
@@ -145,7 +157,7 @@ function handleTextSelection() {
 
   let targetElements = segments;
   const ids = Array.from(targetElements).map(span => span.id);
-  const rect = range.getBoundingClientRect();
+  const rect = end.getBoundingClientRect();
   showCopyButton(rect.left + window.scrollX, rect.bottom + window.scrollY, ids);
 }
 
