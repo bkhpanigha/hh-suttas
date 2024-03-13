@@ -139,10 +139,6 @@ function handleTextSelection() {
   } else {
     let commonAncestor = start.parentNode;
     while (commonAncestor) {
-      if (commonAncestor.classList && commonAncestor.classList.contains('comment-text')) {
-        // user has selected comment text
-        return
-      }
       if (commonAncestor.nodeType === Node.ELEMENT_NODE && commonAncestor.classList.contains('segment') && commonAncestor.id) {
         segments = [commonAncestor];
         break;
