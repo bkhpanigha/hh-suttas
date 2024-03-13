@@ -421,7 +421,7 @@ a:hover {
 /* Override for dark theme */
 .dark .comment-text {
   color: #FFFFFF;
-  background-color: #000000;
+  background-color: #413f3f;
 }
 
 .notification-box {
