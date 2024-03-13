@@ -10,7 +10,7 @@ function scrollToHash() {
     document.querySelectorAll('.highlight').forEach(element => {
       element.classList.remove('highlight');
     });
-    const rangeMatch = hash.match(/(.*?):(\d+\.\d+)-(.*?):(\d+\.\d+)/);
+    const rangeMatch = hash.match(/(.*?):(\d+\.\d+\.\d+|\d+\.\d+)-(.*?):(\d+\.\d+\.\d+|\d+\.\d+)/);
     if (rangeMatch) {
       const [, startIdPrefix, startIdSuffix, endIdPrefix, endIdSuffix] = rangeMatch;
       const startFullId = `${startIdPrefix}:${startIdSuffix}`;
@@ -126,26 +126,37 @@ function handleTextSelection() {
     return;
   }
 
-  const range = selection.getRangeAt(0);
-  let spans = range.cloneContents().querySelectorAll('.segment');
-  if (spans.length === 0) {
-    // case when single line has been fully selected
-    spans = [selection.getRangeAt(0).commonAncestorContainer];
+  const start = selection.anchorNode.parentNode;
+  const end = selection.focusNode.parentNode;
+  if (start.classList.contains('comment-text') || end.classList.contains('comment-text')) {
+    return; // Selection is within a comment text, do not show copy button
   }
-  if (spans[0].nodeName == "#text") {
-    // TODO potentially replace with focusNode values from selection
-    if (spans[0].parentElement.classList.value == ('eng-lang' || 'pli-lang')) {
-      // case when single line has been partially selected
-      spans = [spans[0].parentElement.parentElement]
-    }
-    else {
-      return
+  let segments = start.querySelectorAll('.segment');
+  // if start == end then there is only one id
+  if (start != end) {
+    const range = selection.getRangeAt(0);
+    segments = range.cloneContents().querySelectorAll('.segment');
+  } else {
+    let commonAncestor = start.parentNode;
+    while (commonAncestor) {
+      if (commonAncestor.nodeType === Node.ELEMENT_NODE && commonAncestor.classList.contains('segment') && commonAncestor.id) {
+        segments = [commonAncestor];
+        break;
+      }
+      commonAncestor = commonAncestor.parentNode;
     }
   }
-  const ids = Array.from(spans).map(span => span.id);
-  const rect = range.getBoundingClientRect();
+
+  if (segments.length === 0) {
+    return; // No valid segment found
+  }
+
+  let targetElements = segments;
+  const ids = Array.from(targetElements).map(span => span.id);
+  const rect = end.getBoundingClientRect();
   showCopyButton(rect.left + window.scrollX, rect.bottom + window.scrollY, ids);
 }
+
 
 // Function to copy text to the clipboard
 function copyToClipboard(text) {
