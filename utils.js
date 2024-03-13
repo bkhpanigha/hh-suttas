@@ -133,8 +133,14 @@ function handleTextSelection() {
     spans = [selection.getRangeAt(0).commonAncestorContainer];
   }
   if (spans[0].nodeName == "#text") {
-    // case when single line has been partially selected
-    spans = [spans[0].parentElement.parentElement]
+    // TODO potentially replace with focusNode values from selection
+    if (spans[0].parentElement.classList.value == ('eng-lang' || 'pli-lang')) {
+      // case when single line has been partially selected
+      spans = [spans[0].parentElement.parentElement]
+    }
+    else {
+      return
+    }
   }
   const ids = Array.from(spans).map(span => span.id);
   const rect = range.getBoundingClientRect();

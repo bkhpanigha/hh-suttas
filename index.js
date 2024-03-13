@@ -260,8 +260,8 @@ function buildSutta(slug) {
         html += `${openHtml}<span class="segment" id="${segment}">` +
           `<span class="pli-lang" lang="pi">${root_text[segment] || ""}</span>` +
           `<span class="eng-lang" lang="en">${translation_text[segment]}` +
-          `${comment_text[segment] ? `<span class="comment" data-tooltip="${comment_text[segment]}"></span>` : ""}</span>` +
-          `</span>${closeHtml}\n\n`;
+          `${comment_text[segment] ? `<span class="comment">*<span class="comment-text" style="display: none;">${converter.makeHtml(comment_text[segment]).replace(/^<p>(.*)<\/p>$/, '$1')}</div></span>` : ""}` +
+          `</span></span>${closeHtml}\n\n`;
       });
       //console.log(html);
       const scLink = `<p class="sc-link"></p>`;
@@ -299,39 +299,26 @@ function buildSutta(slug) {
         : "";
       // render comments
       const commentElements = document.querySelectorAll('.comment');
-
+      let currentlyOpenTooltip = null; // Track the currently open tooltip
       commentElements.forEach(element => {
-        // Create and prepend an asterisk element
-        const asterisk = document.createElement('span');
-        asterisk.textContent = '*';
-        asterisk.style.display = 'inline-block';
-        asterisk.style.marginRight = '4px';
-        asterisk.style.color = '#007bff'; // This color is often associated with links or clickable items
-        asterisk.style.cursor = 'pointer'; // Changes the cursor to indicate it's clickable
-        element.prepend(asterisk);
-
-        // Get the tooltip text and remove the attribute
-        const tooltipText = element.getAttribute('data-tooltip');
-        element.removeAttribute('data-tooltip');
-
-        // Create the tooltip div
-        const tooltipDiv = document.createElement('div');
-        // .makeHtml wraps the whole thing in a <p> so we have to manually remove it
-        tooltipDiv.innerHTML = converter.makeHtml(tooltipText).replace(/^<p>(.*)<\/p>$/, '$1');
-        tooltipDiv.classList.add('custom-tooltip'); // Use a class for styling
-        tooltipDiv.style.display = 'none'; // Hidden initially
-        // Positioning the tooltip
-        element.appendChild(tooltipDiv);
+        let commentTextSpan = element.querySelector('.comment-text')
 
         // Event listeners for showing/hiding the tooltip
         element.addEventListener('click', (event) => {
           event.stopPropagation();
-          tooltipDiv.style.display = 'block';
+          if (currentlyOpenTooltip && currentlyOpenTooltip !== commentTextSpan) {
+            currentlyOpenTooltip.style.display = 'none'; // Hide the previously shown tooltip
+          }
+          commentTextSpan.style.display = 'block';
+          currentlyOpenTooltip = commentTextSpan; // Update the currently open tooltip
         });
 
         document.addEventListener('click', (event) => {
-          if (!tooltipDiv.contains(event.target)) { // Check if the click is outside the tooltipDiv
-            tooltipDiv.style.display = 'none';
+          if (!commentTextSpan.contains(event.target)) {
+            commentTextSpan.style.display = 'none';
+            if (currentlyOpenTooltip === commentTextSpan) {
+              currentlyOpenTooltip = null; // Reset the tracker if the current tooltip is being hidden
+            }
           }
         });
 
