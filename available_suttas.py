@@ -3,7 +3,7 @@ import re
 from pathlib import Path
 
 # Path to the suttas directory
-suttas_dir = Path('suttas/translation_en')
+suttas_dir = Path('suttas/translation_en/mn')
 available_suttas = []
 
 pattern = re.compile(r'mn(\d+)\.json', re.IGNORECASE)
