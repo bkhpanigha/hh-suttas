@@ -50,7 +50,7 @@ function displaySuttas(suttas) {
     const title = parts[1].trim();
     return `<li><a href="/?q=${id.toLowerCase()}">${id}: ${title}</a></li>`;
   }).join('')}</ul>`;
-  suttaArea.innerHTML += `<p>Note: Bhikkhu Sujato's copyright-free English translations at SuttaCentral have been modified for use in this site.</p>`;
+  suttaArea.innerHTML += `<p style="font-size: 14px;"><i>Bhikkhu Sujato's copyright-free English translations at SuttaCentral have been modified for use in this site.</i></p>`;
 
   //Add listener for download button
   document.getElementById('cacheButton').addEventListener('click', () => {
