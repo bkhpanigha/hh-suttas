@@ -352,7 +352,7 @@ const filesToCache = [
 ];
 
 
-const cacheName = 'hh-suttas-cache-v1';
+const cacheName = 'hh-suttas-cache-v2';
 
 self.addEventListener('install', event => {
 
