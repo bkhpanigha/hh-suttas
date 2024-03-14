@@ -26,6 +26,8 @@ available_suttas.sort(key=lambda x: int(x['id'][2:]))
 # Create a JSON object with the array of available suttas
 output = {'available_suttas': available_suttas}
 
-# Write the JSON object to a file
-with open('available_suttas.json', 'w', encoding='utf-8') as out_file:
-    json.dump(output, out_file, ensure_ascii=False, indent=4)
+
+# Write the JSON object to a file if it's not empty
+if len(available_suttas) > 0:
+    with open('available_suttas.json', 'w', encoding='utf-8') as out_file:
+        json.dump(output, out_file, ensure_ascii=False, indent=4)
