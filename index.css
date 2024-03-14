@@ -318,6 +318,15 @@ br {
   margin-top: 2rem;
 }
 
+@media only screen and (max-width: 768px) {
+  /* CSS rules for screens smaller than 768px */
+  .links-area {
+      /* margin-top: 2rem; */
+      margin: 1rem;
+      /* Override styles here */
+  }
+}
+
 .links-area a {
   position: relative;
   top: 0;
@@ -458,6 +467,7 @@ a:hover {
   cursor: pointer;
   /* Changes cursor to pointer on hover */
   margin-left: auto;
+  font-size: 12px;
   font-family: "Robto Serif", serif;
   background-color: transparent;
   border: 1px solid black;
