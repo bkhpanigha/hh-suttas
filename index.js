@@ -45,11 +45,12 @@ function getSuttaTitleById(id) {
 function displaySuttas(suttas) {
   suttaArea.innerHTML = `<ul>${suttas.map(sutta => {
     const parts = sutta.split(':');
-    const id = parts[0].trim();
+    // TODO review this logic once MN series is finished.
+    const id = parts[0].trim().replace(/\s+/g, '');
     const title = parts[1].trim();
     return `<li><a href="/?q=${id.toLowerCase()}">${id}: ${title}</a></li>`;
   }).join('')}</ul>`;
-  suttaArea.innerHTML += `<p>Note: Bhikkhu Sujato's copyright-free English translations at SuttaCentral have been modified for use in this site.</p>`;
+  suttaArea.innerHTML += `<p style="font-size: 14px;"><i>Bhikkhu Sujato's copyright-free English translations at SuttaCentral have been modified for use in this site.</i></p>`;
 
   //Add listener for download button
   document.getElementById('cacheButton').addEventListener('click', () => {
@@ -333,7 +334,7 @@ function buildSutta(slug) {
     .catch(error => {
       suttaArea.innerHTML = `<p>Sorry, "${decodeURIComponent(slug)}" is not a valid sutta citation.
 
-    Note: Suttas that are part of a series require that you enter the exact series. For example, <code>an1.1</code> will not work, but <code>an1.1-10</code> will.<br>`;
+    <br><br>Note: Make sure the citation code is correct. Otherwise try finding the sutta from the home page.<br>`;
     });
 }
 
