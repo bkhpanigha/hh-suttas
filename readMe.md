@@ -1,7 +1,7 @@
 # HH suttas
 Link: https://suttas.hillsidehermitage.org
 
-## Licence
+## License
 The English translations are licensed under [CC BY-NC-SA](https://creativecommons.org/licenses/by-nc-sa/4.0/) while the website itself is under the [Unlicense](https://choosealicense.com/licenses/unlicense/).
 
 ## Contributing
