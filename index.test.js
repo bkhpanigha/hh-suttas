@@ -8,14 +8,9 @@ const path = require('path');
   app.use(express.static('.')); // Serve files from a directory
   const server = app.listen(port);
 
-  // // Use Puppeteer
-  // const browser = await puppeteer.launch({
-  //   headless: false, // Set to false to see the browser UI
-  //   slowMo: 250,     // Slow down Puppeteer operations to make them more visible
-  // });
-
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
+  // Test homepage
   await page.goto(`http://localhost:${port}/`);
   // Select the element with ID 'sutta' and check if it exists
   const sutta = await page.$('#sutta');
@@ -39,9 +34,9 @@ const path = require('path');
 
   if (!linkExists) throw new Error(`No <li> found with the specific <a> tag content`);
 
+  // Test sutta page
   await page.goto(`http://localhost:${port}/?q=mn1`);
   await page.waitForSelector('#mn1', { timeout: 1000 });
-
 
   // Check for the existence of element with ID 'mn1'
   const mn1Element = await page.$('#mn1');
