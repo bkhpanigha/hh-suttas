@@ -139,7 +139,8 @@ let fuseOptions = {
 
 
 homeButton.addEventListener("click", () => {
-  document.location.search = "";
+  window.location.href = '/';
+
 });
 
 var converter = new showdown.Converter()
