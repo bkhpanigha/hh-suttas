@@ -1,4 +1,4 @@
-import { scrollToHash, showNotification, changeAcronymNumber } from './utils.js'
+import { scrollToHash, showNotification, changeAcronymNumber } from './js/utils.js'
 const suttaArea = document.getElementById("sutta");
 const homeButton = document.getElementById("home-button");
 const themeButton = document.getElementById("theme-button");
