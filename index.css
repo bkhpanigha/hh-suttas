@@ -422,6 +422,7 @@ a:hover {
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
   text-align: center;
   font-size: 14px;
+  font-weight: normal;
   /* Default light theme colors */
   color: #000000;
   background-color: #f5f4ef;
