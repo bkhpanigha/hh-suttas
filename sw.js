@@ -365,6 +365,7 @@ const filesToCache = [
   "suttas/translation_en/mn23.json",
   "suttas/translation_en/mn24.json",
   "suttas/translation_en/mn25.json",
+  "suttas/translation_en/mn26.json",
   "suttas/translation_en/mn27.json",
   "suttas/translation_en/mn28.json",
   "suttas/translation_en/mn3.json",
