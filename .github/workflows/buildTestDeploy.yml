@@ -31,8 +31,7 @@ jobs:
       - name: Check for changes
         id: check_changes
         run: |
-          git diff --exit-code available_suttas.json files_to_cache.json
-          if [ $? -eq 0 ]; then
+          if git diff --exit-code; then
               echo "::set-output name=changes::false"
           else
               echo "::set-output name=changes::true"
