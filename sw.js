@@ -47,6 +47,8 @@ const filesToCache = [
   "suttas/comment/mn/mn7_comment.json",
   "suttas/comment/mn/mn8_comment.json",
   "suttas/comment/mn/mn9_comment.json",
+  "suttas/comment/mn/mn29_comment.json",
+  "suttas/comment/mn/mn30_comment.json",
   "suttas/html/mn/mn100_html.json",
   "suttas/html/mn/mn101_html.json",
   "suttas/html/mn/mn102_html.json",
@@ -379,6 +381,8 @@ const filesToCache = [
   "suttas/translation_en/mn/mn7.json",
   "suttas/translation_en/mn/mn8.json",
   "suttas/translation_en/mn/mn9.json",
+  "suttas/translation_en/mn/mn29.json",
+  "suttas/translation_en/mn/mn30.json",
   "utils.js"
 ];
 
