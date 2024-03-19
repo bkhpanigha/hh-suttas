@@ -9,6 +9,7 @@ const filesToCache = [
 ];
 
 
+
 const cacheName = 'hh-suttas-cache-v2';
 
 self.addEventListener('install', event => {
@@ -19,22 +20,6 @@ self.addEventListener('install', event => {
   //     .then(() => self.skipWaiting()) // Activate the new service worker immediately
   // );
 });
-
-// Activate event: Clean up old caches
-self.addEventListener('activate', event => {
-  event.waitUntil(
-    caches.keys().then(cacheNames => {
-      return Promise.all(
-        cacheNames.map(cache => {
-          if (cache !== cacheName) {
-            return caches.delete(cache);
-          }
-        })
-      );
-    })
-  );
-});
-
 
 self.addEventListener('message', event => {
   // Check if the message is to trigger caching
@@ -52,6 +37,7 @@ self.addEventListener('message', event => {
         });
       })
       .catch(error => {
+        client.postMessage({ action: 'cachingError' });
         console.error(error)
       });
   }

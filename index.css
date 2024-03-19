@@ -467,7 +467,9 @@ a:hover {
   /* Example border, adjust as needed */
   cursor: pointer;
   /* Changes cursor to pointer on hover */
+  
   margin-left: auto;
+  margin-right: 0em;
   font-size: 12px;
   font-family: "Robto Serif", serif;
   background-color: transparent;
@@ -477,6 +479,71 @@ a:hover {
   filter: opacity(65%);
 
   /* Text color */
+}
+
+
+#infoButton {
+  border: none;
+  margin-left: 0em;
+  cursor: pointer;
+  outline: none;
+  color: #007bff; /* Change the color as needed */
+  font-size: 12px; /* Adjust the size as needed */
+}
+
+#container {
+  position: relative;
+  margin-left:auto;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  max-width: 150px;
+
+}
+
+#clearCacheButton{
+    /* Example padding, adjust as needed */
+    background-color: var(--light-gray);
+    /* Example background color, adjust as needed */
+    color: var(--black);
+    /* Text color */
+    /* border: 0.1px solid var(--dark-gray); */
+    /* Example border, adjust as needed */
+    cursor: pointer;
+    /* Changes cursor to pointer on hover */
+    
+    margin-left: auto;
+    margin-right: 0em;
+    font-size: 12px;
+    font-family: "Robto Serif", serif;
+    background-color: transparent;
+    border: 1px solid black;
+    /* Optional: adds a border */
+    color: black;
+    filter: opacity(65%);
+
+}
+
+.info-notification-box {
+  position: fixed;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: grey;
+  /* Green background */
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  display: none;
+  /* Initially hidden */
+  z-index: 1000;
+  /* Ensure it appears above other content */
+  white-space:pre-line;
+  /* min-width: 200px; */
+  max-width: 400px;
+  /* Adjust as needed */
+ 
+
 }
 
 .dark #cacheButton {
