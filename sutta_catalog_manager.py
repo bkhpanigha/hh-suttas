@@ -44,6 +44,7 @@ def generate_corresponding_files_list(available_suttas, output_file):
                 f"suttas/translation_en/mn/mn{formatted_sutta_id}.json",
             ]
         )
+    files_to_cache.sort()
 
     with open(output_file, "w", encoding="utf-8") as out_file:
         json.dump(files_to_cache, out_file, ensure_ascii=False, indent=4)
