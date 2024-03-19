@@ -3,7 +3,7 @@
     "short_name": "HH Suttas",
     "description": "Access early Buddhist Suttas from Hillside Hermitage.",
     "start_url": "/",
-    "display": "standalone",
+    "display": "ui-minimal",
     "background_color": "#FFFFFF",
     "theme_color": "#000000",
     "orientation": "portrait",

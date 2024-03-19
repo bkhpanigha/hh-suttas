@@ -68,6 +68,24 @@ function displaySuttas(suttas) {
     }
   });
 
+  infoButton.addEventListener("click", function() {
+    
+    let notificationBox = document.querySelector('.info-notification-box')
+    if (!notificationBox) {
+      notificationBox = document.createElement('div');
+      notificationBox.classList.add('info-notification-box');
+      document.body.appendChild(notificationBox);
+    }
+    
+    if (notificationBox.style.display == 'block'){
+      notificationBox.style.display = 'none';
+    } else {
+      notificationBox.textContent = "The ‘Download’ button makes the site available offline on the current web browser at the same URL (suttas.hillsidehermitage.org).\nIf downloading again (e.g., when new Suttas become available), make sure to first clear this site's data on your browser and reload the page.";
+      notificationBox.style.display = 'block';
+    }
+    
+  });
+
   navigator.serviceWorker.addEventListener('message', event => {
     if (event.data && event.data.action === 'cachingSuccess') {
       showNotification("Download successful - site available offline.")
@@ -326,9 +344,11 @@ function buildSutta(slug) {
 
       });
 
-      // remove download button
+      // remove download and info button
       const cacheButton = document.getElementById('cacheButton');
+      const infoButton = document.getElementById('infoButton');
       if (cacheButton) cacheButton.style.display = 'none';
+      if (infoButton) infoButton.style.display = 'none';
       // scroll to the quote in the url if present
       scrollToHash();
     })
