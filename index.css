@@ -347,6 +347,23 @@ br {
   filter: invert(200%);
 }
 
+.dark .info-btn {
+
+  filter: invert(100%);
+}
+#infoButton {
+  border: none;
+  margin-left: -.3em;
+  cursor: pointer;
+  outline: none;
+
+  img {
+    width: 1em;
+    height: auto;
+    filter: opacity(60%);
+  }
+}
+
 .navigation {
   display: flex;
   flex-direction: row;
@@ -479,16 +496,6 @@ a:hover {
   filter: opacity(65%);
 
   /* Text color */
-}
-
-
-#infoButton {
-  border: none;
-  margin-left: 0em;
-  cursor: pointer;
-  outline: none;
-  color: #007bff; /* Change the color as needed */
-  font-size: 12px; /* Adjust the size as needed */
 }
 
 #container {
