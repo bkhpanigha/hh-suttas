@@ -36,14 +36,16 @@ def generate_corresponding_files_list(available_suttas, output_file):
 
     for sutta in available_suttas:
         formatted_sutta_id = sutta["id"].split()[1].lower()
+        comment_json_path = f"suttas/comment/mn/mn{formatted_sutta_id}_comment.json"
         files_to_cache.extend(
             [
                 f"suttas/html/mn/mn{formatted_sutta_id}_html.json",
-                f"suttas/comment/mn/mn{formatted_sutta_id}_comment.json",
                 f"suttas/root/mn/mn{formatted_sutta_id}_root-pli-ms.json",
                 f"suttas/translation_en/mn/mn{formatted_sutta_id}.json",
             ]
         )
+        if os.path.exists(comment_json_path):
+            files_to_cache.append(comment_json_path)
     files_to_cache.sort()
 
     with open(output_file, "w", encoding="utf-8") as out_file:
