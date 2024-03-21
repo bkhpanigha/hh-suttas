@@ -475,6 +475,7 @@ a:hover {
 }
 
 #cacheButton {
+  position:relative;
   /* Example padding, adjust as needed */
   background-color: var(--light-gray);
   /* Example background color, adjust as needed */
@@ -484,7 +485,7 @@ a:hover {
   /* Example border, adjust as needed */
   cursor: pointer;
   /* Changes cursor to pointer on hover */
-  
+  top: -10%;
   margin-left: auto;
   margin-right: 0em;
   font-size: 12px;
@@ -504,30 +505,10 @@ a:hover {
   margin-bottom: 10px;
   display: flex;
   flex-direction: column;
+  justify-content: space-around;
+ 
+  align-items: center;
   max-width: 150px;
-
-}
-
-#clearCacheButton{
-    /* Example padding, adjust as needed */
-    background-color: var(--light-gray);
-    /* Example background color, adjust as needed */
-    color: var(--black);
-    /* Text color */
-    /* border: 0.1px solid var(--dark-gray); */
-    /* Example border, adjust as needed */
-    cursor: pointer;
-    /* Changes cursor to pointer on hover */
-    
-    margin-left: auto;
-    margin-right: 0em;
-    font-size: 12px;
-    font-family: "Robto Serif", serif;
-    background-color: transparent;
-    border: 1px solid black;
-    /* Optional: adds a border */
-    color: black;
-    filter: opacity(65%);
 
 }
 
