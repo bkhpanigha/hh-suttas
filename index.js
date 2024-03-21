@@ -80,10 +80,9 @@ function displaySuttas(suttas) {
     if (notificationBox.style.display == 'block'){
       notificationBox.style.display = 'none';
     } else {
-      notificationBox.textContent = "The ‘Download’ button makes the site available offline on the current web browser at the same URL (suttas.hillsidehermitage.org).\nIf downloading again (e.g., when new Suttas become available), make sure to first clear this site's data on your browser and reload the page.";
+      notificationBox.textContent = "The ‘Download’ button makes the site available offline on the current web browser at the same URL (suttas.hillsidehermitage.org).\n\nThe site can also be installed as an application on mobile phones, by tapping ‘Install’ at the menu on the top right corner. Note that hitting the download button is still necessary to make it available offline through the app.\n\nIf downloading again (e.g., when new Suttas become available), make sure to first clear the site's data on your browser/app and reload the page.";
       notificationBox.style.display = 'block';
     }
-    
   });
 
   navigator.serviceWorker.addEventListener('message', event => {
