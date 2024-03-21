@@ -25,8 +25,8 @@ jobs:
           python -m pip install --upgrade pip
           # Add any other dependencies here if needed
 
-      - name: Run available_suttas.py script
-        run: python available_suttas.py
+      - name: Run sutta_catalog_manager.py script
+        run: python sutta_catalog_manager.py
 
       - name: Check for changes
         id: check_changes
@@ -42,8 +42,8 @@ jobs:
         run: |
           git config --global user.email "action@github.com"
           git config --global user.name "GitHub Action"
-          git add available_suttas.json
-          git commit -m "Update available suttas list" -a
+          git add available_suttas.json files_to_cache.json
+          git commit -m "Update available suttas list and cache files"
           git push
 
   test-and-merge:
