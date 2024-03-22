@@ -358,7 +358,7 @@ br {
   outline: none;
 
   img {
-    width: 1em;
+    width: 14px;
     height: auto;
     filter: opacity(60%);
   }
