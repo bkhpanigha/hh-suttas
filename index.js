@@ -228,38 +228,42 @@ document.getElementById("form").addEventListener("submit", e => {
 
 citation.value = document.location.search.replace("?q=", "").replace(/%20/g, "").replace(/\s/g, "");
 function buildSutta(slug) {
-  let translator = "";
-  let slugArray = slug.split("&");
-  slug = slugArray[0];
-  if (slugArray[1]) {
-    translator = slugArray[1];
-  } else {
-    translator = "sujato";
-  }
+  let translator = "Bhikkhu Anīgha";
   slug = slug.toLowerCase();
+  let html = `<div class="button-area"><button id="hide-pali" class="hide-button">Toggle Pali</button></div>`;
+  let subDir;
 
-  if (slug.match(/bu|bi|kd|pvr/)) {
-    translator = "brahmali";
-    slug = slug.replace(/bu([psan])/, "bu-$1");
-    slug = slug.replace(/bi([psn])/, "bi-$1");
-    if (!slug.match("pli-tv-")) {
-      slug = "pli-tv-" + slug;
-    }
-    if (!slug.match("vb-")) {
-      slug = slug.replace("bu-", "bu-vb-");
-    }
-    if (!slug.match("vb-")) {
-      slug = slug.replace("bi-", "bi-vb-");
+  if (slug.slice(0, 2) !== "mn" && slug.slice(0, 2) !== "an" && slug.slice(0, 2) !== "dn" && !/^sn\d/i.test(slug)) {
+    // Find the index of the first number using regular expression
+    const matchIndex = slug.search(/\d/);
+    let firstSection, secondSection, vagga;
+
+    if (matchIndex !== -1) {
+      // Split the string into two sections based on the index of the first number
+      firstSection = slug.substring(0, matchIndex);
+      secondSection = slug.substring(matchIndex);
+
+      if (firstSection == "snp" || firstSection == "ud" || firstSection == "iti"){
+        vagga = secondSection[0];
+        subDir = `kn/${firstSection}/vagga${vagga}`;
+      }
+      else {
+        subDir = `kn/${firstSection}`;
+
+      }
+    } else {
+      subDir = `kn/${firstSection}`;
+      
     }
   }
+  else {
+    subDir = slug.substring(0, slug.search(/\d/));
+  }
 
-  let html = `<div class="button-area"><button id="hide-pali" class="hide-button">Toggle Pali</button></div>`;
-
-
-  const rootResponse = fetch(`suttas/root/mn/${slug}_root-pli-ms.json`).then(response => response.json());
-  const translationResponse = fetch(`suttas/translation_en/mn/${slug}.json`).then(response => response.json());
-  const htmlResponse = fetch(`suttas/html/mn/${slug}_html.json`).then(response => response.json());
-  const commentResponse = fetch(`suttas/comment/mn/${slug}_comment.json`)
+  const rootResponse = fetch(`suttas/root/${subDir}/${slug}_root-pli-ms.json`).then(response => response.json());
+  const translationResponse = fetch(`suttas/translation_en/${subDir}/${slug}.json`).then(response => response.json());
+  const htmlResponse = fetch(`suttas/html/${subDir}/${slug}_html.json`).then(response => response.json());
+  const commentResponse = fetch(`suttas/comment/${subDir}/${slug}_comment.json`)
     .then(response => {
       if (!response.ok) throw new Error(`Comment file mn/${slug}_comment.json not found`);
       return response.json();
@@ -268,11 +272,16 @@ function buildSutta(slug) {
       console.warn(error.message);
       return {}; // Return an empty object if the file is not found
     });
-
+  let alt_translator;
+  const authors = fetch(`authors.json`).then(response => response.json()); //.then(authors => {
+  //   alt_translator = authors[slug];
+  //   if (alt_translator) translator = alt_translator;
+    
+  // });
   // Get root, translation and html jsons from folder
-  Promise.all([htmlResponse, rootResponse, translationResponse, commentResponse])
+  Promise.all([htmlResponse, rootResponse, translationResponse, commentResponse, authors])
     .then(responses => {
-      const [html_text, root_text, translation_text, comment_text] = responses;
+      const [html_text, root_text, translation_text, comment_text, authors_text] = responses;
       const keys_order = Object.keys(html_text)
       keys_order.forEach(segment => {
 
@@ -293,14 +302,23 @@ function buildSutta(slug) {
           `</span></span>${closeHtml}\n\n`;
       });
       //console.log(html);
-      const scLink = `<p class="sc-link"></p>`;
+      
+      if (authors_text[slug]) translator = authors_text[slug];
+      const translatorByline = `<div class="byline"><p>Translated by ${translator}</p></div>`;
+      suttaArea.innerHTML = `<p class="sc-link"></p>` + html + translatorByline;
+      
 
-      const translatorByline = `<div class="byline"><p>Translated by Bhikkhu Anīgha</p></div>`;
-      suttaArea.innerHTML = scLink + html + translatorByline;
-      const acronym = slug.replace(/([a-zA-Z]{2})(\d+)/, '$1 $2').toUpperCase();
+      let acronym = slug.replace(/([a-zA-Z]{2})(\d+)/, '$1 $2')
+      if (subDir.slice(0,2) !== 'kn') {
+        acronym = acronym.toUpperCase();
+      }
+      else {
+        acronym = acronym.charAt(0).toUpperCase() + acronym.slice(1);
+      }
+
       // TODO fix the way these pages are rendered
       document.title = `${acronym} ${root_text[`${slug}:0.2`]}: ${translation_text[`${slug}:0.2`]}`;
-
+     
       toggleThePali();
 
       let incrementedAcronym = changeAcronymNumber(acronym, 1);
@@ -370,6 +388,7 @@ function buildSutta(slug) {
 
 // initialize the whole app
 if (document.location.search) {
+  console.log(document.location.search);
   buildSutta(document.location.search.replace("?q=", "").replace(/\s/g, "").replace(/%20/g, ""));
 } else {
   displaySuttas(availableSuttasArray);
