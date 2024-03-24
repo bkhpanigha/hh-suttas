@@ -67,9 +67,5 @@ jobs:
     - name: Merge to gh-pages
       if: success() && github.event_name == 'push' && github.ref == 'refs/heads/main'
       run: |
-        git fetch origin gh-pages
-        git checkout gh-pages
-        git config user.email "action@github.com"
-        git config user.name "GitHub Action"
-        git merge --no-ff --allow-unrelated-histories -m "Merging changes from main after tests" origin/main
-        git push origin gh-pages
+        git checkout -b gh-pages origin/main
+        git push -f origin gh-pages
