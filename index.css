@@ -356,12 +356,13 @@ br {
   margin-left: -.3em;
   cursor: pointer;
   outline: none;
+  background-color: transparent;
+}
 
-  img {
-    width: 14px;
-    height: auto;
-    filter: opacity(60%);
-  }
+#infoButton img {
+  width: 14px;
+  height: auto;
+  filter: opacity(60%);
 }
 
 .navigation {
