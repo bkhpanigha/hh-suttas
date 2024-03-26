@@ -67,5 +67,7 @@ jobs:
     - name: Merge to gh-pages
       if: success() && github.event_name == 'push' && github.ref == 'refs/heads/main'
       run: |
-        git checkout -b gh-pages origin/main
+        git fetch origin main
+        git checkout main
+        git checkout -b gh-pages
         git push -f origin gh-pages
