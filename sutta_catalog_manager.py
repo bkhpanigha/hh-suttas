@@ -100,7 +100,7 @@ def generate_corresponding_files_list(available_suttas, output_file):
             paths = [
                 f"suttas/html/kn/{dir_prefix}/{vagga}/{dir_prefix}{formatted_sutta_id}_html.json",
                 f"suttas/root/kn/{dir_prefix}/{vagga}/{dir_prefix}{formatted_sutta_id}_root-pli-ms.json",
-                f"suttas/translation_en/kn/{dir_prefix}/{vagga}/{dir_prefix}/{dir_prefix}{formatted_sutta_id}.json",
+                f"suttas/translation_en/kn/{dir_prefix}/{vagga}/{dir_prefix}{formatted_sutta_id}.json",
             ]
             comment_json_path = f"suttas/comment/kn{dir_prefix}/{vagga}/{dir_prefix}{formatted_sutta_id}_comment.json"
             if os.path.exists(comment_json_path):
