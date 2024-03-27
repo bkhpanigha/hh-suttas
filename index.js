@@ -16,7 +16,7 @@ async function getAvailableSuttas({ mergedTitle = true } = {}) {
     }
     const data = await response.json();
     if (mergedTitle) {
-      return data.available_suttas.map(sutta => `${sutta.id}: ${sutta.title.trim()}`);
+      return data.available_suttas.map(sutta => `${sutta.id}: ${sutta.title.trim()}${sutta.author ? `: ${sutta.author}` : ''}`)
     }
     else {
       return data
@@ -48,6 +48,11 @@ function displaySuttas(suttas) {
     // TODO review this logic once MN series is finished.
     const id = parts[0].trim().replace(/\s+/g, '');
     const title = parts[1].trim();
+    console.log(sutta)
+    if (parts[2]){
+      const author = parts[2].trim()
+      return `<li><a href="/?q=${id.toLowerCase()}">${id}: ${title} (<em>by ${author}</em>)</a></li>`;
+    }
     return `<li><a href="/?q=${id.toLowerCase()}">${id}: ${title}</a></li>`;
   }).join('')}</ul>`;
   suttaArea.innerHTML += `<p style="font-size: 14px;"><i>Bhikkhu Sujato's copyright-free English translations at SuttaCentral have been modified for use in this site.</i></p>`;
@@ -174,6 +179,7 @@ var converter = new showdown.Converter()
 
 const availableSuttasJson = await getAvailableSuttas({ mergedTitle: false })
 const availableSuttasArray = await getAvailableSuttas();
+console.log(availableSuttasArray);
 
 // initialize
 if (localStorage.sideBySide) {
