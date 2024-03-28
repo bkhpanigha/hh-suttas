@@ -48,7 +48,6 @@ function displaySuttas(suttas) {
     // TODO review this logic once MN series is finished.
     const id = parts[0].trim().replace(/\s+/g, '');
     const title = parts[1].trim();
-    console.log(sutta)
     if (parts[2]){
       const author = parts[2].trim()
       return `<li><a href="/?q=${id.toLowerCase()}">${id}: ${title} (<em>by ${author}</em>)</a></li>`;
@@ -179,7 +178,6 @@ var converter = new showdown.Converter()
 
 const availableSuttasJson = await getAvailableSuttas({ mergedTitle: false })
 const availableSuttasArray = await getAvailableSuttas();
-console.log(availableSuttasArray);
 
 // initialize
 if (localStorage.sideBySide) {
@@ -240,29 +238,28 @@ function buildSutta(slug) {
   let subDir;
 
   if (slug.slice(0, 2) !== "mn" && slug.slice(0, 2) !== "an" && slug.slice(0, 2) !== "dn" && !/^sn\d/i.test(slug)) {
-    // Find the index of the first number using regular expression
     const matchIndex = slug.search(/\d/);
     let firstSection, secondSection, vagga;
 
     if (matchIndex !== -1) {
-      // Split the string into two sections based on the index of the first number
       firstSection = slug.substring(0, matchIndex);
       secondSection = slug.substring(matchIndex);
 
-      if (firstSection == "snp" || firstSection == "ud" || firstSection == "iti"){
-        vagga = secondSection[0];
+      if (firstSection === "snp" || firstSection === "ud" || firstSection === "iti") {
+        vagga = secondSection.split('.')[0]; // Get the vagga number before the "."
         subDir = `kn/${firstSection}/vagga${vagga}`;
-      }
-      else {
+      } else {
         subDir = `kn/${firstSection}`;
-
       }
     } else {
       subDir = `kn/${firstSection}`;
-      
     }
-  }
-  else {
+  } else if (/^(sn|an)\d/i.test(slug)) {
+    let nikaya = slug.slice(0, 2);
+    let sectionNumber = slug.match(/\d+/)[0];
+    let chapter = slug.split('.')[0].substring(2); // Get the chapter number before the "."
+    subDir = `${nikaya}/${nikaya}${chapter}`;
+  } else {
     subDir = slug.substring(0, slug.search(/\d/));
   }
 
@@ -271,15 +268,16 @@ function buildSutta(slug) {
   const htmlResponse = fetch(`suttas/html/${subDir}/${slug}_html.json`).then(response => response.json());
   const commentResponse = fetch(`suttas/comment/${subDir}/${slug}_comment.json`)
     .then(response => {
-      if (!response.ok) throw new Error(`Comment file mn/${slug}_comment.json not found`);
+      if (!response.ok) throw new Error(`Comment file not found for ${slug}`);
       return response.json();
     })
     .catch(error => {
       console.warn(error.message);
-      return {}; // Return an empty object if the file is not found
+      return {}; // Return an empty object if the comment file is not found
     });
+
   let alt_translator;
-  const authors = fetch(`authors.json`).then(response => response.json()); //.then(authors => {
+  const authors = fetch(`authors.json`).then(response => response.json());
   //   alt_translator = authors[slug];
   //   if (alt_translator) translator = alt_translator;
     
@@ -394,7 +392,7 @@ function buildSutta(slug) {
 
 // initialize the whole app
 if (document.location.search) {
-  console.log(document.location.search);
+  //console.log(document.location.search);
   buildSutta(document.location.search.replace("?q=", "").replace(/\s/g, "").replace(/%20/g, ""));
 } else {
   displaySuttas(availableSuttasArray);
