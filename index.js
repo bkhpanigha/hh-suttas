@@ -321,8 +321,10 @@ function buildSutta(slug) {
       }
 
       // TODO fix the way these pages are rendered
-      document.title = `${acronym} ${root_text[`${slug}:0.2`]}: ${translation_text[`${slug}:0.2`]}`;
-     
+      if (slug.toLowerCase().includes("sn") || slug.toLowerCase().includes("an")) 
+        document.title = `${acronym} ${root_text[`${slug}:0.3`]}: ${translation_text[`${slug}:0.3`]}`;
+      else 
+        document.title = `${acronym} ${root_text[`${slug}:0.2`]}: ${translation_text[`${slug}:0.2`]}`;
       toggleThePali();
 
       let incrementedAcronym = changeAcronymNumber(acronym, 1);
