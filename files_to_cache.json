@@ -47,6 +47,7 @@
     "suttas/html/mn/mn7.json",
     "suttas/html/mn/mn8.json",
     "suttas/html/mn/mn9.json",
+    "suttas/html/sn/sn35/sn35.246.json",
     "suttas/html/sn/sn36/sn36.6.json",
     "suttas/root-pli-ms/kn/snp/vagga4/snp4.2.json",
     "suttas/root-pli-ms/mn/mn1.json",
@@ -84,6 +85,7 @@
     "suttas/root-pli-ms/mn/mn7.json",
     "suttas/root-pli-ms/mn/mn8.json",
     "suttas/root-pli-ms/mn/mn9.json",
+    "suttas/root-pli-ms/sn/sn35/sn35.246.json",
     "suttas/root-pli-ms/sn/sn36/sn36.6.json",
     "suttas/translation_en/kn/snp/vagga4/snp4.2.json",
     "suttas/translation_en/mn/mn1.json",
@@ -121,5 +123,6 @@
     "suttas/translation_en/mn/mn7.json",
     "suttas/translation_en/mn/mn8.json",
     "suttas/translation_en/mn/mn9.json",
+    "suttas/translation_en/sn/sn35/sn35.246.json",
     "suttas/translation_en/sn/sn36/sn36.6.json"
 ]
