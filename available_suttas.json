@@ -1,6 +1,14 @@
 {
     "available_suttas": [
         {
+            "id": "AN 6.73",
+            "title": "First jhāna (1st) "
+        },
+        {
+            "id": "AN 9.41",
+            "title": "With the Householder Tapussa "
+        },
+        {
             "id": "MN 1",
             "title": "The Explanation of the Root "
         },
@@ -139,6 +147,10 @@
         {
             "id": "MN 35",
             "title": "The Shorter Discourse With Saccaka "
+        },
+        {
+            "id": "MN 36",
+            "title": "The Longer Discourse With Saccaka "
         },
         {
             "id": "SN 35.246",
