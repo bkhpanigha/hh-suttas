@@ -1,14 +1,6 @@
 {
     "available_suttas": [
         {
-            "id": "AN 6.73",
-            "title": "First jhāna (1st) "
-        },
-        {
-            "id": "AN 9.41",
-            "title": "With the Householder Tapussa "
-        },
-        {
             "id": "MN 1",
             "title": "The Explanation of the Root "
         },
@@ -159,6 +151,14 @@
         {
             "id": "SN 36.6",
             "title": "The Arrow "
+        },
+        {
+            "id": "AN 6.73",
+            "title": "First Jhāna (1st) "
+        },
+        {
+            "id": "AN 9.41",
+            "title": "With the Householder Tapussa "
         },
         {
             "id": "Snp 4.2",
