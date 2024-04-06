@@ -66,7 +66,7 @@ def load_available_suttas(suttas_base_dir):
                         add_sutta(available_suttas, match, data, key)
 
     # Sort the list for consistency
-    available_suttas.sort(key=lambda x: (x["id"].split()[0], float(x["id"].split()[1]) if '.' in x["id"].split()[1] else int(x["id"].split()[1])))
+    available_suttas.sort(key=lambda x: ({"DN": 0, "MN": 1, "SN": 2, "AN": 3}.get(x["id"].split()[0], 4), float(x["id"].split()[1]) if '.' in x["id"].split()[1] else int(x["id"].split()[1])))
     return available_suttas
 
 def generate_paths_for_sutta(sutta_id, base_dir="suttas"):
