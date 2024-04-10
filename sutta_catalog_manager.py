@@ -78,18 +78,17 @@ def generate_paths_for_sutta(sutta_id, base_dir="suttas"):
     # Base paths for different categories of files
     base_paths = {
         "html": Path(base_dir) / "html",
-        "root": Path(base_dir) / "root-pli-ms",
-        "translation": Path(base_dir) / "translation_en"
+        "root": Path(base_dir) / "root",  # Assuming correct folder name is "root"
+        "translation": Path(base_dir) / "translation_en",
+        "comment": Path(base_dir) / "comment"
     }
 
-    # Special handling for "Snp", "Ud", and "Iti" books within "kn" folder
+    # Adjust directory structure based on book type
     if book in ["Snp", "Ud", "Iti"]:
         vagga_number = number.split('.')[0]
         vagga = f"vagga{vagga_number}"
         for key in base_paths:
-            print(vagga)
             base_paths[key] = base_paths[key] / "kn" / dir_prefix / vagga
-    # Handling for "SN" and "AN" that are divided into subsections
     elif book in ["SN", "AN"]:
         subsection_number = number.split('.')[0]
         subsection = f"{dir_prefix}{subsection_number}"
@@ -99,19 +98,25 @@ def generate_paths_for_sutta(sutta_id, base_dir="suttas"):
         for key in base_paths:
             base_paths[key] = base_paths[key] / dir_prefix
 
-    # Construct file paths
-    paths = [
-        base_paths["html"] / f"{dir_prefix}{formatted_sutta_id}.json",
-        base_paths["root"] / f"{dir_prefix}{formatted_sutta_id}.json",
-        base_paths["translation"] / f"{dir_prefix}{formatted_sutta_id}.json",
-    ]
+    # Initialize the paths list
+    paths = []
 
-    # Add comment file path if exists (assuming a common comment directory structure)
-    comment_path = Path(base_dir) / "comment" / f"{dir_prefix}{formatted_sutta_id}.json"
-    if comment_path.exists():
-        paths.append(comment_path)
+    # Check if the "translation" file exists before adding paths
+    translation_path = base_paths["translation"] / f"{dir_prefix}{formatted_sutta_id}.json"
+    if translation_path.exists():
+        # Only add paths if the "translation" file exists
+        paths = [
+            str(base_paths["html"] / f"{dir_prefix}{formatted_sutta_id}_html.json"),
+            str(base_paths["root"] / f"{dir_prefix}{formatted_sutta_id}_root-pli-ms.json"),
+            str(translation_path),  # Already confirmed to exist
+        ]
 
-    return [str(path) for path in paths]
+        # Attempt to add the comment file path if it exists
+        comment_path = base_paths["comment"] / f"{dir_prefix}{formatted_sutta_id}_comment.json"
+        if comment_path.exists():
+            paths.append(str(comment_path))
+
+    return paths
 
 def generate_corresponding_files_list(available_suttas, output_file):
     files_to_cache = []
