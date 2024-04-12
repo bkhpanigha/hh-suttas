@@ -3,6 +3,7 @@ from pathlib import Path
 
 config = {
     "vagga_books": {"iti": 11, "snp": 4, "ud": 8},  # Vaggas in the KN collection
+    "no_vagga_books": ["thag", "dhp", "thig"],
     "subsection_books": {"an": 11, "sn": 56},  # Subsections in SN and AN collections
 }
 
@@ -56,6 +57,15 @@ def load_available_suttas(suttas_base_dir):
                                 data = load_json(file_path)
                                 key = f"{match.group(1)}{match.group(2)}:0.2"  # Key for title in KN texts
                                 add_sutta(available_suttas, match, data, key)
+                for book in config["no_vagga_books"]:
+                    book_path = nikaya_dir / book
+                    for file_path in book_path.glob("*.json"):
+                        match = pattern.match(file_path.name)
+                        if match:
+                            data = load_json(file_path)
+                            key = f"{match.group(1)}{match.group(2)}:0.4"  # Key for title in KN texts
+                            add_sutta(available_suttas, match, data, key)
+            
             else:
                 # Direct handling for MN, DN, and other texts not requiring special structure
                 for file_path in nikaya_dir.glob("*.json"):
