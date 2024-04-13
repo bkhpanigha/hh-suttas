@@ -15,16 +15,22 @@ def load_json(file_path):
 def add_sutta(available_suttas, match, data, key):
     """Extract sutta title from data and add it to the list if present."""
     sutta_title = data.get(key)
+    
     if sutta_title:
-        first_group = match.group(1)
-        sutta_id = ""
-        if first_group.upper() in ["MN", "AN", "SN", "DN"]:
-            sutta_id = f"{first_group.upper()} {match.group(2)}"
-            
-        else:
-            sutta_id = f"{first_group.capitalize()} {match.group(2)}"
-            
-        available_suttas.append({"id": sutta_id, "title": sutta_title})     
+        with open("authors.json", "r", encoding='utf-8') as authors:
+            author = json.load(authors).get(f"{match.group(1)}{match.group(2)}")
+            first_group = match.group(1)
+            sutta_id = ""
+            if first_group.upper() in ["MN", "AN", "SN", "DN"]:
+                sutta_id = f"{first_group.upper()} {match.group(2)}"
+                
+            else:
+                sutta_id = f"{first_group.capitalize()} {match.group(2)}"
+            if author:
+                available_suttas.append({"id": sutta_id, "title": sutta_title, "author": author})     
+
+            else:
+                available_suttas.append({"id": sutta_id, "title": sutta_title})
 
 def load_available_suttas(suttas_base_dir):
     """Load available suttas from the specified directory."""
@@ -129,6 +135,7 @@ def generate_paths_for_sutta(sutta_id, base_dir="suttas"):
     return paths
 
 def generate_corresponding_files_list(available_suttas, output_file):
+    
     files_to_cache = []
 
     # Directories to cache
@@ -153,57 +160,3 @@ if __name__ == "__main__":
         with open("available_suttas.json", "w", encoding="utf-8") as out_file:
             json.dump({"available_suttas": available_suttas}, out_file, ensure_ascii=False, indent=4)
         generate_corresponding_files_list(available_suttas, "files_to_cache.json")
-
-def generate_corresponding_files_list(available_suttas, output_file):
-    files_to_cache = []
-
-    directories_to_cache = ["./images", "./js"]
-    for directory in directories_to_cache:
-        for root, _, files in os.walk(directory):
-            for file in files:
-                files_to_cache.append(os.path.join(root, file)[2:])  # Remove './'
-
-    for sutta in available_suttas:
-        dir_prefix, formatted_sutta_id = sutta["id"].split()
-        dir_prefix = dir_prefix.lower()
-        formatted_sutta_id = formatted_sutta_id.lower()
-        book = sutta["id"].split(" ")[0]
-        
-        if book in ["MN", "DN"]:
-            paths = [
-                f"suttas/html/{dir_prefix}/{dir_prefix}{formatted_sutta_id}_html.json",
-                f"suttas/root/{dir_prefix}/{dir_prefix}{formatted_sutta_id}_root-pli-ms.json",
-                f"suttas/translation_en/{dir_prefix}/{dir_prefix}{formatted_sutta_id}.json",
-            ]
-            comment_json_path = f"suttas/comment/{dir_prefix}/{dir_prefix}{formatted_sutta_id}_comment.json"
-            if os.path.exists(comment_json_path):
-                paths.append(comment_json_path)
-
-            files_to_cache.extend(paths)
-        elif book in ["SN", "AN"]:
-            subsection = book.lower()+ str(formatted_sutta_id.split(".")[0])
-            paths = [
-                f"suttas/html/{dir_prefix}/{subsection}/{dir_prefix}{formatted_sutta_id}_html.json",
-                f"suttas/root/{dir_prefix}/{subsection}/{dir_prefix}{formatted_sutta_id}_root-pli-ms.json",
-                f"suttas/translation_en/{dir_prefix}/{subsection}/{dir_prefix}{formatted_sutta_id}.json",
-            ]
-            print(paths)
-            comment_json_path = f"suttas/comment/{dir_prefix}/{subsection}/{dir_prefix}{formatted_sutta_id}_comment.json"
-            if os.path.exists(comment_json_path):
-                paths.append(comment_json_path)
-            files_to_cache.extend(paths)
-        elif book in ["Snp", "Ud", "Iti"]:
-            vagga = "vagga" + str(formatted_sutta_id.split(".")[0])
-            paths = [
-                f"suttas/html/kn/{dir_prefix}/{vagga}/{dir_prefix}{formatted_sutta_id}_html.json",
-                f"suttas/root/kn/{dir_prefix}/{vagga}/{dir_prefix}{formatted_sutta_id}_root-pli-ms.json",
-                f"suttas/translation_en/kn/{dir_prefix}/{vagga}/{dir_prefix}{formatted_sutta_id}.json",
-            ]
-            comment_json_path = f"suttas/comment/kn{dir_prefix}/{vagga}/{dir_prefix}{formatted_sutta_id}_comment.json"
-            if os.path.exists(comment_json_path):
-                paths.append(comment_json_path)
-            files_to_cache.extend(paths)
-
-    files_to_cache.sort()
-    with open(output_file, "w", encoding="utf-8") as out_file:
-        json.dump(files_to_cache, out_file, ensure_ascii=False, indent=4)
