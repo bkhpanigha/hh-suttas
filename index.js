@@ -54,7 +54,7 @@ function displaySuttas(suttas) {
     }
     return `<li><a href="/?q=${id.toLowerCase()}">${id}: ${title}</a></li>`;
   }).join('')}</ul>`;
-  suttaArea.innerHTML += `<p style="font-size: 14px;"><i>Bhikkhu Sujato's copyright-free English translations at SuttaCentral have been modified for use in this site.</i></p>`;
+  suttaArea.innerHTML += `<p style="font-size: 14px;"><i>Bhikkhu Sujato's copyright-free English translations at SuttaCentral have been modified for use on this site.</i></p>`;
 
   //Add listener for download button
   document.getElementById('cacheButton').addEventListener('click', () => {
