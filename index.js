@@ -264,9 +264,9 @@ function buildSutta(slug) {
   }
 
   const rootResponse = fetch(`suttas/root/${subDir}/${slug}_root-pli-ms.json`).then(response => response.json());
-  const translationResponse = fetch(`suttas/translation_en/${subDir}/${slug}.json`).then(response => response.json());
+  const translationResponse = fetch(`suttas/translation_en/${subDir}/${slug}_translation-en-anigha.json`).then(response => response.json());
   const htmlResponse = fetch(`suttas/html/${subDir}/${slug}_html.json`).then(response => response.json());
-  const commentResponse = fetch(`suttas/comment/${subDir}/${slug}_comment.json`)
+  const commentResponse = fetch(`suttas/comment/${subDir}/${slug}_comment-en-anigha.json`)
     .then(response => {
       if (!response.ok) throw new Error(`Comment file not found for ${slug}`);
       return response.json();
