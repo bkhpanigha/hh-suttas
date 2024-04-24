@@ -35,7 +35,7 @@ def add_sutta(available_suttas, match, data, key):
 def load_available_suttas(suttas_base_dir):
     """Load available suttas from the specified directory."""
     available_suttas = []
-    pattern = re.compile(r"(mn|sn|an|dn|snp|dhp|iti|ud|thag|thig)(\d+(\.\d+)?)\.json", re.IGNORECASE)
+    pattern = re.compile(r"(mn|sn|an|dn|snp|dhp|iti|ud|thag|thig)(\d+(\.\d+)?)_translation-en-anigha\.json", re.IGNORECASE)
     base_path = Path(suttas_base_dir) / 'translation_en'
 
     # Check each Nikaya or collection
@@ -118,7 +118,7 @@ def generate_paths_for_sutta(sutta_id, base_dir="suttas"):
     paths = []
 
     # Check if the "translation" file exists before adding paths
-    translation_path = base_paths["translation"] / f"{dir_prefix}{formatted_sutta_id}.json"
+    translation_path = base_paths["translation"] / f"{dir_prefix}{formatted_sutta_id}_translation-en-anigha.json"
     if translation_path.exists():
         # Only add paths if the "translation" file exists
         paths = [
@@ -128,7 +128,7 @@ def generate_paths_for_sutta(sutta_id, base_dir="suttas"):
         ]
 
         # Attempt to add the comment file path if it exists
-        comment_path = base_paths["comment"] / f"{dir_prefix}{formatted_sutta_id}_comment.json"
+        comment_path = base_paths["comment"] / f"{dir_prefix}{formatted_sutta_id}_comment-en-anigha.json"
         if comment_path.exists():
             paths.append(str(comment_path))
 
