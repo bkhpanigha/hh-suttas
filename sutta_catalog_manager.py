@@ -92,7 +92,7 @@ def load_available_suttas(suttas_base_dir):
     float(x["id"].split()[1].split('-')[0])  # Extracting the part before hyphen
     if '-' in x["id"].split()[1]  # Checking if hyphen exists
     else (float(x["id"].split()[1]) if '.' in x["id"].split()[1] else int(x["id"].split()[1]))  # Handling other cases
-))
+    ))
 
     #available_suttas.sort(key=lambda x: ({"DN": 0, "MN": 1, "SN": 2, "AN": 3}.get(x["id"].split()[0], 4), float(x["id"].split()[1]) if '.' in x["id"].split()[1] else int(x["id"].split()[1])))
     return available_suttas
