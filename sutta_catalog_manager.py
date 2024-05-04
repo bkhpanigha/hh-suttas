@@ -15,7 +15,7 @@ def load_json(file_path):
 def add_sutta(available_suttas, match, data, key):
     """Extract sutta title from data and add it to the list if present."""
     sutta_title = data.get(key)
-    
+   
     if sutta_title:
         with open("authors.json", "r", encoding='utf-8') as authors:
             author = json.load(authors).get(f"{match.group(1)}{match.group(2)}")
@@ -35,7 +35,7 @@ def add_sutta(available_suttas, match, data, key):
 def load_available_suttas(suttas_base_dir):
     """Load available suttas from the specified directory."""
     available_suttas = []
-    pattern = re.compile(r"(mn|sn|an|dn|snp|dhp|iti|ud|thag|thig)(\d+(\.\d+)?)_translation-en-anigha\.json", re.IGNORECASE)
+    pattern = re.compile(r"(mn|sn|an|dn|snp|dhp|iti|ud|thag|thig)(\d+(\.\d+(-\d+)?)?)_translation-en-anigha\.json", re.IGNORECASE)
     base_path = Path(suttas_base_dir) / 'translation_en'
 
     # Check each Nikaya or collection
@@ -50,6 +50,11 @@ def load_available_suttas(suttas_base_dir):
                         if match:
                             data = load_json(file_path)
                             key = f"{match.group(1)}{match.group(2)}:0.3"  # Key for title in SN and AN
+                            pattern2 = re.compile(r"(\d\.\d+)-\d+", re.IGNORECASE)
+                            match2 = pattern2.match(match.group(2))
+                            if match2:
+                                key = f"{match.group(1)}{match2.group(1)}:0.2" 
+                                
                             add_sutta(available_suttas, match, data, key)
             # Handle special structure for texts in the KN collection
             elif nikaya_dir.name == 'kn':
@@ -82,7 +87,14 @@ def load_available_suttas(suttas_base_dir):
                         add_sutta(available_suttas, match, data, key)
 
     # Sort the list for consistency
-    available_suttas.sort(key=lambda x: ({"DN": 0, "MN": 1, "SN": 2, "AN": 3}.get(x["id"].split()[0], 4), float(x["id"].split()[1]) if '.' in x["id"].split()[1] else int(x["id"].split()[1])))
+    available_suttas.sort(key=lambda x: (
+    {"DN": 0, "MN": 1, "SN": 2, "AN": 3}.get(x["id"].split()[0], 4),  # Prefix mapping
+    float(x["id"].split()[1].split('-')[0])  # Extracting the part before hyphen
+    if '-' in x["id"].split()[1]  # Checking if hyphen exists
+    else (float(x["id"].split()[1]) if '.' in x["id"].split()[1] else int(x["id"].split()[1]))  # Handling other cases
+))
+
+    #available_suttas.sort(key=lambda x: ({"DN": 0, "MN": 1, "SN": 2, "AN": 3}.get(x["id"].split()[0], 4), float(x["id"].split()[1]) if '.' in x["id"].split()[1] else int(x["id"].split()[1])))
     return available_suttas
 
 def generate_paths_for_sutta(sutta_id, base_dir="suttas"):
