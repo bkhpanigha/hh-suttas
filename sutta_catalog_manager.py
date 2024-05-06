@@ -17,8 +17,9 @@ def add_sutta(available_suttas, match, data, key):
     sutta_title = data.get(key)
    
     if sutta_title:
-        with open("authors.json", "r", encoding='utf-8') as authors:
+        with open("authors.json", "r", encoding='utf-8') as authors, open("suttas/translation_en/headings.json", "r", encoding='utf-8') as headings:
             author = json.load(authors).get(f"{match.group(1)}{match.group(2)}")
+            heading = json.load(headings).get(f"{match.group(1)}{match.group(2)}")
             first_group = match.group(1)
             sutta_id = ""
             if first_group.upper() in ["MN", "AN", "SN", "DN"]:
@@ -26,9 +27,13 @@ def add_sutta(available_suttas, match, data, key):
                 
             else:
                 sutta_id = f"{first_group.capitalize()} {match.group(2)}"
-            if author:
-                available_suttas.append({"id": sutta_id, "title": sutta_title, "author": author})     
-
+            if author or heading:
+                sutta_info = {"id": sutta_id, "title": sutta_title}
+                if author:
+                    sutta_info["author"] = author
+                if heading:
+                    sutta_info["heading"] = heading
+                available_suttas.append(sutta_info)
             else:
                 available_suttas.append({"id": sutta_id, "title": sutta_title})
 
