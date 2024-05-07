@@ -62,7 +62,8 @@
         },
         {
             "id": "MN 16",
-            "title": "Obstinacies "
+            "title": "Obstinacies ",
+            "heading": "Impediments to the Practice"
         },
         {
             "id": "MN 17",
@@ -70,7 +71,8 @@
         },
         {
             "id": "MN 18",
-            "title": "The Lump of Honey "
+            "title": "The Lump of Honey ",
+            "heading": "The Middle Way"
         },
         {
             "id": "MN 19",
@@ -86,7 +88,8 @@
         },
         {
             "id": "MN 22",
-            "title": "The Simile of the Venomous Snake "
+            "title": "The Simile of the Venomous Snake ",
+            "heading": "A Pernicious View"
         },
         {
             "id": "MN 23",
@@ -94,7 +97,8 @@
         },
         {
             "id": "MN 24",
-            "title": "The Relay Chariots "
+            "title": "The Relay Chariots ",
+            "heading": "Stages of Purification"
         },
         {
             "id": "MN 25",
@@ -154,7 +158,8 @@
         },
         {
             "id": "MN 39",
-            "title": "The Longer Discourse at Assapura "
+            "title": "The Longer Discourse at Assapura ",
+            "heading": "Stages of Training"
         },
         {
             "id": "MN 40",
@@ -224,7 +229,8 @@
         },
         {
             "id": "SN 47.8",
-            "title": "The Cook "
+            "title": "The Cook ",
+            "heading": "Sign of the Mind"
         },
         {
             "id": "AN 1.51-60",
@@ -232,11 +238,18 @@
         },
         {
             "id": "AN 3.101",
-            "title": "A Panner "
+            "title": "A Panner ",
+            "heading": "Necessary Sequence of Purification"
+        },
+        {
+            "id": "AN 5.114",
+            "title": "At Andhakavinda ",
+            "heading": "Advice for Beginners"
         },
         {
             "id": "AN 6.68",
-            "title": "Enjoying Company "
+            "title": "Enjoying Company ",
+            "heading": "Impediments to Stream-Entry"
         },
         {
             "id": "AN 6.73",
@@ -244,11 +257,13 @@
         },
         {
             "id": "AN 9.41",
-            "title": "With the Householder Tapussa "
+            "title": "With the Householder Tapussa ",
+            "heading": "Impediments to Samādhi"
         },
         {
             "id": "AN 9.42",
-            "title": "Confinement "
+            "title": "Confinement ",
+            "heading": "Five Senses in Jhāna"
         },
         {
             "id": "Thag 2.34",
