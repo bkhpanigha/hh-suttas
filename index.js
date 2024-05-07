@@ -51,15 +51,15 @@ function getSuttaTitleById(id) {
 }
 
 function displaySuttas(suttas) {
+
   suttaArea.innerHTML = `<ul>${suttas.map(sutta => {
     const parts = sutta.split(':');
     const id = parts[0].trim().replace(/\s+/g, '');
     const [title, author, heading] = parts.slice(1).map(part => part.trim());
     const link = `<a href="/?q=${id.toLowerCase()}">${id}: ${title}`;
-    const em = heading ? `<em>${heading}</em>` : '';
+    const em = heading ? `<span style="color: #d55033;">${heading}</span>` : '';
     const byAuthor = author ? `by ${author}` : '';
-    console.log(`ONE <li><a href="/?q=${id.toLowerCase()}">${id}: ${title}</a></li>`);
-    console.log(`TWO <li>${link}${(em || byAuthor) ? ` (${em}${byAuthor})` : ''}</a></li>`);
+
     return `<li>${link}${(em || byAuthor) ? ` (${em}${byAuthor})` : ''}</a></li>`;
   }).join('')}</ul>`;
 
