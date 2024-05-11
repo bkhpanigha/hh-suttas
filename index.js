@@ -48,7 +48,7 @@ function displaySuttas(suttas) {
     // TODO review this logic once MN series is finished.
     const id = parts[0].trim().replace(/\s+/g, '');
     const title = parts[1].trim();
-    if (parts[2]){
+    if (parts[2]) {
       const author = parts[2].trim()
       return `<li><a href="/?q=${id.toLowerCase()}">${id}: ${title} (<em>by ${author}</em>)</a></li>`;
     }
@@ -276,12 +276,8 @@ function buildSutta(slug) {
       return {}; // Return an empty object if the comment file is not found
     });
 
-  let alt_translator;
   const authors = fetch(`authors.json`).then(response => response.json());
-  //   alt_translator = authors[slug];
-  //   if (alt_translator) translator = alt_translator;
-    
-  // });
+  
   // Get root, translation and html jsons from folder
   Promise.all([htmlResponse, rootResponse, translationResponse, commentResponse, authors])
     .then(responses => {
@@ -306,14 +302,14 @@ function buildSutta(slug) {
           `</span></span>${closeHtml}\n\n`;
       });
       //console.log(html);
-      
+
       if (authors_text[slug]) translator = authors_text[slug];
       const translatorByline = `<div class="byline"><p>Translated by ${translator}</p></div>`;
       suttaArea.innerHTML = `<p class="sc-link"></p>` + html + translatorByline;
-      
+
 
       let acronym = slug.replace(/([a-zA-Z]{2})(\d+)/, '$1 $2')
-      if (subDir.slice(0,2) !== 'kn') {
+      if (subDir.slice(0, 2) !== 'kn') {
         acronym = acronym.toUpperCase();
       }
       else {
@@ -321,9 +317,9 @@ function buildSutta(slug) {
       }
 
       // TODO fix the way these pages are rendered
-      if (slug.toLowerCase().includes("sn") || slug.toLowerCase().includes("an")) 
+      if (slug.toLowerCase().includes("sn") || slug.toLowerCase().includes("an"))
         document.title = `${acronym} ${root_text[`${slug}:0.3`]}: ${translation_text[`${slug}:0.3`]}`;
-      else 
+      else
         document.title = `${acronym} ${root_text[`${slug}:0.2`]}: ${translation_text[`${slug}:0.2`]}`;
       toggleThePali();
 
