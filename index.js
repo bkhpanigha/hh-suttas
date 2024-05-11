@@ -61,6 +61,7 @@ function displaySuttas(suttas) {
     const byAuthor = author ? `by ${author}` : '';
 
     return `<li>${link}${(em || byAuthor) ? ` (${em}${byAuthor})` : ''}</a></li>`;
+
   }).join('')}</ul>`;
 
   suttaArea.innerHTML += `<p style="font-size: 14px;"><i>Bhikkhu Sujato's copyright-free English translations at SuttaCentral have been modified for use on this site.</i></p>`;
