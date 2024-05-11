@@ -16,7 +16,15 @@ async function getAvailableSuttas({ mergedTitle = true } = {}) {
     }
     const data = await response.json();
     if (mergedTitle) {
-      return data.available_suttas.map(sutta => `${sutta.id}: ${sutta.title.trim()}${sutta.author ? `: ${sutta.author}` : ''}`)
+      return data.available_suttas.map(sutta => {
+        const id = sutta.id;
+        const title = sutta.title.trim();
+        const author = sutta.author ? `: ${sutta.author}` : ':';
+        const heading = sutta.heading ? `: ${sutta.heading}` : ':';
+  
+        return `${id}: ${title}${author}${heading}`;
+    });
+      return data.available_suttas.map(sutta => `${sutta.id}: ${sutta.title.trim()}${sutta.author ? `: ${sutta.author}` : ''}${sutta.heading ? `: ${sutta.heading}` : ''}`);
     }
     else {
       return data
@@ -43,17 +51,19 @@ function getSuttaTitleById(id) {
 }
 
 function displaySuttas(suttas) {
+
   suttaArea.innerHTML = `<ul>${suttas.map(sutta => {
     const parts = sutta.split(':');
-    // TODO review this logic once MN series is finished.
     const id = parts[0].trim().replace(/\s+/g, '');
-    const title = parts[1].trim();
-    if (parts[2]) {
-      const author = parts[2].trim()
-      return `<li><a href="/?q=${id.toLowerCase()}">${id}: ${title} (<em>by ${author}</em>)</a></li>`;
-    }
-    return `<li><a href="/?q=${id.toLowerCase()}">${id}: ${title}</a></li>`;
+    const [title, author, heading] = parts.slice(1).map(part => part.trim());
+    const link = `<a href="/?q=${id.toLowerCase()}">${id}: ${title}`;
+    const em = heading ? `<span style="color: #d55033;">${heading}</span>` : '';
+    const byAuthor = author ? `by ${author}` : '';
+
+    return `<li>${link}${(em || byAuthor) ? ` (${em}${byAuthor})` : ''}</a></li>`;
+
   }).join('')}</ul>`;
+
   suttaArea.innerHTML += `<p style="font-size: 14px;"><i>Bhikkhu Sujato's copyright-free English translations at SuttaCentral have been modified for use on this site.</i></p>`;
 
   //Add listener for download button

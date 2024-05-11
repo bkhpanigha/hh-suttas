@@ -62,7 +62,8 @@
         },
         {
             "id": "MN 16",
-            "title": "Obstinacies "
+            "title": "Obstinacies ",
+            "heading": "Impediments to the Practice"
         },
         {
             "id": "MN 17",
@@ -70,11 +71,13 @@
         },
         {
             "id": "MN 18",
-            "title": "The Lump of Honey "
+            "title": "The Lump of Honey ",
+            "heading": "The Middle Way"
         },
         {
             "id": "MN 19",
-            "title": "Two Kinds of Thought "
+            "title": "Two Kinds of Thought ",
+            "heading": "Renunciation -> Jhāna"
         },
         {
             "id": "MN 20",
@@ -86,7 +89,8 @@
         },
         {
             "id": "MN 22",
-            "title": "The Simile of the Venomous Snake "
+            "title": "The Simile of the Venomous Snake ",
+            "heading": "A Pernicious View"
         },
         {
             "id": "MN 23",
@@ -94,7 +98,8 @@
         },
         {
             "id": "MN 24",
-            "title": "The Relay Chariots "
+            "title": "The Relay Chariots ",
+            "heading": "Stages of Purification"
         },
         {
             "id": "MN 25",
@@ -150,11 +155,13 @@
         },
         {
             "id": "MN 38",
-            "title": "The Longer Discourse on the Exhaustion of Craving "
+            "title": "The Longer Discourse on the Exhaustion of Craving ",
+            "heading": "Dependent Origination"
         },
         {
             "id": "MN 39",
-            "title": "The Longer Discourse at Assapura "
+            "title": "The Longer Discourse at Assapura ",
+            "heading": "Stages of Training"
         },
         {
             "id": "MN 40",
@@ -202,15 +209,18 @@
         },
         {
             "id": "SN 12.67",
-            "title": "Bundles of Reeds "
+            "title": "Bundles of Reeds ",
+            "heading": "Dependent Origination"
         },
         {
             "id": "SN 22.81",
-            "title": "At Pārileyya (<em>The Middle Way</em>) "
+            "title": "At Pārileyya ",
+            "heading": "The Middle Way"
         },
         {
             "id": "SN 35.246",
-            "title": "The Simile of the Lute "
+            "title": "The Simile of the Lute ",
+            "heading": "Taming the Mind"
         },
         {
             "id": "SN 35.96",
@@ -222,7 +232,8 @@
         },
         {
             "id": "SN 47.8",
-            "title": "The Cook "
+            "title": "The Cook ",
+            "heading": "Sign of the Mind"
         },
         {
             "id": "AN 1.51-60",
@@ -230,27 +241,46 @@
         },
         {
             "id": "AN 3.101",
-            "title": "A Panner "
+            "title": "A Panner ",
+            "heading": "From Coarse to Fine Defilements"
+        },
+        {
+            "id": "AN 5.114",
+            "title": "At Andhakavinda ",
+            "heading": "Advice for Beginners"
         },
         {
             "id": "AN 6.68",
-            "title": "Enjoying Company "
+            "title": "Enjoying Company ",
+            "heading": "Impediments to Stream-Entry"
         },
         {
             "id": "AN 6.73",
             "title": "First Jhāna (1st) "
         },
         {
+            "id": "AN 8.53",
+            "title": "Brief Advice to Gotamī ",
+            "heading": "Dhamma VS Not Dhamma"
+        },
+        {
             "id": "AN 9.41",
-            "title": "With the Householder Tapussa "
+            "title": "With the Householder Tapussa ",
+            "heading": "What Leads to Samādhi"
         },
         {
             "id": "AN 9.42",
-            "title": "Confinement "
+            "title": "Confinement ",
+            "heading": "Five Senses in Jhāna"
+        },
+        {
+            "id": "AN 10.93",
+            "title": "What Is Your View? "
         },
         {
             "id": "Thag 2.34",
-            "title": "Isidinna (On Sensuality) "
+            "title": "Isidinna ",
+            "heading": "On Sensuality"
         },
         {
             "id": "Snp 4.1",
@@ -260,6 +290,11 @@
         {
             "id": "Snp 4.2",
             "title": "The Octad on the Cave ",
+            "author": "Sister Medhini"
+        },
+        {
+            "id": "Snp 4.3",
+            "title": "The Octad on the Corrupt",
             "author": "Sister Medhini"
         }
     ]
