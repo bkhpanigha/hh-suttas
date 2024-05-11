@@ -547,3 +547,24 @@ a:hover {
   color: #007bff; /* This color is often associated with links or clickable items */
   cursor: pointer; /* Indicates it's clickable */
 }
+#suttanav {
+  position: fixed;
+  top: -50px;
+  width: 100%;
+  max-width: 45rem; /* Match the max-width of #sutta */
+  background: #333;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  transition: top 0.3s;
+  box-sizing: border-box; /* Include padding and border in the element's width */
+  left: 50%; /* Center the element */
+  transform: translateX(-50%); /* Center the element */
+}
+
+@media only screen and (max-width: 600px) {
+  #suttanav {
+    padding: 5px; /* Reduced padding on smaller screens */
+    font-size: 14px; /* Adjusted font size for smaller screens */
+  }
+}
