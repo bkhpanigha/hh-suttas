@@ -61,6 +61,7 @@ function displaySuttas(suttas) {
     const byAuthor = author ? `by ${author}` : '';
 
     return `<li>${link}${(em || byAuthor) ? ` (${em}${byAuthor})` : ''}</a></li>`;
+
   }).join('')}</ul>`;
 
   suttaArea.innerHTML += `<p style="font-size: 14px;"><i>Bhikkhu Sujato's copyright-free English translations at SuttaCentral have been modified for use on this site.</i></p>`;
@@ -285,12 +286,8 @@ function buildSutta(slug) {
       return {}; // Return an empty object if the comment file is not found
     });
 
-  let alt_translator;
   const authors = fetch(`authors.json`).then(response => response.json());
-  //   alt_translator = authors[slug];
-  //   if (alt_translator) translator = alt_translator;
-    
-  // });
+
   // Get root, translation and html jsons from folder
   Promise.all([htmlResponse, rootResponse, translationResponse, commentResponse, authors])
     .then(responses => {
@@ -315,14 +312,14 @@ function buildSutta(slug) {
           `</span></span>${closeHtml}\n\n`;
       });
       //console.log(html);
-      
+
       if (authors_text[slug]) translator = authors_text[slug];
       const translatorByline = `<div class="byline"><p>Translated by ${translator}</p></div>`;
       suttaArea.innerHTML = `<p class="sc-link"></p>` + html + translatorByline;
-      
+
 
       let acronym = slug.replace(/([a-zA-Z]{2})(\d+)/, '$1 $2')
-      if (subDir.slice(0,2) !== 'kn') {
+      if (subDir.slice(0, 2) !== 'kn') {
         acronym = acronym.toUpperCase();
       }
       else {
@@ -330,11 +327,35 @@ function buildSutta(slug) {
       }
 
       // TODO fix the way these pages are rendered
-      if (slug.toLowerCase().includes("sn") || slug.toLowerCase().includes("an")) 
+      if (slug.toLowerCase().includes("sn") || slug.toLowerCase().includes("an"))
         document.title = `${acronym} ${root_text[`${slug}:0.3`]}: ${translation_text[`${slug}:0.3`]}`;
-      else 
+      else
         document.title = `${acronym} ${root_text[`${slug}:0.2`]}: ${translation_text[`${slug}:0.2`]}`;
       toggleThePali();
+      // Add the navbar to the page
+      const navbar = document.createElement('div');
+      navbar.id = 'suttanav'; // Added ID
+
+      // navbar.style.cssText = 'position: fixed; top: 0; width: 100%; background: #333; color: white; text-align: center; padding: 10px; transition: top 0.3s;';
+      navbar.innerHTML = document.title;
+      document.body.appendChild(navbar);
+
+      let lastScrollTop = 0; // variable to store the last scroll position
+
+      window.addEventListener('scroll', function () {
+        let currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+        if (currentScrollTop > lastScrollTop || currentScrollTop < 170) {
+          // Scrolling down
+          navbar.style.top = '-50px'; // adjust this value based on the height of your navbar
+        } else {
+          // Scrolling up
+          navbar.style.top = '0';
+        }
+
+        lastScrollTop = currentScrollTop;
+      });
+
 
       let incrementedAcronym = changeAcronymNumber(acronym, 1);
       let decrementedAcronym = changeAcronymNumber(acronym, -1);
@@ -413,4 +434,5 @@ if (document.location.search) {
 window.addEventListener('hashchange', function () {
   scrollToHash();
 });
+
 
