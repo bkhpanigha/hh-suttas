@@ -83,7 +83,7 @@ async function showForeword(){
   
 }
 
-/* function displaySuttas(suttas) {
+function displaySuttas(suttas) {
   const forewordViewed = localStorage.getItem('forewordViewed');
   
   const forewordButton = document.getElementById('foreword-button');
@@ -172,8 +172,8 @@ async function showForeword(){
     }
   });
 
-} */
-
+} 
+/* 
 function displaySuttas(suttas) {
   const forewordViewed = localStorage.getItem('forewordViewed');
   const forewordButton = document.getElementById('foreword-button');
@@ -277,7 +277,7 @@ function displaySuttas(suttas) {
   });
 }
 
-
+ */
 
 function toggleThePali() {
   const hideButton = document.getElementById("hide-pali");
