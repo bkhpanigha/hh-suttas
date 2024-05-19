@@ -5,6 +5,13 @@ const themeButton = document.getElementById("theme-button");
 const bodyTag = document.querySelector("body");
 const previous = document.getElementById("previous");
 const next = document.getElementById("next");
+const forewordText = `Terms and expressions of doctrinal and practical significance found in the early Suttas are sometimes misrepresented in existing translations. Unless readers habitually compare different translations to identify discrepancies, they may unknowingly incorporate these inaccuracies into their understanding of the texts. Good examples of this include: 
+  <br>
+  (1) the rendering of <em>mettā</em> as “loving-kindness” that has become ingrained in contemporary Buddhism and had a significant impact on the general perception of what that practice entails, whereas the actual meaning of the term based on its root is “friendliness”, and 
+  <br>
+  (2) the tendency to translate the term <em>yoniso manasikāra</em> along the lines of “appropriate” or “wise” attention, evidently assuming the literal meaning of <em>yoniso</em> to be unimportant. However, there is no reason to think that the Buddha didn’t intentionally opt for this peculiar expression to describe <a href="https://suttas.hillsidehermitage.org/?q=mn2#mn2:3.1-mn2:3.3">what is arguably the core element of the practice</a>, and <a href="https://suttas.hillsidehermitage.org/?q=sn45.55">leads to the acquisition of the Noble Eightfold Path</a>.
+  <br><br>
+  On this site, Bhikkhu Sujato’s copyright-free translations have been used as a basis and modified in order to present a translation that uncompromisingly focuses on conveying, to the great possible degree, the generally unambiguous meaning of consequential Pāli terms based on their etymology. Individual interpretations and explanations have been left for the comments to maintain the greatest possible divide between translation and interpretation.`;
 
 // functions
 
@@ -50,21 +57,58 @@ function getSuttaTitleById(id) {
   return sutta ? sutta.title.trim() : "";
 }
 
-function displaySuttas(suttas) {
 
-  suttaArea.innerHTML = `<ul>${suttas.map(sutta => {
+// Function to add the foreword button
+function addForewordButton() {
+  const forewordButton = document.createElement('span'); // Create a span element instead of a button
+  forewordButton.id = 'foreword-button';
+  forewordButton.textContent = 'Foreword';
+  forewordButton.classList.add('foreword-link'); // Add a class for styling
+
+  // Append the button to a container element
+  const buttonContainer = document.createElement('div');
+  buttonContainer.appendChild(forewordButton);
+
+  // Insert the button container at the beginning of suttaArea
+  suttaArea.insertBefore(buttonContainer, suttaArea.firstChild);
+  buttonContainer.style.display = 'flex';
+  buttonContainer.style.justifyContent = 'center';
+}
+
+async function showForeword(){
+  const forewordButton = document.getElementById('foreword-button');
+  suttaArea.innerHTML = forewordText;
+  forewordButton.style.display = 'none';
+  await initialize();
+  
+}
+
+function displaySuttas(suttas) {
+  const forewordViewed = localStorage.getItem('forewordViewed');
+  
+  const forewordButton = document.getElementById('foreword-button');
+  // Display the initial text only if the foreword hasn't been viewed yet
+  if (!forewordViewed) {
+    suttaArea.innerHTML += forewordText;
+    localStorage.setItem('forewordViewed', true);
+  }
+  else if (!forewordButton){
+    addForewordButton();
+  }
+  if (forewordButton) forewordButton.style.display = 'none';
+  suttaArea.innerHTML += `<ul style="margin-top: 20px;">${suttas.map(sutta => {
     const parts = sutta.split(':');
     const id = parts[0].trim().replace(/\s+/g, '');
     const [title, author, heading] = parts.slice(1).map(part => part.trim());
     const link = `<a href="/?q=${id.toLowerCase()}">${id}: ${title}`;
-    const em = heading ? `<span style="color: #d55033;">${heading}</span>` : '';
+    const em = heading ? `<span style="color: #7f6e0a;">${heading}</span>` : '';
     const byAuthor = author ? `by ${author}` : '';
 
     return `<li>${link}${(em || byAuthor) ? ` (${em}${byAuthor})` : ''}</a></li>`;
 
   }).join('')}</ul>`;
 
-  suttaArea.innerHTML += `<p style="font-size: 14px;"><i>Bhikkhu Sujato's copyright-free English translations at SuttaCentral have been modified for use on this site.</i></p>`;
+  //suttaArea.innerHTML += `<p style="font-size: 14px;"><i>Bhikkhu Sujato's copyright-free English translations at SuttaCentral have been modified for use on this site.</i></p>`;
 
   //Add listener for download button
   document.getElementById('cacheButton').addEventListener('click', () => {
@@ -237,7 +281,7 @@ document.getElementById("form").addEventListener("submit", e => {
     buildSutta(citationValue);
     history.pushState({ page: citationValue }, "", `?q=${citationValue}`);
   }
-});
+}); 
 
 
 citation.value = document.location.search.replace("?q=", "").replace(/%20/g, "").replace(/\s/g, "");
@@ -423,13 +467,24 @@ function buildSutta(slug) {
 }
 
 // initialize the whole app
-if (document.location.search) {
-  //console.log(document.location.search);
-  buildSutta(document.location.search.replace("?q=", "").replace(/\s/g, "").replace(/%20/g, ""));
-} else {
-  displaySuttas(availableSuttasArray);
+function initialize (){
+  if (document.location.search) {
+    //console.log(document.location.search);
+    buildSutta(document.location.search.replace("?q=", "").replace(/\s/g, "").replace(/%20/g, ""));
+  } else {
+    displaySuttas(availableSuttasArray);
+  }
 }
 
+initialize();
+
+document.addEventListener('click', function(event) {
+  // Check if the clicked element is the foreword button
+  if (event.target && event.target.id === 'foreword-button') {
+    showForeword(); // Call the function to show the foreword
+    displaySuttas(availableSuttasArray);
+  }
+});
 
 window.addEventListener('hashchange', function () {
   scrollToHash();

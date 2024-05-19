@@ -393,6 +393,23 @@ a:hover {
   padding-bottom: 3px;
 }
 
+.foreword-link {
+  color: rgb(189, 151, 13); /* Set the text color to blue */
+  text-decoration: none; /* Remove any default underline */
+  text-align:center;
+  font-size:30px;
+  
+}
+
+.foreword-link:hover {
+  text-decoration: underline; /* Add underline when hovered over */
+  cursor: pointer; /* Change cursor to pointer on hover */
+}
+
+.button-container {
+  text-align: center; /* Center the contents horizontally */
+}
+
 .hide-button:hover {
   background-color: var(--dark-blue);
   color: var(--off-white);
