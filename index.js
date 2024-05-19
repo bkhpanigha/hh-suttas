@@ -11,7 +11,7 @@ const forewordText = `Terms and expressions of doctrinal and practical significa
   <br>
   (2) The tendency to translate the term <em>yoniso manasikāra</em> along the lines of “appropriate” or “wise” attention, evidently assuming the literal meaning of <em>yoniso</em> to be unimportant. However, there is no reason to think that the Buddha didn’t intentionally opt for this peculiar expression to describe <a href="https://suttas.hillsidehermitage.org/?q=mn2#mn2:3.1-mn2:3.3">what is arguably the core element of the practice</a>, and <a href="https://suttas.hillsidehermitage.org/?q=sn45.55">leads to the acquisition of the Noble Eightfold Path</a>.
   <br><br>
-  On this site, Bhikkhu Sujato’s copyright-free translations have been used as a basis and modified in order to present a work that uncompromisingly focuses on conveying as best as possible the generally unambiguous meaning of consequential Pāli terms based on their etymology. Individual standpoints and explanations have been left for the comments in hopes of maintaining a divide between translation and interpretation that is often lacking.`;
+  On this site, Bhikkhu Sujato’s copyright-free translations have been adapted to create a work that rigorously aims to convey the meaning of significant Pāli terms drawing solely on their etymology—which is generally unambiguous—and eschewing commentarial and later baggage that is often present even in most Pāli dictionaries. Individual perspectives and explanations, along with the reasoning behind the chosen renderings for the infrequent less straightforward terms, have been left for the comments. This approach aims to maintain a clear distinction between translation and interpretation, which is often blurred.`;
 
 // functions
 
