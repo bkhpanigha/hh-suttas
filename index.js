@@ -83,7 +83,7 @@ async function showForeword(){
   
 }
 
-function displaySuttas(suttas) {
+/* function displaySuttas(suttas) {
   const forewordViewed = localStorage.getItem('forewordViewed');
   
   const forewordButton = document.getElementById('foreword-button');
@@ -172,8 +172,8 @@ function displaySuttas(suttas) {
     }
   });
 
-} 
-/* 
+}  */
+
 function displaySuttas(suttas) {
   const forewordViewed = localStorage.getItem('forewordViewed');
   const forewordButton = document.getElementById('foreword-button');
@@ -189,24 +189,24 @@ function displaySuttas(suttas) {
   if (forewordButton) forewordButton.style.display = 'none';
 
   // Define the books dictionary
-  const books = {
-    "dn": "Dīgha Nikāya",
-    "mn": "Majjhima Nikāya",
-    "sn": "Saṃyutta Nikāya",
-    "an": "Aṅguttara Nikāya",
-    "kn": "Khuddaka Nikāya"
-  };
+  const books = {"dn": "Dīgha Nikāya", "mn": "Majjhima Nikāya", "sn" : "Saṃyutta Nikāya", "an": "Aṅguttara Nikāya", "kn": "Khuddaka Nikāya"};
+  
 
-  let currentGroup = null;
+  let currentGroup = 0;
 
   // Display Suttas with Nikaya headings
   suttas.forEach(sutta => {
-    const nikaya = sutta.split(':')[0].trim();
+    const nikaya = sutta.slice(0,2).toLowerCase();
     // Check if the current sutta belongs to a new group
-    if (currentGroup !== books[nikaya]) {
+    const key = Object.keys(books)[currentGroup];
+    if (nikaya !== key && currentGroup < 4) {
       // If it's a new group, display the subheading
-      suttaArea.innerHTML += `<h2>${books[nikaya]}</h2>`;
-      currentGroup = books[nikaya];
+      currentGroup += 1;
+      const key = Object.keys(books)[currentGroup];
+      suttaArea.innerHTML += `<h2>${books[key]}</h2>`
+      
+      
+     
     }
 
     // Display the sutta
@@ -277,7 +277,7 @@ function displaySuttas(suttas) {
   });
 }
 
- */
+
 
 function toggleThePali() {
   const hideButton = document.getElementById("hide-pali");
