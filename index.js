@@ -83,97 +83,6 @@ async function showForeword(){
   
 }
 
-/* function displaySuttas(suttas) {
-  const forewordViewed = localStorage.getItem('forewordViewed');
-  
-  const forewordButton = document.getElementById('foreword-button');
-  // Display the initial text only if the foreword hasn't been viewed yet
-  if (!forewordViewed) {
-    suttaArea.innerHTML += forewordText;
-    localStorage.setItem('forewordViewed', true);
-  }
-  else if (!forewordButton){
-    addForewordButton();
-  }
-  if (forewordButton) forewordButton.style.display = 'none';
-  const books = {
-    "dn": "Dīgha Nikāya",
-    "mn": "Majjhima Nikāya",
-    "sn": "Saṃyutta Nikāya",
-    "an": "Aṅguttara Nikāya",
-    "kn": "Khuddaka Nikāya"
-  };
-  let currentBook= 0;
-  suttaArea.innerHTML += `<ul style="margin-top: 20px;">${suttas.map(sutta => {
-    const parts = sutta.split(':');
-    const id = parts[0].trim().replace(/\s+/g, '');
-    const [title, author, heading] = parts.slice(1).map(part => part.trim());
-    const link = `<a href="/?q=${id.toLowerCase()}">${id}: ${title}`;
-    const em = heading ? `<span style="color: #7f6e0a;">${heading}</span>` : '';
-    const byAuthor = author ? `by ${author}` : '';
-
-    
-    return `<li>${link}${(em || byAuthor) ? ` (${em}${byAuthor})` : ''}</a></li>`;
-
-  }).join('')}</ul>`;
-
-  //suttaArea.innerHTML += `<p style="font-size: 14px;"><i>Bhikkhu Sujato's copyright-free English translations at SuttaCentral have been modified for use on this site.</i></p>`;
-
-  //Add listener for download button
-  document.getElementById('cacheButton').addEventListener('click', () => {
-    // Check if service worker is supported by the browser
-    if ('serviceWorker' in navigator) {
-      // Send message to service worker to trigger caching
-      try {
-        showNotification("Downloading...")
-        navigator.serviceWorker.controller.postMessage({ action: 'cacheResources' });
-      } catch (error) {
-        console.log(error);
-        // TODO maybe a red colour box here?
-        showNotification("An error occurred while attempting to download. Please refresh the page, wait a few seconds, and retry");
-      }
-    }
-  });
-
-  infoButton.addEventListener("click", function (event) {
-    event.stopPropagation(); // Prevent click from immediately propagating to document
-    let notificationBox = document.querySelector('.info-notification-box')
-    if (!notificationBox) {
-      notificationBox = document.createElement('div');
-      notificationBox.classList.add('info-notification-box');
-      document.body.appendChild(notificationBox);
-    }
-
-    if (notificationBox.style.display == 'block') {
-      notificationBox.style.display = 'none';
-    } else {
-      notificationBox.textContent = "The ‘Download’ button makes the site available offline on the current web browser at the same URL (suttas.hillsidehermitage.org).\n\nThe site can also be installed as an application on mobile phones, by tapping ‘Install’ at the menu on the top right corner. Note that hitting the download button is still necessary to make it available offline through the app.\n\nIf downloading again (e.g., when new Suttas become available), make sure to first clear the site's data on your browser/app and reload the page.";
-      notificationBox.style.display = 'block';
-    }
-  });
-  // Add event listener to document to hide notificationBox when clicking outside
-  document.addEventListener("click", function (event) {
-    let notificationBox = document.querySelector('.info-notification-box');
-    if (notificationBox && notificationBox.style.display == 'block') {
-      // Check if the click is outside the notificationBox and not on the infoButton
-      if (!notificationBox.contains(event.target) && event.target !== infoButton) {
-        notificationBox.style.display = 'none';
-      }
-    }
-  });
-
-  navigator.serviceWorker.addEventListener('message', event => {
-    if (event.data && event.data.action === 'cachingSuccess') {
-      showNotification("Download successful - site available offline.")
-    }
-    if (event.data && event.data.action === 'cachingError') {
-      // TODO again maybe a different colour box
-      showNotification("Caching error. Please clear site data, refresh the page, and try again.");
-    }
-  });
-
-}  */
-
 function displaySuttas(suttas) {
   const forewordViewed = localStorage.getItem('forewordViewed');
   const forewordButton = document.getElementById('foreword-button');
@@ -195,6 +104,7 @@ function displaySuttas(suttas) {
   let currentGroup = 0;
 
   // Display Suttas with Nikaya headings
+  suttaArea.innerHTML += `<ul style="margin-top: 20px;">`;
   suttas.forEach(sutta => {
     const nikaya = sutta.slice(0,2).toLowerCase();
     // Check if the current sutta belongs to a new group
@@ -204,9 +114,6 @@ function displaySuttas(suttas) {
       currentGroup += 1;
       const key = Object.keys(books)[currentGroup];
       suttaArea.innerHTML += `<h2>${books[key]}</h2>`
-      
-      
-     
     }
 
     // Display the sutta
@@ -219,6 +126,7 @@ function displaySuttas(suttas) {
     const listItem = `<li>${link}${(em || byAuthor) ? ` (${em}${byAuthor})` : ''}</a></li>`;
     suttaArea.innerHTML += listItem;
   });
+  suttaArea.innerHTML += `</ul>`;
 
   // Add event listener for download button
   document.getElementById('cacheButton').addEventListener('click', () => {
