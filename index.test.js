@@ -17,14 +17,14 @@ const path = require('path');
   if (!sutta) throw new Error('Element with ID "sutta" not found');
 
   // Check if the element contains a <ul>
-  const ulExists = await sutta.$('ul');
-  if (!ulExists) throw new Error('<ul> element under #sutta not found');
+  const ulExists = await sutta.$('h2');
+  if (!ulExists) throw new Error('<ul> Majjhima Nikāya heading under #sutta not found');
 
   // Check for specific <li> content
   const expectedLink = '/?q=mn1';
   const expectedText = 'MN1: The Explanation of the Root';
-  const linkExists = await sutta.$eval('ul', (ul, expectedLink, expectedText) => {
-    const li = [...ul.querySelectorAll('li')].find(li =>
+  const linkExists = await page.$eval('#sutta', (sutta, expectedLink, expectedText) => {
+    const li = [...sutta.querySelectorAll('li')].find(li =>
       li.querySelector('a') &&
       li.querySelector('a').getAttribute('href') === expectedLink &&
       li.querySelector('a').textContent.includes(expectedText)
