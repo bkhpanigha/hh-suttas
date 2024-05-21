@@ -58,23 +58,6 @@ function getSuttaTitleById(id) {
 }
 
 
-// Function to add the foreword button
-function addForewordButton() {
-  const forewordButton = document.createElement('span'); // Create a span element instead of a button
-  forewordButton.id = 'foreword-button';
-  forewordButton.textContent = 'Foreword';
-  forewordButton.classList.add('foreword-link'); // Add a class for styling
-
-  // Append the button to a container element
-  const buttonContainer = document.createElement('div');
-  buttonContainer.appendChild(forewordButton);
-
-  // Insert the button container at the beginning of suttaArea
-  suttaArea.insertBefore(buttonContainer, suttaArea.firstChild);
-  buttonContainer.style.display = 'flex';
-  buttonContainer.style.justifyContent = 'center';
-}
-
 async function showForeword() {
   const forewordButton = document.getElementById('foreword-button');
   suttaArea.innerHTML = `<p>${forewordText}</p>`;
