@@ -77,25 +77,18 @@ function addForewordButton() {
 
 async function showForeword() {
   const forewordButton = document.getElementById('foreword-button');
-  suttaArea.innerHTML = forewordText;
+  suttaArea.innerHTML = `<p>${forewordText}</p>`;
   forewordButton.style.display = 'none';
-  await initialize();
-
+  localStorage.setItem('forewordViewed', true);
 }
 
 function displaySuttas(suttas) {
-  const forewordViewed = localStorage.getItem('forewordViewed');
-
+  const forewordViewed = localStorage.getItem('forewordViewed', false);
   const forewordButton = document.getElementById('foreword-button');
-  // Display the initial text only if the foreword hasn't been viewed yet
-  if (!forewordViewed) {
-    suttaArea.innerHTML += forewordText;
-    localStorage.setItem('forewordViewed', true);
+
+  if (forewordViewed == 'true' && forewordButton) {
+    forewordButton.style.display = 'none';
   }
-  else if (!forewordButton) {
-    addForewordButton();
-  }
-  if (forewordButton) forewordButton.style.display = 'none';
 
   const books = {
     "dn": "Dīgha Nikāya",
