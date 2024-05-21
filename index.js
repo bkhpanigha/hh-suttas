@@ -511,24 +511,30 @@ function buildSutta(slug) {
       const navbar = document.createElement('div');
       navbar.id = 'suttanav'; // Added ID
 
-      // navbar.style.cssText = 'position: fixed; top: 0; width: 100%; background: #333; color: white; text-align: center; padding: 10px; transition: top 0.3s;';
-      navbar.innerHTML = document.title;
+      navbar.style.display = 'flex';
+
+      navbar.innerHTML = `<span>${document.title}</span>`;
+      navbar.appendChild(homeButton);
       document.body.appendChild(navbar);
 
       let lastScrollTop = 0; // variable to store the last scroll position
-
+      const scrollThreshold = 10;
       window.addEventListener('scroll', function () {
-        let currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        requestAnimationFrame(() => {
+          let currentScrollTop = window.scrollY || document.documentElement.scrollTop;
 
-        if (currentScrollTop > lastScrollTop || currentScrollTop < 170) {
-          // Scrolling down
-          navbar.style.top = '-50px'; // adjust this value based on the height of your navbar
-        } else {
-          // Scrolling up
-          navbar.style.top = '0';
-        }
+          if (Math.abs(currentScrollTop - lastScrollTop) > scrollThreshold) {
+            if (currentScrollTop > lastScrollTop && currentScrollTop > 170) {
+              // Scrolling down
+              navbar.style.top = '-50px'; // Adjust this value based on the height of your navbar
+            } else {
+              // Scrolling up
+              navbar.style.top = '0';
+            }
 
-        lastScrollTop = currentScrollTop;
+            lastScrollTop = currentScrollTop;
+          }
+        });
       });
 
 
