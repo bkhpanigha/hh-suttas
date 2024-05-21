@@ -28,9 +28,9 @@ async function getAvailableSuttas({ mergedTitle = true } = {}) {
         const title = sutta.title.trim();
         const author = sutta.author ? `: ${sutta.author}` : ':';
         const heading = sutta.heading ? `: ${sutta.heading}` : ':';
-  
+
         return `${id}: ${title}${author}${heading}`;
-    });
+      });
       return data.available_suttas.map(sutta => `${sutta.id}: ${sutta.title.trim()}${sutta.author ? `: ${sutta.author}` : ''}${sutta.heading ? `: ${sutta.heading}` : ''}`);
     }
     else {
@@ -75,28 +75,28 @@ function addForewordButton() {
   buttonContainer.style.justifyContent = 'center';
 }
 
-async function showForeword(){
+async function showForeword() {
   const forewordButton = document.getElementById('foreword-button');
   suttaArea.innerHTML = forewordText;
   forewordButton.style.display = 'none';
   await initialize();
-  
+
 }
 
 function displaySuttas(suttas) {
   const forewordViewed = localStorage.getItem('forewordViewed');
-  
+
   const forewordButton = document.getElementById('foreword-button');
   // Display the initial text only if the foreword hasn't been viewed yet
   if (!forewordViewed) {
     suttaArea.innerHTML += forewordText;
     localStorage.setItem('forewordViewed', true);
   }
-  else if (!forewordButton){
+  else if (!forewordButton) {
     addForewordButton();
   }
   if (forewordButton) forewordButton.style.display = 'none';
-  
+
   const books = {
     "dn": "Dīgha Nikāya",
     "mn": "Majjhima Nikāya",
@@ -104,9 +104,9 @@ function displaySuttas(suttas) {
     "an": "Aṅguttara Nikāya",
     "kn": "Khuddaka Nikāya"
   };
-  let currentGroup= 0;
+  let currentGroup = 0;
   suttaArea.innerHTML += `<ul style="margin-top: 20px;">${suttas.map(sutta => {
-    
+
 
     const parts = sutta.split(':');
     const id = parts[0].trim().replace(/\s+/g, '');
@@ -114,23 +114,23 @@ function displaySuttas(suttas) {
     const link = `<a href="/?q=${id.toLowerCase()}">${id}: ${title}`;
     const em = heading ? `<span style="color: #7f6e0a;">${heading}</span>` : '';
     const byAuthor = author ? `by ${author}` : '';
-    const nikaya = sutta.slice(0,2).toLowerCase();
+    const nikaya = sutta.slice(0, 2).toLowerCase();
     // Check if the current sutta belongs to a new group
 
     const key = Object.keys(books)[currentGroup];
-   
+
     if (nikaya !== key && currentGroup < 4) {
-      
+
       // If it's a new group, display the subheading
       currentGroup += 1;
       const key = Object.keys(books)[currentGroup];
-      
+
 
       return `<h2>${books[key]}</h2><li>${link}${(em || byAuthor) ? ` (${em}${byAuthor})` : ''}</a></li>`;
 
-    } else{
-    
-    return `<li>${link}${(em || byAuthor) ? ` (${em}${byAuthor})` : ''}</a></li>`;
+    } else {
+
+      return `<li>${link}${(em || byAuthor) ? ` (${em}${byAuthor})` : ''}</a></li>`;
     }
   }).join('')}</ul>`;
 
@@ -189,7 +189,7 @@ function displaySuttas(suttas) {
     }
   });
 
-} 
+}
 /* 
 function displaySuttas(suttas) {
   const forewordViewed = localStorage.getItem('forewordViewed');
@@ -412,7 +412,7 @@ document.getElementById("form").addEventListener("submit", e => {
     buildSutta(citationValue);
     history.pushState({ page: citationValue }, "", `?q=${citationValue}`);
   }
-}); 
+});
 
 
 citation.value = document.location.search.replace("?q=", "").replace(/%20/g, "").replace(/\s/g, "");
@@ -598,7 +598,7 @@ function buildSutta(slug) {
 }
 
 // initialize the whole app
-function initialize (){
+function initialize() {
   if (document.location.search) {
     //console.log(document.location.search);
     buildSutta(document.location.search.replace("?q=", "").replace(/\s/g, "").replace(/%20/g, ""));
@@ -609,7 +609,7 @@ function initialize (){
 
 initialize();
 
-document.addEventListener('click', function(event) {
+document.addEventListener('click', function (event) {
   // Check if the clicked element is the foreword button
   if (event.target && event.target.id === 'foreword-button') {
     showForeword(); // Call the function to show the foreword
