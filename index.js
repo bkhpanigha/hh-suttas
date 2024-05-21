@@ -511,10 +511,7 @@ function buildSutta(slug) {
       const navbar = document.createElement('div');
       navbar.id = 'suttanav'; // Added ID
 
-      navbar.style.display = 'flex';
-
-      navbar.innerHTML = `<span>${document.title}</span>`;
-      navbar.appendChild(homeButton);
+      navbar.innerHTML = document.title;
       document.body.appendChild(navbar);
 
       let lastScrollTop = 0; // variable to store the last scroll position
