@@ -104,7 +104,7 @@ function displaySuttas(suttas) {
     "an": "Aṅguttara Nikāya",
     "kn": "Khuddaka Nikāya"
   };
-  let currentGroup = 0;
+  let currentGroup = -1;
   suttaArea.innerHTML += `<ul style="margin-top: 20px;">${suttas.map(sutta => {
 
 
