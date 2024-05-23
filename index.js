@@ -58,44 +58,20 @@ function getSuttaTitleById(id) {
 }
 
 
-// Function to add the foreword button
-function addForewordButton() {
-  const forewordButton = document.createElement('span'); // Create a span element instead of a button
-  forewordButton.id = 'foreword-button';
-  forewordButton.textContent = 'Foreword';
-  forewordButton.classList.add('foreword-link'); // Add a class for styling
-
-  // Append the button to a container element
-  const buttonContainer = document.createElement('div');
-  buttonContainer.appendChild(forewordButton);
-
-  // Insert the button container at the beginning of suttaArea
-  suttaArea.insertBefore(buttonContainer, suttaArea.firstChild);
-  buttonContainer.style.display = 'flex';
-  buttonContainer.style.justifyContent = 'center';
-}
-
 async function showForeword() {
   const forewordButton = document.getElementById('foreword-button');
-  suttaArea.innerHTML = forewordText;
+  suttaArea.innerHTML = `<p>${forewordText}</p>`;
   forewordButton.style.display = 'none';
-  await initialize();
-
+  localStorage.setItem('forewordViewed', true);
 }
 
 function displaySuttas(suttas) {
-  const forewordViewed = localStorage.getItem('forewordViewed');
-
+  const forewordViewed = localStorage.getItem('forewordViewed', false);
   const forewordButton = document.getElementById('foreword-button');
-  // Display the initial text only if the foreword hasn't been viewed yet
-  if (!forewordViewed) {
-    suttaArea.innerHTML += forewordText;
-    localStorage.setItem('forewordViewed', true);
+
+  if (forewordViewed == 'true' && forewordButton) {
+    forewordButton.style.display = 'none';
   }
-  else if (!forewordButton) {
-    addForewordButton();
-  }
-  if (forewordButton) forewordButton.style.display = 'none';
 
   const books = {
     "dn": "Dīgha Nikāya",
