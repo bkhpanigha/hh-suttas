@@ -44,7 +44,7 @@ async function getAvailableSuttas({ mergedTitle = true } = {}) {
 
 function searchSuttas(pattern) {
   if (!fuse) { pattern = "" }; // if Fuse isn't initialized, return empty array
-  //pattern = pattern.replace(/([a-zA-Z]{2})(\d+)/, '$1 $2');
+  pattern = pattern.replace(/([a-zA-Z]{2})(\d+)/, '$1 $2');
   let results = fuse.search(pattern).map(result => result.item);
   // join up the id with the titles to be displayed
   return results.map(sutta => `${sutta.id}: ${sutta.title.trim()}${sutta.author ? `: ${sutta.author}` : ':'}${sutta.heading ? `: ${sutta.heading}` : ':'}`);
