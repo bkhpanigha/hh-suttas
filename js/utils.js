@@ -127,7 +127,13 @@ function handleTextSelection() {
   }
 
   const start = selection.anchorNode.parentNode;
-  const end = selection.focusNode.parentNode;
+  
+  let end;
+  if(selection.focusNode.parentNode.tagName == "ARTICLE"){
+    end = selection.focusNode;
+  else if(selection.focusNode.parentNode.tagName == "SPAN"){
+    end = selection.focusNode.parentNode;
+    
   if (start.classList.contains('comment-text') || end.classList.contains('comment-text')) {
     return; // Selection is within a comment text, do not show copy button
   }
