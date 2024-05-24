@@ -35,6 +35,7 @@ async function getAvailableSuttas({ mergedTitle = true } = {}) {
     }
     else {
       return data
+
     }
   } catch (error) {
     console.error('Error fetching available suttas:', error);
@@ -44,8 +45,8 @@ async function getAvailableSuttas({ mergedTitle = true } = {}) {
 
 function searchSuttas(pattern) {
   if (!fuse) { pattern = "" }; // if Fuse isn't initialized, return empty array
-  pattern = pattern.replace(/([a-zA-Z]{2})(\d+)/, '$1 $2');
-  let results = fuse.search(pattern).map(result => result.item);
+  //pattern = pattern.replace(/([a-zA-Z]{2})(\d+)/, "$1$2");
+  let results = fuse.search("'"+pattern).map(result => result.item);
   // join up the id with the titles to be displayed
   return results.map(sutta => `${sutta.id}: ${sutta.title.trim()}${sutta.author ? `: ${sutta.author}` : ':'}${sutta.heading ? `: ${sutta.heading}` : ':'}`);
 }
@@ -65,7 +66,7 @@ async function showForeword() {
   localStorage.setItem('forewordViewed', true);
 }
 
-function displaySuttas(suttas) {
+function displaySuttas(suttas, isSearch = false) {
   const forewordViewed = localStorage.getItem('forewordViewed', false);
   const forewordButton = document.getElementById('foreword-button');
 
@@ -94,7 +95,7 @@ function displaySuttas(suttas) {
 
     const key = Object.keys(books)[currentGroup];
 
-    if (nikaya !== key && currentGroup < 4) {
+    if (!isSearch && nikaya !== key && currentGroup < 4) {
 
       // If it's a new group, display the subheading
       currentGroup += 1;
@@ -302,6 +303,7 @@ function toggleThePali() {
 
 async function createFuseSearch() {
   const availableSuttas = await getAvailableSuttas({ mergedTitle: false });
+  console.log(availableSuttas);
   fuse = new Fuse(availableSuttas['available_suttas'], fuseOptions);
   return fuse
 }
@@ -325,13 +327,13 @@ document.onkeyup = function (e) {
 
 let fuseOptions = {
   includeScore: true,
-  keys: ['id', 'title'], // Id then title in terms of priority
+  useExtendedSearch: true,
+  keys: ['id', 'title', 'author', 'heading'], // Id then title in terms of priority
 };
 
 
 homeButton.addEventListener("click", () => {
   window.location.href = '/';
-
 });
 
 var converter = new showdown.Converter()
@@ -373,7 +375,7 @@ citation.addEventListener("input", e => {
   const searchQuery = e.target.value.trim();
   if (searchQuery) {
     const searchResults = searchSuttas(searchQuery);
-    displaySuttas(searchResults);
+    displaySuttas(searchResults, true);
   }
   else {
     displaySuttas(availableSuttasArray);
@@ -598,5 +600,3 @@ document.addEventListener('click', function (event) {
 window.addEventListener('hashchange', function () {
   scrollToHash();
 });
-
-
