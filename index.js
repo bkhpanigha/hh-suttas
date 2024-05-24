@@ -47,7 +47,7 @@ function searchSuttas(pattern) {
   pattern = pattern.replace(/([a-zA-Z]{2})(\d+)/, '$1 $2');
   let results = fuse.search(pattern).map(result => result.item);
   // join up the id with the titles to be displayed
-  return results.map(sutta => `${sutta.id}: ${sutta.title.trim()}`);
+  return results.map(sutta => `${sutta.id}: ${sutta.title.trim()}${sutta.author ? `: ${sutta.author}` : ':'}${sutta.heading ? `: ${sutta.heading}` : ':'}`);
 }
 
 function getSuttaTitleById(id) {
@@ -81,8 +81,7 @@ function displaySuttas(suttas) {
     "kn": "Khuddaka Nikāya"
   };
   let currentGroup = -1;
-  suttaArea.innerHTML += `<ul style="margin-top: 20px;">${suttas.map(sutta => {
-
+  suttaArea.innerHTML = `<ul style="margin-top: 20px;">${suttas.map(sutta => {
 
     const parts = sutta.split(':');
     const id = parts[0].trim().replace(/\s+/g, '');
