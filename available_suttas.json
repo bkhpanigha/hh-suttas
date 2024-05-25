@@ -1,348 +1,348 @@
 {
     "available_suttas": [
         {
-            "id": "DN2",
+            "id": "DN 2",
             "title": "The Fruits of the Ascetic Life "
         },
         {
-            "id": "MN1",
+            "id": "MN 1",
             "title": "The Explanation of the Root "
         },
         {
-            "id": "MN2",
+            "id": "MN 2",
             "title": "All the Influxes ",
             "heading": "Gateway to the Dhamma"
         },
         {
-            "id": "MN3",
+            "id": "MN 3",
             "title": "Heirs of the Dhamma "
         },
         {
-            "id": "MN4",
+            "id": "MN 4",
             "title": "Fear and Dread "
         },
         {
-            "id": "MN5",
+            "id": "MN 5",
             "title": "Unblemished "
         },
         {
-            "id": "MN6",
+            "id": "MN 6",
             "title": "One Might Wish "
         },
         {
-            "id": "MN7",
+            "id": "MN 7",
             "title": "The Simile of the Cloth "
         },
         {
-            "id": "MN8",
+            "id": "MN 8",
             "title": "Wearing Away "
         },
         {
-            "id": "MN9",
+            "id": "MN 9",
             "title": "Right View "
         },
         {
-            "id": "MN10",
+            "id": "MN 10",
             "title": "Establishments of Recollection "
         },
         {
-            "id": "MN11",
+            "id": "MN 11",
             "title": "The Shorter Discourse on the Lion’s Roar "
         },
         {
-            "id": "MN12",
+            "id": "MN 12",
             "title": "The Longer Discourse on the Lion’s Roar "
         },
         {
-            "id": "MN13",
+            "id": "MN 13",
             "title": "The Longer Discourse on the Mass of Suffering "
         },
         {
-            "id": "MN14",
+            "id": "MN 14",
             "title": "The Shorter Discourse on the Mass of Suffering "
         },
         {
-            "id": "MN15",
+            "id": "MN 15",
             "title": "Evaluation "
         },
         {
-            "id": "MN16",
+            "id": "MN 16",
             "title": "Obstinacies ",
             "heading": "Impediments to Progress"
         },
         {
-            "id": "MN17",
+            "id": "MN 17",
             "title": "Jungle Thickets "
         },
         {
-            "id": "MN18",
+            "id": "MN 18",
             "title": "The Lump of Honey ",
             "heading": "The Middle Way"
         },
         {
-            "id": "MN19",
+            "id": "MN 19",
             "title": "Two Kinds of Thought ",
             "heading": "Renunciation -> Jhāna"
         },
         {
-            "id": "MN20",
+            "id": "MN 20",
             "title": "The Settling of Thoughts "
         },
         {
-            "id": "MN21",
+            "id": "MN 21",
             "title": "The Simile of the Saw "
         },
         {
-            "id": "MN22",
+            "id": "MN 22",
             "title": "The Simile of the Venomous Snake ",
             "heading": "A Pernicious View"
         },
         {
-            "id": "MN23",
+            "id": "MN 23",
             "title": "The Ant-Hill "
         },
         {
-            "id": "MN24",
+            "id": "MN 24",
             "title": "The Relay Chariots ",
             "heading": "Stages of Purification"
         },
         {
-            "id": "MN25",
+            "id": "MN 25",
             "title": "The Bait "
         },
         {
-            "id": "MN26",
+            "id": "MN 26",
             "title": "The Heap of Snares "
         },
         {
-            "id": "MN27",
+            "id": "MN 27",
             "title": "The Shorter Simile of the Elephant’s Footprint "
         },
         {
-            "id": "MN28",
+            "id": "MN 28",
             "title": "The Longer Simile of the Elephant’s Footprint "
         },
         {
-            "id": "MN29",
+            "id": "MN 29",
             "title": "The Longer Simile of the Heartwood "
         },
         {
-            "id": "MN30",
+            "id": "MN 30",
             "title": "The Shorter Simile of the Heartwood "
         },
         {
-            "id": "MN31",
+            "id": "MN 31",
             "title": "The Shorter Discourse at Gosiṅga "
         },
         {
-            "id": "MN32",
+            "id": "MN 32",
             "title": "The Longer Discourse at Gosiṅga "
         },
         {
-            "id": "MN33",
+            "id": "MN 33",
             "title": "The Longer Discourse on the Cowherd "
         },
         {
-            "id": "MN34",
+            "id": "MN 34",
             "title": "The Shorter Discourse on the Cowherd "
         },
         {
-            "id": "MN35",
+            "id": "MN 35",
             "title": "The Shorter Discourse With Saccaka "
         },
         {
-            "id": "MN36",
+            "id": "MN 36",
             "title": "The Longer Discourse With Saccaka "
         },
         {
-            "id": "MN37",
+            "id": "MN 37",
             "title": "The Shorter Discourse on the Destruction of Craving "
         },
         {
-            "id": "MN38",
+            "id": "MN 38",
             "title": "The Longer Discourse on the Destruction of Craving ",
             "heading": "Dependent Origination"
         },
         {
-            "id": "MN39",
+            "id": "MN 39",
             "title": "The Longer Discourse at Assapura ",
             "heading": "Stages of Training"
         },
         {
-            "id": "MN40",
+            "id": "MN 40",
             "title": "The Shorter Discourse at Assapura "
         },
         {
-            "id": "MN41",
+            "id": "MN 41",
             "title": "The People of Sālā "
         },
         {
-            "id": "MN42",
+            "id": "MN 42",
             "title": "The People of Verañjā "
         },
         {
-            "id": "MN43",
+            "id": "MN 43",
             "title": "The Great Elaboration "
         },
         {
-            "id": "MN44",
+            "id": "MN 44",
             "title": "The Shorter Elaboration "
         },
         {
-            "id": "MN45",
+            "id": "MN 45",
             "title": "The Shorter Discourse on Undertakings "
         },
         {
-            "id": "MN46",
+            "id": "MN 46",
             "title": "The Great Discourse on Undertakings "
         },
         {
-            "id": "MN47",
+            "id": "MN 47",
             "title": "The Inquirer "
         },
         {
-            "id": "MN48",
+            "id": "MN 48",
             "title": "The Bhikkhus of Kosambī "
         },
         {
-            "id": "MN49",
+            "id": "MN 49",
             "title": "On the Invitation of Brahmā "
         },
         {
-            "id": "MN50",
+            "id": "MN 50",
             "title": "The Rebuke of Māra "
         },
         {
-            "id": "MN51",
+            "id": "MN 51",
             "title": "With Kandaraka "
         },
         {
-            "id": "MN52",
+            "id": "MN 52",
             "title": "The Wealthy Citizen "
         },
         {
-            "id": "MN53",
+            "id": "MN 53",
             "title": "A Trainee ",
             "heading": "Qualities of a Trainee"
         },
         {
-            "id": "SN12.67",
+            "id": "SN 12.67",
             "title": "Bundles of Reeds ",
             "heading": "Dependent Origination"
         },
         {
-            "id": "SN22.81",
+            "id": "SN 22.81",
             "title": "At Pārileyya ",
             "heading": "The Middle Way"
         },
         {
-            "id": "SN35.246",
+            "id": "SN 35.246",
             "title": "The Simile of the Lute ",
             "heading": "Taming the Mind"
         },
         {
-            "id": "SN35.70",
+            "id": "SN 35.70",
             "title": "Directly Visible (With Upavāna) "
         },
         {
-            "id": "SN35.96",
+            "id": "SN 35.96",
             "title": "Falling Away "
         },
         {
-            "id": "SN36.6",
+            "id": "SN 36.6",
             "title": "The Arrow "
         },
         {
-            "id": "SN45.55",
+            "id": "SN 45.55",
             "title": "Accomplishment in Attention Through the Origin (1st) "
         },
         {
-            "id": "SN47.8",
+            "id": "SN 47.8",
             "title": "The Cook ",
             "heading": "Sign of the Mind"
         },
         {
-            "id": "AN1.51-60",
+            "id": "AN 1.51-60",
             "title": "The Chapter on a Finger-Snap "
         },
         {
-            "id": "AN3.101",
+            "id": "AN 3.101",
             "title": "A Panner ",
             "heading": "From Coarse to Fine Defilements"
         },
         {
-            "id": "AN3.63",
+            "id": "AN 3.63",
             "title": "At Venāgapura ",
             "heading": "Walking in Jhāna"
         },
         {
-            "id": "AN4.12",
+            "id": "AN 4.12",
             "title": "After Virtue "
         },
         {
-            "id": "AN5.114",
+            "id": "AN 5.114",
             "title": "At Andhakavinda ",
             "heading": "Advice for Beginners"
         },
         {
-            "id": "AN6.68",
+            "id": "AN 6.68",
             "title": "Enjoying Company ",
             "heading": "Impediments to Stream-Entry"
         },
         {
-            "id": "AN6.73",
+            "id": "AN 6.73",
             "title": "First Jhāna (1st) "
         },
         {
-            "id": "AN8.53",
+            "id": "AN 8.53",
             "title": "Brief Advice to Gotamī ",
             "heading": "Dhamma VS Not Dhamma"
         },
         {
-            "id": "AN9.41",
+            "id": "AN 9.41",
             "title": "With the Householder Tapussa ",
             "heading": "What Leads to Samādhi"
         },
         {
-            "id": "AN9.42",
+            "id": "AN 9.42",
             "title": "Confinement ",
             "heading": "Five Senses in Jhāna"
         },
         {
-            "id": "AN9.7",
+            "id": "AN 9.7",
             "title": "With Sutavā the Wanderer "
         },
         {
-            "id": "AN10.76",
+            "id": "AN 10.76",
             "title": "Three Things ",
             "heading": "Preconditions for Liberation"
         },
         {
-            "id": "AN10.93",
+            "id": "AN 10.93",
             "title": "What Is Your View? "
         },
         {
-            "id": "AN11.9",
+            "id": "AN 11.9",
             "title": "With Sandha ",
             "heading": "Wrong Meditation"
         },
         {
-            "id": "Thag2.34",
+            "id": "Thag 2.34",
             "title": "Isidinna ",
             "heading": "On Sensuality"
         },
         {
-            "id": "Snp4.1",
+            "id": "Snp 4.1",
             "title": "Attractions ",
             "author": "Sister Medhini"
         },
         {
-            "id": "Snp4.2",
+            "id": "Snp 4.2",
             "title": "The Octad on the Cave ",
             "author": "Sister Medhini"
         },
         {
-            "id": "Snp4.3",
+            "id": "Snp 4.3",
             "title": "The Octad on the Corrupt",
             "author": "Sister Medhini"
         },
