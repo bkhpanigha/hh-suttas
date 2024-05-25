@@ -47,7 +47,7 @@ function searchSuttas(pattern) {
   pattern = pattern.replace(/([a-zA-Z]{2})(\d+)/, '$1 $2');
   let results = fuse.search(pattern).map(result => result.item);
   // join up the id with the titles to be displayed
-  return results.map(sutta => `${sutta.id}: ${sutta.title.trim()}`);
+  return results.map(sutta => `${sutta.id}: ${sutta.title.trim()}${sutta.author ? `: ${sutta.author}` : ':'}${sutta.heading ? `: ${sutta.heading}` : ':'}`);
 }
 
 function getSuttaTitleById(id) {
@@ -58,44 +58,20 @@ function getSuttaTitleById(id) {
 }
 
 
-// Function to add the foreword button
-function addForewordButton() {
-  const forewordButton = document.createElement('span'); // Create a span element instead of a button
-  forewordButton.id = 'foreword-button';
-  forewordButton.textContent = 'Foreword';
-  forewordButton.classList.add('foreword-link'); // Add a class for styling
-
-  // Append the button to a container element
-  const buttonContainer = document.createElement('div');
-  buttonContainer.appendChild(forewordButton);
-
-  // Insert the button container at the beginning of suttaArea
-  suttaArea.insertBefore(buttonContainer, suttaArea.firstChild);
-  buttonContainer.style.display = 'flex';
-  buttonContainer.style.justifyContent = 'center';
-}
-
 async function showForeword() {
   const forewordButton = document.getElementById('foreword-button');
-  suttaArea.innerHTML = forewordText;
+  suttaArea.innerHTML = `<p>${forewordText}</p>`;
   forewordButton.style.display = 'none';
-  await initialize();
-
+  localStorage.setItem('forewordViewed', true);
 }
 
 function displaySuttas(suttas) {
-  const forewordViewed = localStorage.getItem('forewordViewed');
-
+  const forewordViewed = localStorage.getItem('forewordViewed', false);
   const forewordButton = document.getElementById('foreword-button');
-  // Display the initial text only if the foreword hasn't been viewed yet
-  if (!forewordViewed) {
-    suttaArea.innerHTML += forewordText;
-    localStorage.setItem('forewordViewed', true);
+
+  if (forewordViewed == 'true' && forewordButton) {
+    forewordButton.style.display = 'none';
   }
-  else if (!forewordButton) {
-    addForewordButton();
-  }
-  if (forewordButton) forewordButton.style.display = 'none';
 
   const books = {
     "dn": "Dīgha Nikāya",
@@ -105,8 +81,7 @@ function displaySuttas(suttas) {
     "kn": "Khuddaka Nikāya"
   };
   let currentGroup = -1;
-  suttaArea.innerHTML += `<ul style="margin-top: 20px;">${suttas.map(sutta => {
-
+  suttaArea.innerHTML = `<ul style="margin-top: 20px;">${suttas.map(sutta => {
 
     const parts = sutta.split(':');
     const id = parts[0].trim().replace(/\s+/g, '');
@@ -511,24 +486,27 @@ function buildSutta(slug) {
       const navbar = document.createElement('div');
       navbar.id = 'suttanav'; // Added ID
 
-      // navbar.style.cssText = 'position: fixed; top: 0; width: 100%; background: #333; color: white; text-align: center; padding: 10px; transition: top 0.3s;';
       navbar.innerHTML = document.title;
       document.body.appendChild(navbar);
 
       let lastScrollTop = 0; // variable to store the last scroll position
-
+      const scrollThreshold = 10;
       window.addEventListener('scroll', function () {
-        let currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        requestAnimationFrame(() => {
+          let currentScrollTop = window.scrollY || document.documentElement.scrollTop;
 
-        if (currentScrollTop > lastScrollTop || currentScrollTop < 170) {
-          // Scrolling down
-          navbar.style.top = '-50px'; // adjust this value based on the height of your navbar
-        } else {
-          // Scrolling up
-          navbar.style.top = '0';
-        }
+          if (Math.abs(currentScrollTop - lastScrollTop) > scrollThreshold) {
+            if (currentScrollTop > lastScrollTop && currentScrollTop > 170) {
+              // Scrolling down
+              navbar.style.top = '-50px'; // Adjust this value based on the height of your navbar
+            } else {
+              // Scrolling up
+              navbar.style.top = '0';
+            }
 
-        lastScrollTop = currentScrollTop;
+            lastScrollTop = currentScrollTop;
+          }
+        });
       });
 
 
