@@ -131,6 +131,7 @@ function handleTextSelection() {
   let end;
   if(selection.focusNode.parentNode.tagName == "ARTICLE"){
     end = selection.focusNode;
+  }
   else if(selection.focusNode.parentNode.tagName == "SPAN"){
     end = selection.focusNode.parentNode;
     
@@ -204,4 +205,5 @@ function showNotification(message, duration = 3000) {
 // Add event listener for text selection
 document.addEventListener('selectionchange', handleTextSelection);
 
+}
 export { scrollToHash, showNotification, changeAcronymNumber };
