@@ -303,7 +303,6 @@ function toggleThePali() {
 
 async function createFuseSearch() {
   const availableSuttas = await getAvailableSuttas({ mergedTitle: false });
-  console.log(availableSuttas);
   fuse = new Fuse(availableSuttas['available_suttas'], fuseOptions);
   return fuse
 }

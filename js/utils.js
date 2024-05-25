@@ -134,7 +134,7 @@ function handleTextSelection() {
   }
   else if(selection.focusNode.parentNode.tagName == "SPAN"){
     end = selection.focusNode.parentNode;
-    
+  }
   if (start.classList.contains('comment-text') || end.classList.contains('comment-text')) {
     return; // Selection is within a comment text, do not show copy button
   }
@@ -205,5 +205,6 @@ function showNotification(message, duration = 3000) {
 // Add event listener for text selection
 document.addEventListener('selectionchange', handleTextSelection);
 
-}
+
+
 export { scrollToHash, showNotification, changeAcronymNumber };
