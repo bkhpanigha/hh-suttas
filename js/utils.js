@@ -39,6 +39,10 @@ function scrollToHash() {
           if(element.parentNode.classList.contains("evam")){
             element = element.parentNode;
           }
+
+          if(element.parentNode.classList.contains("sutta-title")){
+            element = element.parentNode;
+          }
           
           if (element.nextElementSibling) {
             element = element.nextElementSibling;
