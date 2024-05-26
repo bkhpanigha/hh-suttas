@@ -45,8 +45,10 @@ async function getAvailableSuttas({ mergedTitle = true } = {}) {
 
 function searchSuttas(pattern) {
   if (!fuse) { pattern = "" }; // if Fuse isn't initialized, return empty array
-  //pattern = pattern.replace(/([a-zA-Z]{2})(\d+)/, "$1$2");
-  let results = fuse.search("'"+pattern).map(result => result.item);
+  pattern = pattern.replace(/^(\w+)/, "'$1") // Adds single quote before the first word
+                   .replace(/([a-zA-Z])\s+(\d)/g, "$1$2") // Remove spaces between letters and numbers when letters come first
+                   .replace(/\s+/g, "|'"); // Replace remaining spaces by " | '" for more complex researches
+  let results = fuse.search(pattern).map(result => result.item);
   // join up the id with the titles to be displayed
   return results.map(sutta => `${sutta.id}: ${sutta.title.trim()}${sutta.author ? `: ${sutta.author}` : ':'}${sutta.heading ? `: ${sutta.heading}` : ':'}`);
 }
