@@ -11,6 +11,14 @@ def load_json(file_path):
     """Utility function to load a JSON file."""
     with open(file_path, "r", encoding="utf-8") as file:
         return json.load(file)
+    
+def split_id(s):
+    match = re.match(r"([A-Za-z]+)(\d+)", s)
+    if match:
+        letters, numbers = match.groups()
+        return letters, numbers
+    else:
+        return s, ""
 
 def add_sutta(available_suttas, match, data, key):
     """Extract sutta title from data and add it to the list if present."""
@@ -98,13 +106,13 @@ def load_available_suttas(suttas_base_dir):
     if '-' in x["id"].split()[1]  # Checking if hyphen exists
     else (float(x["id"].split()[1]) if '.' in x["id"].split()[1] else int(x["id"].split()[1]))  # Handling other cases
     ))
+    available_suttas = [{'id': x['id'].replace(' ', ''), **{k: v for k, v in x.items() if k != 'id'}} for x in available_suttas]
 
-    #available_suttas.sort(key=lambda x: ({"DN": 0, "MN": 1, "SN": 2, "AN": 3}.get(x["id"].split()[0], 4), float(x["id"].split()[1]) if '.' in x["id"].split()[1] else int(x["id"].split()[1])))
     return available_suttas
 
 def generate_paths_for_sutta(sutta_id, base_dir="suttas"):
     """Generate file paths for a given sutta, taking into account special structures."""
-    book, number = sutta_id.split()
+    book, number = split_id(sutta_id)
     dir_prefix = book.lower()
     formatted_sutta_id = number
 
