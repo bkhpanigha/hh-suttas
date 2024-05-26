@@ -35,6 +35,11 @@ function scrollToHash() {
           if (element.id === endFullId) {
             break;
           }
+          
+          if(element.parentNode.classList.contains("evam")){
+            element = element.parentNode;
+          }
+          
           if (element.nextElementSibling) {
             element = element.nextElementSibling;
           }
