@@ -19,41 +19,20 @@ function scrollToHash() {
       const endElement = document.getElementById(endFullId);
 
       if (startElement && endElement) {
-        let element = startElement;
         let highlight = false;
-
-        // Loop through sibling elements until the end element is reached
-        while (element) {
-          if (element.id === startFullId) {
+        var segments = document.getElementsByClassName("segment");
+        
+        for (const segment of segments) {
+          if (segment.id === startFullId){
             highlight = true;
           }
 
-          if(element.classList.contains("evam")){ //if element is line 1 of sutta text
-            element = element.querySelector('.segment'); //Go to child segment element instead of parent to apply .highlight
+          if (highlight) {
+            segment.classList.add("highlight");
           }
           
-          if (highlight) {
-            element.classList.add("highlight")
-          }
-
-          if (element.id === endFullId) {
+          if (segment.id === endFullId){
             break;
-          }
-
-          if(element.parentNode.classList.contains("evam")){ //if element is line 1 of sutta text
-            //Go back to the parentNode to continue going through siblings after applying .highlight to its child
-            element = element.parentNode; 
-          }
-
-          //if sutta-title contained in link, goes directly to line 1 of sutta text instead of looking for sibling
-          if(element.parentNode.classList.contains("sutta-title")){ 
-            element = document.getElementById("mn1:1.1");
-          }
-          else if (element.nextElementSibling) {
-            element = element.nextElementSibling;
-          }
-          else if (parseFloat(startIdSuffix) < parseFloat(endIdSuffix)) {
-            element = element.parentNode.nextElementSibling.firstElementChild
           }
         }
         
