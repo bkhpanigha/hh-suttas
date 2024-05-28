@@ -30,7 +30,7 @@ body.dark {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: baseline;
+  align-items: center;
 }
 
 #citation {
@@ -90,9 +90,19 @@ body.dark {
 }
 
 .icon-button {
+  color: gray;
   border: none;
   background: none;
   margin-left: 5px;
+  cursor: pointer;
+}
+
+.icon-button:hover {
+  color: black;
+}
+
+.dark .icon-button:hover {
+  color: white;
 }
 
 .icon-button svg {
