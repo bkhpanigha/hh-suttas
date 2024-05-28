@@ -89,7 +89,6 @@ function displaySuttas(suttas, isSearch = false) {
     const [title, author, heading] = parts.slice(1).map(part => part.trim());
     const link = `<a href="/?q=${id.toLowerCase()}">${id}: ${title}`;
     const em = heading ? `<span style="color: #7f6e0a;">${heading}</span>` : '';
-    const byAuthor = author ? `by ${author}` : '';
     const nikaya = sutta.slice(0, 2).toLowerCase();
     // Check if the current sutta belongs to a new group
 
@@ -102,11 +101,13 @@ function displaySuttas(suttas, isSearch = false) {
       const key = Object.keys(books)[currentGroup];
 
 
-      return `<h2>${books[key]}</h2><li>${link}${(em || byAuthor) ? ` (${em}${byAuthor})` : ''}</a></li>`;
+      return `<h2>${books[key]}</h2><li>${link}${em ? ` (${em})` : ''}</a></li>`;
+
 
     } else {
 
-      return `<li>${link}${(em || byAuthor) ? ` (${em}${byAuthor})` : ''}</a></li>`;
+      return `<li>${link}${em ? ` (${em})` : ''}</a></li>`;
+
     }
   }).join('')}</ul>`;
 
