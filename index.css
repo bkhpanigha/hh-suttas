@@ -255,6 +255,7 @@ dt {
 .hide-pali h2 .pli-lang,
 .hide-pali h3 .pli-lang,
 .hide-pali h4 .pli-lang,
+.hide-pali h5 .pli-lang,
 .hide-pali li .pli-lang {
   display: none !important;
 }
