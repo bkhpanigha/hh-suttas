@@ -118,6 +118,7 @@ body.dark {
   position: relative;
   margin-top: 2px;
   color: gray;
+  pointer-events: none;
 }
 
 p {
