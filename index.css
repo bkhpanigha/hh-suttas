@@ -34,27 +34,31 @@ body.dark {
 }
 
 #citation {
-  border-radius: 0;
-  border: 1px solid;
-  background-color: var(--off-white);
-  color: var(--dark-gray);
+  border: 2px solid gray;
+  border-radius: 20px;
+  background-color: transparent;
+  color: black;
+  width: 375px;
+  height: 30px;
+  font-size: 16px;
+  text-indent: 27.5px;
 }
 
-.dark #citation {
-  background-color: var(--dark-blue);
-  color: var(--off-white);
+#citation:hover, #citation:focus {
+  background: #eae7e7;
+  box-shadow: 0 1px 5px 0 #898787;
+  border-color: transparent;
 }
 
-#citation:focus {
-  background-color: var(--off-white);
-  color: var(--black);
+.dark #citation:hover, .dark #citation:focus {
+  background: #2b2e34;
+  box-shadow: 0 1px 6px 0 #575353;
+  border-color: transparent;
+  caret-color: white;
+}
+
+#citation:focus-visible {
   outline: none;
-}
-
-.dark #citation:focus {
-  background-color: var(--off-white);
-  color: var(--black);
-  border-color: var(--off-white);
 }
 
 .dark .highlight {
@@ -93,7 +97,7 @@ body.dark {
   color: gray;
   border: none;
   background: none;
-  margin-left: 5px;
+  margin-left: 7px;
   cursor: pointer;
 }
 
@@ -107,6 +111,14 @@ body.dark {
 
 .icon-button svg {
   margin-top: 3px;
+}
+
+.search-icon {
+  left: 25px;
+  position: relative;
+  margin-top: 2px;
+  color: gray;
+  pointer-events: none;
 }
 
 p {
