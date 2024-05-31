@@ -44,6 +44,10 @@ body.dark {
   text-indent: 27.5px;
 }
 
+.dark #citation {
+  color: white;
+}
+
 #citation:hover, #citation:focus {
   background: #eae7e7;
   box-shadow: 0 1px 5px 0 #898787;
