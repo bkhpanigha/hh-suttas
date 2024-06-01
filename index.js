@@ -45,7 +45,7 @@ async function getAvailableSuttas({ mergedTitle = true } = {}) {
 
 function searchSuttas(pattern) {
   if (!fuse) { pattern = "" }; // if Fuse isn't initialized, return empty array
-  //pattern = pattern.replace(/([a-zA-Z]{2})(\d+)/, "$1$2");
+  pattern = pattern.normalize('NFD').replace(/[\u0300-\u036f]/g, ''); // Convert pali letters in latin letters to match pali_title in available_suttas.json
   let results = fuse.search("'"+pattern).map(result => result.item);
   // join up the id with the titles to be displayed
   return results.map(sutta => `${sutta.id}: ${sutta.title.trim()}${sutta.author ? `: ${sutta.author}` : ':'}${sutta.heading ? `: ${sutta.heading}` : ':'}`);
@@ -328,7 +328,7 @@ document.onkeyup = function (e) {
 let fuseOptions = {
   includeScore: true,
   useExtendedSearch: true,
-  keys: ['id', 'title', 'author', 'heading'], // Id then title in terms of priority
+  keys: ['id', 'title', 'pali_title', 'author', 'heading'], // Id then title in terms of priority
 };
 
 
