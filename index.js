@@ -398,7 +398,8 @@ function buildSutta(slug) {
   slug = slug.toLowerCase();
   let html = `<div class="button-area"><button id="hide-pali" class="hide-button">Toggle Pali</button></div>`;
   let subDir;
-
+  let sutta_title;
+  
   if (slug.slice(0, 2) !== "mn" && slug.slice(0, 2) !== "an" && slug.slice(0, 2) !== "dn" && !/^sn\d/i.test(slug)) {
     const matchIndex = slug.search(/\d/);
     let firstSection, secondSection, vagga;
@@ -457,6 +458,10 @@ function buildSutta(slug) {
           openHtml = openHtml.replace(/^<span class='verse-line'>/, "<br><span class='verse-line'>");
         }
 
+        if(openHtml.includes("sutta-title")){
+          sutta_title = `${root_text[segment] || ""} : ${translation_text[segment]}`;
+        }
+        
         html += `${openHtml}<span class="segment" id="${segment}">` +
           `<span class="pli-lang" lang="pi">${root_text[segment] || ""}</span>` +
           `<span class="eng-lang" lang="en">${translation_text[segment]}` +
@@ -469,7 +474,6 @@ function buildSutta(slug) {
       const translatorByline = `<div class="byline"><p>Translated by ${translator}</p></div>`;
       suttaArea.innerHTML = `<p class="sc-link"></p>` + html + translatorByline;
 
-
       let acronym = slug.replace(/([a-zA-Z]{2})(\d+)/, '$1 $2')
       if (subDir.slice(0, 2) !== 'kn') {
         acronym = acronym.toUpperCase();
@@ -479,10 +483,8 @@ function buildSutta(slug) {
       }
 
       // TODO fix the way these pages are rendered
-      if (slug.toLowerCase().includes("sn") || slug.toLowerCase().includes("an"))
-        document.title = `${acronym} ${root_text[`${slug}:0.3`]}: ${translation_text[`${slug}:0.3`]}`;
-      else
-        document.title = `${acronym} ${root_text[`${slug}:0.2`]}: ${translation_text[`${slug}:0.2`]}`;
+      document.title = `${acronym} ` + sutta_title;
+      
       toggleThePali();
       // Add the navbar to the page
       const navbar = document.createElement('div');
