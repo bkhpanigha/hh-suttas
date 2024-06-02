@@ -500,14 +500,12 @@ function buildSutta(slug) {
           let currentScrollTop = window.scrollY || document.documentElement.scrollTop;
 
           if (Math.abs(currentScrollTop - lastScrollTop) > scrollThreshold) {
-            if (currentScrollTop > lastScrollTop && currentScrollTop > 170) {
-              // Scrolling down
+            if (currentScrollTop < 170 || currentScrollTop > lastScrollTop) {
               navbar.style.top = '-50px'; // Adjust this value based on the height of your navbar
             } else {
               // Scrolling up
               navbar.style.top = '0';
             }
-
             lastScrollTop = currentScrollTop;
           }
         });
