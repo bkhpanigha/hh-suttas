@@ -82,7 +82,7 @@ function displaySuttas(suttas, isSearch = false) {
     "kn": "Khuddaka Nikāya"
   };
   let currentGroup = -1;
-  suttaArea.innerHTML = `<ul style="margin-top: 20px;">${suttas.map(sutta => {
+  suttaArea.innerHTML += `<ul style="margin-top: 20px;">${suttas.map(sutta => {
 
     const parts = sutta.split(':');
     const id = parts[0].trim().replace(/\s+/g, '');
