@@ -371,8 +371,10 @@ let fuse = createFuseSearch(); // holds our search engine
 const citation = document.getElementById("citation");
 citation.focus();
 
+// input in search bar
 citation.addEventListener("input", e => {
   const searchQuery = e.target.value.trim();
+  suttaArea.innerHTML = "";
   if (searchQuery) {
     const searchResults = searchSuttas(searchQuery);
     displaySuttas(searchResults, true);
