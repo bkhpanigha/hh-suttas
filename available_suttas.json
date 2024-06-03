@@ -2,237 +2,293 @@
     "available_suttas": [
         {
             "id": "DN2",
-            "title": "The Fruits of the Ascetic Life "
+            "title": "The Fruits of the Ascetic Life ",
+            "pali_title": "Samannaphalasutta"
         },
         {
             "id": "DN10",
             "title": "With Subha ",
+            "pali_title": "Subhasutta"
             "heading": "Sīla, Samādhi, Paññā"
         },
         {
             "id": "MN1",
-            "title": "The Explanation of the Root "
+            "title": "The Explanation of the Root ",
+            "pali_title": "Mulapariyayasutta"
         },
         {
             "id": "MN2",
             "title": "All the Influxes ",
+            "pali_title": "Sabbasavasutta",
             "heading": "Gateway to the Dhamma"
         },
         {
             "id": "MN3",
-            "title": "Heirs of the Dhamma "
+            "title": "Heirs of the Dhamma ",
+            "pali_title": "Dhammadayadasutta"
         },
         {
             "id": "MN4",
-            "title": "Fear and Dread "
+            "title": "Fear and Dread ",
+            "pali_title": "Bhayabheravasutta"
         },
         {
             "id": "MN5",
-            "title": "Unblemished "
+            "title": "Unblemished ",
+            "pali_title": "Ananganasutta"
         },
         {
             "id": "MN6",
-            "title": "One Might Wish "
+            "title": "One Might Wish ",
+            "pali_title": "Akankheyyasutta"
         },
         {
             "id": "MN7",
-            "title": "The Simile of the Cloth "
+            "title": "The Simile of the Cloth ",
+            "pali_title": "Vatthasutta"
         },
         {
             "id": "MN8",
-            "title": "Wearing Away "
+            "title": "Wearing Away ",
+            "pali_title": "Sallekhasutta"
         },
         {
             "id": "MN9",
-            "title": "Right View "
+            "title": "Right View ",
+            "pali_title": "Sammaditthisutta"
         },
         {
             "id": "MN10",
-            "title": "Establishments of Recollection "
+            "title": "Establishments of Recollection ",
+            "pali_title": "Satipatthanasutta"
         },
         {
             "id": "MN11",
-            "title": "The Shorter Discourse on the Lion’s Roar "
+            "title": "The Shorter Discourse on the Lion’s Roar ",
+            "pali_title": "Culasihanadasutta"
         },
         {
             "id": "MN12",
-            "title": "The Longer Discourse on the Lion’s Roar "
+            "title": "The Longer Discourse on the Lion’s Roar ",
+            "pali_title": "Mahasihanadasutta"
         },
         {
             "id": "MN13",
-            "title": "The Longer Discourse on the Mass of Suffering "
+            "title": "The Longer Discourse on the Mass of Suffering ",
+            "pali_title": "Mahadukkhakkhandhasutta"
         },
         {
             "id": "MN14",
-            "title": "The Shorter Discourse on the Mass of Suffering "
+            "title": "The Shorter Discourse on the Mass of Suffering ",
+            "pali_title": "Culadukkhakkhandhasutta"
         },
         {
             "id": "MN15",
-            "title": "Evaluation "
+            "title": "Evaluation ",
+            "pali_title": "Anumanasutta"
         },
         {
             "id": "MN16",
             "title": "Obstinacies ",
+            "pali_title": "Cetokhilasutta",
             "heading": "Impediments to Progress"
         },
         {
             "id": "MN17",
-            "title": "Jungle Thickets "
+            "title": "Jungle Thickets ",
+            "pali_title": "Vanapatthasutta"
         },
         {
             "id": "MN18",
             "title": "The Lump of Honey ",
+            "pali_title": "Madhupindikasutta",
             "heading": "The Middle Way"
         },
         {
             "id": "MN19",
             "title": "Two Kinds of Thought ",
+            "pali_title": "Dvedhavitakkasutta",
             "heading": "Renunciation -> Jhāna"
         },
         {
             "id": "MN20",
-            "title": "The Settling of Thoughts "
+            "title": "The Settling of Thoughts ",
+            "pali_title": "Vitakkasanthanasutta"
         },
         {
             "id": "MN21",
-            "title": "The Simile of the Saw "
+            "title": "The Simile of the Saw ",
+            "pali_title": "Kakacupamasutta"
         },
         {
             "id": "MN22",
             "title": "The Simile of the Venomous Snake ",
+            "pali_title": "Alagaddupamasutta",
             "heading": "A Pernicious View"
         },
         {
             "id": "MN23",
-            "title": "The Ant-Hill "
+            "title": "The Ant-Hill ",
+            "pali_title": "Vammikasutta"
         },
         {
             "id": "MN24",
             "title": "The Relay Chariots ",
+            "pali_title": "Rathavinitasutta",
             "heading": "Stages of Purification"
         },
         {
             "id": "MN25",
-            "title": "The Bait "
+            "title": "The Bait ",
+            "pali_title": "Nivapasutta"
         },
         {
             "id": "MN26",
-            "title": "The Heap of Snares "
+            "title": "The Heap of Snares ",
+            "pali_title": "Pasarasisutta"
         },
         {
             "id": "MN27",
-            "title": "The Shorter Simile of the Elephant’s Footprint "
+            "title": "The Shorter Simile of the Elephant’s Footprint ",
+            "pali_title": "Culahatthipadopamasutta"
         },
         {
             "id": "MN28",
-            "title": "The Longer Simile of the Elephant’s Footprint "
+            "title": "The Longer Simile of the Elephant’s Footprint ",
+            "pali_title": "Mahahatthipadopamasutta"
         },
         {
             "id": "MN29",
-            "title": "The Longer Simile of the Heartwood "
+            "title": "The Longer Simile of the Heartwood ",
+            "pali_title": "Mahasaropamasutta"
         },
         {
             "id": "MN30",
-            "title": "The Shorter Simile of the Heartwood "
+            "title": "The Shorter Simile of the Heartwood ",
+            "pali_title": "Culasaropamasutta"
         },
         {
             "id": "MN31",
-            "title": "The Shorter Discourse at Gosiṅga "
+            "title": "The Shorter Discourse at Gosiṅga ",
+            "pali_title": "Culagosingasutta"
         },
         {
             "id": "MN32",
-            "title": "The Longer Discourse at Gosiṅga "
+            "title": "The Longer Discourse at Gosiṅga ",
+            "pali_title": "Mahagosingasutta"
         },
         {
             "id": "MN33",
-            "title": "The Longer Discourse on the Cowherd "
+            "title": "The Longer Discourse on the Cowherd ",
+            "pali_title": "Mahagopalakasutta"
         },
         {
             "id": "MN34",
-            "title": "The Shorter Discourse on the Cowherd "
+            "title": "The Shorter Discourse on the Cowherd ",
+            "pali_title": "Culagopalakasutta"
         },
         {
             "id": "MN35",
-            "title": "The Shorter Discourse With Saccaka "
+            "title": "The Shorter Discourse With Saccaka ",
+            "pali_title": "Culasaccakasutta"
         },
         {
             "id": "MN36",
-            "title": "The Longer Discourse With Saccaka "
+            "title": "The Longer Discourse With Saccaka ",
+            "pali_title": "Mahasaccakasutta"
         },
         {
             "id": "MN37",
-            "title": "The Shorter Discourse on the Destruction of Craving "
+            "title": "The Shorter Discourse on the Destruction of Craving ",
+            "pali_title": "Culatanhasankhayasutta"
         },
         {
             "id": "MN38",
             "title": "The Longer Discourse on the Destruction of Craving ",
+            "pali_title": "Mahatanhasankhayasutta",
             "heading": "Dependent Origination"
         },
         {
             "id": "MN39",
             "title": "The Longer Discourse at Assapura ",
+            "pali_title": "Mahaassapurasutta",
             "heading": "Stages of Training"
         },
         {
             "id": "MN40",
-            "title": "The Shorter Discourse at Assapura "
+            "title": "The Shorter Discourse at Assapura ",
+            "pali_title": "Culaassapurasutta"
         },
         {
             "id": "MN41",
-            "title": "The People of Sālā "
+            "title": "The People of Sālā ",
+            "pali_title": "Saleyyakasutta"
         },
         {
             "id": "MN42",
-            "title": "The People of Verañjā "
+            "title": "The People of Verañjā ",
+            "pali_title": "Veranjakasutta"
         },
         {
             "id": "MN43",
-            "title": "The Great Elaboration "
+            "title": "The Great Elaboration ",
+            "pali_title": "Mahavedallasutta"
         },
         {
             "id": "MN44",
-            "title": "The Shorter Elaboration "
+            "title": "The Shorter Elaboration ",
+            "pali_title": "Culavedallasutta"
         },
         {
             "id": "MN45",
-            "title": "The Shorter Discourse on Undertakings "
+            "title": "The Shorter Discourse on Undertakings ",
+            "pali_title": "Culadhammasamadanasutta"
         },
         {
             "id": "MN46",
-            "title": "The Great Discourse on Undertakings "
+            "title": "The Great Discourse on Undertakings ",
+            "pali_title": "Mahadhammasamadanasutta"
         },
         {
             "id": "MN47",
-            "title": "The Inquirer "
+            "title": "The Inquirer ",
+            "pali_title": "Vimamsakasutta"
         },
         {
             "id": "MN48",
-            "title": "The Bhikkhus of Kosambī "
+            "title": "The Bhikkhus of Kosambī ",
+            "pali_title": "Kosambiyasutta"
         },
         {
             "id": "MN49",
-            "title": "On the Invitation of Brahmā "
+            "title": "On the Invitation of Brahmā ",
+            "pali_title": "Brahmanimantanikasutta"
         },
         {
             "id": "MN50",
-            "title": "The Rebuke of Māra "
+            "title": "The Rebuke of Māra ",
+            "pali_title": "Maratajjaniyasutta"
         },
         {
             "id": "MN51",
-            "title": "With Kandaraka "
+            "title": "With Kandaraka ",
+            "pali_title": "Kandarakasutta"
         },
         {
             "id": "MN52",
-            "title": "The Wealthy Citizen "
+            "title": "The Wealthy Citizen ",
+            "pali_title": "Atthakanagarasutta"
         },
         {
             "id": "MN53",
             "title": "A Trainee ",
+            "pali_title": "Sekhasutta",
             "heading": "Qualities of a Trainee"
         },
         {
             "id": "MN54",
-            "title": "With Potaliya the Householder "
+            "title": "With Potaliya the Householder ",
+            "pali_title": "Potaliyasutta"
         },
         {
             "id": "MN55",
@@ -241,132 +297,160 @@
         {
             "id": "MN107",
             "title": "With Moggallāna the Accountant ",
+            "pali_title": "Ganakamoggallanasutta",
             "heading": "The Gradual Training"
         },
         {
             "id": "SN12.67",
             "title": "Bundles of Reeds ",
+            "pali_title": "Nalakalapisutta",
             "heading": "Dependent Origination"
         },
         {
             "id": "SN22.81",
             "title": "At Pārileyya ",
+            "pali_title": "Palileyyasutta",
             "heading": "The Middle Way"
         },
         {
             "id": "SN35.246",
             "title": "The Simile of the Lute ",
+            "pali_title": "Vinopamasutta",
             "heading": "Taming the Mind"
         },
         {
             "id": "SN35.70",
-            "title": "Directly Visible (With Upavāna) "
+            "title": "Directly Visible (With Upavāna) ",
+            "pali_title": "Upavanasanditthikasutta"
         },
         {
             "id": "SN35.96",
-            "title": "Falling Away "
+            "title": "Falling Away ",
+            "pali_title": "Parihanadhammasutta"
         },
         {
             "id": "SN36.6",
-            "title": "The Arrow "
+            "title": "The Arrow ",
+            "pali_title": "Sallasutta"
         },
         {
             "id": "SN45.55",
-            "title": "Accomplishment in Attention Through the Origin (1st) "
+            "title": "Accomplishment in Attention Through the Origin (1st) ",
+            "pali_title": "Yonisomanasikarasampadasutta"
         },
         {
             "id": "SN47.8",
             "title": "The Cook ",
+            "pali_title": "Sudasutta",
             "heading": "Sign of the Mind"
         },
         {
             "id": "AN1.51-60",
-            "title": "The Chapter on a Finger-Snap "
+            "title": "The Chapter on a Finger-Snap ",
+            "pali_title": "Accharasanghatavagga"
         },
         {
             "id": "AN3.101",
             "title": "A Panner ",
+            "pali_title": "Pamsudhovakasutta",
             "heading": "From Coarse to Fine Defilements"
         },
         {
             "id": "AN3.63",
             "title": "At Venāgapura ",
+            "pali_title": "Venagapurasutta",
             "heading": "Walking in Jhāna"
         },
         {
             "id": "AN4.12",
-            "title": "After Virtue "
+            "title": "After Virtue ",
+            "pali_title": "Silasutta"
         },
         {
             "id": "AN5.114",
             "title": "At Andhakavinda ",
+            "pali_title": "Andhakavindasutta",
             "heading": "Advice for Beginners"
         },
         {
             "id": "AN6.68",
             "title": "Enjoying Company ",
+            "pali_title": "Sanganikaramasutta",
             "heading": "Impediments to Stream-Entry"
         },
         {
             "id": "AN6.73",
-            "title": "First Jhāna (1st) "
+            "title": "First Jhāna (1st) ",
+            "pali_title": "Pathamatajjhanasutta"
         },
         {
             "id": "AN8.53",
             "title": "Brief Advice to Gotamī ",
+            "pali_title": "Sankhittasutta",
             "heading": "Dhamma VS Not Dhamma"
         },
         {
             "id": "AN9.41",
             "title": "With the Householder Tapussa ",
+            "pali_title": "Tapussasutta",
             "heading": "What Leads to Samādhi"
         },
         {
             "id": "AN9.42",
             "title": "Confinement ",
+            "pali_title": "Sambadhasutta",
             "heading": "Five Senses in Jhāna"
         },
         {
             "id": "AN9.7",
-            "title": "With Sutavā the Wanderer "
+            "title": "With Sutavā the Wanderer ",
+            "pali_title": "Sutavasutta"
         },
         {
             "id": "AN10.76",
             "title": "Three Things ",
+            "pali_title": "Tayodhammasutta",
             "heading": "Preconditions for Liberation"
         },
         {
             "id": "AN10.93",
-            "title": "What Is Your View? "
+            "title": "What Is Your View? ",
+            "pali_title": "Kimditthikasutta"
         },
         {
             "id": "AN11.9",
             "title": "With Sandha ",
+            "pali_title": "Saddhasutta",
             "heading": "Wrong Meditation"
         },
         {
             "id": "Thag2.34",
             "title": "Isidinna ",
+            "pali_title": "Isidinnattheragatha",
             "heading": "On Sensuality"
         },
         {
             "id": "Snp4.1",
             "title": "Attractions ",
+            "pali_title": "Kamasutta",
             "author": "Sister Medhini"
         },
         {
             "id": "Snp4.2",
             "title": "The Octad on the Cave ",
+            "pali_title": "Guhatthakasutta",
             "author": "Sister Medhini"
         },
         {
             "id": "Snp4.3",
             "title": "The Octad on the Corrupt",
+            "pali_title": "Dutthatthakasutta",
             "author": "Sister Medhini"
         },
         {
             "id": "Snp4.4",
             "title": "The Octad on Purity ",
+            "pali_title": "Suddhatthakasutta",
             "author": "Sister Medhini"
         }
     ]
