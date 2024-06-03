@@ -8,7 +8,7 @@
         {
             "id": "DN10",
             "title": "With Subha ",
-            "pali_title": "Subhasutta"
+            "pali_title": "Subhasutta",
             "heading": "Sīla, Samādhi, Paññā"
         },
         {
@@ -292,7 +292,8 @@
         },
         {
             "id": "MN55",
-            "title": "With Jīvaka "
+            "title": "With Jīvaka ",
+            "pali_title": "Jivakasutta"
         },
         {
             "id": "MN107",
