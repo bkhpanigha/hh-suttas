@@ -114,30 +114,31 @@ function hideCopyButton() {
 
 function handleTextSelection() {
   const selection = window.getSelection();
+
   if (!selection.rangeCount || selection.isCollapsed) {
     hideCopyButton();
     return;
   }
 
   const start = selection.anchorNode.parentNode;
-  
   let end;
-  if(selection.focusNode.parentNode.tagName == "ARTICLE"){
-    end = selection.focusNode;
+  const selectedText = selection.toString();
+  const endsWithNewline = selectedText.endsWith('\n') || selectedText.endsWith('\r\n');
+
+  if (endsWithNewline) {
+    end = start;
+  } else {
+    const focusParent = selection.focusNode.parentNode;
+    end = focusParent.tagName === 'ARTICLE' ? selection.focusNode : focusParent;
   }
-  else if(selection.focusNode.parentNode.tagName == "SPAN"){
-    end = selection.focusNode.parentNode;
-  }
+
   if (start.classList.contains('comment-text') || end.classList.contains('comment-text')) {
     return; // Selection is within a comment text, do not show copy button
   }
-  let segments = start.querySelectorAll('.segment');
-  // if start == end then there is only one id
-  if (start != end) {
-    const range = selection.getRangeAt(0);
-    segments = range.cloneContents().querySelectorAll('.segment');
-  } else {
-    let commonAncestor = start.parentNode;
+
+  let segments = [];
+  if (start === end) {
+    let commonAncestor = start;
     while (commonAncestor) {
       if (commonAncestor.nodeType === Node.ELEMENT_NODE && commonAncestor.classList.contains('segment') && commonAncestor.id) {
         segments = [commonAncestor];
@@ -145,18 +146,19 @@ function handleTextSelection() {
       }
       commonAncestor = commonAncestor.parentNode;
     }
+  } else {
+    const range = selection.getRangeAt(0);
+    segments = range.cloneContents().querySelectorAll('.segment');
   }
 
   if (segments.length === 0) {
     return; // No valid segment found
   }
 
-  let targetElements = segments;
-  const ids = Array.from(targetElements).map(span => span.id);
+  const ids = Array.from(segments).map(segment => segment.id);
   const rect = end.getBoundingClientRect();
   showCopyButton(rect.left + window.scrollX, rect.bottom + window.scrollY, ids);
 }
-
 
 // Function to copy text to the clipboard
 function copyToClipboard(text) {
