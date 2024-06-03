@@ -82,7 +82,7 @@ function displaySuttas(suttas, isSearch = false) {
     "kn": "Khuddaka Nikāya"
   };
   let currentGroup = -1;
-  suttaArea.innerHTML = `<ul style="margin-top: 20px;">${suttas.map(sutta => {
+  suttaArea.innerHTML += `<ul style="margin-top: 20px;">${suttas.map(sutta => {
 
     const parts = sutta.split(':');
     const id = parts[0].trim().replace(/\s+/g, '');
@@ -500,14 +500,12 @@ function buildSutta(slug) {
           let currentScrollTop = window.scrollY || document.documentElement.scrollTop;
 
           if (Math.abs(currentScrollTop - lastScrollTop) > scrollThreshold) {
-            if (currentScrollTop > lastScrollTop && currentScrollTop > 170) {
-              // Scrolling down
+            if (currentScrollTop < 170 || currentScrollTop > lastScrollTop) {
               navbar.style.top = '-50px'; // Adjust this value based on the height of your navbar
             } else {
               // Scrolling up
               navbar.style.top = '0';
             }
-
             lastScrollTop = currentScrollTop;
           }
         });
