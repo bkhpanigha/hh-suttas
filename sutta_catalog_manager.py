@@ -14,19 +14,12 @@ def load_json(file_path):
         return json.load(file)
     
 def split_id(s):
-    match = re.match(r"([A-Za-z]+)(\d+)(?:\.(\d+)(?:-(\d+))?)?", s)
+    match = re.match(r"([A-Za-z]+)(.*)", s)
     if match:
-        letters, numbers, numbers_after_dot, numbers_after_dash = match.groups()
-        
-        #Extract numbers after dot if id has format "XX.YY" or "XX.YY-ZZ"
-        if numbers_after_dot or numbers_after_dash:
-            full_numbers = f"{numbers}.{numbers_after_dot}{('-' + numbers_after_dash) if numbers_after_dash else ''}"
-        else:
-            full_numbers = numbers
-        
-        return letters, numbers, full_numbers
+        letters, numbers = match.groups()
+        return letters, numbers
     else:
-        return s, "", ""
+        return s, ""
 
 def add_sutta(available_suttas, match, data, key):
     """Extract sutta title from data and add it to the list if present."""
@@ -38,7 +31,7 @@ def add_sutta(available_suttas, match, data, key):
             heading = json.load(headings).get(f"{match.group(1)}{match.group(2)}")
             first_group = match.group(1)
             
-            #Extract pali title sutta's pali file
+            #Extract pali title in sutta's pali file
             paths = generate_paths_for_sutta(f"{match.group(1)}{match.group(2)}", "./suttas")
             if paths:
                 with open(paths[1], "r", encoding='utf-8') as pali_lines:
@@ -129,10 +122,9 @@ def load_available_suttas(suttas_base_dir):
 
 def generate_paths_for_sutta(sutta_id, base_dir="suttas"):
     """Generate file paths for a given sutta, taking into account special structures."""
-    book, number, full_sutta_id = split_id(sutta_id)
+    sutta_id = sutta_id.lower()
+    book, number = split_id(sutta_id)
     
-    dir_prefix = book.lower()
-    formatted_sutta_id = number
     # Base paths for different categories of files
     base_paths = {
         "html": Path(base_dir) / "html",
@@ -146,48 +138,47 @@ def generate_paths_for_sutta(sutta_id, base_dir="suttas"):
         vagga_number = number.split('.')[0]
         vagga = f"vagga{vagga_number}"
         for key in base_paths:
-            base_paths[key] = base_paths[key] / "kn" / dir_prefix / vagga
+            base_paths[key] = base_paths[key] / "kn" / book / vagga
     elif book in ["sn", "an"]:
         subsection_number = number.split('.')[0]
-        subsection = f"{dir_prefix}{subsection_number}"
+        subsection = f"{book}{subsection_number}"
         for key in base_paths:
-            base_paths[key] = base_paths[key] / dir_prefix / subsection
+            base_paths[key] = base_paths[key] / book / subsection
     elif book in ["dhp", "thag", "thig"]:
         for key in base_paths:
-            base_paths[key] = base_paths[key] / "kn" / dir_prefix
+            base_paths[key] = base_paths[key] / "kn" / book
     else:
         for key in base_paths:
-            base_paths[key] = base_paths[key] / dir_prefix
+            base_paths[key] = base_paths[key] / book
 
     # Initialize the paths list
     paths = []
 
     # Check if the "translation" file exists before adding paths
-    translation_path = base_paths["translation"] / f"{sutta_id.lower()}_translation-en-anigha.json"
-        
+    translation_path = base_paths["translation"] / f"{sutta_id}_translation-en-anigha.json"
+
     if translation_path.exists():
         # Only add paths if the "translation" file exists
         paths = [
-            str(base_paths["html"] / f"{dir_prefix}{full_sutta_id}_html.json"),
-            str(base_paths["root"] / f"{dir_prefix}{full_sutta_id}_root-pli-ms.json"),
+            str(base_paths["html"] / f"{sutta_id}_html.json"),
+            str(base_paths["root"] / f"{sutta_id}_root-pli-ms.json"),
             str(translation_path),  # Already confirmed to exist
         ]
-
         # Attempt to add the comment file path if it exists
-        comment_path = base_paths["comment"] / f"{dir_prefix}{formatted_sutta_id}_comment-en-anigha.json"
+        comment_path = base_paths["comment"] / f"{sutta_id}_comment-en-anigha.json"
         if comment_path.exists():
             paths.append(str(comment_path))
-    
     return paths
 
 def generate_corresponding_files_list(available_suttas, output_file):
     files_to_cache = []
 
     # Directories to cache
-    directories_to_cache = ["./images", "./js"]
+    directories_to_cache = ["./images", "./js", "./"]
     for directory in directories_to_cache:
         for root, _, files in os.walk(directory):
-            files_to_cache.extend([os.path.relpath(os.path.join(root, file), '.') for file in files])
+            if 'git' not in root:
+                files_to_cache.extend([os.path.relpath(os.path.join(root, file), '.') for file in files])
 
     # Generate paths for each sutta using the refined function
     for sutta in available_suttas:

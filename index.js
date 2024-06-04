@@ -46,7 +46,7 @@ async function getAvailableSuttas({ mergedTitle = true } = {}) {
 function searchSuttas(pattern) {
   if (!fuse) { pattern = "" }; // if Fuse isn't initialized, return empty array
   pattern = pattern.normalize('NFD').replace(/[\u0300-\u036f]/g, ''); // Convert pali letters in latin letters to match pali_title in available_suttas.json
-  let results = fuse.search("'"+pattern).map(result => result.item);
+  let results = fuse.search("'" + pattern).map(result => result.item);
   // join up the id with the titles to be displayed
   return results.map(sutta => `${sutta.id}: ${sutta.title.trim()}${sutta.author ? `: ${sutta.author}` : ':'}${sutta.heading ? `: ${sutta.heading}` : ':'}`);
 }
@@ -114,57 +114,7 @@ function displaySuttas(suttas, isSearch = false) {
   //suttaArea.innerHTML += `<p style="font-size: 14px;"><i>Bhikkhu Sujato's copyright-free English translations at SuttaCentral have been modified for use on this site.</i></p>`;
 
   //Add listener for download button
-  document.getElementById('cacheButton').addEventListener('click', () => {
-    // Check if service worker is supported by the browser
-    if ('serviceWorker' in navigator) {
-      // Send message to service worker to trigger caching
-      try {
-        showNotification("Downloading...")
-        navigator.serviceWorker.controller.postMessage({ action: 'cacheResources' });
-      } catch (error) {
-        console.log(error);
-        // TODO maybe a red colour box here?
-        showNotification("An error occurred while attempting to download. Please refresh the page, wait a few seconds, and retry");
-      }
-    }
-  });
-
-  infoButton.addEventListener("click", function (event) {
-    event.stopPropagation(); // Prevent click from immediately propagating to document
-    let notificationBox = document.querySelector('.info-notification-box')
-    if (!notificationBox) {
-      notificationBox = document.createElement('div');
-      notificationBox.classList.add('info-notification-box');
-      document.body.appendChild(notificationBox);
-    }
-
-    if (notificationBox.style.display == 'block') {
-      notificationBox.style.display = 'none';
-    } else {
-      notificationBox.textContent = "The ‘Download’ button makes the site available offline on the current web browser at the same URL (suttas.hillsidehermitage.org).\n\nThe site can also be installed as an application on mobile phones, by tapping ‘Install’ at the menu on the top right corner. Note that hitting the download button is still necessary to make it available offline through the app.\n\nIf downloading again (e.g., when new Suttas become available), make sure to first clear the site's data on your browser/app and reload the page.";
-      notificationBox.style.display = 'block';
-    }
-  });
-  // Add event listener to document to hide notificationBox when clicking outside
-  document.addEventListener("click", function (event) {
-    let notificationBox = document.querySelector('.info-notification-box');
-    if (notificationBox && notificationBox.style.display == 'block') {
-      // Check if the click is outside the notificationBox and not on the infoButton
-      if (!notificationBox.contains(event.target) && event.target !== infoButton) {
-        notificationBox.style.display = 'none';
-      }
-    }
-  });
-
-  navigator.serviceWorker.addEventListener('message', event => {
-    if (event.data && event.data.action === 'cachingSuccess') {
-      showNotification("Download successful - site available offline.")
-    }
-    if (event.data && event.data.action === 'cachingError') {
-      // TODO again maybe a different colour box
-      showNotification("Caching error. Please clear site data, refresh the page, and try again.");
-    }
-  });
+ 
 
 }
 /* 
@@ -371,8 +321,10 @@ let fuse = createFuseSearch(); // holds our search engine
 const citation = document.getElementById("citation");
 citation.focus();
 
+// input in search bar
 citation.addEventListener("input", e => {
   const searchQuery = e.target.value.trim();
+  suttaArea.innerHTML = "";
   if (searchQuery) {
     const searchResults = searchSuttas(searchQuery);
     displaySuttas(searchResults, true);
@@ -399,7 +351,7 @@ function buildSutta(slug) {
   let html = `<div class="button-area"><button id="hide-pali" class="hide-button">Toggle Pali</button></div>`;
   let subDir;
   let sutta_title;
-  
+
   if (slug.slice(0, 2) !== "mn" && slug.slice(0, 2) !== "an" && slug.slice(0, 2) !== "dn" && !/^sn\d/i.test(slug)) {
     const matchIndex = slug.search(/\d/);
     let firstSection, secondSection, vagga;
@@ -458,10 +410,10 @@ function buildSutta(slug) {
           openHtml = openHtml.replace(/^<span class='verse-line'>/, "<br><span class='verse-line'>");
         }
 
-        if(openHtml.includes("sutta-title")){
+        if (openHtml.includes("sutta-title")) {
           sutta_title = `${root_text[segment] || ""} : ${translation_text[segment]}`;
         }
-        
+
         html += `${openHtml}<span class="segment" id="${segment}">` +
           `<span class="pli-lang" lang="pi">${root_text[segment] || ""}</span>` +
           `<span class="eng-lang" lang="en">${translation_text[segment]}` +
@@ -484,7 +436,7 @@ function buildSutta(slug) {
 
       // TODO fix the way these pages are rendered
       document.title = `${acronym} ` + sutta_title;
-      
+
       toggleThePali();
       // Add the navbar to the page
       const navbar = document.createElement('div');
@@ -578,16 +530,13 @@ function buildSutta(slug) {
 }
 
 // initialize the whole app
-function initialize() {
-  if (document.location.search) {
-    //console.log(document.location.search);
-    buildSutta(document.location.search.replace("?q=", "").replace(/\s/g, "").replace(/%20/g, ""));
-  } else {
-    displaySuttas(availableSuttasArray);
-  }
+if (document.location.search) {
+  //console.log(document.location.search);
+  buildSutta(document.location.search.replace("?q=", "").replace(/\s/g, "").replace(/%20/g, ""));
+} else {
+  displaySuttas(availableSuttasArray);
 }
 
-initialize();
 
 document.addEventListener('click', function (event) {
   // Check if the clicked element is the foreword button
@@ -599,4 +548,56 @@ document.addEventListener('click', function (event) {
 
 window.addEventListener('hashchange', function () {
   scrollToHash();
+});
+
+document.getElementById('cacheButton').addEventListener('click', () => {
+  // Check if service worker is supported by the browser
+  if ('serviceWorker' in navigator) {
+    // Send message to service worker to trigger caching
+    try {
+      showNotification("Downloading...")
+      navigator.serviceWorker.controller.postMessage({ action: 'cacheResources' });
+    } catch (error) {
+      console.log(error);
+      // TODO maybe a red colour box here?
+      showNotification("An error occurred while attempting to download. Please refresh the page, wait a few seconds, and retry");
+    }
+  }
+});
+
+infoButton.addEventListener("click", function (event) {
+  event.stopPropagation(); // Prevent click from immediately propagating to document
+  let notificationBox = document.querySelector('.info-notification-box')
+  if (!notificationBox) {
+    notificationBox = document.createElement('div');
+    notificationBox.classList.add('info-notification-box');
+    document.body.appendChild(notificationBox);
+  }
+
+  if (notificationBox.style.display == 'block') {
+    notificationBox.style.display = 'none';
+  } else {
+    notificationBox.textContent = "The ‘Download’ button makes the site available offline on the current web browser at the same URL (suttas.hillsidehermitage.org).\n\nThe site can also be installed as an application on mobile phones, by tapping ‘Install’ at the menu on the top right corner. Note that hitting the download button is still necessary to make it available offline through the app.\n\nIf downloading again (e.g., when new Suttas become available), make sure to first clear the site's data on your browser/app and reload the page.";
+    notificationBox.style.display = 'block';
+  }
+});
+// Add event listener to document to hide notificationBox when clicking outside
+document.addEventListener("click", function (event) {
+  let notificationBox = document.querySelector('.info-notification-box');
+  if (notificationBox && notificationBox.style.display == 'block') {
+    // Check if the click is outside the notificationBox and not on the infoButton
+    if (!notificationBox.contains(event.target) && event.target !== infoButton) {
+      notificationBox.style.display = 'none';
+    }
+  }
+});
+
+navigator.serviceWorker.addEventListener('message', event => {
+  if (event.data && event.data.action === 'cachingSuccess') {
+    showNotification("Download successful - site available offline.")
+  }
+  if (event.data && event.data.action === 'cachingError') {
+    // TODO again maybe a different colour box
+    showNotification("Caching error. Please clear site data, refresh the page, and try again.");
+  }
 });
