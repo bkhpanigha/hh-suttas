@@ -21,21 +21,21 @@ function scrollToHash() {
       if (startElement && endElement) {
         let highlight = false;
         var segments = document.getElementsByClassName("segment");
-        
+
         for (const segment of segments) {
-          if (segment.id === startFullId){
+          if (segment.id === startFullId) {
             highlight = true;
           }
 
           if (highlight) {
             segment.classList.add("highlight");
           }
-          
-          if (segment.id === endFullId){
+
+          if (segment.id === endFullId) {
             break;
           }
         }
-        
+
         startElement.scrollIntoView();
       }
     } else {
@@ -126,7 +126,11 @@ function handleTextSelection() {
   const endsWithNewline = selectedText.endsWith('\n') || selectedText.endsWith('\r\n');
 
   if (endsWithNewline) {
-    end = start;
+    if (selection.focusNode.nodeType === 1) {
+      end = selection.focusNode.previousElementSibling;
+    } else { // TODO check if this else is even necessary
+      end = selection.focusNode.parentNode;
+    }
   } else {
     const focusParent = selection.focusNode.parentNode;
     end = focusParent.tagName === 'ARTICLE' ? selection.focusNode : focusParent;
@@ -148,14 +152,22 @@ function handleTextSelection() {
     }
   } else {
     const range = selection.getRangeAt(0);
-    segments = range.cloneContents().querySelectorAll('.segment');
+    segments = Array.from(range.cloneContents().querySelectorAll('.segment'));
+  }
+
+  if (segments.length === 0) {
+    // Fallback for triple-click selection
+    const commonAncestorContainer = selection.getRangeAt(0).commonAncestorContainer;
+    if (commonAncestorContainer.nodeType === Node.ELEMENT_NODE) {
+      segments = Array.from(commonAncestorContainer.querySelectorAll('.segment'));
+    }
   }
 
   if (segments.length === 0) {
     return; // No valid segment found
   }
 
-  const ids = Array.from(segments).map(segment => segment.id);
+  const ids = segments.map(segment => segment.id);
   const rect = end.getBoundingClientRect();
   showCopyButton(rect.left + window.scrollX, rect.bottom + window.scrollY, ids);
 }
