@@ -174,10 +174,11 @@ def generate_corresponding_files_list(available_suttas, output_file):
     files_to_cache = []
 
     # Directories to cache
-    directories_to_cache = ["./images", "./js"]
+    directories_to_cache = ["./images", "./js", "./"]
     for directory in directories_to_cache:
         for root, _, files in os.walk(directory):
-            files_to_cache.extend([os.path.relpath(os.path.join(root, file), '.') for file in files])
+            if 'git' not in root:
+                files_to_cache.extend([os.path.relpath(os.path.join(root, file), '.') for file in files])
 
     # Generate paths for each sutta using the refined function
     for sutta in available_suttas:
