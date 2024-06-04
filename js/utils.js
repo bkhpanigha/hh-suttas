@@ -125,12 +125,8 @@ function handleTextSelection() {
   const selectedText = selection.toString();
   const endsWithNewline = selectedText.endsWith('\n') || selectedText.endsWith('\r\n');
 
-  if (endsWithNewline) {
-    if (selection.focusNode.nodeType === 1) {
+  if (endsWithNewline && selection.focusNode.nodeType === 1) {
       end = selection.focusNode.previousElementSibling;
-    } else { // TODO check if this else is even necessary
-      end = selection.focusNode.parentNode;
-    }
   } else {
     const focusParent = selection.focusNode.parentNode;
     end = focusParent.tagName === 'ARTICLE' ? selection.focusNode : focusParent;
@@ -153,14 +149,6 @@ function handleTextSelection() {
   } else {
     const range = selection.getRangeAt(0);
     segments = Array.from(range.cloneContents().querySelectorAll('.segment'));
-  }
-
-  if (segments.length === 0) {
-    // Fallback for triple-click selection
-    const commonAncestorContainer = selection.getRangeAt(0).commonAncestorContainer;
-    if (commonAncestorContainer.nodeType === Node.ELEMENT_NODE) {
-      segments = Array.from(commonAncestorContainer.querySelectorAll('.segment'));
-    }
   }
 
   if (segments.length === 0) {
