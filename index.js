@@ -46,7 +46,7 @@ async function getAvailableSuttas({ mergedTitle = true } = {}) {
 function searchSuttas(pattern) {
   if (!fuse) { pattern = "" }; // if Fuse isn't initialized, return empty array
   pattern = pattern.normalize('NFD').replace(/[\u0300-\u036f]/g, ''); // Convert pali letters in latin letters to match pali_title in available_suttas.json
-  let results = fuse.search("'"+pattern).map(result => result.item);
+  let results = fuse.search("'" + pattern).map(result => result.item);
   // join up the id with the titles to be displayed
   return results.map(sutta => `${sutta.id}: ${sutta.title.trim()}${sutta.author ? `: ${sutta.author}` : ':'}${sutta.heading ? `: ${sutta.heading}` : ':'}`);
 }
@@ -371,8 +371,10 @@ let fuse = createFuseSearch(); // holds our search engine
 const citation = document.getElementById("citation");
 citation.focus();
 
+// input in search bar
 citation.addEventListener("input", e => {
   const searchQuery = e.target.value.trim();
+  suttaArea.innerHTML = "";
   if (searchQuery) {
     const searchResults = searchSuttas(searchQuery);
     displaySuttas(searchResults, true);
@@ -399,7 +401,7 @@ function buildSutta(slug) {
   let html = `<div class="button-area"><button id="hide-pali" class="hide-button">Toggle Pali</button></div>`;
   let subDir;
   let sutta_title;
-  
+
   if (slug.slice(0, 2) !== "mn" && slug.slice(0, 2) !== "an" && slug.slice(0, 2) !== "dn" && !/^sn\d/i.test(slug)) {
     const matchIndex = slug.search(/\d/);
     let firstSection, secondSection, vagga;
@@ -458,10 +460,10 @@ function buildSutta(slug) {
           openHtml = openHtml.replace(/^<span class='verse-line'>/, "<br><span class='verse-line'>");
         }
 
-        if(openHtml.includes("sutta-title")){
+        if (openHtml.includes("sutta-title")) {
           sutta_title = `${root_text[segment] || ""} : ${translation_text[segment]}`;
         }
-        
+
         html += `${openHtml}<span class="segment" id="${segment}">` +
           `<span class="pli-lang" lang="pi">${root_text[segment] || ""}</span>` +
           `<span class="eng-lang" lang="en">${translation_text[segment]}` +
@@ -484,7 +486,7 @@ function buildSutta(slug) {
 
       // TODO fix the way these pages are rendered
       document.title = `${acronym} ` + sutta_title;
-      
+
       toggleThePali();
       // Add the navbar to the page
       const navbar = document.createElement('div');
@@ -578,16 +580,13 @@ function buildSutta(slug) {
 }
 
 // initialize the whole app
-function initialize() {
-  if (document.location.search) {
-    //console.log(document.location.search);
-    buildSutta(document.location.search.replace("?q=", "").replace(/\s/g, "").replace(/%20/g, ""));
-  } else {
-    displaySuttas(availableSuttasArray);
-  }
+if (document.location.search) {
+  //console.log(document.location.search);
+  buildSutta(document.location.search.replace("?q=", "").replace(/\s/g, "").replace(/%20/g, ""));
+} else {
+  displaySuttas(availableSuttasArray);
 }
 
-initialize();
 
 document.addEventListener('click', function (event) {
   // Check if the clicked element is the foreword button
