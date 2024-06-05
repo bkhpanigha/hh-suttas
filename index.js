@@ -46,7 +46,8 @@ async function getAvailableSuttas({ mergedTitle = true } = {}) {
 function searchSuttas(pattern) {
   if (!fuse) { pattern = "" }; // if Fuse isn't initialized, return empty array
   pattern = pattern.normalize('NFD').replace(/[\u0300-\u036f]/g, ''); // Convert pali letters in latin letters to match pali_title in available_suttas.json
-  pattern = "'" + pattern.replace(" ", " '");
+  pattern = pattern.replace(/\s+/g, ' '). // Removes multiples spaces
+    replace(/\b(\w+)\b/g, "'$1"); // Add apostrophe in front of every search term (fusejs's match-type: include-match)
 
   let results = fuse.search(pattern).map(result => result.item);
   // join up the id with the titles to be displayed
