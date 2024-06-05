@@ -47,7 +47,7 @@ function searchSuttas(pattern) {
   if (!fuse) { pattern = "" }; // if Fuse isn't initialized, return empty array
   pattern = pattern.normalize('NFD').replace(/[\u0300-\u036f]/g, ''); // Convert pali letters in latin letters to match pali_title in available_suttas.json
   pattern = pattern.replace(/\s+/g, ' '). // Removes multiples spaces
-    replace(/\b(\w+)\b/g, "'$1"); // Add apostrophe in front of every search term (fusejs's match-type: include-match)
+            replace(/\b(\w+)\b/g, "'$1"); // Add apostrophe in front of every search term (fusejs' match type: include-match)
 
   let results = fuse.search(pattern).map(result => result.item);
   // join up the id with the titles to be displayed
@@ -438,7 +438,6 @@ function buildSutta(slug) {
           `${comment_text[segment] ? `<span class="comment">*<span class="comment-text" style="display: none;">${converter.makeHtml(comment_text[segment]).replace(/^<p>(.*)<\/p>$/, '$1')}</span></span>` : ""}` +
           `</span></span>${closeHtml}\n\n`;
       });
-      //console.log(html);
 
       if (authors_text[slug]) translator = authors_text[slug];
       const translatorByline = `<div class="byline"><p>Translated by ${translator}</p></div>`;
@@ -549,7 +548,6 @@ function buildSutta(slug) {
 
 // initialize the whole app
 if (document.location.search) {
-  //console.log(document.location.search);
   buildSutta(document.location.search.replace("?q=", "").replace(/\s/g, "").replace(/%20/g, ""));
 } else {
   displaySuttas(availableSuttasArray);
