@@ -46,7 +46,9 @@ async function getAvailableSuttas({ mergedTitle = true } = {}) {
 function searchSuttas(pattern) {
   if (!fuse) { pattern = "" }; // if Fuse isn't initialized, return empty array
   pattern = pattern.normalize('NFD').replace(/[\u0300-\u036f]/g, ''); // Convert pali letters in latin letters to match pali_title in available_suttas.json
-  let results = fuse.search("'" + pattern).map(result => result.item);
+  pattern = "'" + pattern.replace(" ", " '");
+
+  let results = fuse.search(pattern).map(result => result.item);
   // join up the id with the titles to be displayed
   return results.map(sutta => `${sutta.id}: ${sutta.title.trim()}${sutta.author ? `: ${sutta.author}` : ':'}${sutta.heading ? `: ${sutta.heading}` : ':'}`);
 }
@@ -253,7 +255,21 @@ function toggleThePali() {
 }
 
 async function createFuseSearch() {
-  const availableSuttas = await getAvailableSuttas({ mergedTitle: false });
+  var availableSuttas = await getAvailableSuttas({ mergedTitle: false });
+
+  //Combine all values in a single field so user can do search on multiple fields
+  availableSuttas['available_suttas'] = availableSuttas['available_suttas'].map(obj => {
+      // Get every element's values and combine them with a white space
+      const combination = Object.values(obj).join(' ')
+        .normalize('NFD').replace(/[\u0300-\u036f]/g, ''); //pali normalized in latin for search to work on headings containing pali
+  
+      // Return new object with "combination" key added
+      return {
+          ...obj,
+          combination: combination
+      };
+  });
+
   fuse = new Fuse(availableSuttas['available_suttas'], fuseOptions);
   return fuse
 }
@@ -278,7 +294,8 @@ document.onkeyup = function (e) {
 let fuseOptions = {
   includeScore: true,
   useExtendedSearch: true,
-  keys: ['id', 'title', 'pali_title', 'author', 'heading'], // Id then title in terms of priority
+  shouldSort: false,
+  keys: ['combination'],
 };
 
 
