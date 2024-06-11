@@ -94,6 +94,8 @@ function showCopyButton(x, y, ids) {
     }
     copyToClipboard(link);
     hideCopyButton();
+    hideBookmarkButton();
+    clearSelection();
   };
 
   // Add the new click event listener
@@ -111,12 +113,77 @@ function hideCopyButton() {
     copyButton.style.display = 'none';
   }
 }
+function showBookmarkButton(x, y, ids) {
+  let bookmarkButton = document.getElementById('bookmarkButton');
+  if (!bookmarkButton) {
+    bookmarkButton = document.createElement('button');
+    bookmarkButton.id = 'bookmarkButton';
+    bookmarkButton.textContent = 'Bookmark';
+    document.body.appendChild(bookmarkButton);
+  }
+
+  // Remove any existing click event listener
+  bookmarkButton.removeEventListener('click', bookmarkButton.clickHandler);
+
+  // Create a new click handler with current IDs
+  bookmarkButton.clickHandler = function () {
+    let bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
+    let hash = "";
+    if (ids.length > 1) {
+      const firstId = ids[0];
+      const lastId = ids[ids.length - 1];
+      hash = `${firstId}-${lastId}`;
+    } else if (ids.length === 1) {
+      hash = ids[0];
+    }
+    // Check if the hash already exists in bookmarks
+    if (!bookmarks.includes(hash)) {
+      bookmarks.push(hash);
+      localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+      showNotification(`Added ${hash} to bookmarks`)
+    } else {
+      showNotification("Section already in bookmarks")
+    }
+
+    hideBookmarkButton();
+    hideCopyButton();
+    clearSelection();
+  };
+
+  // Add the new click event listener
+  bookmarkButton.addEventListener('click', bookmarkButton.clickHandler);
+
+  bookmarkButton.style.left = x + 'px';
+  bookmarkButton.style.top = y + 'px';
+  bookmarkButton.style.position = 'absolute';
+  bookmarkButton.style.display = 'block';
+}
+
+function hideBookmarkButton() {
+  let bookmarkButton = document.getElementById('bookmarkButton');
+  if (bookmarkButton) {
+    bookmarkButton.style.display = 'none';
+  }
+}
+
+function clearSelection() {
+  if (window.getSelection) {
+    if (window.getSelection().empty) {  // Chrome
+      window.getSelection().empty();
+    } else if (window.getSelection().removeAllRanges) {  // Firefox
+      window.getSelection().removeAllRanges();
+    }
+  } else if (document.selection) {  // IE
+    document.selection.empty();
+  }
+}
 
 function handleTextSelection() {
   const selection = window.getSelection();
 
   if (!selection.rangeCount || selection.isCollapsed) {
     hideCopyButton();
+    hideBookmarkButton();
     return;
   }
 
@@ -158,6 +225,8 @@ function handleTextSelection() {
   const ids = segments.map(segment => segment.id);
   const rect = end.getBoundingClientRect();
   showCopyButton(rect.left + window.scrollX, rect.bottom + window.scrollY, ids);
+  showBookmarkButton(rect.left + window.scrollX + 72, rect.bottom + window.scrollY, ids); // Adjust position as needed
+
 }
 
 // Function to copy text to the clipboard
