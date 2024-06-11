@@ -46,7 +46,10 @@ async function getAvailableSuttas({ mergedTitle = true } = {}) {
 function searchSuttas(pattern) {
   if (!fuse) { pattern = "" }; // if Fuse isn't initialized, return empty array
   pattern = pattern.normalize('NFD').replace(/[\u0300-\u036f]/g, ''); // Convert pali letters in latin letters to match pali_title in available_suttas.json
-  let results = fuse.search("'" + pattern).map(result => result.item);
+  pattern = pattern.replace(/\s+/g, ' '). // Removes multiples spaces
+            replace(/\b(\w+)\b/g, "'$1"); // Add apostrophe in front of every search term (fusejs' match type: include-match)
+
+  let results = fuse.search(pattern).map(result => result.item);
   // join up the id with the titles to be displayed
   return results.map(sutta => `${sutta.id}: ${sutta.title.trim()}${sutta.author ? `: ${sutta.author}` : ':'}${sutta.heading ? `: ${sutta.heading}` : ':'}`);
 }
@@ -253,7 +256,21 @@ function toggleThePali() {
 }
 
 async function createFuseSearch() {
-  const availableSuttas = await getAvailableSuttas({ mergedTitle: false });
+  var availableSuttas = await getAvailableSuttas({ mergedTitle: false });
+
+  //Combine all values in a single field so user can do search on multiple fields
+  availableSuttas['available_suttas'] = availableSuttas['available_suttas'].map(obj => {
+      // Get every element's values and combine them with a white space
+      const combination = Object.values(obj).join(' ')
+        .normalize('NFD').replace(/[\u0300-\u036f]/g, ''); //pali normalized in latin for search to work on headings containing pali
+  
+      // Return new object with "combination" key added
+      return {
+          ...obj,
+          combination: combination
+      };
+  });
+
   fuse = new Fuse(availableSuttas['available_suttas'], fuseOptions);
   return fuse
 }
@@ -278,7 +295,8 @@ document.onkeyup = function (e) {
 let fuseOptions = {
   includeScore: true,
   useExtendedSearch: true,
-  keys: ['id', 'title', 'pali_title', 'author', 'heading'], // Id then title in terms of priority
+  shouldSort: false,
+  keys: ['combination'],
 };
 
 
@@ -420,7 +438,6 @@ function buildSutta(slug) {
           `${comment_text[segment] ? `<span class="comment">*<span class="comment-text" style="display: none;">${converter.makeHtml(comment_text[segment]).replace(/^<p>(.*)<\/p>$/, '$1')}</span></span>` : ""}` +
           `</span></span>${closeHtml}\n\n`;
       });
-      //console.log(html);
 
       if (authors_text[slug]) translator = authors_text[slug];
       const translatorByline = `<div class="byline"><p>Translated by ${translator}</p></div>`;
@@ -531,7 +548,6 @@ function buildSutta(slug) {
 
 // initialize the whole app
 if (document.location.search) {
-  //console.log(document.location.search);
   buildSutta(document.location.search.replace("?q=", "").replace(/\s/g, "").replace(/%20/g, ""));
 } else {
   displaySuttas(availableSuttasArray);

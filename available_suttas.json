@@ -296,10 +296,30 @@
             "pali_title": "Jivakasutta"
         },
         {
+            "id": "MN56",
+            "title": "With Upāli ",
+            "pali_title": "Upalisutta"
+        },
+        {
+            "id": "MN57",
+            "title": "The Ascetic Who Behaved Like a Dog ",
+            "pali_title": "Kukkuravatikasutta"
+        },
+        {
+            "id": "MN58",
+            "title": "With Prince Abhaya ",
+            "pali_title": "Abhayarajakumarasutta"
+        },
+        {
             "id": "MN107",
             "title": "With Moggallāna the Accountant ",
             "pali_title": "Ganakamoggallanasutta",
             "heading": "The Gradual Training"
+        },
+        {
+            "id": "SN1.20",
+            "title": "With Samiddhi ",
+            "pali_title": "Samiddhisutta"
         },
         {
             "id": "SN12.67",
@@ -321,7 +341,7 @@
         },
         {
             "id": "SN35.70",
-            "title": "Directly Visible (With Upavāna) ",
+            "title": "Presently Evident (With Upavāna) ",
             "pali_title": "Upavanasanditthikasutta"
         },
         {
