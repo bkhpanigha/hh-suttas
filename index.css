@@ -605,7 +605,10 @@ a:hover {
   left: 50%; /* Center the element */
   transform: translateX(-50%); /* Center the element */
 }
-
+.no-results{
+  text-align: center;
+  margin: 1rem 0 2rem 0;
+}
 @media only screen and (max-width: 600px) {
   #suttanav {
     padding: 5px; /* Reduced padding on smaller screens */
