@@ -345,7 +345,12 @@ citation.addEventListener("input", e => {
   suttaArea.innerHTML = "";
   if (searchQuery) {
     const searchResults = searchSuttas(searchQuery);
-    displaySuttas(searchResults, true);
+    if(searchResults.length > 0){
+      displaySuttas(searchResults, true);
+    }
+    else{
+      suttaArea.innerHTML += "<h2 class=\"no-results\">No results found</h2>";
+    }
   }
   else {
     displaySuttas(availableSuttasArray);
