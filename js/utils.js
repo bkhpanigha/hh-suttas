@@ -125,9 +125,8 @@ function showBookmarkButton(x, y, ids) {
   // Remove any existing click event listener
   bookmarkButton.removeEventListener('click', bookmarkButton.clickHandler);
 
-  // Create a new click handler with current IDs
   bookmarkButton.clickHandler = function () {
-    let bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
+    let bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || {'unlabeled': []};
     let hash = "";
     if (ids.length > 1) {
       const firstId = ids[0];
@@ -137,14 +136,14 @@ function showBookmarkButton(x, y, ids) {
       hash = ids[0];
     }
     // Check if the hash already exists in bookmarks
-    if (!bookmarks.includes(hash)) {
-      bookmarks.push(hash);
+    if (!bookmarks.unlabeled.includes(hash)) {
+      bookmarks.unlabeled.push(hash);
       localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
-      showNotification(`Added ${hash} to bookmarks`)
+      showNotification(`Added ${hash} to bookmarks`);
     } else {
-      showNotification("Section already in bookmarks")
+      showNotification("Section already in bookmarks");
     }
-
+  
     hideBookmarkButton();
     hideCopyButton();
     clearSelection();
