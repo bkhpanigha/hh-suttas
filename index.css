@@ -612,3 +612,21 @@ a:hover {
     font-size: 14px; /* Adjusted font size for smaller screens */
   }
 }
+
+
+.bookmark-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 13px; /* Add padding */
+}
+
+.bookmark-container p {
+  margin: 0;
+  flex-grow: 1;
+}
+
+.bookmark-container a,
+.bookmark-container button {
+  margin-left: 10px;
+}
