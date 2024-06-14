@@ -112,7 +112,7 @@ async function displayBookmarks() {
           // Create a delete button
           const deleteButton = document.createElement('button');
           deleteButton.textContent = 'Delete';
-          deleteButton.onclick = () => deleteBookmark(bookmark);
+          deleteButton.onclick = () => deleteBookmark(label, bookmark);
           container.appendChild(deleteButton);
           details.appendChild(container);
 
@@ -173,12 +173,12 @@ async function displayBookmarks() {
     bookmarksDiv.appendChild(details);
   }
 }
-function deleteBookmark(bookmark) {
+function deleteBookmark(label, bookmark) {
   // Retrieve bookmarks from localStorage
   let bookmarks = JSON.parse(localStorage.getItem('bookmarks'));
 
   // Filter out the bookmark to be deleted
-  bookmarks = bookmarks.filter(b => b !== bookmark);
+  bookmarks[label] = bookmarks[label].filter(b => b !== bookmark);
 
   // Save the updated bookmarks back to localStorage
   localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
