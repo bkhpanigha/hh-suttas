@@ -37,25 +37,28 @@ async function displayBookmarks() {
     const summary = document.createElement('summary');
     summary.textContent = label;
     // Create a delete button for the summary
-    const deleteSummaryButton = document.createElement('button');
-    deleteSummaryButton.textContent = 'Delete';
-    deleteSummaryButton.style.marginLeft = '10px'; // Add some margin for spacing
-    deleteSummaryButton.onclick = () => {
-      // Retrieve bookmarks from localStorage
-      let bookmarks = JSON.parse(localStorage.getItem('bookmarks'));
+    if (label !== 'unlabeled') {
 
-      // Delete the label and its bookmarks
-      delete bookmarks[label];
+      const deleteSummaryButton = document.createElement('button');
+      deleteSummaryButton.textContent = 'Delete';
+      deleteSummaryButton.style.marginLeft = '10px'; // Add some margin for spacing
+      deleteSummaryButton.onclick = () => {
+        // Retrieve bookmarks from localStorage
+        let bookmarks = JSON.parse(localStorage.getItem('bookmarks'));
 
-      // Save the updated bookmarks back to localStorage
-      localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+        // Delete the label and its bookmarks
+        delete bookmarks[label];
 
-      // Refresh the display
-      displayPage();
-    };
+        // Save the updated bookmarks back to localStorage
+        localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
 
-    // Append the delete button to the summary
-    summary.appendChild(deleteSummaryButton);
+        // Refresh the display
+        displayPage();
+      };
+
+      // Append the delete button to the summary
+      summary.appendChild(deleteSummaryButton);
+    }
     // TODO make this work with dark mode
     details.appendChild(summary);
 

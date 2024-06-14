@@ -127,6 +127,9 @@ function showBookmarkButton(x, y, ids) {
 
   bookmarkButton.clickHandler = function () {
     let bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || {'unlabeled': []};
+    if (!bookmarks.hasOwnProperty('unlabeled')) {
+      bookmarks.unlabeled = [];
+    }
     let hash = "";
     if (ids.length > 1) {
       const firstId = ids[0];
