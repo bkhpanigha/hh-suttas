@@ -1,4 +1,4 @@
-const version = 'v3'; // Update this version manually when filesToCache changes
+const version = 'v4'; // Update this version manually when filesToCache changes
 
 // static files to cache
 const filesToCache = [
@@ -19,8 +19,6 @@ fetch('files_to_cache.json')
   })
   .catch(error => console.error('Error loading files_to_cache.json:', error));
 
-
-
 const cacheName = `hh-suttas-cache-${version}`;
 
 self.addEventListener('install', event => {
@@ -31,12 +29,19 @@ self.addEventListener('message', event => {
   if (event.data && event.data.action === 'cacheResources') {
     caches.open(cacheName)
       .then(cache => {
-        const addPromises = filesToCache.map(file => {
-          return cache.add(file).catch(() => {
-            console.error('Caching failed for resource:', file);
-          });
-        });
-        return Promise.all(addPromises);
+        const batchSize = 200;
+        const addFilesInBatches = async (files) => {
+          for (let i = 0; i < files.length; i += batchSize) {
+            const batch = files.slice(i, i + batchSize);
+            const addPromises = batch.map(file => {
+              return cache.add(file).catch(() => {
+                console.error('Caching failed for resource:', file);
+              });
+            });
+            await Promise.all(addPromises);
+          }
+        };
+        return addFilesInBatches(filesToCache);
       })
       .then(() => {
         self.clients.matchAll().then(clients => {
@@ -53,14 +58,13 @@ self.addEventListener('message', event => {
 
 self.addEventListener('fetch', function (event) {
   if (!event.request.url.startsWith('http')) {
-    return
+    return;
   }
   event.respondWith(
     // Fetch from network first
     fetch(event.request)
       .then(function (response) {
         // If successful response, clone it, cache it, and return
-
         if (response && response.status === 200) {
           var responseToCache = response.clone();
           caches.open(cacheName).then(function (cache) {
@@ -71,20 +75,16 @@ self.addEventListener('fetch', function (event) {
       })
       .catch(function () {
         // If fetch fails, try to get the response from cache
-        console.log("index.html:")
+        console.log("index.html:");
         return caches.match(event.request)
           .then(function (response) {
             // If found in cache, return response
             if (response) {
-
               return response;
             }
             // If not found in cache, respond with a basic offline page
-
             return caches.match('/index.html');
           });
-
       })
   );
 });
-
