@@ -23,7 +23,7 @@ def split_id(s):
 
 def add_sutta(available_suttas, match, data, key):
     """Extract sutta title from data and add it to the list if present."""
-    sutta_title = data.get(key)
+    sutta_title = data.get(key).rstrip()
 
     if sutta_title:
         with open("authors.json", "r", encoding='utf-8') as authors, open("suttas/translation_en/headings.json", "r", encoding='utf-8') as headings:
@@ -175,10 +175,18 @@ def generate_corresponding_files_list(available_suttas, output_file):
 
     # Directories to cache
     directories_to_cache = ["./images", "./js", "./"]
+    files_to_cache = []
+
     for directory in directories_to_cache:
-        for root, _, files in os.walk(directory):
-            if 'git' not in root:
-                files_to_cache.extend([os.path.relpath(os.path.join(root, file), '.') for file in files])
+        if directory == "./":
+            for file in os.listdir(directory):
+                file_path = os.path.join(directory, file)
+                if os.path.isfile(file_path) and 'git' not in file_path:
+                    files_to_cache.append(os.path.relpath(file_path, '.'))
+        else:
+            for root, _, files in os.walk(directory):
+                if 'git' not in root:
+                    files_to_cache.extend([os.path.relpath(os.path.join(root, file), '.') for file in files])
 
     # Generate paths for each sutta using the refined function
     for sutta in available_suttas:
