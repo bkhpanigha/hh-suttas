@@ -185,6 +185,7 @@ def generate_corresponding_files_list(available_suttas, output_file):
                     # Check if the file has a name and an extension to not cache unneeded system files
                     if '.' in file and file.rsplit('.', 1)[0] and file.rsplit('.', 1)[1]:
                         files_to_cache.append(os.path.relpath(file_path, '.'))
+
         else:
             for root, _, files in os.walk(directory):
                 if 'git' not in root:

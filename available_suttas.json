@@ -321,6 +321,11 @@
             "pali_title": "Apannakasutta"
         },
         {
+            "id": "MN61",
+            "title": "Advice to Venerable Rāhula at Ambalaṭṭhika",
+            "pali_title": "Ambalatthikarahulovadasutta"
+        },
+        {
             "id": "MN107",
             "title": "With Moggallāna the Accountant",
             "pali_title": "Ganakamoggallanasutta",
@@ -366,7 +371,7 @@
         },
         {
             "id": "SN45.55",
-            "title": "Accomplishment in Attention Through the Origin (1st)",
+            "title": "Accomplishment in through-the-origin attention (1st)",
             "pali_title": "Yonisomanasikarasampadasutta"
         },
         {
@@ -436,6 +441,11 @@
             "id": "AN9.7",
             "title": "With Sutavā the Wanderer",
             "pali_title": "Sutavasutta"
+        },
+        {
+            "id": "AN10.62",
+            "title": "Craving",
+            "pali_title": "Tanhasutta"
         },
         {
             "id": "AN10.76",
