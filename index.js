@@ -1,4 +1,4 @@
-import { scrollToHash, showNotification, changeAcronymNumber } from './js/utils.js'
+import { scrollToHash, showNotification, changeAcronymNumber, getAvailableSuttas } from './js/utils.js'
 const suttaArea = document.getElementById("sutta");
 const homeButton = document.getElementById("home-button");
 const themeButton = document.getElementById("theme-button");
@@ -15,43 +15,18 @@ const forewordText = `Terms and expressions of doctrinal and practical significa
 
 // functions
 
-async function getAvailableSuttas({ mergedTitle = true } = {}) {
-  try {
-    const response = await fetch('available_suttas.json');
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    const data = await response.json();
-    if (mergedTitle) {
-      return data.available_suttas.map(sutta => {
-        const id = sutta.id;
-        const title = sutta.title.trim();
-        const author = sutta.author ? `: ${sutta.author}` : ':';
-        const heading = sutta.heading ? `: ${sutta.heading}` : ':';
-
-        return `${id}: ${title}${author}${heading}`;
-      });
-      return data.available_suttas.map(sutta => `${sutta.id}: ${sutta.title.trim()}${sutta.author ? `: ${sutta.author}` : ''}${sutta.heading ? `: ${sutta.heading}` : ''}`);
-    }
-    else {
-      return data
-
-    }
-  } catch (error) {
-    console.error('Error fetching available suttas:', error);
-    return [];
-  }
-}
-
 function searchSuttas(pattern) {
   if (!fuse) { pattern = "" }; // if Fuse isn't initialized, return empty array
   pattern = pattern.normalize('NFD').replace(/[\u0300-\u036f]/g, ''); // Convert pali letters in latin letters to match pali_title in available_suttas.json
   pattern = pattern.replace(/\s+/g, ' '). // Removes multiples spaces
             replace(/\b(\w+)\b/g, "'$1"); // Add apostrophe in front of every search term (fusejs' match type: include-match)
 
-  let results = fuse.search(pattern).map(result => result.item);
+  let results = fuse.search(pattern).reduce((acc, result) => {
+    acc[result.item.id] = result.item;
+    return acc;
+  }, {});
   // join up the id with the titles to be displayed
-  return results.map(sutta => `${sutta.id}: ${sutta.title.trim()}${sutta.author ? `: ${sutta.author}` : ':'}${sutta.heading ? `: ${sutta.heading}` : ':'}`);
+  return results;
 }
 
 async function showForeword() {
@@ -77,21 +52,23 @@ function displaySuttas(suttas, isSearch = false) {
     "kn": "Khuddaka Nikāya"
   };
   let currentGroup = -1;
-  suttaArea.innerHTML += `<ul style="margin-top: 20px;">${suttas.map(sutta => {
+  suttaArea.innerHTML += `<ul style="margin-top: 20px;">${Object.entries(suttas).map(([sutta_id, sutta_details]) => {
 
-    const parts = sutta.split(':');
-    const id = parts[0].trim().replace(/\s+/g, '');
-    const [title, author, heading] = parts.slice(1).map(part => part.trim());
+    // const parts = sutta.split(':');
+    const id = sutta_id;
+    const title = sutta_details['title']
+    const heading = sutta_details['heading'] || ""
+    // const author = sutta_details['author'] || 'Bhikkhu Anīgha';
     const link = `<a href="/?q=${id.toLowerCase()}">${id}: ${title}`;
     const em = heading ? `<span style="color: #7f6e0a;">${heading}</span>` : '';
-    const nikaya = sutta.slice(0, 2).toLowerCase();
+    const nikaya = sutta_id.slice(0, 2).toLowerCase();
     // Check if the current sutta belongs to a new group
 
     const key = Object.keys(books)[currentGroup];
 
     if (!isSearch && nikaya !== key && currentGroup < 4) {
 
-      // If it's a new group, display the subheading
+    //   // If it's a new group, display the subheading
       currentGroup += 1;
       const key = Object.keys(books)[currentGroup];
 
@@ -105,118 +82,8 @@ function displaySuttas(suttas, isSearch = false) {
 
     }
   }).join('')}</ul>`;
-
-  //suttaArea.innerHTML += `<p style="font-size: 14px;"><i>Bhikkhu Sujato's copyright-free English translations at SuttaCentral have been modified for use on this site.</i></p>`;
-
-  //Add listener for download button
- 
-
-}
-/* 
-function displaySuttas(suttas) {
-  const forewordViewed = localStorage.getItem('forewordViewed');
-  const forewordButton = document.getElementById('foreword-button');
-
-  // Display the initial text only if the foreword hasn't been viewed yet
-  if (!forewordViewed) {
-    suttaArea.innerHTML += forewordText;
-    localStorage.setItem('forewordViewed', true);
-  } else if (!forewordButton) {
-    addForewordButton();
-  }
-  
-  if (forewordButton) forewordButton.style.display = 'none';
-
-  // Define the books dictionary
-  const books = {
-    "dn": "Dīgha Nikāya",
-    "mn": "Majjhima Nikāya",
-    "sn": "Saṃyutta Nikāya",
-    "an": "Aṅguttara Nikāya",
-    "kn": "Khuddaka Nikāya"
-  };
-
-  let currentGroup = null;
-
-  // Display Suttas with Nikaya headings
-  suttas.forEach(sutta => {
-    const nikaya = sutta.split(':')[0].trim();
-    // Check if the current sutta belongs to a new group
-    if (currentGroup !== books[nikaya]) {
-      // If it's a new group, display the subheading
-      suttaArea.innerHTML += `<h2>${books[nikaya]}</h2>`;
-      currentGroup = books[nikaya];
-    }
-
-    // Display the sutta
-    const parts = sutta.split(':');
-    const id = parts[0].trim().replace(/\s+/g, '');
-    const [title, author, heading] = parts.slice(1).map(part => part.trim());
-    const link = `<a href="/?q=${id.toLowerCase()}">${id}: ${title}`;
-    const em = heading ? `<span style="color: #7f6e0a;">${heading}</span>` : '';
-    const byAuthor = author ? `by ${author}` : '';
-    const listItem = `<li>${link}${(em || byAuthor) ? ` (${em}${byAuthor})` : ''}</a></li>`;
-    suttaArea.innerHTML += listItem;
-  });
-
-  // Add event listener for download button
-  document.getElementById('cacheButton').addEventListener('click', () => {
-    // Check if service worker is supported by the browser
-    if ('serviceWorker' in navigator) {
-      // Send message to service worker to trigger caching
-      try {
-        showNotification("Downloading...");
-        navigator.serviceWorker.controller.postMessage({ action: 'cacheResources' });
-      } catch (error) {
-        console.log(error);
-        // TODO maybe a red colour box here?
-        showNotification("An error occurred while attempting to download. Please refresh the page, wait a few seconds, and retry");
-      }
-    }
-  });
-
-  // Add event listener for info button
-  infoButton.addEventListener("click", function (event) {
-    event.stopPropagation(); // Prevent click from immediately propagating to document
-    let notificationBox = document.querySelector('.info-notification-box');
-    if (!notificationBox) {
-      notificationBox = document.createElement('div');
-      notificationBox.classList.add('info-notification-box');
-      document.body.appendChild(notificationBox);
-    }
-
-    if (notificationBox.style.display == 'block') {
-      notificationBox.style.display = 'none';
-    } else {
-      notificationBox.textContent = "The ‘Download’ button makes the site available offline on the current web browser at the same URL (suttas.hillsidehermitage.org).\n\nThe site can also be installed as an application on mobile phones, by tapping ‘Install’ at the menu on the top right corner. Note that hitting the download button is still necessary to make it available offline through the app.\n\nIf downloading again (e.g., when new Suttas become available), make sure to first clear the site's data on your browser/app and reload the page.";
-      notificationBox.style.display = 'block';
-    }
-  });
-
-  // Add event listener to document to hide notificationBox when clicking outside
-  document.addEventListener("click", function (event) {
-    let notificationBox = document.querySelector('.info-notification-box');
-    if (notificationBox && notificationBox.style.display == 'block') {
-      // Check if the click is outside the notificationBox and not on the infoButton
-      if (!notificationBox.contains(event.target) && event.target !== infoButton) {
-        notificationBox.style.display = 'none';
-      }
-    }
-  });
-
-  // Listen for messages from service worker
-  navigator.serviceWorker.addEventListener('message', event => {
-    if (event.data && event.data.action === 'cachingSuccess') {
-      showNotification("Download successful - site available offline.");
-    }
-    if (event.data && event.data.action === 'cachingError') {
-      // TODO again maybe a different colour box
-      showNotification("Caching error. Please clear site data, refresh the page, and try again.");
-    }
-  });
 }
 
- */
 
 function toggleThePali() {
   const hideButton = document.getElementById("hide-pali");
@@ -248,22 +115,24 @@ function toggleThePali() {
 }
 
 async function createFuseSearch() {
-  var availableSuttas = await getAvailableSuttas({ mergedTitle: false });
+  // var availableSuttas = await getAvailableSuttas({ mergedTitle: false });
 
   //Combine all values in a single field so user can do search on multiple fields
-  availableSuttas['available_suttas'] = availableSuttas['available_suttas'].map(obj => {
+  let searchDict = Object.entries(availableSuttasJson['available_suttas']).map(([sutta_id, sutta_details]) => {
       // Get every element's values and combine them with a white space
-      const combination = Object.values(obj).join(' ')
+      delete sutta_details.file_path;
+      sutta_details['citation'] = sutta_id.replace(/\s/g, '');
+      const combination = Object.values(sutta_details).join(' ')
         .normalize('NFD').replace(/[\u0300-\u036f]/g, ''); //pali normalized in latin for search to work on headings containing pali
   
       // Return new object with "combination" key added
       return {
-          ...obj,
+          ...sutta_details,
           combination: combination
       };
   });
 
-  fuse = new Fuse(availableSuttas['available_suttas'], fuseOptions);
+  fuse = new Fuse(searchDict, fuseOptions);
   return fuse
 }
 
@@ -298,8 +167,9 @@ homeButton.addEventListener("click", () => {
 
 var converter = new showdown.Converter()
 
-const availableSuttasJson = await getAvailableSuttas({ mergedTitle: false })
-const availableSuttasArray = await getAvailableSuttas();
+const response = await fetch('available_suttas.json');
+const availableSuttasJson = await response.json();
+// const availableSuttasJson = await getAvailableSuttas();
 
 // initialize
 if (localStorage.sideBySide) {
@@ -325,8 +195,8 @@ themeButton.addEventListener("click", () => {
   const currentThemeIsDark = localStorage.theme === "dark";
   toggleTheme(!currentThemeIsDark);
 });
-
-let fuse = createFuseSearch(); // holds our search engine
+let fuse = null;
+fuse = await createFuseSearch(); // holds our search engine
 
 const citation = document.getElementById("citation");
 citation.focus();
@@ -337,7 +207,7 @@ citation.addEventListener("input", e => {
   suttaArea.innerHTML = "";
   if (searchQuery) {
     const searchResults = searchSuttas(searchQuery);
-    if(searchResults.length > 0){
+    if(Object.keys(searchResults).length > 0){
       displaySuttas(searchResults, true);
     }
     else{
@@ -345,7 +215,7 @@ citation.addEventListener("input", e => {
     }
   }
   else {
-    displaySuttas(availableSuttasArray);
+    displaySuttas(availableSuttasJson['available_suttas']);
   }
 });
 
@@ -523,7 +393,7 @@ function buildSutta(slug) {
 if (document.location.search) {
   buildSutta(document.location.search.replace("?q=", "").replace(/\s/g, "").replace(/%20/g, ""));
 } else {
-  displaySuttas(availableSuttasArray);
+  displaySuttas(availableSuttasJson['available_suttas']);
 }
 
 
@@ -531,7 +401,7 @@ document.addEventListener('click', function (event) {
   // Check if the clicked element is the foreword button
   if (event.target && event.target.id === 'foreword-button') {
     showForeword(); // Call the function to show the foreword
-    displaySuttas(availableSuttasArray);
+    displaySuttas(availableSuttasJson['available_suttas']);
   }
 });
 
