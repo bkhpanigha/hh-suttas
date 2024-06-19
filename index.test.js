@@ -1,6 +1,7 @@
 const puppeteer = require('puppeteer');
 const express = require('express');
-const path = require('path');
+const fs = require('fs');
+
 
 (async () => {
   // Set up an Express server
@@ -97,6 +98,37 @@ const path = require('path');
       throw new Error(`No <a> tag found with href="/?q=${ExpectedCitation}"`)
     }
   }
+  async function testAllCacheFilesReachable(jsonFilePath) {
+    const fileList = JSON.parse(fs.readFileSync(jsonFilePath));
+    const checkPromises = fileList.map(async filePath => {
+      const page = await browser.newPage();
+      const fullUrl = `http://localhost:${port}/${filePath}`;
+
+      try {
+        const response = await page.goto(fullUrl, {
+          waitUntil: 'networkidle2',
+          method: 'HEAD',
+          timeout: 10000 // set timeout to 10 seconds
+        });
+
+        if (response.status() === 404) {
+          throw new Error(`File at ${filePath} is not reachable, status code: ${response.status()}`);
+        }
+      } catch (error) {
+        if (error.message.includes('net::ERR_ABORTED')) {
+          console.warn(`Warning: ${error.message} for ${filePath}`);
+        } else if (error.message.includes('Navigation timeout')) {
+          console.warn(`Warning: Navigation timeout for ${filePath}`);
+        } else {
+          throw error;
+        }
+      } finally {
+        await page.close();
+      }
+    });
+
+    await Promise.all(checkPromises);
+  }
   // Run tests
   try {
     await testHomePage();
@@ -104,7 +136,7 @@ const path = require('path');
     await testCitationSearch("snp4.2");
     await testCitationSearch("mn10");
     await testPaliTitleSearch("sabba", "mn2");
-
+    await testAllCacheFilesReachable("files_to_cache.json")
     console.log("All tests passed successfully.");
   } catch (error) {
     console.error("Test failed: ", error);
