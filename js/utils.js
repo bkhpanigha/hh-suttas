@@ -196,37 +196,9 @@ function showNotification(message, duration = 3000) {
   }, duration);
 }
 
-async function getAvailableSuttas({ mergedTitle = true } = {}) {
-  try {
-    const response = await fetch('../available_suttas.json');
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    const data = await response.json();
-    if (mergedTitle) {
-      return data.available_suttas.map(sutta => {
-        const id = sutta.id;
-        const title = sutta.title.trim();
-        const author = sutta.author ? `: ${sutta.author}` : ':';
-        const heading = sutta.heading ? `: ${sutta.heading}` : ':';
-
-        return `${id}: ${title}${author}${heading}`;
-      });
-      return data.available_suttas.map(sutta => `${sutta.id}: ${sutta.title.trim()}${sutta.author ? `: ${sutta.author}` : ''}${sutta.heading ? `: ${sutta.heading}` : ''}`);
-    }
-    else {
-      return data
-
-    }
-  } catch (error) {
-    console.error('Error fetching available suttas:', error);
-    return [];
-  }
-}
-
 // Add event listener for text selection
 document.addEventListener('selectionchange', handleTextSelection);
 
 
 
-export { scrollToHash, showNotification, changeAcronymNumber, getAvailableSuttas };
+export { scrollToHash, showNotification, changeAcronymNumber };

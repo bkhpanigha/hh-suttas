@@ -1,4 +1,4 @@
-import { scrollToHash, showNotification, changeAcronymNumber, getAvailableSuttas } from './js/utils.js'
+import { scrollToHash, showNotification, changeAcronymNumber } from './js/utils.js'
 const suttaArea = document.getElementById("sutta");
 const homeButton = document.getElementById("home-button");
 const themeButton = document.getElementById("theme-button");
@@ -113,8 +113,6 @@ function toggleThePali() {
 }
 
 async function createFuseSearch() {
-  // var availableSuttas = await getAvailableSuttas({ mergedTitle: false });
-
   //Combine all values in a single field so user can do search on multiple fields
   let searchDict = Object.entries(availableSuttasJson).map(([sutta_id, sutta_details]) => {
     // Declare search fields here
