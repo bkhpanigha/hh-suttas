@@ -118,7 +118,7 @@ async function createFuseSearch() {
   // var availableSuttas = await getAvailableSuttas({ mergedTitle: false });
 
   //Combine all values in a single field so user can do search on multiple fields
-  let searchDict = Object.entries(availableSuttasJson['available_suttas']).map(([sutta_id, sutta_details]) => {
+  let searchDict = Object.entries(availableSuttasJson).map(([sutta_id, sutta_details]) => {
       // Get every element's values and combine them with a white space
       delete sutta_details.file_path;
       sutta_details['citation'] = sutta_id.replace(/\s/g, '');
@@ -168,8 +168,9 @@ homeButton.addEventListener("click", () => {
 var converter = new showdown.Converter()
 
 const response = await fetch('available_suttas.json');
-const availableSuttasJson = await response.json();
-// const availableSuttasJson = await getAvailableSuttas();
+const availableSuttas = await response.json();
+const availableSuttasJson = availableSuttas['available_suttas'];
+
 
 // initialize
 if (localStorage.sideBySide) {
@@ -215,7 +216,7 @@ citation.addEventListener("input", e => {
     }
   }
   else {
-    displaySuttas(availableSuttasJson['available_suttas']);
+    displaySuttas(availableSuttasJson);
   }
 });
 
@@ -393,7 +394,7 @@ function buildSutta(slug) {
 if (document.location.search) {
   buildSutta(document.location.search.replace("?q=", "").replace(/\s/g, "").replace(/%20/g, ""));
 } else {
-  displaySuttas(availableSuttasJson['available_suttas']);
+  displaySuttas(availableSuttasJson);
 }
 
 
@@ -401,7 +402,7 @@ document.addEventListener('click', function (event) {
   // Check if the clicked element is the foreword button
   if (event.target && event.target.id === 'foreword-button') {
     showForeword(); // Call the function to show the foreword
-    displaySuttas(availableSuttasJson['available_suttas']);
+    displaySuttas(availableSuttasJson);
   }
 });
 
