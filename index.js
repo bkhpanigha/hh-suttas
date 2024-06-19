@@ -18,8 +18,8 @@ const forewordText = `Terms and expressions of doctrinal and practical significa
 function searchSuttas(pattern) {
   if (!fuse) { pattern = "" }; // if Fuse isn't initialized, return empty array
   pattern = pattern.normalize('NFD').replace(/[\u0300-\u036f]/g, ''); // Convert pali letters in latin letters to match pali_title in available_suttas.json
-  pattern = pattern.replace(/\s+/g, ' '). // Removes multiples spaces
-    replace(/\b(\w+)\b/g, "'$1"); // Add apostrophe in front of every search term (fusejs' match type: include-match)
+  pattern = pattern.replace(/\s+/g, ' ') // Removes multiple spaces
+  .replace(/(^|\s)/g, " '");
 
   let results = fuse.search(pattern).reduce((acc, result) => {
     acc[result.item.id] = result.item;
@@ -54,16 +54,14 @@ function displaySuttas(suttas, isSearch = false) {
   let currentGroup = -1;
   suttaArea.innerHTML += `<ul style="margin-top: 20px;">${Object.entries(suttas).map(([sutta_id, sutta_details]) => {
 
-    // const parts = sutta.split(':');
-    const id = sutta_id;
+    const id = sutta_details['id'].replace(/\s+/g, '');;
     const title = sutta_details['title']
     const heading = sutta_details['heading'] || ""
-    // const author = sutta_details['author'] || 'Bhikkhu Anīgha';
     const link = `<a href="/?q=${id.toLowerCase()}">${id}: ${title}`;
     const em = heading ? `<span style="color: #7f6e0a;">${heading}</span>` : '';
     const nikaya = sutta_id.slice(0, 2).toLowerCase();
-    // Check if the current sutta belongs to a new group
 
+    // Check if the current sutta belongs to a new group
     const key = Object.keys(books)[currentGroup];
 
     if (!isSearch && nikaya !== key && currentGroup < 4) {
@@ -206,7 +204,7 @@ citation.focus();
 
 // input in search bar
 citation.addEventListener("input", e => {
-  const searchQuery = e.target.value.trim();
+  const searchQuery = e.target.value.trim().toLowerCase();
   suttaArea.innerHTML = "";
   if (searchQuery) {
     const searchResults = searchSuttas(searchQuery);
@@ -234,7 +232,7 @@ document.getElementById("form").addEventListener("submit", e => {
 // TODO what does this line do and when is it called?
 citation.value = document.location.search.replace("?q=", "").replace(/%20/g, "").replace(/\s/g, "");
 function buildSutta(slug) {
-  slug = slug.toUpperCase();
+  slug = slug.toLowerCase();
   let sutta_details = availableSuttasJson[slug]
   let translator = "Bhikkhu Anīgha";
   let html = `<div class="button-area"><button id="hide-pali" class="hide-button">Toggle Pali</button></div>`;
