@@ -19,7 +19,7 @@ function searchSuttas(pattern) {
   if (!fuse) { pattern = "" }; // if Fuse isn't initialized, return empty array
   pattern = pattern.normalize('NFD').replace(/[\u0300-\u036f]/g, ''); // Convert pali letters in latin letters to match pali_title in available_suttas.json
   pattern = pattern.replace(/\s+/g, ' '). // Removes multiples spaces
-            replace(/\b(\w+)\b/g, "'$1"); // Add apostrophe in front of every search term (fusejs' match type: include-match)
+    replace(/\b(\w+)\b/g, "'$1"); // Add apostrophe in front of every search term (fusejs' match type: include-match)
 
   let results = fuse.search(pattern).reduce((acc, result) => {
     acc[result.item.id] = result.item;
@@ -288,43 +288,9 @@ function buildSutta(slug) {
       const translatorByline = `<div class="byline"><p>Translated by ${translator}</p></div>`;
       suttaArea.innerHTML = `<p class="sc-link"></p>` + html + translatorByline;
 
-      let acronym = slug.replace(/([a-zA-Z]{2})(\d+)/, '$1 $2')
-      if (subDir.slice(0, 2) !== 'kn') {
-        acronym = acronym.toUpperCase();
-      }
-      else {
-        acronym = acronym.charAt(0).toUpperCase() + acronym.slice(1);
-      }
+      let acronym = sutta_details['id'];
 
-      // TODO fix the way these pages are rendered
       document.title = `${acronym} ` + sutta_title;
-
-      toggleThePali();
-      // Add the navbar to the page
-      const navbar = document.createElement('div');
-      navbar.id = 'suttanav'; // Added ID
-
-      navbar.innerHTML = document.title;
-      document.body.appendChild(navbar);
-
-      let lastScrollTop = 0; // variable to store the last scroll position
-      const scrollThreshold = 10;
-      window.addEventListener('scroll', function () {
-        requestAnimationFrame(() => {
-          let currentScrollTop = window.scrollY || document.documentElement.scrollTop;
-
-          if (Math.abs(currentScrollTop - lastScrollTop) > scrollThreshold) {
-            if (currentScrollTop < 170 || currentScrollTop > lastScrollTop) {
-              navbar.style.top = '-50px'; // Adjust this value based on the height of your navbar
-            } else {
-              // Scrolling up
-              navbar.style.top = '0';
-            }
-            lastScrollTop = currentScrollTop;
-          }
-        });
-      });
-
       // render comments
       const commentElements = document.querySelectorAll('.comment');
       let currentlyOpenTooltip = null; // Track the currently open tooltip
@@ -352,11 +318,15 @@ function buildSutta(slug) {
 
       });
 
+      toggleThePali();
+      addNavbar();
+
       // remove download and info button
       const cacheButton = document.getElementById('cacheButton');
       const infoButton = document.getElementById('infoButton');
       if (cacheButton) cacheButton.style.display = 'none';
       if (infoButton) infoButton.style.display = 'none';
+
       // scroll to the quote in the url if present
       scrollToHash();
     })
@@ -366,6 +336,29 @@ function buildSutta(slug) {
     <br><br>Note: Make sure the citation code is correct. Otherwise try finding the sutta from the home page.<br>`;
     });
 }
+
+function addNavbar() {
+  // Add the navbar to the page
+  const navbar = document.createElement('div');
+  navbar.id = 'suttanav'; // Added ID
+  navbar.innerHTML = document.title;
+  document.body.appendChild(navbar);
+
+  let lastScrollTop = 0; // variable to store the last scroll position
+  const scrollThreshold = 10;
+
+  window.addEventListener('scroll', () => {
+    requestAnimationFrame(() => {
+      let currentScrollTop = window.scrollY || document.documentElement.scrollTop;
+
+      if (Math.abs(currentScrollTop - lastScrollTop) > scrollThreshold) {
+        navbar.style.top = (currentScrollTop < 170 || currentScrollTop > lastScrollTop) ? '-50px' : '0';
+        lastScrollTop = currentScrollTop;
+      }
+    });
+  });
+}
+
 
 // initialize the whole app
 if (document.location.search) {
