@@ -46,7 +46,7 @@ def add_sutta(available_suttas, match, data, key):
                 book = first_group.capitalize()
 
         # Have a no space version for the lookup
-        citation_key = f"{book}{match.group(2)}"
+        citation_key = f"{book}{match.group(2)}".lower()
         sutta_id = f"{book} {match.group(2)}"
 
         # NOTE: if available_suttas.json get too big due to the file paths we can
