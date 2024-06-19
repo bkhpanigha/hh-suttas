@@ -180,7 +180,7 @@ function showNotification(message, duration = 3000) {
     document.body.appendChild(notificationBox);
   }
 
-  notificationBox.textContent = message;
+  notificationBox.innerHTML = message;
 
   // Show the notification with fade-in effect
   notificationBox.style.display = 'block';
