@@ -68,7 +68,7 @@ function displaySuttas(suttas, isSearch = false) {
 
     if (!isSearch && nikaya !== key && currentGroup < 4) {
 
-    //   // If it's a new group, display the subheading
+      // If it's a new group, display the subheading
       currentGroup += 1;
       const key = Object.keys(books)[currentGroup];
 
@@ -119,17 +119,19 @@ async function createFuseSearch() {
 
   //Combine all values in a single field so user can do search on multiple fields
   let searchDict = Object.entries(availableSuttasJson).map(([sutta_id, sutta_details]) => {
-      // Get every element's values and combine them with a white space
-      delete sutta_details.file_path;
-      sutta_details['citation'] = sutta_id.replace(/\s/g, '');
-      const combination = Object.values(sutta_details).join(' ')
-        .normalize('NFD').replace(/[\u0300-\u036f]/g, ''); //pali normalized in latin for search to work on headings containing pali
-  
-      // Return new object with "combination" key added
-      return {
-          ...sutta_details,
-          combination: combination
-      };
+    // Declare search fields here
+    let sutta_details_without_fp = (({ id, title, pali_title }) => ({ id, title, pali_title }))(sutta_details);
+
+    sutta_details_without_fp['citation'] = sutta_id;
+    // Get every element's values and combine them with a white space
+    const combination = Object.values(sutta_details_without_fp).join(' ')
+      .normalize('NFD').replace(/[\u0300-\u036f]/g, ''); //pali normalized in latin for search to work on headings containing pali
+
+    // Return new object with "combination" key added
+    return {
+      ...sutta_details_without_fp,
+      combination: combination
+    };
   });
 
   fuse = new Fuse(searchDict, fuseOptions);
@@ -208,10 +210,10 @@ citation.addEventListener("input", e => {
   suttaArea.innerHTML = "";
   if (searchQuery) {
     const searchResults = searchSuttas(searchQuery);
-    if(Object.keys(searchResults).length > 0){
+    if (Object.keys(searchResults).length > 0) {
       displaySuttas(searchResults, true);
     }
-    else{
+    else {
       suttaArea.innerHTML += "<h2 class=\"no-results\">No results found</h2>";
     }
   }
@@ -229,45 +231,20 @@ document.getElementById("form").addEventListener("submit", e => {
   }
 });
 
-
+// TODO what does this line do and when is it called?
 citation.value = document.location.search.replace("?q=", "").replace(/%20/g, "").replace(/\s/g, "");
 function buildSutta(slug) {
+  slug = slug.toUpperCase();
+  let sutta_details = availableSuttasJson[slug]
   let translator = "Bhikkhu Anīgha";
-  slug = slug.toLowerCase();
   let html = `<div class="button-area"><button id="hide-pali" class="hide-button">Toggle Pali</button></div>`;
-  let subDir;
-  let sutta_title;
+  // TODO if file names are consistent we can get it from the availablesuttasjson
+  let sutta_title = sutta_details['title'];
 
-  if (slug.slice(0, 2) !== "mn" && slug.slice(0, 2) !== "an" && slug.slice(0, 2) !== "dn" && !/^sn\d/i.test(slug)) {
-    const matchIndex = slug.search(/\d/);
-    let firstSection, secondSection, vagga;
-
-    if (matchIndex !== -1) {
-      firstSection = slug.substring(0, matchIndex);
-      secondSection = slug.substring(matchIndex);
-
-      if (firstSection === "snp" || firstSection === "ud" || firstSection === "iti") {
-        vagga = secondSection.split('.')[0]; // Get the vagga number before the "."
-        subDir = `kn/${firstSection}/vagga${vagga}`;
-      } else {
-        subDir = `kn/${firstSection}`;
-      }
-    } else {
-      subDir = `kn/${firstSection}`;
-    }
-  } else if (/^(sn|an)\d/i.test(slug)) {
-    let nikaya = slug.slice(0, 2);
-    let sectionNumber = slug.match(/\d+/)[0];
-    let chapter = slug.split('.')[0].substring(2); // Get the chapter number before the "."
-    subDir = `${nikaya}/${nikaya}${chapter}`;
-  } else {
-    subDir = slug.substring(0, slug.search(/\d/));
-  }
-
-  const rootResponse = fetch(`suttas/root/${subDir}/${slug}_root-pli-ms.json`).then(response => response.json());
-  const translationResponse = fetch(`suttas/translation_en/${subDir}/${slug}_translation-en-anigha.json`).then(response => response.json());
-  const htmlResponse = fetch(`suttas/html/${subDir}/${slug}_html.json`).then(response => response.json());
-  const commentResponse = fetch(`suttas/comment/${subDir}/${slug}_comment-en-anigha.json`)
+  const rootResponse = fetch(sutta_details['root_path']).then(response => response.json());
+  const translationResponse = fetch(sutta_details['translation_path']).then(response => response.json());
+  const htmlResponse = fetch(sutta_details['html_path']).then(response => response.json());
+  const commentResponse = fetch(sutta_details['comment_path'])
     .then(response => {
       if (!response.ok) throw new Error(`Comment file not found for ${slug}`);
       return response.json();
