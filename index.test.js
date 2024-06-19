@@ -58,10 +58,53 @@ const path = require('path');
     if (!commentsExist) throw new Error('Comments with class "comment-text" not found or not hidden');
   }
 
+  async function testCitationSearch(inputCitation) {
+    await page.goto(`http://localhost:${port}/`);
+
+    // Enter text into the input field with ID 'citation'
+    const inputSelector = '#citation';
+    await page.type(inputSelector, inputCitation);
+
+    try {
+      await page.waitForSelector(`a[href="/?q=${inputCitation}"]`, { timeout: 1000 });
+      const link = await page.$(`a[href="/?q=${inputCitation}"]`);
+      if (link) {
+        await link.click();
+      } else {
+        console.log('Link not found');
+      }
+    } catch (error) {
+      throw new Error(`No <a> tag found with href="/?q=${inputCitation}"`)
+    }
+  }
+
+  async function testPaliTitleSearch(inputTitle, ExpectedCitation) {
+    await page.goto(`http://localhost:${port}/`);
+
+    // Enter text into the input field with ID 'citation'
+    const inputSelector = '#citation';
+    await page.type(inputSelector, inputTitle);
+
+    try {
+      await page.waitForSelector(`a[href="/?q=${ExpectedCitation}"]`, { timeout: 1000 });
+      const link = await page.$(`a[href="/?q=${ExpectedCitation}"]`);
+      if (link) {
+        await link.click();
+      } else {
+        console.log('Link not found');
+      }
+    } catch (error) {
+      throw new Error(`No <a> tag found with href="/?q=${ExpectedCitation}"`)
+    }
+  }
   // Run tests
   try {
     await testHomePage();
     await testSuttaPage();
+    await testCitationSearch("snp4.2");
+    await testCitationSearch("mn10");
+    await testPaliTitleSearch("sabba", "mn2");
+
     console.log("All tests passed successfully.");
   } catch (error) {
     console.error("Test failed: ", error);
