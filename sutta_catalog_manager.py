@@ -209,8 +209,11 @@ def generate_corresponding_files_list(available_suttas, output_file):
                     files_to_cache.extend([os.path.relpath(os.path.join(root, file), '.') for file in files])
 
     # Generate paths for each sutta using the refined function
-    for sutta_id in available_suttas.keys():
-        files_to_cache.extend(generate_paths_for_sutta(sutta_id, "./suttas"))
+    for sutta_details in available_suttas.values():
+        sutta_paths = [sutta_details["html_path"], sutta_details["root_path"], sutta_details["translation_path"]]
+        if sutta_details["comment_path"]:
+            sutta_paths.append(sutta_details["comment_path"])
+        files_to_cache.extend(sutta_paths)
 
     files_to_cache.sort()
     with open(output_file, "w", encoding="utf-8") as out_file:
