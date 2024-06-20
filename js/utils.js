@@ -196,7 +196,6 @@ function showNotification(message, duration = 3000) {
   }, duration);
 }
 
-
 // Add event listener for text selection
 document.addEventListener('selectionchange', handleTextSelection);
 
