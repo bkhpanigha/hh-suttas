@@ -129,17 +129,49 @@ const fs = require('fs');
 
     await Promise.all(checkPromises);
   }
+  async function testBookmarkLabelCreation() {
+    await page.goto(`http://localhost:${port}/bookmarks.html`);
+
+    const newLabel = 'testLabel';
+    await page.type('#newLabelInput', newLabel);
+    await page.click('#saveLabelButton');
+
+    // Wait for the new label to appear in the bookmarks
+    await page.waitForFunction(
+      (label) => {
+        const bookmarks = document.querySelector('#bookmarks');
+        if (!bookmarks) return false;
+        const summaryTags = bookmarks.querySelectorAll('summary.bookmark-text');
+        return [...summaryTags].some((summary) => summary.textContent.includes(label));
+      },
+      {},
+      newLabel
+    );
+
+    const labelExists = await page.evaluate((label) => {
+      const bookmarks = document.querySelector('#bookmarks');
+      if (!bookmarks) return false;
+      const summaryTags = bookmarks.querySelectorAll('summary.bookmark-text');
+      return [...summaryTags].some((summary) => summary.textContent.includes(label));
+    }, newLabel);
+
+    if (!labelExists) {
+      throw new Error(`Label "${newLabel}" was not found in the bookmarks`);
+    }
+  }
+
   // Run tests
   try {
     await testHomePage();
     await testSuttaPage();
-    await testCitationSearch("snp4.2");
-    await testCitationSearch("mn10");
-    await testPaliTitleSearch("sabba", "mn2");
-    await testAllCacheFilesReachable("files_to_cache.json")
-    console.log("All tests passed successfully.");
+    await testCitationSearch('snp4.2');
+    await testCitationSearch('mn10');
+    await testPaliTitleSearch('sabba', 'mn2');
+    await testAllCacheFilesReachable('files_to_cache.json');
+    await testBookmarkLabelCreation();
+    console.log('All tests passed successfully.');
   } catch (error) {
-    console.error("Test failed: ", error);
+    console.error('Test failed: ', error);
   } finally {
     await browser.close();
     server.close(); // Close the server when done
