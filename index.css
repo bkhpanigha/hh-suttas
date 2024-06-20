@@ -648,10 +648,10 @@ a:hover {
   margin-left: 5px;
 }
 
-.bookmark-summary {
+.bookmark-text {
 
 }
 
-.dark .bookmark-summary {
+.dark .bookmark-text {
   color: var(--off-white);
 }

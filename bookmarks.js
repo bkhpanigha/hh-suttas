@@ -52,7 +52,7 @@ async function displayBookmarks() {
 
     const summary = document.createElement('summary');
     summary.textContent = `${label} (${bookmarksDict[label].length})`;
-    summary.classList.add('bookmark-summary');
+    summary.classList.add('bookmark-text');
     // Create a delete button for the summary
     if (label !== 'unlabeled') {
       const deleteSummaryButton = document.createElement('button');
@@ -128,11 +128,12 @@ async function displayBookmarks() {
           // Create a collapsible container for label checkboxes
           const labelDetails = document.createElement('details');
           labelDetails.className = 'label-details';
+          labelDetails.classList.add('bookmark-text');
 
           // Create a summary element for the collapsible container
           const labelSummary = document.createElement('summary');
           labelSummary.textContent = 'Labels';
-          labelSummary.classList.add('bookmark-summary');
+          labelSummary.classList.add('bookmark-text');
           labelDetails.appendChild(labelSummary);
 
           // Create a container for the checkboxes
@@ -230,7 +231,6 @@ function displayPage() {
   labelInput.id = 'newLabelInput';
   bookmarksDiv.appendChild(labelInput);
 
-  // Create a button to save the new label
   const saveLabelButton = document.createElement('button');
   saveLabelButton.textContent = 'Save Label';
   bookmarksDiv.appendChild(saveLabelButton);
