@@ -1,9 +1,8 @@
 import { showNotification } from './js/utils.js';
 
-
 function getRangeAsString(jsonObj, startKey, endKey) {
   let startKeyReached = false;
-  let resultString = "";
+  let resultString = '';
 
   for (const key in jsonObj) {
     if (key === startKey) startKeyReached = true;
@@ -38,7 +37,6 @@ async function displayBookmarks() {
     summary.textContent = label;
     // Create a delete button for the summary
     if (label !== 'unlabeled') {
-
       const deleteSummaryButton = document.createElement('button');
       deleteSummaryButton.textContent = 'Delete';
       deleteSummaryButton.style.marginLeft = '10px'; // Add some margin for spacing
@@ -125,7 +123,7 @@ async function displayBookmarks() {
           let labels = Object.keys(bookmarks);
 
           // Populate the dropdown with labels
-          labels.forEach(label => {
+          labels.forEach((label) => {
             const option = document.createElement('option');
             option.value = label;
             option.textContent = label;
@@ -164,7 +162,6 @@ async function displayBookmarks() {
         } else {
           console.warn(`Key ${key} not found in ${filePath}`);
         }
-
       } catch (error) {
         console.error(error);
       }
@@ -178,7 +175,7 @@ function deleteBookmark(label, bookmark) {
   let bookmarks = JSON.parse(localStorage.getItem('bookmarks'));
 
   // Filter out the bookmark to be deleted
-  bookmarks[label] = bookmarks[label].filter(b => b !== bookmark);
+  bookmarks[label] = bookmarks[label].filter((b) => b !== bookmark);
 
   // Save the updated bookmarks back to localStorage
   localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
@@ -232,4 +229,4 @@ function displayPage() {
   displayBookmarks();
 }
 
-displayPage()
+displayPage();
