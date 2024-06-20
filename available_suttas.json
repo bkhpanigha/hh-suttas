@@ -700,6 +700,15 @@
             "comment_path": "suttas/comment/an/an3/an3.101_comment-en-anigha.json",
             "heading": "From Coarse to Fine Defilements"
         },
+        "an3.121": {
+            "id": "AN 3.121",
+            "title": "Purity (2nd)",
+            "pali_title": "Dutiyasoceyyasutta",
+            "html_path": "suttas/html/an/an3/an3.121_html.json",
+            "root_path": "suttas/root/an/an3/an3.121_root-pli-ms.json",
+            "translation_path": "suttas/translation_en/an/an3/an3.121_translation-en-anigha.json",
+            "comment_path": null
+        },
         "an3.63": {
             "id": "AN 3.63",
             "title": "At Venāgapura",
