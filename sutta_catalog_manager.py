@@ -1,3 +1,4 @@
+from collections import defaultdict
 import json, re, os
 import unicodedata
 from pathlib import Path
@@ -31,33 +32,43 @@ def add_sutta(available_suttas, match, data, key):
             heading = json.load(headings).get(f"{match.group(1)}{match.group(2)}")
             first_group = match.group(1)
             
-            #Extract pali title in sutta's pali file
-            paths = generate_paths_for_sutta(f"{match.group(1)}{match.group(2)}", "./suttas")
-            if paths:
-                with open(paths[1], "r", encoding='utf-8') as pali_lines:
+            html_path, root_path, translation_path, comment_path = generate_paths_for_sutta(f"{match.group(1)}{match.group(2)}", "./suttas").values()
+            if root_path:
+                with open(root_path, "r", encoding='utf-8') as pali_lines:
                     pali_title = json.load(pali_lines).get(key)
                     pali_title = ''.join([char for char in pali_title if char.isalpha()]) #extract letters only
                     pali_title = ''.join(c for c in unicodedata.normalize('NFD', pali_title) if unicodedata.category(c) != 'Mn') #convert pali letters to latin letters
             
-            sutta_id = ""
+
             if first_group.upper() in ["MN", "AN", "SN", "DN"]:
-                sutta_id = f"{first_group.upper()} {match.group(2)}"
-                
+                book = first_group.upper() 
             else:
-                sutta_id = f"{first_group.capitalize()} {match.group(2)}"
-            if author or heading:
-                sutta_info = {"id": sutta_id, "title": sutta_title, "pali_title": pali_title}
-                if author:
-                    sutta_info["author"] = author
-                if heading:
-                    sutta_info["heading"] = heading
-                available_suttas.append(sutta_info)
-            else:
-                available_suttas.append({"id": sutta_id, "title": sutta_title, "pali_title": pali_title})
+                book = first_group.capitalize()
+
+        # Have a no space version for the lookup
+        citation_key = f"{book}{match.group(2)}".lower()
+        sutta_id = f"{book} {match.group(2)}"
+
+        # NOTE: if available_suttas.json get too big due to the file paths we can
+        # pass the dir structure at the top level instead
+        sutta_info = {
+            "id": sutta_id,
+            "title": sutta_title,
+            "pali_title": pali_title,
+            "html_path": html_path,
+            "root_path": root_path,
+            "translation_path": translation_path,
+            "comment_path": comment_path,
+        }
+        if author:
+            sutta_info["author"] = author
+        if heading:
+            sutta_info["heading"] = heading
+        available_suttas[citation_key] = sutta_info
 
 def load_available_suttas(suttas_base_dir):
     """Load available suttas from the specified directory."""
-    available_suttas = []
+    available_suttas = defaultdict(dict)
     pattern = re.compile(r"(mn|sn|an|dn|snp|dhp|iti|ud|thag|thig)(\d+(\.\d+(-\d+)?)?)_translation-en-anigha\.json", re.IGNORECASE)
     base_path = Path(suttas_base_dir) / 'translation_en'
 
@@ -109,16 +120,17 @@ def load_available_suttas(suttas_base_dir):
                         key = f"{match.group(1)}{match.group(2)}:0.2"  # Key for title in MN, DN
                         add_sutta(available_suttas, match, data, key)
 
-    # Sort the list for consistency
-    available_suttas.sort(key=lambda x: (
-    {"DN": 0, "MN": 1, "SN": 2, "AN": 3}.get(x["id"].split()[0], 4),  # Prefix mapping
-    float(x["id"].split()[1].split('-')[0])  # Extracting the part before hyphen
-    if '-' in x["id"].split()[1]  # Checking if hyphen exists
-    else (float(x["id"].split()[1]) if '.' in x["id"].split()[1] else int(x["id"].split()[1]))  # Handling other cases
-    ))
-    available_suttas = [{'id': x['id'].replace(' ', ''), **{k: v for k, v in x.items() if k != 'id'}} for x in available_suttas]
 
-    return available_suttas
+    sorted_available_suttas = {id: available_suttas[id] for id in sorted(available_suttas, key=lambda citation: sort_key(available_suttas[citation]['id']))}
+
+    return sorted_available_suttas
+
+# Helper function to extract sorting key
+def sort_key(id):
+    prefix, number = id.split()
+    number = number.split('-')[0]  # Consider only the part before any hyphen
+    number = float(number) if '.' in number else int(number)
+    return {"DN": 0, "MN": 1, "SN": 2, "AN": 3}.get(prefix, 4), number
 
 def generate_paths_for_sutta(sutta_id, base_dir="suttas"):
     """Generate file paths for a given sutta, taking into account special structures."""
@@ -128,7 +140,7 @@ def generate_paths_for_sutta(sutta_id, base_dir="suttas"):
     # Base paths for different categories of files
     base_paths = {
         "html": Path(base_dir) / "html",
-        "root": Path(base_dir) / "root",  # Assuming correct folder name is "root"
+        "root": Path(base_dir) / "root",
         "translation": Path(base_dir) / "translation_en",
         "comment": Path(base_dir) / "comment"
     }
@@ -151,23 +163,28 @@ def generate_paths_for_sutta(sutta_id, base_dir="suttas"):
         for key in base_paths:
             base_paths[key] = base_paths[key] / book
 
-    # Initialize the paths list
-    paths = []
+    # Initialize the paths dictionary
+    paths = {
+        "html_path": None,
+        "root_path": None,
+        "translation_path": None,
+        "comment_path": None
+    }
+
+    # Determine file paths
+    html_path = base_paths["html"] / f"{sutta_id}_html.json"
+    root_path = base_paths["root"] / f"{sutta_id}_root-pli-ms.json"
+    translation_path = base_paths["translation"] / f"{sutta_id}_translation-en-anigha.json"
+    comment_path = base_paths["comment"] / f"{sutta_id}_comment-en-anigha.json"
 
     # Check if the "translation" file exists before adding paths
-    translation_path = base_paths["translation"] / f"{sutta_id}_translation-en-anigha.json"
-
     if translation_path.exists():
         # Only add paths if the "translation" file exists
-        paths = [
-            str(base_paths["html"] / f"{sutta_id}_html.json"),
-            str(base_paths["root"] / f"{sutta_id}_root-pli-ms.json"),
-            str(translation_path),  # Already confirmed to exist
-        ]
-        # Attempt to add the comment file path if it exists
-        comment_path = base_paths["comment"] / f"{sutta_id}_comment-en-anigha.json"
-        if comment_path.exists():
-            paths.append(str(comment_path))
+        paths["html_path"] = str(html_path) if html_path.exists() else None
+        paths["root_path"] = str(root_path) if root_path.exists() else None
+        paths["translation_path"] = str(translation_path)
+        paths["comment_path"] = str(comment_path) if comment_path.exists() else None
+
     return paths
 
 def generate_corresponding_files_list(available_suttas, output_file):
@@ -192,8 +209,11 @@ def generate_corresponding_files_list(available_suttas, output_file):
                     files_to_cache.extend([os.path.relpath(os.path.join(root, file), '.') for file in files])
 
     # Generate paths for each sutta using the refined function
-    for sutta in available_suttas:
-        files_to_cache.extend(generate_paths_for_sutta(sutta["id"], "./suttas"))
+    for sutta_details in available_suttas.values():
+        sutta_paths = [sutta_details["html_path"], sutta_details["root_path"], sutta_details["translation_path"]]
+        if sutta_details["comment_path"]:
+            sutta_paths.append(sutta_details["comment_path"])
+        files_to_cache.extend(sutta_paths)
 
     files_to_cache.sort()
     with open(output_file, "w", encoding="utf-8") as out_file:
