@@ -251,7 +251,7 @@ function showNotification(message, duration = 3000) {
     document.body.appendChild(notificationBox);
   }
 
-  notificationBox.textContent = message;
+  notificationBox.innerHTML = message;
 
   // Show the notification with fade-in effect
   notificationBox.style.display = 'block';
@@ -266,7 +266,6 @@ function showNotification(message, duration = 3000) {
     }, 500); // This duration should match the transition duration in the CSS
   }, duration);
 }
-
 
 // Add event listener for text selection
 document.addEventListener('selectionchange', handleTextSelection);

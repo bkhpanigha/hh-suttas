@@ -15,52 +15,19 @@ const forewordText = `Terms and expressions of doctrinal and practical significa
 
 // functions
 
-async function getAvailableSuttas({ mergedTitle = true } = {}) {
-  try {
-    const response = await fetch('available_suttas.json');
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    const data = await response.json();
-    if (mergedTitle) {
-      return data.available_suttas.map(sutta => {
-        const id = sutta.id;
-        const title = sutta.title.trim();
-        const author = sutta.author ? `: ${sutta.author}` : ':';
-        const heading = sutta.heading ? `: ${sutta.heading}` : ':';
-
-        return `${id}: ${title}${author}${heading}`;
-      });
-      return data.available_suttas.map(sutta => `${sutta.id}: ${sutta.title.trim()}${sutta.author ? `: ${sutta.author}` : ''}${sutta.heading ? `: ${sutta.heading}` : ''}`);
-    }
-    else {
-      return data
-
-    }
-  } catch (error) {
-    console.error('Error fetching available suttas:', error);
-    return [];
-  }
-}
-
 function searchSuttas(pattern) {
   if (!fuse) { pattern = "" }; // if Fuse isn't initialized, return empty array
   pattern = pattern.normalize('NFD').replace(/[\u0300-\u036f]/g, ''); // Convert pali letters in latin letters to match pali_title in available_suttas.json
-  pattern = pattern.replace(/\s+/g, ' '). // Removes multiples spaces
-            replace(/\b(\w+)\b/g, "'$1"); // Add apostrophe in front of every search term (fusejs' match type: include-match)
+  pattern = pattern.replace(/\s+/g, ' ') // Removes multiple spaces
+  .replace(/(^|\s)/g, " '");
 
-  let results = fuse.search(pattern).map(result => result.item);
+  let results = fuse.search(pattern).reduce((acc, result) => {
+    acc[result.item.id] = result.item;
+    return acc;
+  }, {});
   // join up the id with the titles to be displayed
-  return results.map(sutta => `${sutta.id}: ${sutta.title.trim()}${sutta.author ? `: ${sutta.author}` : ':'}${sutta.heading ? `: ${sutta.heading}` : ':'}`);
+  return results;
 }
-
-function getSuttaTitleById(id) {
-  // TODO this is inefficient
-  // change the structure of available_suttas.json to be able to look up by id
-  const sutta = availableSuttasJson['available_suttas'].find(sutta => sutta.id === id);
-  return sutta ? sutta.title.trim() : "";
-}
-
 
 async function showForeword() {
   const forewordButton = document.getElementById('foreword-button');
@@ -85,16 +52,16 @@ function displaySuttas(suttas, isSearch = false) {
     "kn": "Khuddaka Nikāya"
   };
   let currentGroup = -1;
-  suttaArea.innerHTML += `<ul style="margin-top: 20px;">${suttas.map(sutta => {
+  suttaArea.innerHTML += `<ul style="margin-top: 20px;">${Object.entries(suttas).map(([sutta_id, sutta_details]) => {
 
-    const parts = sutta.split(':');
-    const id = parts[0].trim().replace(/\s+/g, '');
-    const [title, author, heading] = parts.slice(1).map(part => part.trim());
+    const id = sutta_details['id'].replace(/\s+/g, '');;
+    const title = sutta_details['title']
+    const heading = sutta_details['heading'] || ""
     const link = `<a href="/?q=${id.toLowerCase()}">${id}: ${title}`;
     const em = heading ? `<span style="color: #7f6e0a;">${heading}</span>` : '';
-    const nikaya = sutta.slice(0, 2).toLowerCase();
-    // Check if the current sutta belongs to a new group
+    const nikaya = sutta_id.slice(0, 2).toLowerCase();
 
+    // Check if the current sutta belongs to a new group
     const key = Object.keys(books)[currentGroup];
 
     if (!isSearch && nikaya !== key && currentGroup < 4) {
@@ -113,118 +80,8 @@ function displaySuttas(suttas, isSearch = false) {
 
     }
   }).join('')}</ul>`;
-
-  //suttaArea.innerHTML += `<p style="font-size: 14px;"><i>Bhikkhu Sujato's copyright-free English translations at SuttaCentral have been modified for use on this site.</i></p>`;
-
-  //Add listener for download button
- 
-
-}
-/* 
-function displaySuttas(suttas) {
-  const forewordViewed = localStorage.getItem('forewordViewed');
-  const forewordButton = document.getElementById('foreword-button');
-
-  // Display the initial text only if the foreword hasn't been viewed yet
-  if (!forewordViewed) {
-    suttaArea.innerHTML += forewordText;
-    localStorage.setItem('forewordViewed', true);
-  } else if (!forewordButton) {
-    addForewordButton();
-  }
-  
-  if (forewordButton) forewordButton.style.display = 'none';
-
-  // Define the books dictionary
-  const books = {
-    "dn": "Dīgha Nikāya",
-    "mn": "Majjhima Nikāya",
-    "sn": "Saṃyutta Nikāya",
-    "an": "Aṅguttara Nikāya",
-    "kn": "Khuddaka Nikāya"
-  };
-
-  let currentGroup = null;
-
-  // Display Suttas with Nikaya headings
-  suttas.forEach(sutta => {
-    const nikaya = sutta.split(':')[0].trim();
-    // Check if the current sutta belongs to a new group
-    if (currentGroup !== books[nikaya]) {
-      // If it's a new group, display the subheading
-      suttaArea.innerHTML += `<h2>${books[nikaya]}</h2>`;
-      currentGroup = books[nikaya];
-    }
-
-    // Display the sutta
-    const parts = sutta.split(':');
-    const id = parts[0].trim().replace(/\s+/g, '');
-    const [title, author, heading] = parts.slice(1).map(part => part.trim());
-    const link = `<a href="/?q=${id.toLowerCase()}">${id}: ${title}`;
-    const em = heading ? `<span style="color: #7f6e0a;">${heading}</span>` : '';
-    const byAuthor = author ? `by ${author}` : '';
-    const listItem = `<li>${link}${(em || byAuthor) ? ` (${em}${byAuthor})` : ''}</a></li>`;
-    suttaArea.innerHTML += listItem;
-  });
-
-  // Add event listener for download button
-  document.getElementById('cacheButton').addEventListener('click', () => {
-    // Check if service worker is supported by the browser
-    if ('serviceWorker' in navigator) {
-      // Send message to service worker to trigger caching
-      try {
-        showNotification("Downloading...");
-        navigator.serviceWorker.controller.postMessage({ action: 'cacheResources' });
-      } catch (error) {
-        console.log(error);
-        // TODO maybe a red colour box here?
-        showNotification("An error occurred while attempting to download. Please refresh the page, wait a few seconds, and retry");
-      }
-    }
-  });
-
-  // Add event listener for info button
-  infoButton.addEventListener("click", function (event) {
-    event.stopPropagation(); // Prevent click from immediately propagating to document
-    let notificationBox = document.querySelector('.info-notification-box');
-    if (!notificationBox) {
-      notificationBox = document.createElement('div');
-      notificationBox.classList.add('info-notification-box');
-      document.body.appendChild(notificationBox);
-    }
-
-    if (notificationBox.style.display == 'block') {
-      notificationBox.style.display = 'none';
-    } else {
-      notificationBox.textContent = "The ‘Download’ button makes the site available offline on the current web browser at the same URL (suttas.hillsidehermitage.org).\n\nThe site can also be installed as an application on mobile phones, by tapping ‘Install’ at the menu on the top right corner. Note that hitting the download button is still necessary to make it available offline through the app.\n\nIf downloading again (e.g., when new Suttas become available), make sure to first clear the site's data on your browser/app and reload the page.";
-      notificationBox.style.display = 'block';
-    }
-  });
-
-  // Add event listener to document to hide notificationBox when clicking outside
-  document.addEventListener("click", function (event) {
-    let notificationBox = document.querySelector('.info-notification-box');
-    if (notificationBox && notificationBox.style.display == 'block') {
-      // Check if the click is outside the notificationBox and not on the infoButton
-      if (!notificationBox.contains(event.target) && event.target !== infoButton) {
-        notificationBox.style.display = 'none';
-      }
-    }
-  });
-
-  // Listen for messages from service worker
-  navigator.serviceWorker.addEventListener('message', event => {
-    if (event.data && event.data.action === 'cachingSuccess') {
-      showNotification("Download successful - site available offline.");
-    }
-    if (event.data && event.data.action === 'cachingError') {
-      // TODO again maybe a different colour box
-      showNotification("Caching error. Please clear site data, refresh the page, and try again.");
-    }
-  });
 }
 
- */
 
 function toggleThePali() {
   const hideButton = document.getElementById("hide-pali");
@@ -256,22 +113,24 @@ function toggleThePali() {
 }
 
 async function createFuseSearch() {
-  var availableSuttas = await getAvailableSuttas({ mergedTitle: false });
-
   //Combine all values in a single field so user can do search on multiple fields
-  availableSuttas['available_suttas'] = availableSuttas['available_suttas'].map(obj => {
-      // Get every element's values and combine them with a white space
-      const combination = Object.values(obj).join(' ')
-        .normalize('NFD').replace(/[\u0300-\u036f]/g, ''); //pali normalized in latin for search to work on headings containing pali
-  
-      // Return new object with "combination" key added
-      return {
-          ...obj,
-          combination: combination
-      };
+  let searchDict = Object.entries(availableSuttasJson).map(([sutta_id, sutta_details]) => {
+    // Declare search fields here
+    let sutta_details_without_fp = (({ id, title, pali_title }) => ({ id, title, pali_title }))(sutta_details);
+
+    sutta_details_without_fp['citation'] = sutta_id;
+    // Get every element's values and combine them with a white space
+    const combination = Object.values(sutta_details_without_fp).join(' ')
+      .normalize('NFD').replace(/[\u0300-\u036f]/g, ''); //pali normalized in latin for search to work on headings containing pali
+
+    // Return new object with "combination" key added
+    return {
+      ...sutta_details_without_fp,
+      combination: combination
+    };
   });
 
-  fuse = new Fuse(availableSuttas['available_suttas'], fuseOptions);
+  fuse = new Fuse(searchDict, fuseOptions);
   return fuse
 }
 
@@ -306,8 +165,10 @@ homeButton.addEventListener("click", () => {
 
 var converter = new showdown.Converter()
 
-const availableSuttasJson = await getAvailableSuttas({ mergedTitle: false })
-const availableSuttasArray = await getAvailableSuttas();
+const response = await fetch('available_suttas.json');
+const availableSuttas = await response.json();
+const availableSuttasJson = availableSuttas['available_suttas'];
+
 
 // initialize
 if (localStorage.sideBySide) {
@@ -333,27 +194,27 @@ themeButton.addEventListener("click", () => {
   const currentThemeIsDark = localStorage.theme === "dark";
   toggleTheme(!currentThemeIsDark);
 });
-
-let fuse = createFuseSearch(); // holds our search engine
+let fuse = null;
+fuse = await createFuseSearch(); // holds our search engine
 
 const citation = document.getElementById("citation");
 citation.focus();
 
 // input in search bar
 citation.addEventListener("input", e => {
-  const searchQuery = e.target.value.trim();
+  const searchQuery = e.target.value.trim().toLowerCase();
   suttaArea.innerHTML = "";
   if (searchQuery) {
     const searchResults = searchSuttas(searchQuery);
-    if(searchResults.length > 0){
+    if (Object.keys(searchResults).length > 0) {
       displaySuttas(searchResults, true);
     }
-    else{
+    else {
       suttaArea.innerHTML += "<h2 class=\"no-results\">No results found</h2>";
     }
   }
   else {
-    displaySuttas(availableSuttasArray);
+    displaySuttas(availableSuttasJson);
   }
 });
 
@@ -366,45 +227,20 @@ document.getElementById("form").addEventListener("submit", e => {
   }
 });
 
-
+// TODO what does this line do and when is it called?
 citation.value = document.location.search.replace("?q=", "").replace(/%20/g, "").replace(/\s/g, "");
 function buildSutta(slug) {
-  let translator = "Bhikkhu Anīgha";
   slug = slug.toLowerCase();
+  let sutta_details = availableSuttasJson[slug]
+  let translator = "Bhikkhu Anīgha";
   let html = `<div class="button-area"><button id="hide-pali" class="hide-button">Toggle Pali</button></div>`;
-  let subDir;
-  let sutta_title;
+  // TODO if file names are consistent we can get it from the availablesuttasjson
+  let sutta_title = sutta_details['title'];
 
-  if (slug.slice(0, 2) !== "mn" && slug.slice(0, 2) !== "an" && slug.slice(0, 2) !== "dn" && !/^sn\d/i.test(slug)) {
-    const matchIndex = slug.search(/\d/);
-    let firstSection, secondSection, vagga;
-
-    if (matchIndex !== -1) {
-      firstSection = slug.substring(0, matchIndex);
-      secondSection = slug.substring(matchIndex);
-
-      if (firstSection === "snp" || firstSection === "ud" || firstSection === "iti") {
-        vagga = secondSection.split('.')[0]; // Get the vagga number before the "."
-        subDir = `kn/${firstSection}/vagga${vagga}`;
-      } else {
-        subDir = `kn/${firstSection}`;
-      }
-    } else {
-      subDir = `kn/${firstSection}`;
-    }
-  } else if (/^(sn|an)\d/i.test(slug)) {
-    let nikaya = slug.slice(0, 2);
-    let sectionNumber = slug.match(/\d+/)[0];
-    let chapter = slug.split('.')[0].substring(2); // Get the chapter number before the "."
-    subDir = `${nikaya}/${nikaya}${chapter}`;
-  } else {
-    subDir = slug.substring(0, slug.search(/\d/));
-  }
-
-  const rootResponse = fetch(`suttas/root/${subDir}/${slug}_root-pli-ms.json`).then(response => response.json());
-  const translationResponse = fetch(`suttas/translation_en/${subDir}/${slug}_translation-en-anigha.json`).then(response => response.json());
-  const htmlResponse = fetch(`suttas/html/${subDir}/${slug}_html.json`).then(response => response.json());
-  const commentResponse = fetch(`suttas/comment/${subDir}/${slug}_comment-en-anigha.json`)
+  const rootResponse = fetch(sutta_details['root_path']).then(response => response.json());
+  const translationResponse = fetch(sutta_details['translation_path']).then(response => response.json());
+  const htmlResponse = fetch(sutta_details['html_path']).then(response => response.json());
+  const commentResponse = fetch(sutta_details['comment_path'])
     .then(response => {
       if (!response.ok) throw new Error(`Comment file not found for ${slug}`);
       return response.json();
@@ -448,67 +284,9 @@ function buildSutta(slug) {
       const translatorByline = `<div class="byline"><p>Translated by ${translator}</p></div>`;
       suttaArea.innerHTML = `<p class="sc-link"></p>` + html + translatorByline;
 
-      let acronym = slug.replace(/([a-zA-Z]{2})(\d+)/, '$1 $2')
-      if (subDir.slice(0, 2) !== 'kn') {
-        acronym = acronym.toUpperCase();
-      }
-      else {
-        acronym = acronym.charAt(0).toUpperCase() + acronym.slice(1);
-      }
+      let acronym = sutta_details['id'];
 
-      // TODO fix the way these pages are rendered
       document.title = `${acronym} ` + sutta_title;
-
-      toggleThePali();
-      // Add the navbar to the page
-      const navbar = document.createElement('div');
-      navbar.id = 'suttanav'; // Added ID
-
-      navbar.innerHTML = document.title;
-      document.body.appendChild(navbar);
-
-      let lastScrollTop = 0; // variable to store the last scroll position
-      const scrollThreshold = 10;
-      window.addEventListener('scroll', function () {
-        requestAnimationFrame(() => {
-          let currentScrollTop = window.scrollY || document.documentElement.scrollTop;
-
-          if (Math.abs(currentScrollTop - lastScrollTop) > scrollThreshold) {
-            if (currentScrollTop < 170 || currentScrollTop > lastScrollTop) {
-              navbar.style.top = '-50px'; // Adjust this value based on the height of your navbar
-            } else {
-              // Scrolling up
-              navbar.style.top = '0';
-            }
-            lastScrollTop = currentScrollTop;
-          }
-        });
-      });
-
-
-      let incrementedAcronym = changeAcronymNumber(acronym, 1);
-      let decrementedAcronym = changeAcronymNumber(acronym, -1);
-
-      const previousSuttaTitle = getSuttaTitleById(decrementedAcronym);
-      const nextSuttaTitle = getSuttaTitleById(incrementedAcronym);
-      next.innerHTML = nextSuttaTitle ? `<a href="?q=${incrementedAcronym.toLowerCase()}">${nextSuttaTitle}<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="body_1" width="15" height="11">
-
-        <g transform="matrix(0.021484375 0 0 0.021484375 2 -0)">
-          <g>
-                <path d="M202.1 450C 196.03278 449.9987 190.56381 446.34256 188.24348 440.73654C 185.92316 435.13055 187.20845 428.67883 191.5 424.39L191.5 424.39L365.79 250.1L191.5 75.81C 185.81535 69.92433 185.89662 60.568687 191.68266 54.782654C 197.46869 48.996624 206.82434 48.91536 212.71 54.6L212.71 54.6L397.61 239.5C 403.4657 245.3575 403.4657 254.8525 397.61 260.71L397.61 260.71L212.70999 445.61C 209.89557 448.4226 206.07895 450.0018 202.1 450z" stroke="none" fill="#8f8f8f" fill-rule="nonzero" />
-          </g>
-        </g>
-        </svg></a>`
-        : "";
-      previous.innerHTML = previousSuttaTitle ? `<a href="?q=${decrementedAcronym.toLowerCase()}"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="body_1" width="15" height="11">
-
-        <g transform="matrix(0.021484375 0 0 0.021484375 2 -0)">
-          <g>
-                <path d="M353 450C 349.02106 450.0018 345.20444 448.4226 342.39 445.61L342.39 445.61L157.5 260.71C 151.64429 254.8525 151.64429 245.3575 157.5 239.5L157.5 239.5L342.39 54.6C 346.1788 50.809414 351.70206 49.328068 356.8792 50.713974C 362.05634 52.099876 366.10086 56.14248 367.4892 61.318974C 368.87753 66.49547 367.3988 72.01941 363.61002 75.81L363.61002 75.81L189.32 250.1L363.61 424.39C 367.90283 428.6801 369.18747 435.13425 366.8646 440.74118C 364.5417 446.34808 359.06903 450.00275 353 450z" stroke="none" fill="#8f8f8f" fill-rule="nonzero" />
-          </g>
-        </g>
-        </svg>${previousSuttaTitle}</a>`
-        : "";
       // render comments
       const commentElements = document.querySelectorAll('.comment');
       let currentlyOpenTooltip = null; // Track the currently open tooltip
@@ -536,11 +314,15 @@ function buildSutta(slug) {
 
       });
 
+      toggleThePali();
+      addNavbar();
+
       // remove download and info button
       const cacheButton = document.getElementById('cacheButton');
       const infoButton = document.getElementById('infoButton');
       if (cacheButton) cacheButton.style.display = 'none';
       if (infoButton) infoButton.style.display = 'none';
+
       // scroll to the quote in the url if present
       scrollToHash();
     })
@@ -551,11 +333,34 @@ function buildSutta(slug) {
     });
 }
 
+function addNavbar() {
+  // Add the navbar to the page
+  const navbar = document.createElement('div');
+  navbar.id = 'suttanav'; // Added ID
+  navbar.innerHTML = document.title;
+  document.body.appendChild(navbar);
+
+  let lastScrollTop = 0; // variable to store the last scroll position
+  const scrollThreshold = 10;
+
+  window.addEventListener('scroll', () => {
+    requestAnimationFrame(() => {
+      let currentScrollTop = window.scrollY || document.documentElement.scrollTop;
+
+      if (Math.abs(currentScrollTop - lastScrollTop) > scrollThreshold) {
+        navbar.style.top = (currentScrollTop < 170 || currentScrollTop > lastScrollTop) ? '-50px' : '0';
+        lastScrollTop = currentScrollTop;
+      }
+    });
+  });
+}
+
+
 // initialize the whole app
 if (document.location.search) {
   buildSutta(document.location.search.replace("?q=", "").replace(/\s/g, "").replace(/%20/g, ""));
 } else {
-  displaySuttas(availableSuttasArray);
+  displaySuttas(availableSuttasJson);
 }
 
 
@@ -563,7 +368,7 @@ document.addEventListener('click', function (event) {
   // Check if the clicked element is the foreword button
   if (event.target && event.target.id === 'foreword-button') {
     showForeword(); // Call the function to show the foreword
-    displaySuttas(availableSuttasArray);
+    displaySuttas(availableSuttasJson);
   }
 });
 
