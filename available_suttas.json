@@ -575,7 +575,8 @@
             "html_path": "suttas/html/mn/mn61_html.json",
             "root_path": "suttas/root/mn/mn61_root-pli-ms.json",
             "translation_path": "suttas/translation_en/mn/mn61_translation-en-anigha.json",
-            "comment_path": "suttas/comment/mn/mn61_comment-en-anigha.json"
+            "comment_path": "suttas/comment/mn/mn61_comment-en-anigha.json",
+            "heading": "Checking Your Actions"
         },
         "mn62": {
             "id": "MN 62",
