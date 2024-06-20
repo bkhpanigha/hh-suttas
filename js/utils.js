@@ -1,3 +1,6 @@
+const DEFAULT_BOOKMARK_DICT = { bookmarks: { unlabeled: [] } };
+
+
 // This code enables highlighting of text segments in the sutta based on URL hash ranges.
 // For example, accessing the URL 127.0.0.1:8080/?q=mn1#mn1:23.1-mn1:194.6 will highlight the range from mn1:23.1 to mn1:194.6.
 // Similarly, accessing 127.0.0.1:8080/?q=mn1#mn1:23.1 will highlight the single segment at mn1:23.1.
@@ -126,7 +129,9 @@ function showBookmarkButton(x, y, ids) {
   bookmarkButton.removeEventListener('click', bookmarkButton.clickHandler);
 
   bookmarkButton.clickHandler = function () {
-    let bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || {'unlabeled': []};
+    // TODO this is not ideal as it split the bookmarks logic here and in bookmarks.js
+    let bookmarksData = JSON.parse(localStorage.getItem('bookmarksData')) || DEFAULT_BOOKMARK_DICT;
+    let bookmarks = bookmarksData['bookmarks'];
     if (!bookmarks.hasOwnProperty('unlabeled')) {
       bookmarks.unlabeled = [];
     }
@@ -141,8 +146,10 @@ function showBookmarkButton(x, y, ids) {
     // Check if the hash already exists in bookmarks
     if (!bookmarks.unlabeled.includes(hash)) {
       bookmarks.unlabeled.push(hash);
-      localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
-      showNotification(`Added ${hash} to bookmarks`);
+      bookmarksData['bookmarks'] = bookmarks;
+      bookmarksData['updatedAt'] = new Date().toISOString();
+      localStorage.setItem('bookmarksData', JSON.stringify(bookmarksData));
+      showNotification(`Added ${hash} to <a href="/bookmarks.html">bookmarks</a>`);
     } else {
       showNotification("Section already in bookmarks");
     }
@@ -272,4 +279,4 @@ document.addEventListener('selectionchange', handleTextSelection);
 
 
 
-export { scrollToHash, showNotification, changeAcronymNumber };
+export { scrollToHash, showNotification, changeAcronymNumber, DEFAULT_BOOKMARK_DICT };
