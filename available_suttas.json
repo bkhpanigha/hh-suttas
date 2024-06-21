@@ -587,6 +587,15 @@
             "translation_path": "suttas/translation_en/mn/mn62_translation-en-anigha.json",
             "comment_path": "suttas/comment/mn/mn62_comment-en-anigha.json"
         },
+        "mn63": {
+            "id": "MN 63",
+            "title": "The Shorter Discourse With Māluṅkyaputta",
+            "pali_title": "Culamalukyasutta",
+            "html_path": "suttas/html/mn/mn63_html.json",
+            "root_path": "suttas/root/mn/mn63_root-pli-ms.json",
+            "translation_path": "suttas/translation_en/mn/mn63_translation-en-anigha.json",
+            "comment_path": null
+        },
         "mn107": {
             "id": "MN 107",
             "title": "With Moggallāna the Accountant",
@@ -708,7 +717,7 @@
             "html_path": "suttas/html/an/an3/an3.121_html.json",
             "root_path": "suttas/root/an/an3/an3.121_root-pli-ms.json",
             "translation_path": "suttas/translation_en/an/an3/an3.121_translation-en-anigha.json",
-            "comment_path": null
+            "comment_path": "suttas/comment/an/an3/an3.121_comment-en-anigha.json"
         },
         "an3.63": {
             "id": "AN 3.63",
