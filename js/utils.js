@@ -60,7 +60,7 @@ function generateLink(idOrRange) {
     console.error("Invalid ID or Range format");
     return "";
   }
-  return `${baseUrl}?q=${hash.substring(1).split(':')[0]}${hash}`;
+  return `${baseUrl}?q=${suttaId}${hash}`;
 }
 
 function changeAcronymNumber(acronym, change) {
@@ -195,6 +195,18 @@ function showNotification(message, duration = 3000) {
     }, 500); // This duration should match the transition duration in the CSS
   }, duration);
 }
+
+function extractIdsFromUrl() {
+    const urlObj = new URL(window.location.href);
+    
+    // Use URLSearchParams to fetch 'q' parameter value in URL
+    const queryParams = new URLSearchParams(urlObj.search);
+    const qValue = queryParams.get('q');
+    
+    return qValue;
+}
+
+const suttaId = extractIdsFromUrl();
 
 // Add event listener for text selection
 document.addEventListener('selectionchange', handleTextSelection);
