@@ -594,7 +594,7 @@
             "html_path": "suttas/html/mn/mn63_html.json",
             "root_path": "suttas/root/mn/mn63_root-pli-ms.json",
             "translation_path": "suttas/translation_en/mn/mn63_translation-en-anigha.json",
-            "comment_path": null
+            "comment_path": "suttas/comment/mn/mn63_comment-en-anigha.json"
         },
         "mn107": {
             "id": "MN 107",
