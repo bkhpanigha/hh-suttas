@@ -596,6 +596,15 @@
             "translation_path": "suttas/translation_en/mn/mn63_translation-en-anigha.json",
             "comment_path": "suttas/comment/mn/mn63_comment-en-anigha.json"
         },
+        "mn64": {
+            "id": "MN 64",
+            "title": "The Longer Discourse With Māluṅkya",
+            "pali_title": "Mahamalukyasutta",
+            "html_path": "suttas/html/mn/mn64_html.json",
+            "root_path": "suttas/root/mn/mn64_root-pli-ms.json",
+            "translation_path": "suttas/translation_en/mn/mn64_translation-en-anigha.json",
+            "comment_path": "suttas/comment/mn/mn64_comment-en-anigha.json"
+        },
         "mn107": {
             "id": "MN 107",
             "title": "With Moggallāna the Accountant",
