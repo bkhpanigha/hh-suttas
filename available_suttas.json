@@ -644,16 +644,6 @@
             "comment_path": "suttas/comment/sn/sn22/sn22.81_comment-en-anigha.json",
             "heading": "The Middle Way"
         },
-        "sn35.246": {
-            "id": "SN 35.246",
-            "title": "The Simile of the Lute",
-            "pali_title": "Vinopamasutta",
-            "html_path": "suttas/html/sn/sn35/sn35.246_html.json",
-            "root_path": "suttas/root/sn/sn35/sn35.246_root-pli-ms.json",
-            "translation_path": "suttas/translation_en/sn/sn35/sn35.246_translation-en-anigha.json",
-            "comment_path": "suttas/comment/sn/sn35/sn35.246_comment-en-anigha.json",
-            "heading": "Taming the Mind"
-        },
         "sn35.70": {
             "id": "SN 35.70",
             "title": "Presently Evident (With Upavāna)",
@@ -671,6 +661,16 @@
             "root_path": "suttas/root/sn/sn35/sn35.96_root-pli-ms.json",
             "translation_path": "suttas/translation_en/sn/sn35/sn35.96_translation-en-anigha.json",
             "comment_path": "suttas/comment/sn/sn35/sn35.96_comment-en-anigha.json"
+        },
+        "sn35.246": {
+            "id": "SN 35.246",
+            "title": "The Simile of the Lute",
+            "pali_title": "Vinopamasutta",
+            "html_path": "suttas/html/sn/sn35/sn35.246_html.json",
+            "root_path": "suttas/root/sn/sn35/sn35.246_root-pli-ms.json",
+            "translation_path": "suttas/translation_en/sn/sn35/sn35.246_translation-en-anigha.json",
+            "comment_path": "suttas/comment/sn/sn35/sn35.246_comment-en-anigha.json",
+            "heading": "Taming the Mind"
         },
         "sn36.6": {
             "id": "SN 36.6",
@@ -709,6 +709,16 @@
             "translation_path": "suttas/translation_en/an/an1/an1.51-60_translation-en-anigha.json",
             "comment_path": "suttas/comment/an/an1/an1.51-60_comment-en-anigha.json"
         },
+        "an3.63": {
+            "id": "AN 3.63",
+            "title": "At Venāgapura",
+            "pali_title": "Venagapurasutta",
+            "html_path": "suttas/html/an/an3/an3.63_html.json",
+            "root_path": "suttas/root/an/an3/an3.63_root-pli-ms.json",
+            "translation_path": "suttas/translation_en/an/an3/an3.63_translation-en-anigha.json",
+            "comment_path": "suttas/comment/an/an3/an3.63_comment-en-anigha.json",
+            "heading": "Walking in Jhāna"
+        },
         "an3.101": {
             "id": "AN 3.101",
             "title": "A Panner",
@@ -727,16 +737,6 @@
             "root_path": "suttas/root/an/an3/an3.121_root-pli-ms.json",
             "translation_path": "suttas/translation_en/an/an3/an3.121_translation-en-anigha.json",
             "comment_path": "suttas/comment/an/an3/an3.121_comment-en-anigha.json"
-        },
-        "an3.63": {
-            "id": "AN 3.63",
-            "title": "At Venāgapura",
-            "pali_title": "Venagapurasutta",
-            "html_path": "suttas/html/an/an3/an3.63_html.json",
-            "root_path": "suttas/root/an/an3/an3.63_root-pli-ms.json",
-            "translation_path": "suttas/translation_en/an/an3/an3.63_translation-en-anigha.json",
-            "comment_path": "suttas/comment/an/an3/an3.63_comment-en-anigha.json",
-            "heading": "Walking in Jhāna"
         },
         "an4.12": {
             "id": "AN 4.12",
@@ -786,6 +786,15 @@
             "comment_path": "suttas/comment/an/an8/an8.53_comment-en-anigha.json",
             "heading": "Dhamma VS Not Dhamma"
         },
+        "an9.7": {
+            "id": "AN 9.7",
+            "title": "With Sutavā the Wanderer",
+            "pali_title": "Sutavasutta",
+            "html_path": "suttas/html/an/an9/an9.7_html.json",
+            "root_path": "suttas/root/an/an9/an9.7_root-pli-ms.json",
+            "translation_path": "suttas/translation_en/an/an9/an9.7_translation-en-anigha.json",
+            "comment_path": null
+        },
         "an9.41": {
             "id": "AN 9.41",
             "title": "With the Householder Tapussa",
@@ -805,15 +814,6 @@
             "translation_path": "suttas/translation_en/an/an9/an9.42_translation-en-anigha.json",
             "comment_path": "suttas/comment/an/an9/an9.42_comment-en-anigha.json",
             "heading": "Five Senses in Jhāna"
-        },
-        "an9.7": {
-            "id": "AN 9.7",
-            "title": "With Sutavā the Wanderer",
-            "pali_title": "Sutavasutta",
-            "html_path": "suttas/html/an/an9/an9.7_html.json",
-            "root_path": "suttas/root/an/an9/an9.7_root-pli-ms.json",
-            "translation_path": "suttas/translation_en/an/an9/an9.7_translation-en-anigha.json",
-            "comment_path": null
         },
         "an10.62": {
             "id": "AN 10.62",
