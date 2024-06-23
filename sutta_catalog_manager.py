@@ -128,9 +128,13 @@ def load_available_suttas(suttas_base_dir):
 # Helper function to extract sorting key
 def sort_key(id):
     prefix, number = id.split()
-    number = number.split('-')[0]  # Consider only the part before any hyphen
-    number = float(number) if '.' in number else int(number)
-    return {"DN": 0, "MN": 1, "SN": 2, "AN": 3}.get(prefix, 4), number
+    parts = number.split('-')[0].split('.')  # Consider only the part before any hyphen and split on '.'
+    
+    # Convert each part to integer for proper numerical comparison
+    parts = [int(part) for part in parts]
+    
+    # Return a tuple for comparison, including prefix for primary sorting
+    return ({"DN": 0, "MN": 1, "SN": 2, "AN": 3}.get(prefix, 4), parts)
 
 def generate_paths_for_sutta(sutta_id, base_dir="suttas"):
     """Generate file paths for a given sutta, taking into account special structures."""
