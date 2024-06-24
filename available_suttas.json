@@ -902,6 +902,15 @@
             "translation_path": "suttas/translation_en/kn/snp/vagga4/snp4.4_translation-en-anigha.json",
             "comment_path": "suttas/comment/kn/snp/vagga4/snp4.4_comment-en-anigha.json",
             "author": "Sister Medhini"
+        },
+        "snp4.9": {
+            "id": "Snp 4.9",
+            "title": "With Māgandiya",
+            "pali_title": "Magandiyasutta",
+            "html_path": "suttas/html/kn/snp/vagga4/snp4.9_html.json",
+            "root_path": "suttas/root/kn/snp/vagga4/snp4.9_root-pli-ms.json",
+            "translation_path": "suttas/translation_en/kn/snp/vagga4/snp4.9_translation-en-anigha.json",
+            "comment_path": "suttas/comment/kn/snp/vagga4/snp4.9_comment-en-anigha.json"
         }
     }
 }
