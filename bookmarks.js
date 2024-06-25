@@ -270,7 +270,8 @@ function displayPage() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'bookmarksData.json';
+    const timestamp = new Date().toISOString().slice(0, 10);
+    a.download = `bookmarksData-${timestamp}.json`;
     a.click();
     URL.revokeObjectURL(url);
   });
