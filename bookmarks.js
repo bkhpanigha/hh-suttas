@@ -17,6 +17,14 @@ function getRangeAsString(jsonObj, startKey, endKey) {
 
   return resultString;
 }
+
+function updateBookmarksData(bookmarks) {
+  let bookmarksData = JSON.parse(localStorage.getItem('bookmarksData')) || DEFAULT_BOOKMARK_DICT;
+  bookmarksData['bookmarks'] = bookmarks;
+  bookmarksData['updatedAt'] = new Date().toISOString();
+  localStorage.setItem('bookmarksData', JSON.stringify(bookmarksData));
+}
+
 async function displayBookmarks() {
   // Retrieve bookmarks from localStorage
   let bookmarksData = JSON.parse(localStorage.getItem('bookmarksData'));
@@ -65,10 +73,7 @@ async function displayBookmarks() {
         // Delete the label and its bookmarks
         delete bookmarks[label];
 
-        // Save the updated bookmarks back to localStorage
-        bookmarksData['bookmarks'] = bookmarks;
-        bookmarksData['updatedAt'] = new Date().toISOString();
-        localStorage.setItem('bookmarksData', JSON.stringify(bookmarksData));
+        updateBookmarksData(bookmarks);
 
         // Refresh the display
         displayPage();
@@ -174,9 +179,7 @@ async function displayBookmarks() {
               }
 
               // Save updated bookmarks to localStorage
-              bookmarksData['bookmarks'] = bookmarks;
-              bookmarksData['updatedAt'] = new Date().toISOString();
-              localStorage.setItem('bookmarksData', JSON.stringify(bookmarksData));
+              updateBookmarksData(bookmarks);
 
               // Refresh the display
               displayPage();
@@ -211,9 +214,7 @@ function deleteBookmark(label, bookmark) {
   bookmarks[label] = bookmarks[label].filter((b) => b !== bookmark);
 
   // Save the updated bookmarks back to localStorage
-  // TODO update updatedAt
-  bookmarksData[bookmarks] = bookmarks;
-  localStorage.setItem('bookmarksData', JSON.stringify(bookmarksData));
+  updateBookmarksData(bookmarks);
 
   // Refresh the display
   displayPage();
