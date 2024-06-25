@@ -232,15 +232,15 @@ function displayPage() {
 
   bookmarksDiv.innerHTML = '';
 
-  const labelInput = document.createElement('input');
-  labelInput.type = 'text';
-  labelInput.placeholder = 'Enter new label';
-  labelInput.id = 'newLabelInput';
-  bookmarksDiv.appendChild(labelInput);
-
-  const saveLabelButton = document.createElement('button');
-  saveLabelButton.textContent = 'Save Label';
-  bookmarksDiv.appendChild(saveLabelButton);
+  const labelInput = document.getElementById('newLabelInput');
+  const saveLabelButton = document.getElementById('saveLabelButton');
+  const downloadButton = document.getElementById('downloadButton');
+  const uploadButton = document.getElementById('uploadButton');
+  const fileInput = document.createElement('input');
+  fileInput.type = 'file';
+  fileInput.accept = 'application/json';
+  fileInput.style.display = 'none';
+  bookmarksDiv.appendChild(fileInput);
 
   // Event listener for the save button
   saveLabelButton.addEventListener('click', () => {
@@ -265,11 +265,7 @@ function displayPage() {
     }
   });
 
-  // Create download button
-  const downloadButton = document.createElement('button');
-  downloadButton.textContent = 'Download Bookmarks';
-  bookmarksDiv.appendChild(downloadButton);
-
+  // Event listener for the download button
   downloadButton.addEventListener('click', () => {
     const bookmarksData = localStorage.getItem('bookmarksData');
     const blob = new Blob([bookmarksData], { type: 'application/json' });
@@ -282,17 +278,7 @@ function displayPage() {
     URL.revokeObjectURL(url);
   });
 
-  // Create upload button
-  const uploadButton = document.createElement('button');
-  uploadButton.textContent = 'Upload Bookmarks';
-  bookmarksDiv.appendChild(uploadButton);
-
-  const fileInput = document.createElement('input');
-  fileInput.type = 'file';
-  fileInput.accept = 'application/json';
-  fileInput.style.display = 'none';
-  bookmarksDiv.appendChild(fileInput);
-
+  // Event listener for the upload button
   uploadButton.addEventListener('click', () => {
     fileInput.click();
   });
