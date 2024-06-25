@@ -134,6 +134,12 @@ async function displayBookmarks() {
           const labelDetails = document.createElement('details');
           labelDetails.className = 'label-details';
           labelDetails.classList.add('bookmark-text');
+          labelDetails.open = localStorage.getItem('lastOpenedLabel')  === label + bookmark;
+
+          // Add event listener to save the open/closed state
+          labelDetails.addEventListener('toggle', () => {
+            localStorage.setItem('lastOpenedLabel', label + bookmark);
+          });
 
           // Create a summary element for the collapsible container
           const labelSummary = document.createElement('summary');
