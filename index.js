@@ -87,12 +87,9 @@ function toggleThePali() {
   const hideButton = document.getElementById("hide-pali");
 
   // initial state
-  if (localStorage.paliToggle) {
-    if (localStorage.paliToggle === "hide") {
+  if (localStorage.paliToggle !== "show") {
+      localStorage.paliToggle = "hide";
       suttaArea.classList.add("hide-pali");
-    }
-  } else {
-    localStorage.paliToggle = "show";
   }
 
   hideButton.addEventListener("click", () => {
