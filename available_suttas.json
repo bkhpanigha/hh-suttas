@@ -757,6 +757,33 @@
             "comment_path": "suttas/comment/an/an5/an5.114_comment-en-anigha.json",
             "heading": "Advice for Beginners"
         },
+        "an5.151": {
+            "id": "AN 5.151",
+            "title": "Surety in the Right Way (1st)",
+            "pali_title": "Pathamasammattaniyamasutta",
+            "html_path": "suttas/html/an/an5/an5.151_html.json",
+            "root_path": "suttas/root/an/an5/an5.151_root-pli-ms.json",
+            "translation_path": "suttas/translation_en/an/an5/an5.151_translation-en-anigha.json",
+            "comment_path": "suttas/comment/an/an5/an5.151_comment-en-anigha.json"
+        },
+        "an5.152": {
+            "id": "AN 5.152",
+            "title": "Surety in the Right Way (2nd)",
+            "pali_title": "Dutiyasammattaniyamasutta",
+            "html_path": "suttas/html/an/an5/an5.152_html.json",
+            "root_path": "suttas/root/an/an5/an5.152_root-pli-ms.json",
+            "translation_path": "suttas/translation_en/an/an5/an5.152_translation-en-anigha.json",
+            "comment_path": null
+        },
+        "an5.153": {
+            "id": "AN 5.153",
+            "title": "Surety in the Right Way (3rd)",
+            "pali_title": "Tatiyasammattaniyamasutta",
+            "html_path": "suttas/html/an/an5/an5.153_html.json",
+            "root_path": "suttas/root/an/an5/an5.153_root-pli-ms.json",
+            "translation_path": "suttas/translation_en/an/an5/an5.153_translation-en-anigha.json",
+            "comment_path": "suttas/comment/an/an5/an5.153_comment-en-anigha.json"
+        },
         "an6.68": {
             "id": "AN 6.68",
             "title": "Enjoying Company",
