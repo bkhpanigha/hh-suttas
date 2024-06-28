@@ -719,15 +719,14 @@
             "comment_path": "suttas/comment/an/an3/an3.63_comment-en-anigha.json",
             "heading": "Walking in Jhāna"
         },
-        "an3.95": {
-            "id": "AN 3.95",
-            "title": "Assemblies",
-            "pali_title": "Parisasutta",
-            "html_path": "suttas/html/an/an3/an3.95_html.json",
-            "root_path": "suttas/root/an/an3/an3.95_root-pli-ms.json",
-            "translation_path": "suttas/translation_en/an/an3/an3.95_translation-en-anigha.json",
-            "comment_path": null,
-            "heading": "Stream Entry Before Jhāna"
+        "an3.94": {
+            "id": "AN 3.94",
+            "title": "Springtime",
+            "pali_title": "Saradasutta",
+            "html_path": "suttas/html/an/an3/an3.94_html.json",
+            "root_path": "suttas/root/an/an3/an3.94_root-pli-ms.json",
+            "translation_path": "suttas/translation_en/an/an3/an3.94_translation-en-anigha.json",
+            "comment_path": "suttas/comment/an/an3/an3.94_comment-en-anigha.json"
         },
         "an3.101": {
             "id": "AN 3.101",
