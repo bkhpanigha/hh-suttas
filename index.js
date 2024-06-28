@@ -113,7 +113,7 @@ async function createFuseSearch() {
   //Combine all values in a single field so user can do search on multiple fields
   let searchDict = Object.entries(availableSuttasJson).map(([sutta_id, sutta_details]) => {
     // Declare search fields here
-    let sutta_details_without_fp = (({ id, title, pali_title, heading, author }) => ({ id, title, pali_title, heading, author }))(sutta_details);
+    let sutta_details_without_fp = (({ id, title, pali_title, heading}) => ({ id, title, pali_title, heading}))(sutta_details);
 
     sutta_details_without_fp['citation'] = sutta_id;
     // Get every element's values and combine them with a white space
