@@ -915,7 +915,8 @@
             "html_path": "suttas/html/kn/thag/thag1.21_html.json",
             "root_path": "suttas/root/kn/thag/thag1.21_root-pli-ms.json",
             "translation_path": "suttas/translation_en/kn/thag/thag1.21_translation-en-anigha.json",
-            "comment_path": "suttas/comment/kn/thag/thag1.21_comment-en-anigha.json"
+            "comment_path": "suttas/comment/kn/thag/thag1.21_comment-en-anigha.json",
+            "heading": "The Right Fearlessness"
         },
         "thag2.34": {
             "id": "Thag 2.34",
@@ -934,7 +935,8 @@
             "html_path": "suttas/html/kn/thag/thag2.36_html.json",
             "root_path": "suttas/root/kn/thag/thag2.36_root-pli-ms.json",
             "translation_path": "suttas/translation_en/kn/thag/thag2.36_translation-en-anigha.json",
-            "comment_path": "suttas/comment/kn/thag/thag2.36_comment-en-anigha.json"
+            "comment_path": "suttas/comment/kn/thag/thag2.36_comment-en-anigha.json",
+            "heading": "The Right Dispassion"
         },
         "snp4.1": {
             "id": "Snp 4.1",
