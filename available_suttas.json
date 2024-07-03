@@ -719,6 +719,15 @@
             "comment_path": "suttas/comment/an/an3/an3.63_comment-en-anigha.json",
             "heading": "Walking in Jhāna"
         },
+        "an3.65": {
+            "id": "AN 3.65",
+            "title": "With the Kālāmas of Kesamutta",
+            "pali_title": "Kesamuttisutta",
+            "html_path": "suttas/html/an/an3/an3.65_html.json",
+            "root_path": "suttas/root/an/an3/an3.65_root-pli-ms.json",
+            "translation_path": "suttas/translation_en/an/an3/an3.65_translation-en-anigha.json",
+            "comment_path": null
+        },
         "an3.94": {
             "id": "AN 3.94",
             "title": "Springtime",
