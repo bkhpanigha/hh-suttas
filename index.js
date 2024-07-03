@@ -91,8 +91,12 @@ function toggleThePali() {
       localStorage.paliToggle = "hide";
       suttaArea.classList.add("hide-pali");
   }
-
+  
   hideButton.addEventListener("click", () => {
+    //Get the ID of the first segment currently displayed
+    var firstSegmentShown = document.getElementById(Object.values(viewportEntries)[0].id);
+    console.log(firstSegmentShown);
+    
     const previousScrollPosition = window.scrollY;
     if (localStorage.paliToggle === "show") {
       suttaArea.classList.add("hide-pali");
@@ -102,10 +106,9 @@ function toggleThePali() {
       suttaArea.classList.remove("hide-pali");
       localStorage.paliToggle = "show";
     }
-    setTimeout(() => {
-      const currentScrollPosition = window.scrollY;
-      window.scrollTo(0, currentScrollPosition - (previousScrollPosition - currentScrollPosition));
-    }, 0);
+
+    //Scroll back to the first segment that was currently displayed before the text shift caused by showing/hiding pali
+    firstSegmentShown.scrollIntoView();
   });
 }
 
@@ -320,6 +323,8 @@ function buildSutta(slug) {
       if (cacheButton) cacheButton.style.display = 'none';
       if (infoButton) infoButton.style.display = 'none';
 
+      initInterObs();
+      
       // scroll to the quote in the url if present
       scrollToHash();
     })
@@ -328,6 +333,35 @@ function buildSutta(slug) {
 
     <br><br>Note: Make sure the citation code is correct. Otherwise try finding the sutta from the home page.<br>`;
     });
+}
+
+//Initialize intersection observers so we know which segments were displayed before the text shift caused by displaying/hiding pali
+function initInterObs(){
+  // Select every elements with class "segment"
+  const segments = document.querySelectorAll('.segment');
+  
+  const intersectionCallback = (entries, observer) => {
+  	entries.forEach(entry => {
+  		if (entry.isIntersecting) {
+  			//Add element if in viewport
+  			viewportEntries[entry.target.id] = entry.target;
+  		} else {
+  			//Delete element if not in viewport anymore
+  			delete viewportEntries[entry.target.id];
+  		}
+  	});
+  };
+  
+  const observer = new IntersectionObserver(intersectionCallback, {
+  	root: null, // Use viewport as root
+  	rootMargin: '0px',
+  	threshold: 0.1
+  });
+  
+  // Observe on each segment
+  segments.forEach(segment => {
+  	observer.observe(segment);
+  });
 }
 
 function addNavbar() {
