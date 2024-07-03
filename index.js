@@ -95,7 +95,6 @@ function toggleThePali() {
   hideButton.addEventListener("click", () => {
     //Get the ID of the first segment currently displayed
     var firstSegmentShown = document.getElementById(Object.values(viewportEntries)[0].id);
-    console.log(firstSegmentShown);
     
     const previousScrollPosition = window.scrollY;
     if (localStorage.paliToggle === "show") {
