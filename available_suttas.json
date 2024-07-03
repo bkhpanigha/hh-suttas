@@ -840,6 +840,15 @@
             "translation_path": "suttas/translation_en/an/an6/an6.73_translation-en-anigha.json",
             "comment_path": "suttas/comment/an/an6/an6.73_comment-en-anigha.json"
         },
+        "an7.38": {
+            "id": "AN 7.38",
+            "title": "Discriminative Insight (1st)",
+            "pali_title": "Pathamapatisambhidasutta",
+            "html_path": "suttas/html/an/an7/an7.38_html.json",
+            "root_path": "suttas/root/an/an7/an7.38_root-pli-ms.json",
+            "translation_path": "suttas/translation_en/an/an7/an7.38_translation-en-anigha.json",
+            "comment_path": "suttas/comment/an/an7/an7.38_comment-en-anigha.json"
+        },
         "an8.53": {
             "id": "AN 8.53",
             "title": "Brief Advice to Gotamī",
