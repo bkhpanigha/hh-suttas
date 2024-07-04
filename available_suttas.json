@@ -615,6 +615,15 @@
             "comment_path": "suttas/comment/mn/mn107_comment-en-anigha.json",
             "heading": "The Gradual Training"
         },
+        "mn134": {
+            "id": "MN 134",
+            "title": "Lomasakaṅgiya and One Fine Night",
+            "pali_title": "Lomasakangiyabhaddekarattasutta",
+            "html_path": "suttas/html/mn/mn134_html.json",
+            "root_path": "suttas/root/mn/mn134_root-pli-ms.json",
+            "translation_path": "suttas/translation_en/mn/mn134_translation-en-anigha.json",
+            "comment_path": "suttas/comment/mn/mn134_comment-en-anigha.json"
+        },
         "sn1.20": {
             "id": "SN 1.20",
             "title": "With Samiddhi",
