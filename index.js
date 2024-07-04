@@ -12,6 +12,7 @@ const forewordText = `Terms and expressions of doctrinal and practical significa
   (2) The tendency to translate the term <em>yoniso manasikāra</em> along the lines of “appropriate” or “wise” attention, evidently assuming the literal meaning of <em>yoniso</em> to be unimportant. However, there is no reason to think that the Buddha didn’t intentionally opt for this peculiar expression to describe <a href="https://suttas.hillsidehermitage.org/?q=mn2#mn2:3.1-mn2:3.3">what is arguably the core element of the practice</a>, and <a href="https://suttas.hillsidehermitage.org/?q=sn45.55">leads to the acquisition of the Noble Eightfold Path</a>.
   <br><br>
   On this site, Bhikkhu Sujato’s copyright-free translations have been adapted to create a work that rigorously aims to convey the meaning of significant Pāli terms drawing solely on their etymology—which is generally unambiguous—and eschewing commentarial and later baggage that is often present even in most Pāli dictionaries. Individual perspectives and explanations, along with the reasoning behind the chosen renderings for the infrequent less straightforward terms, have been left for the comments. This approach aims to maintain a clear distinction between translation and interpretation, which is often blurred.`;
+var viewportEntries = {};
 
 // functions
 
@@ -93,8 +94,9 @@ function toggleThePali() {
   }
   
   hideButton.addEventListener("click", () => {
-    //Get the ID of the first segment currently displayed
-    var firstSegmentShown = document.getElementById(Object.values(viewportEntries)[0].id);
+    //Get the ID of the middlish segment currently displayed
+    var firstSegmentId = Object.values(viewportEntries)[Math.floor(Object.values(viewportEntries).length/2)].id;
+    var firstSegmentShown = document.getElementById(firstSegmentId);
     
     const previousScrollPosition = window.scrollY;
     if (localStorage.paliToggle === "show") {
@@ -106,8 +108,21 @@ function toggleThePali() {
       localStorage.paliToggle = "show";
     }
 
-    //Scroll back to the first segment that was currently displayed before the text shift caused by showing/hiding pali
-    firstSegmentShown.scrollIntoView();
+    //Shows the previous displayed segment by temporarily modifying its color
+    const textElement = document.getElementById(firstSegmentId).getElementsByClassName('eng-lang')[0];
+    textElement.style.color = 'red';
+    setTimeout(function() {
+      textElement.classList.add("scrolledTo");
+      textElement.style.color = 'black';
+    }, 1000);
+    setTimeout(function() {
+        textElement.classList.remove("scrolledTo");
+    }, 6000);
+    //And scrolls back to the middlish segment that was currently displayed before the text shift caused by showing/hiding pali
+    firstSegmentShown.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center'
+    });
   });
 }
 
