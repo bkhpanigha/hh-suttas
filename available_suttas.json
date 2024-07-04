@@ -182,7 +182,7 @@
             "root_path": "suttas/root/mn/mn18_root-pli-ms.json",
             "translation_path": "suttas/translation_en/mn/mn18_translation-en-anigha.json",
             "comment_path": "suttas/comment/mn/mn18_comment-en-anigha.json",
-            "heading": "The Middle Way"
+            "heading": "Beyond All Thoughts"
         },
         "mn19": {
             "id": "MN 19",
@@ -624,6 +624,16 @@
             "translation_path": "suttas/translation_en/mn/mn134_translation-en-anigha.json",
             "comment_path": "suttas/comment/mn/mn134_comment-en-anigha.json"
         },
+        "sn1.1": {
+            "id": "SN 1.1",
+            "title": "Crossing the Flood",
+            "pali_title": "Oghataranasutta",
+            "html_path": "suttas/html/sn/sn1/sn1.1_html.json",
+            "root_path": "suttas/root/sn/sn1/sn1.1_root-pli-ms.json",
+            "translation_path": "suttas/translation_en/sn/sn1/sn1.1_translation-en-anigha.json",
+            "comment_path": "suttas/comment/sn/sn1/sn1.1_comment-en-anigha.json",
+            "heading": "The Middle Way (Not ”Moderation”)"
+        },
         "sn1.20": {
             "id": "SN 1.20",
             "title": "With Samiddhi",
@@ -650,8 +660,7 @@
             "html_path": "suttas/html/sn/sn22/sn22.81_html.json",
             "root_path": "suttas/root/sn/sn22/sn22.81_root-pli-ms.json",
             "translation_path": "suttas/translation_en/sn/sn22/sn22.81_translation-en-anigha.json",
-            "comment_path": "suttas/comment/sn/sn22/sn22.81_comment-en-anigha.json",
-            "heading": "The Middle Way"
+            "comment_path": "suttas/comment/sn/sn22/sn22.81_comment-en-anigha.json"
         },
         "sn35.70": {
             "id": "SN 35.70",
