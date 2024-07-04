@@ -194,6 +194,10 @@ span.eng-lang {
   display: block;
 }
 
+span.eng-lang.scrolledTo{
+  transition: color 5s;
+}
+
 p,
 dt,
 li,
