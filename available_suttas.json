@@ -802,6 +802,16 @@
             "translation_path": "suttas/translation_en/an/an4/an4.163_translation-en-anigha.json",
             "comment_path": "suttas/comment/an/an4/an4.163_comment-en-anigha.json"
         },
+        "an5.24": {
+            "id": "AN 5.24",
+            "title": "Unvirtuous",
+            "pali_title": "Dussilasutta",
+            "html_path": "suttas/html/an/an5/an5.24_html.json",
+            "root_path": "suttas/root/an/an5/an5.24_root-pli-ms.json",
+            "translation_path": "suttas/translation_en/an/an5/an5.24_translation-en-anigha.json",
+            "comment_path": "suttas/comment/an/an5/an5.24_comment-en-anigha.json",
+            "heading": "Vital Conditions for Liberation"
+        },
         "an5.114": {
             "id": "AN 5.114",
             "title": "At Andhakavinda",
