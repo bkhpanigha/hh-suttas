@@ -699,6 +699,15 @@
             "translation_path": "suttas/translation_en/sn/sn36/sn36.6_translation-en-anigha.json",
             "comment_path": "suttas/comment/sn/sn36/sn36.6_comment-en-anigha.json"
         },
+        "sn40.1": {
+            "id": "SN 40.1",
+            "title": "A Question About the First jhāna",
+            "pali_title": "Pathamajhanapanhasutta",
+            "html_path": "suttas/html/sn/sn40/sn40.1_html.json",
+            "root_path": "suttas/root/sn/sn40/sn40.1_root-pli-ms.json",
+            "translation_path": "suttas/translation_en/sn/sn40/sn40.1_translation-en-anigha.json",
+            "comment_path": null
+        },
         "sn45.55": {
             "id": "SN 45.55",
             "title": "Accomplishment in through-the-origin attention (1st)",
