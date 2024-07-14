@@ -753,7 +753,7 @@
             "html_path": "suttas/html/an/an3/an3.65_html.json",
             "root_path": "suttas/root/an/an3/an3.65_root-pli-ms.json",
             "translation_path": "suttas/translation_en/an/an3/an3.65_translation-en-anigha.json",
-            "comment_path": null
+            "comment_path": "suttas/comment/an/an3/an3.65_comment-en-anigha.json"
         },
         "an3.94": {
             "id": "AN 3.94",
