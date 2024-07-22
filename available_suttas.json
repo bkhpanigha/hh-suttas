@@ -662,6 +662,15 @@
             "translation_path": "suttas/translation_en/sn/sn22/sn22.81_translation-en-anigha.json",
             "comment_path": "suttas/comment/sn/sn22/sn22.81_comment-en-anigha.json"
         },
+        "sn22.101": {
+            "id": "SN 22.101",
+            "title": "The Adze",
+            "pali_title": "Vasijatasutta",
+            "html_path": "suttas/html/sn/sn22/sn22.101_html.json",
+            "root_path": "suttas/root/sn/sn22/sn22.101_root-pli-ms.json",
+            "translation_path": "suttas/translation_en/sn/sn22/sn22.101_translation-en-anigha.json",
+            "comment_path": "suttas/comment/sn/sn22/sn22.101_comment-en-anigha.json"
+        },
         "sn35.70": {
             "id": "SN 35.70",
             "title": "Presently Evident (With Upavāna)",
