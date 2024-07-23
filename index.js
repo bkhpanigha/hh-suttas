@@ -84,6 +84,27 @@ function displaySuttas(suttas, isSearch = false) {
   }).join('')}</ul>`;
 }
 
+function getSegmentToHighlight(targetElement) {
+  // Check is we are placed on the very first segment of the current paragraph
+  // If not, return the ID of the first segment of the current paragraph
+  console.log(targetElement);
+  const parentParagraph = targetElement.closest('p');
+  var nextParagraph = null;
+  
+  if(parentParagraph != null)
+    nextParagraph = parentParagraph.nextElementSibling;
+  console.log("1");
+  console.log(parentParagraph);
+  console.log("2");
+  console.log(nextParagraph);
+  
+  if (nextParagraph && nextParagraph.tagName.toLowerCase() === 'p') {
+    const firstSegment = nextParagraph.querySelector('.segment');
+    return firstSegment;
+  }
+
+  return null;
+}
 
 function toggleThePali() {
   const hideButton = document.getElementById("hide-pali");
@@ -97,19 +118,22 @@ function toggleThePali() {
   hideButton.addEventListener("click", () => {
     // Triez les éléments par l'attribut id
     const sortedEntries = Object.entries(viewportEntries).sort((a, b) => {
-      return a[0].localeCompare(b[0]);
+      // Extraire la partie après les deux-points et la convertir en nombre
+      let numA = parseFloat(a[0].split(':')[1]);
+      let numB = parseFloat(b[0].split(':')[1]);
+      
+      // Comparer les nombres
+      return numA - numB;
     });
-
+    
     // If you need the sorted entries as an object again
     const sortedViewportEntries = Object.fromEntries(sortedEntries);
     
-    var idPos = 0;
-    if(Object.values(sortedViewportEntries).length > 3){
-      idPos = 2;
-    }
-    //Get the ID of the middlish segment currently displayed
+    var idPos = 1;
+    //Get the ID of a top segment currently displayed
     var firstSegmentId = Object.values(sortedViewportEntries)[idPos].id;
-    var firstSegmentShown = document.getElementById(firstSegmentId);
+    var firstSegment = document.getElementById(firstSegmentId);
+    var segmentToHighlight = getSegmentToHighlight(firstSegment);
     
     const previousScrollPosition = window.scrollY;
     if (localStorage.paliToggle === "show") {
@@ -121,21 +145,26 @@ function toggleThePali() {
       localStorage.paliToggle = "show";
     }
 
-    //Shows the previous displayed segment by temporarily modifying its color
-    const textElement = document.getElementById(firstSegmentId).getElementsByClassName('eng-lang')[0];
-    textElement.style.color = 'red';
-    setTimeout(function() {
-      textElement.classList.add("scrolledTo");
-      textElement.style.color = 'black';
-    }, 1000);
-    setTimeout(function() {
-        textElement.classList.remove("scrolledTo");
-    }, 6000);
-    //And scrolls back to the middlish segment that was currently displayed before the text shift caused by showing/hiding pali
-    firstSegmentShown.scrollIntoView({
-      behavior: 'smooth',
-      block: 'center'
-    });
+    if(segmentToHighlight){
+      //Shows the previous displayed segment by temporarily modifying its color
+      const textElement = document.getElementById(segmentToHighlight.id).getElementsByClassName('eng-lang')[0];
+      textElement.style.color = 'red';
+      setTimeout(function() {
+        textElement.classList.add("scrolledTo");
+        textElement.style.color = 'black';
+      }, 1000);
+      setTimeout(function() {
+          textElement.classList.remove("scrolledTo");
+      }, 6000);
+      
+      if(firstSegment){
+        //And scrolls back to the top segment that was currently displayed before the text shift caused by showing/hiding pali
+        firstSegment.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    }
   });
 }
 
