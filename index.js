@@ -87,16 +87,11 @@ function displaySuttas(suttas, isSearch = false) {
 function getSegmentToHighlight(targetElement) {
   // Check is we are placed on the very first segment of the current paragraph
   // If not, return the ID of the first segment of the current paragraph
-  console.log(targetElement);
   const parentParagraph = targetElement.closest('p');
   var nextParagraph = null;
   
   if(parentParagraph != null)
     nextParagraph = parentParagraph.nextElementSibling;
-  console.log("1");
-  console.log(parentParagraph);
-  console.log("2");
-  console.log(nextParagraph);
   
   if (nextParagraph && nextParagraph.tagName.toLowerCase() === 'p') {
     const firstSegment = nextParagraph.querySelector('.segment');
