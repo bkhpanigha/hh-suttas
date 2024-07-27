@@ -689,6 +689,15 @@
             "translation_path": "suttas/translation_en/sn/sn35/sn35.96_translation-en-anigha.json",
             "comment_path": "suttas/comment/sn/sn35/sn35.96_comment-en-anigha.json"
         },
+        "sn35.97": {
+            "id": "SN 35.97",
+            "title": "One Who Lives Heedlessly",
+            "pali_title": "Pamadaviharisutta",
+            "html_path": "suttas/html/sn/sn35/sn35.97_html.json",
+            "root_path": "suttas/root/sn/sn35/sn35.97_root-pli-ms.json",
+            "translation_path": "suttas/translation_en/sn/sn35/sn35.97_translation-en-anigha.json",
+            "comment_path": "suttas/comment/sn/sn35/sn35.97_comment-en-anigha.json"
+        },
         "sn35.246": {
             "id": "SN 35.246",
             "title": "The Simile of the Lute",
