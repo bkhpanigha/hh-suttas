@@ -980,6 +980,16 @@
             "translation_path": "suttas/translation_en/an/an10/an10.93_translation-en-anigha.json",
             "comment_path": "suttas/comment/an/an10/an10.93_comment-en-anigha.json"
         },
+        "an10.105": {
+            "id": "AN 10.105",
+            "title": "Knowledge",
+            "pali_title": "Vijjasutta",
+            "html_path": "suttas/html/an/an10/an10.105_html.json",
+            "root_path": "suttas/root/an/an10/an10.105_root-pli-ms.json",
+            "translation_path": "suttas/translation_en/an/an10/an10.105_translation-en-anigha.json",
+            "comment_path": "suttas/comment/an/an10/an10.105_comment-en-anigha.json",
+            "heading": "There Can Be Wrong Liberation"
+        },
         "an11.9": {
             "id": "AN 11.9",
             "title": "With Sandha",
