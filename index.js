@@ -66,7 +66,7 @@ function displaySuttas(suttas, isSearch = false) {
     const title = sutta_details['title']
     const heading = sutta_details['heading'] || ""
     const link = `<a href="/?q=${id.toLowerCase()}">${id}: ${title}`;
-    const em = heading ? `<span style="color: #7f6e0a;">${heading}</span>` : '';
+    const em = heading ? `<span style="color: #7f6e0a;"><em>${heading}</em></span>` : '';
     const nikaya = sutta_id.slice(0, 2).toLowerCase();
 
     // Check if the current sutta belongs to a new group
