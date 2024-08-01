@@ -644,12 +644,18 @@ a:hover {
   margin-top: 5px;
 }
 
-.label-checkbox-container label {
-  margin-left: 5px;
+.label-checkbox-container div {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px; /* Add some space between each checkbox-label pair */
 }
 
-.bookmark-text {
+.label-checkbox-container input[type="checkbox"] {
+  margin-right: 5px; /* Add some space between the checkbox and the label */
+}
 
+.label-checkbox-container label {
+  margin-left: 0; /* Remove any left margin */
 }
 
 .dark .bookmark-text {

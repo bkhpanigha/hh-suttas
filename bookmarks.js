@@ -138,7 +138,11 @@ async function displayBookmarks() {
 
           // Add event listener to save the open/closed state
           labelDetails.addEventListener('toggle', () => {
-            localStorage.setItem('lastOpenedLabel', label + bookmark);
+            if (labelDetails.open) {
+              localStorage.setItem('lastOpenedLabel', label + bookmark);
+            } else {
+              localStorage.removeItem('lastOpenedLabel');
+            }
           });
 
           // Create a summary element for the collapsible container
@@ -158,6 +162,7 @@ async function displayBookmarks() {
 
           // Populate the container with checkboxes for each label
           labels.forEach((label) => {
+            const checkboxContainer = document.createElement('div');
             const checkbox = document.createElement('input');
             checkbox.type = 'checkbox';
             checkbox.value = label;
@@ -191,8 +196,9 @@ async function displayBookmarks() {
               displayPage();
             });
 
-            labelCheckboxContainer.appendChild(checkbox);
-            labelCheckboxContainer.appendChild(labelElement);
+            checkboxContainer.appendChild(checkbox);
+            checkboxContainer.appendChild(labelElement);
+            labelCheckboxContainer.appendChild(checkboxContainer);
           });
 
           // Append the checkbox container to the collapsible container
