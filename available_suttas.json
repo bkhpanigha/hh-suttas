@@ -754,6 +754,15 @@
             "translation_path": "suttas/translation_en/sn/sn55/sn55.5_translation-en-anigha.json",
             "comment_path": null
         },
+        "sn56.30": {
+            "id": "SN 56.30",
+            "title": "With Gavampati",
+            "pali_title": "Gavampatisutta",
+            "html_path": "suttas/html/sn/sn56/sn56.30_html.json",
+            "root_path": "suttas/root/sn/sn56/sn56.30_root-pli-ms.json",
+            "translation_path": "suttas/translation_en/sn/sn56/sn56.30_translation-en-anigha.json",
+            "comment_path": "suttas/comment/sn/sn56/sn56.30_comment-en-anigha.json"
+        },
         "an1.51-60": {
             "id": "AN 1.51-60",
             "title": "The Chapter on a Finger-Snap",
