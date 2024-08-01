@@ -155,7 +155,7 @@ const retry = async (fn, retries = 3, delay = 1000) => {
 
     const newLabel = 'testLabel';
     await page.type('#newLabelInput', newLabel);
-    await page.click('#saveLabelButton');
+    await page.click('#createLabelButton');
 
     // Wait for the new label to appear in the bookmarks
     await page.waitForFunction(

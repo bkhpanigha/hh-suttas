@@ -233,7 +233,7 @@ function displayPage() {
   bookmarksDiv.innerHTML = '';
 
   const labelInput = document.getElementById('newLabelInput');
-  const saveLabelButton = document.getElementById('saveLabelButton');
+  const createLabelButton = document.getElementById('createLabelButton');
   const downloadButton = document.getElementById('downloadButton');
   const uploadButton = document.getElementById('uploadButton');
   const fileInput = document.createElement('input');
@@ -243,7 +243,7 @@ function displayPage() {
   bookmarksDiv.appendChild(fileInput);
 
   // Event listener for the save button
-  saveLabelButton.addEventListener('click', () => {
+  createLabelButton.addEventListener('click', () => {
     const newLabel = labelInput.value.trim();
     if (newLabel) {
       let bookmarksData = JSON.parse(localStorage.getItem('bookmarksData')) || DEFAULT_BOOKMARK_DICT;
