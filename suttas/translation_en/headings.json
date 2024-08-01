@@ -2,7 +2,7 @@
     "dn10":"Sīla, Samādhi, Paññā",
     "mn2": "Gateway to the Dhamma",
     "mn16": "Impediments to Progress",
-    "mn18": "The Middle Way",
+    "mn18": "Beyond All Thoughts",
     "mn19": "Renunciation -> Jhāna",
     "mn22": "A Pernicious View",
     "mn24": "Stages of Purification",
@@ -11,8 +11,8 @@
     "mn53": "Qualities of a Trainee",
     "mn61": "Checking Your Actions",
     "mn107": "The Gradual Training",
+    "sn1.1": "The Middle Way (Not ”Moderation”)",
     "sn12.67": "Dependent Origination",
-    "sn22.81": "The Middle Way",
     "sn35.246": "Taming the Mind",
     "sn47.8": "Sign of the Mind",
     "an3.63": "Walking in Jhāna",
@@ -20,9 +20,16 @@
     "an9.41": "What Leads to Samādhi",
     "an9.42": "Five Senses in Jhāna",
     "an3.101": "From Coarse to Fine Defilements",
+    "an3.95": "Stream Entry Before Jhāna",
+    "an4.162": "Pain of the Practice Optional?",
     "an8.53": "Dhamma VS Not Dhamma",
     "an10.76": "Preconditions for Liberation",
+    "an10.105": "There Can Be Wrong Liberation",
+    "an5.24": "Vital Conditions for Liberation",
     "an5.114": "Advice for Beginners",
     "an11.9": "Wrong Meditation",
-    "thag2.34": "On Sensuality"
+    "thag1.21": "The Right Fearlessness",
+    "thag2.34": "On Sensuality",
+    "thag2.36": "The Right Dispassion"
+    
 }
