@@ -258,6 +258,7 @@
     "suttas/html/sn/sn47/sn47.8_html.json",
     "suttas/html/sn/sn55/sn55.5_html.json",
     "suttas/html/sn/sn56/sn56.30_html.json",
+    "suttas/html/sn/sn56/sn56.40_html.json",
     "suttas/root/an/an1/an1.51-60_root-pli-ms.json",
     "suttas/root/an/an10/an10.105_root-pli-ms.json",
     "suttas/root/an/an10/an10.62_root-pli-ms.json",
@@ -377,6 +378,7 @@
     "suttas/root/sn/sn47/sn47.8_root-pli-ms.json",
     "suttas/root/sn/sn55/sn55.5_root-pli-ms.json",
     "suttas/root/sn/sn56/sn56.30_root-pli-ms.json",
+    "suttas/root/sn/sn56/sn56.40_root-pli-ms.json",
     "suttas/translation_en/an/an1/an1.51-60_translation-en-anigha.json",
     "suttas/translation_en/an/an10/an10.105_translation-en-anigha.json",
     "suttas/translation_en/an/an10/an10.62_translation-en-anigha.json",
@@ -496,5 +498,6 @@
     "suttas/translation_en/sn/sn47/sn47.8_translation-en-anigha.json",
     "suttas/translation_en/sn/sn55/sn55.5_translation-en-anigha.json",
     "suttas/translation_en/sn/sn56/sn56.30_translation-en-anigha.json",
+    "suttas/translation_en/sn/sn56/sn56.40_translation-en-anigha.json",
     "sw.js"
 ]

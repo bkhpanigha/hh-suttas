@@ -763,6 +763,15 @@
             "translation_path": "suttas/translation_en/sn/sn56/sn56.30_translation-en-anigha.json",
             "comment_path": "suttas/comment/sn/sn56/sn56.30_comment-en-anigha.json"
         },
+        "sn56.40": {
+            "id": "SN 56.40",
+            "title": "Looking For a Debate",
+            "pali_title": "Vadatthikasutta",
+            "html_path": "suttas/html/sn/sn56/sn56.40_html.json",
+            "root_path": "suttas/root/sn/sn56/sn56.40_root-pli-ms.json",
+            "translation_path": "suttas/translation_en/sn/sn56/sn56.40_translation-en-anigha.json",
+            "comment_path": null
+        },
         "an1.51-60": {
             "id": "AN 1.51-60",
             "title": "The Chapter on a Finger-Snap",
