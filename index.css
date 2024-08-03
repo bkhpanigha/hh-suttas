@@ -476,13 +476,13 @@ a:hover {
   display: none;
   padding: 4px;
   box-sizing: border-box;
-  width: 300px;
+  width: 400px;
   margin-left: -150px;
   content: attr(data-tooltip);
   white-space: normal;
   border-radius: 8px;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-  text-align: center;
+  text-align: justify;
   font-size: 14px;
   font-weight: normal;
   /* Default light theme colors */
