@@ -21,6 +21,8 @@ const forewordText = `Terms and expressions of doctrinal and practical significa
   <br><br>
   —<em>Bhikkhu Anīgha</em>`;
 
+var viewportEntries = {};
+
 // functions
 
 function searchSuttas(pattern) {
@@ -90,6 +92,22 @@ function displaySuttas(suttas, isSearch = false) {
   }).join('')}</ul>`;
 }
 
+function getSegmentToHighlight(targetElement) {
+  // Check is we are placed on the very first segment of the current paragraph
+  // If not, return the ID of the first segment of the current paragraph
+  const parentParagraph = targetElement.closest('p');
+  var nextParagraph = null;
+  
+  if(parentParagraph != null)
+    nextParagraph = parentParagraph.nextElementSibling;
+  
+  if (nextParagraph && nextParagraph.tagName.toLowerCase() === 'p') {
+    const firstSegment = nextParagraph.querySelector('.segment');
+    return firstSegment;
+  }
+
+  return null;
+}
 
 function toggleThePali() {
   const hideButton = document.getElementById("hide-pali");
@@ -99,8 +117,27 @@ function toggleThePali() {
       localStorage.paliToggle = "hide";
       suttaArea.classList.add("hide-pali");
   }
-
+  
   hideButton.addEventListener("click", () => {
+    // Triez les éléments par l'attribut id
+    const sortedEntries = Object.entries(viewportEntries).sort((a, b) => {
+      // Extraire la partie après les deux-points et la convertir en nombre
+      let numA = parseFloat(a[0].split(':')[1]);
+      let numB = parseFloat(b[0].split(':')[1]);
+      
+      // Comparer les nombres
+      return numA - numB;
+    });
+    
+    // If you need the sorted entries as an object again
+    const sortedViewportEntries = Object.fromEntries(sortedEntries);
+    
+    var idPos = 1;
+    //Get the ID of a top segment currently displayed
+    var firstSegmentId = Object.values(sortedViewportEntries)[idPos].id;
+    var firstSegment = document.getElementById(firstSegmentId);
+    var segmentToHighlight = getSegmentToHighlight(firstSegment);
+    
     const previousScrollPosition = window.scrollY;
     if (localStorage.paliToggle === "show") {
       suttaArea.classList.add("hide-pali");
@@ -110,10 +147,27 @@ function toggleThePali() {
       suttaArea.classList.remove("hide-pali");
       localStorage.paliToggle = "show";
     }
-    setTimeout(() => {
-      const currentScrollPosition = window.scrollY;
-      window.scrollTo(0, currentScrollPosition - (previousScrollPosition - currentScrollPosition));
-    }, 0);
+
+    if(segmentToHighlight){
+      //Shows the previous displayed segment by temporarily modifying its color
+      const textElement = document.getElementById(segmentToHighlight.id).getElementsByClassName('eng-lang')[0];
+      textElement.style.color = 'red';
+      setTimeout(function() {
+        textElement.classList.add("scrolledTo");
+        textElement.style.color = 'black';
+      }, 1000);
+      setTimeout(function() {
+          textElement.classList.remove("scrolledTo");
+      }, 6000);
+      
+      if(firstSegment){
+        //And scrolls back to the top segment that was currently displayed before the text shift caused by showing/hiding pali
+        firstSegment.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    }
   });
 }
 
@@ -328,6 +382,8 @@ function buildSutta(slug) {
       if (cacheButton) cacheButton.style.display = 'none';
       if (infoButton) infoButton.style.display = 'none';
 
+      initInterObs();
+      
       // scroll to the quote in the url if present
       scrollToHash();
     })
@@ -336,6 +392,35 @@ function buildSutta(slug) {
 
     <br><br>Note: Make sure the citation code is correct. Otherwise try finding the sutta from the home page.<br>`;
     });
+}
+
+//Initialize intersection observers so we know which segments were displayed before the text shift caused by displaying/hiding pali
+function initInterObs(){
+  // Select every elements with class "segment"
+  const segments = document.querySelectorAll('.segment');
+  
+  const intersectionCallback = (entries, observer) => {
+  	entries.forEach(entry => {
+  		if (entry.isIntersecting) {
+  			//Add element if in viewport
+  			viewportEntries[entry.target.id] = entry.target;
+  		} else {
+  			//Delete element if not in viewport anymore
+  			delete viewportEntries[entry.target.id];
+  		}
+  	});
+  };
+  
+  const observer = new IntersectionObserver(intersectionCallback, {
+  	root: null, // Use viewport as root
+  	rootMargin: '0px',
+  	threshold: 0.1
+  });
+  
+  // Observe on each segment
+  segments.forEach(segment => {
+  	observer.observe(segment);
+  });
 }
 
 function addNavbar() {
