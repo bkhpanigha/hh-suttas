@@ -1,3 +1,5 @@
+var converter = new showdown.Converter()
+
 async function displayComments() {
     const response = await fetch('available_suttas.json');
     const availableSuttas = await response.json();
@@ -54,7 +56,9 @@ async function displayComments() {
         // Add the sutta and comments to the HTML
         htmlContent += `<li>${link}${em ? ` (${em})` : ''}</li>`;
         Object.entries(comment_text).forEach(([key, comment]) => {
-          htmlContent += `<p>${comment}</p>`;
+          if (comment.trim() !== '') {  // Check if comment is not an empty string after trimming whitespace
+            htmlContent += `<p><a href="/?q=${sutta_id}#${key}">${key}</a>: ${converter.makeHtml(comment).replace(/^<p>(.*)<\/p>$/, '$1')}</p>`;
+        }
         });
       } catch (error) {
         console.warn(error.message);
