@@ -211,59 +211,6 @@ def generate_paths_for_sutta(sutta_id, base_dir="suttas"):
 
     return paths
 
-    """Generate file paths for a given sutta, taking into account special structures."""
-    sutta_id = sutta_id.lower()
-    book, number = split_id(sutta_id)
-    
-    # Base paths for different categories of files
-    base_paths = {
-        "html": Path(base_dir) / "html",
-        "root": Path(base_dir) / "root",
-        "translation": Path(base_dir) / "translation_en",
-        "comment": Path(base_dir) / "comment"
-    }
-
-    # Adjust directory structure based on book type
-    if book in ["snp", "ud", "iti"]:
-        vagga_number = number.split('.')[0]
-        vagga = f"vagga{vagga_number}"
-        for key in base_paths:
-            base_paths[key] = base_paths[key] / "kn" / book / vagga
-    elif book in ["sn", "an"]:
-        subsection_number = number.split('.')[0]
-        subsection = f"{book}{subsection_number}"
-        for key in base_paths:
-            base_paths[key] = base_paths[key] / book / subsection
-    elif book in ["dhp", "thag", "thig"]:
-        for key in base_paths:
-            base_paths[key] = base_paths[key] / "kn" / book
-    else:
-        for key in base_paths:
-            base_paths[key] = base_paths[key] / book
-
-    # Initialize the paths dictionary
-    paths = {
-        "html_path": None,
-        "root_path": None,
-        "translation_path": None,
-        "comment_path": None
-    }
-
-    # Determine file paths
-    html_path = base_paths["html"] / f"{sutta_id}_html.json"
-    root_path = base_paths["root"] / f"{sutta_id}_root-pli-ms.json"
-    translation_path = base_paths["translation"] / f"{sutta_id}_translation-en-anigha.json"
-    comment_path = base_paths["comment"] / f"{sutta_id}_comment-en-anigha.json"
-
-    # Check if the "translation" file exists before adding paths
-    if translation_path.exists():
-        # Only add paths if the "translation" file exists
-        paths["html_path"] = str(html_path) if html_path.exists() else None
-        paths["root_path"] = str(root_path) if root_path.exists() else None
-        paths["translation_path"] = str(translation_path)
-        paths["comment_path"] = str(comment_path) if comment_path.exists() else None
-
-    return paths
 
 def generate_corresponding_files_list(available_suttas, output_file):
     files_to_cache = []
