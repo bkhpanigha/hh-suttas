@@ -2,12 +2,27 @@ from collections import defaultdict
 import json, re, os
 import unicodedata
 from pathlib import Path
+import subprocess
+
 
 config = {
     "vagga_books": {"iti": 11, "snp": 4, "ud": 8},  # Vaggas in the KN collection
     "no_vagga_books": ["thag", "dhp", "thig"],
     "subsection_books": {"an": 11, "sn": 56},  # Subsections in SN and AN collections
 }
+
+def get_git_date_added(file_path):
+    """Fetch the date when the file was first added in the Git repository."""
+    try:
+        # Run git log to get the first commit date of the file
+        result = subprocess.run(
+            ["git", "log", "--follow", "--diff-filter=A", "--format=%cd", "--date=iso-strict", "-n", "1", file_path],
+            capture_output=True, text=True, check=True
+        )
+        return result.stdout.strip()  # Return the date in ISO 8601 format (YYYY-MM-DDTHH:MM:SS)
+    except subprocess.CalledProcessError:
+        return None  # Return None if any error occurs (e.g., file not tracked in git)
+
 
 def load_json(file_path):
     """Utility function to load a JSON file."""
@@ -32,7 +47,7 @@ def add_sutta(available_suttas, match, data, key):
             heading = json.load(headings).get(f"{match.group(1)}{match.group(2)}")
             first_group = match.group(1)
             
-            html_path, root_path, translation_path, comment_path = generate_paths_for_sutta(f"{match.group(1)}{match.group(2)}", "./suttas").values()
+            html_path, root_path, translation_path, comment_path, date_added = generate_paths_for_sutta(f"{match.group(1)}{match.group(2)}", "./suttas").values()
             if root_path:
                 with open(root_path, "r", encoding='utf-8') as pali_lines:
                     pali_title = json.load(pali_lines).get(key)
@@ -59,6 +74,7 @@ def add_sutta(available_suttas, match, data, key):
             "root_path": root_path,
             "translation_path": translation_path,
             "comment_path": comment_path,
+            "date_added": date_added,
         }
         if author:
             sutta_info["author"] = author
@@ -137,6 +153,64 @@ def sort_key(id):
     return ({"DN": 0, "MN": 1, "SN": 2, "AN": 3}.get(prefix, 4), parts)
 
 def generate_paths_for_sutta(sutta_id, base_dir="suttas"):
+    """Generate file paths for a given sutta, taking into account special structures and adding the git date."""
+    sutta_id = sutta_id.lower()
+    book, number = split_id(sutta_id)
+
+    # Base paths for different categories of files
+    base_paths = {
+        "html": Path(base_dir) / "html",
+        "root": Path(base_dir) / "root",
+        "translation": Path(base_dir) / "translation_en",
+        "comment": Path(base_dir) / "comment"
+    }
+
+    # Adjust directory structure based on book type
+    if book in ["snp", "ud", "iti"]:
+        vagga_number = number.split('.')[0]
+        vagga = f"vagga{vagga_number}"
+        for key in base_paths:
+            base_paths[key] = base_paths[key] / "kn" / book / vagga
+    elif book in ["sn", "an"]:
+        subsection_number = number.split('.')[0]
+        subsection = f"{book}{subsection_number}"
+        for key in base_paths:
+            base_paths[key] = base_paths[key] / book / subsection
+    elif book in ["dhp", "thag", "thig"]:
+        for key in base_paths:
+            base_paths[key] = base_paths[key] / "kn" / book
+    else:
+        for key in base_paths:
+            base_paths[key] = base_paths[key] / book
+
+    # Initialize the paths dictionary
+    paths = {
+        "html_path": None,
+        "root_path": None,
+        "translation_path": None,
+        "comment_path": None,
+        "date_added": None  # New field for storing the date added
+    }
+
+    # Determine file paths
+    html_path = base_paths["html"] / f"{sutta_id}_html.json"
+    root_path = base_paths["root"] / f"{sutta_id}_root-pli-ms.json"
+    translation_path = base_paths["translation"] / f"{sutta_id}_translation-en-anigha.json"
+    comment_path = base_paths["comment"] / f"{sutta_id}_comment-en-anigha.json"
+
+    # Check if the "translation" file exists before adding paths
+    if translation_path.exists():
+        # Only add paths if the "translation" file exists
+        paths["html_path"] = str(html_path) if html_path.exists() else None
+        paths["root_path"] = str(root_path) if root_path.exists() else None
+        paths["translation_path"] = str(translation_path)
+        paths["comment_path"] = str(comment_path) if comment_path.exists() else None
+
+        # Add the date from git history
+        paths["date_added"] = get_git_date_added(translation_path)
+
+    return paths
+
     """Generate file paths for a given sutta, taking into account special structures."""
     sutta_id = sutta_id.lower()
     book, number = split_id(sutta_id)
