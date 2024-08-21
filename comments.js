@@ -29,41 +29,41 @@ async function displayComments() {
       const bookKeys = Object.keys(books);
       if (currentGroup < bookKeys.length && nikaya !== bookKeys[currentGroup]) {
         // Close the previous <details> section if it is open
+        if (currentGroup < 4) {  // TODO hack for kn fix with better logic
         if (isOpen) {
           htmlContent += `</ul></details>`;
           isOpen = false;  // Set flag to indicate no open <details>
         }
-  
-        currentGroup += 1;
-        // Open a new <details> section
-        const key = bookKeys[currentGroup];
-        htmlContent += `
-          <details>
-            <summary>${books[key]}</summary>
-            <ul>
-        `;
-        isOpen = true;  // Set flag to indicate that a <details> section is open
+          currentGroup += 1;
+          // Open a new <details> section
+          const key = bookKeys[currentGroup];
+          htmlContent += `
+            <details>
+              <summary>${books[key]}</summary>
+              <ul>
+          `;
+          isOpen = true;  // Set flag to indicate that a <details> section is open
+        }
       }
   
       // Fetch and display comments for the current sutta
       try {
+        // Add the sutta and comments to the HTML
+        htmlContent += `<li>${link}${em ? ` (${em})` : ''}</li>`;
         const commentResponse = await fetch(sutta_details['comment_path']);
         if (!commentResponse.ok) {
-          throw new Error(`Comment file not found for ${sutta_id}`);
+          console.warn(`Comment file not found for ${sutta_id}`);
+          continue;
         }
         const comment_text = await commentResponse.json();
   
-        // Add the sutta and comments to the HTML
-        htmlContent += `<li>${link}${em ? ` (${em})` : ''}</li>`;
+
         Object.entries(comment_text).forEach(([key, comment]) => {
           if (comment.trim() !== '') {  // Check if comment is not an empty string after trimming whitespace
             htmlContent += `<p><a href="/?q=${sutta_id}#${key}">${key}</a>: ${converter.makeHtml(comment).replace(/^<p>(.*)<\/p>$/, '$1')}</p>`;
         }
         });
       } catch (error) {
-        console.warn(error.message);
-        // No comments available, but still add the sutta without comments
-        htmlContent += `<li>${link}${em ? ` (${em})` : ''}</li>`;
       }
     }
   

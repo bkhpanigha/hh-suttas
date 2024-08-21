@@ -669,7 +669,12 @@ a:hover {
 .dark .bookmark-text {
   color: var(--off-white);
 }
+#commentsArea summary {
+  font-size: 1.1em;
+  font-weight: bold;
+  padding: 4px;
 
+}
 .dark #commentsArea summary {
   color: var(--off-white);
 }
