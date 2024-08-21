@@ -1,3 +1,6 @@
+const DEFAULT_BOOKMARK_DICT = { bookmarks: { unlabeled: [] } };
+
+
 // This code enables highlighting of text segments in the sutta based on URL hash ranges.
 // For example, accessing the URL 127.0.0.1:8080/?q=mn1#mn1:23.1-mn1:194.6 will highlight the range from mn1:23.1 to mn1:194.6.
 // Similarly, accessing 127.0.0.1:8080/?q=mn1#mn1:23.1 will highlight the single segment at mn1:23.1.
@@ -94,6 +97,8 @@ function showCopyButton(x, y, ids) {
     }
     copyToClipboard(link);
     hideCopyButton();
+    hideBookmarkButton();
+    clearSelection();
   };
 
   // Add the new click event listener
@@ -111,12 +116,83 @@ function hideCopyButton() {
     copyButton.style.display = 'none';
   }
 }
+function showBookmarkButton(x, y, ids) {
+  let bookmarkButton = document.getElementById('bookmarkButton');
+  if (!bookmarkButton) {
+    bookmarkButton = document.createElement('button');
+    bookmarkButton.id = 'bookmarkButton';
+    bookmarkButton.textContent = 'Bookmark';
+    document.body.appendChild(bookmarkButton);
+  }
+
+  // Remove any existing click event listener
+  bookmarkButton.removeEventListener('click', bookmarkButton.clickHandler);
+
+  bookmarkButton.clickHandler = function () {
+    // TODO this is not ideal as it split the bookmarks logic here and in bookmarks.js
+    let bookmarksData = JSON.parse(localStorage.getItem('bookmarksData')) || DEFAULT_BOOKMARK_DICT;
+    let bookmarks = bookmarksData['bookmarks'];
+    if (!bookmarks.hasOwnProperty('unlabeled')) {
+      bookmarks.unlabeled = [];
+    }
+    let hash = "";
+    if (ids.length > 1) {
+      const firstId = ids[0];
+      const lastId = ids[ids.length - 1];
+      hash = `${firstId}-${lastId}`;
+    } else if (ids.length === 1) {
+      hash = ids[0];
+    }
+    // Check if the hash already exists in bookmarks
+    if (!bookmarks.unlabeled.includes(hash)) {
+      bookmarks.unlabeled.push(hash);
+      bookmarksData['bookmarks'] = bookmarks;
+      bookmarksData['updatedAt'] = new Date().toISOString();
+      localStorage.setItem('bookmarksData', JSON.stringify(bookmarksData));
+      showNotification(`Added ${hash} to <a href="/bookmarks.html">bookmarks</a>`);
+    } else {
+      showNotification("Section already in bookmarks");
+    }
+  
+    hideBookmarkButton();
+    hideCopyButton();
+    clearSelection();
+  };
+
+  // Add the new click event listener
+  bookmarkButton.addEventListener('click', bookmarkButton.clickHandler);
+
+  bookmarkButton.style.left = x + 'px';
+  bookmarkButton.style.top = y + 'px';
+  bookmarkButton.style.position = 'absolute';
+  bookmarkButton.style.display = 'block';
+}
+
+function hideBookmarkButton() {
+  let bookmarkButton = document.getElementById('bookmarkButton');
+  if (bookmarkButton) {
+    bookmarkButton.style.display = 'none';
+  }
+}
+
+function clearSelection() {
+  if (window.getSelection) {
+    if (window.getSelection().empty) {  // Chrome
+      window.getSelection().empty();
+    } else if (window.getSelection().removeAllRanges) {  // Firefox
+      window.getSelection().removeAllRanges();
+    }
+  } else if (document.selection) {  // IE
+    document.selection.empty();
+  }
+}
 
 function handleTextSelection() {
   const selection = window.getSelection();
 
   if (!selection.rangeCount || selection.isCollapsed) {
     hideCopyButton();
+    hideBookmarkButton();
     return;
   }
 
@@ -158,6 +234,8 @@ function handleTextSelection() {
   const ids = segments.map(segment => segment.id);
   const rect = end.getBoundingClientRect();
   showCopyButton(rect.left + window.scrollX, rect.bottom + window.scrollY, ids);
+  showBookmarkButton(rect.left + window.scrollX + 72, rect.bottom + window.scrollY, ids); // Adjust position as needed
+
 }
 
 // Function to copy text to the clipboard
@@ -213,4 +291,4 @@ document.addEventListener('selectionchange', handleTextSelection);
 
 
 
-export { scrollToHash, showNotification, changeAcronymNumber };
+export { scrollToHash, showNotification, changeAcronymNumber, DEFAULT_BOOKMARK_DICT };
