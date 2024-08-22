@@ -27,8 +27,6 @@ jobs:
           python -m pip install --upgrade pip
           # Add any other dependencies here if needed
 
-      - name: Debug working directory
-        run: pwd && ls -l
       - name: Run sutta_catalog_manager.py script
         run: python sutta_catalog_manager.py
 
