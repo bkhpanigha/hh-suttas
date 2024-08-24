@@ -8,7 +8,11 @@ function scrollToHash() {
   // TODO deal with the evam case gracefully
   const hash = window.location.hash.substring(1); // Remove the '#' from the hash
 
-  if (hash) {
+  // Check if the hash starts with "comment"
+  if (hash.startsWith('comment')) {
+    document.getElementById(hash).scrollIntoView();
+  }
+  else if (hash) {
     // remove all highlights first
     document.querySelectorAll('.highlight').forEach(element => {
       element.classList.remove('highlight');
