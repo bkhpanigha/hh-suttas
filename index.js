@@ -45,13 +45,55 @@ async function showForeword() {
 }
 
 function displaySuttas(suttas, isSearch = false) {
+  // foreword button
   const forewordViewed = localStorage.getItem('forewordViewed', false);
   const forewordButton = document.getElementById('foreword-button');
 
   if (forewordViewed == 'true' && forewordButton) {
     forewordButton.style.display = 'none';
   }
+    // Helper function to calculate "days ago"
+    function daysAgo(dateString) {
+      const dateAdded = new Date(dateString);
+      const currentDate = new Date();
+      const timeDiff = Math.abs(currentDate - dateAdded);
+      const daysDiff = Math.floor(timeDiff / (1000 * 60 * 60 * 24)); // Convert time difference to days
+      return daysDiff === 0 ? 'Today' : `${daysDiff} days ago`;
+    }
+  
 
+    // Select "what's new" area
+    const whatsNewArea = document.getElementById('whats-new');
+
+    // Sort the suttas by date_added in descending order
+    const sortedSuttas = Object.values(suttas).sort((a, b) => new Date(b.date_added) - new Date(a.date_added));
+
+    // Get the most recent suttas (let's say top 3)
+    const recentSuttas = sortedSuttas.slice(0, 5);
+
+    // Create a horizontal display for recent suttas
+    if (whatsNewArea) {
+      whatsNewArea.innerHTML = `<h2>What's New</h2>` + 
+      `<div class="whats-new-container">
+          ${recentSuttas.map(sutta => {
+            const id = sutta.id.replace(/\s+/g, '');
+            const title = sutta.title;
+            const daysAgoAdded = daysAgo(sutta.date_added); // Calculate how many days ago it was added
+            const link = `<a href="/?q=${id.toLowerCase()}">${title}</a>`;
+            return `
+              <div class="sutta-box">
+                <h3 class="sutta-card-title">${link}</h3>
+                <div class="sutta-pali-title"><em>${sutta.pali_title}</em></div>
+                <div class="sutta-date-added"><small>Added: ${daysAgoAdded}</small></div>
+              </div>
+            `;
+          }).join('')}
+        </div>
+      `;
+    }
+
+
+  // display all suttas
   const books = {
     "dn": "Dīgha Nikāya",
     "mn": "Majjhima Nikāya",

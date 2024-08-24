@@ -678,3 +678,46 @@ a:hover {
 .dark #commentsArea summary {
   color: var(--off-white);
 }
+
+/* Flexbox container for the recent suttas */
+.whats-new-container {
+  display: flex;
+  gap: 15px;
+  overflow-x: auto;
+  padding: 10px;
+}
+
+/* Individual sutta box */
+.sutta-box {
+  flex: 0 0 auto;
+  width: 180px; /* Reduced width for compactness */
+  border: 1px solid #ccc;
+  padding: 8px; /* Reduced padding for compactness */
+  text-align: center;
+}
+
+/* Sutta title style */
+.sutta-card-title {
+  margin: 0;
+  font-size: 1.1em;
+  color: #1a0dab;
+}
+
+/* Pali title styling */
+.sutta-pali-title {
+  margin-top: 5px;
+  font-size: 0.9em;
+  color: #7f6e0a;
+}
+
+/* Date added style */
+.sutta-date-added {
+  margin-top: 8px;
+  font-size: 0.8em;
+  color: #888;
+}
+
+/* Additional tweaks for spacing and compactness */
+.sutta-box h3, .sutta-pali-title, .sutta-date-added {
+  margin-bottom: 5px; /* Reduced margin between elements */
+}
