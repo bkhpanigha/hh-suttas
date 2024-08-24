@@ -284,6 +284,10 @@ function extractIdsFromUrl() {
     return qValue;
 }
 
+function goBack() {
+  window.history.back();
+}
+
 const suttaId = extractIdsFromUrl();
 
 // Add event listener for text selection
@@ -291,4 +295,4 @@ document.addEventListener('selectionchange', handleTextSelection);
 
 
 
-export { scrollToHash, showNotification, changeAcronymNumber, DEFAULT_BOOKMARK_DICT };
+export { scrollToHash, showNotification, changeAcronymNumber, DEFAULT_BOOKMARK_DICT, goBack };
