@@ -83,7 +83,7 @@ function displaySuttas(suttas, isSearch = false) {
             return `
               <div class="sutta-box">
                 <h3 class="sutta-card-title">${link}</h3>
-                <div class="sutta-pali-title"><em>${sutta.pali_title}</em></div>
+                <div class="sutta-pali-title"><em>${id}: ${sutta.pali_title}</em></div>
                 <div class="sutta-date-added"><small>Added: ${daysAgoAdded}</small></div>
               </div>
             `;
