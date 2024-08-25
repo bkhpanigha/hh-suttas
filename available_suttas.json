@@ -8,7 +8,7 @@
             "root_path": "suttas/root/dn/dn2_root-pli-ms.json",
             "translation_path": "suttas/translation_en/dn/dn2_translation-en-anigha.json",
             "comment_path": "suttas/comment/dn/dn2_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-05-21T11:16:24+02:00"
         },
         "dn10": {
             "id": "DN 10",
@@ -18,7 +18,7 @@
             "root_path": "suttas/root/dn/dn10_root-pli-ms.json",
             "translation_path": "suttas/translation_en/dn/dn10_translation-en-anigha.json",
             "comment_path": "suttas/comment/dn/dn10_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00",
+            "date_added": "2024-06-01T08:01:51+02:00",
             "heading": "Sīla, Samādhi, Paññā"
         },
         "mn1": {
@@ -29,7 +29,7 @@
             "root_path": "suttas/root/mn/mn1_root-pli-ms.json",
             "translation_path": "suttas/translation_en/mn/mn1_translation-en-anigha.json",
             "comment_path": "suttas/comment/mn/mn1_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-03-04T22:31:00+01:00"
         },
         "mn2": {
             "id": "MN 2",
@@ -39,7 +39,7 @@
             "root_path": "suttas/root/mn/mn2_root-pli-ms.json",
             "translation_path": "suttas/translation_en/mn/mn2_translation-en-anigha.json",
             "comment_path": "suttas/comment/mn/mn2_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00",
+            "date_added": "2024-03-04T22:31:00+01:00",
             "heading": "Gateway to the Dhamma"
         },
         "mn3": {
@@ -50,7 +50,7 @@
             "root_path": "suttas/root/mn/mn3_root-pli-ms.json",
             "translation_path": "suttas/translation_en/mn/mn3_translation-en-anigha.json",
             "comment_path": "suttas/comment/mn/mn3_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-03-04T22:31:00+01:00"
         },
         "mn4": {
             "id": "MN 4",
@@ -60,7 +60,7 @@
             "root_path": "suttas/root/mn/mn4_root-pli-ms.json",
             "translation_path": "suttas/translation_en/mn/mn4_translation-en-anigha.json",
             "comment_path": "suttas/comment/mn/mn4_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-03-04T22:31:00+01:00"
         },
         "mn5": {
             "id": "MN 5",
@@ -70,7 +70,7 @@
             "root_path": "suttas/root/mn/mn5_root-pli-ms.json",
             "translation_path": "suttas/translation_en/mn/mn5_translation-en-anigha.json",
             "comment_path": "suttas/comment/mn/mn5_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-03-04T22:31:00+01:00"
         },
         "mn6": {
             "id": "MN 6",
@@ -80,7 +80,7 @@
             "root_path": "suttas/root/mn/mn6_root-pli-ms.json",
             "translation_path": "suttas/translation_en/mn/mn6_translation-en-anigha.json",
             "comment_path": "suttas/comment/mn/mn6_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-03-04T22:31:00+01:00"
         },
         "mn7": {
             "id": "MN 7",
@@ -90,7 +90,7 @@
             "root_path": "suttas/root/mn/mn7_root-pli-ms.json",
             "translation_path": "suttas/translation_en/mn/mn7_translation-en-anigha.json",
             "comment_path": "suttas/comment/mn/mn7_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-03-04T22:31:00+01:00"
         },
         "mn8": {
             "id": "MN 8",
@@ -100,7 +100,7 @@
             "root_path": "suttas/root/mn/mn8_root-pli-ms.json",
             "translation_path": "suttas/translation_en/mn/mn8_translation-en-anigha.json",
             "comment_path": "suttas/comment/mn/mn8_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-03-04T22:31:00+01:00"
         },
         "mn9": {
             "id": "MN 9",
@@ -110,7 +110,7 @@
             "root_path": "suttas/root/mn/mn9_root-pli-ms.json",
             "translation_path": "suttas/translation_en/mn/mn9_translation-en-anigha.json",
             "comment_path": "suttas/comment/mn/mn9_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-03-04T22:31:00+01:00"
         },
         "mn10": {
             "id": "MN 10",
@@ -120,7 +120,7 @@
             "root_path": "suttas/root/mn/mn10_root-pli-ms.json",
             "translation_path": "suttas/translation_en/mn/mn10_translation-en-anigha.json",
             "comment_path": "suttas/comment/mn/mn10_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-03-04T22:31:00+01:00"
         },
         "mn11": {
             "id": "MN 11",
@@ -130,7 +130,7 @@
             "root_path": "suttas/root/mn/mn11_root-pli-ms.json",
             "translation_path": "suttas/translation_en/mn/mn11_translation-en-anigha.json",
             "comment_path": "suttas/comment/mn/mn11_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-03-04T22:31:00+01:00"
         },
         "mn12": {
             "id": "MN 12",
@@ -140,7 +140,7 @@
             "root_path": "suttas/root/mn/mn12_root-pli-ms.json",
             "translation_path": "suttas/translation_en/mn/mn12_translation-en-anigha.json",
             "comment_path": "suttas/comment/mn/mn12_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-03-04T22:31:00+01:00"
         },
         "mn13": {
             "id": "MN 13",
@@ -150,7 +150,7 @@
             "root_path": "suttas/root/mn/mn13_root-pli-ms.json",
             "translation_path": "suttas/translation_en/mn/mn13_translation-en-anigha.json",
             "comment_path": "suttas/comment/mn/mn13_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-03-04T22:31:00+01:00"
         },
         "mn14": {
             "id": "MN 14",
@@ -160,7 +160,7 @@
             "root_path": "suttas/root/mn/mn14_root-pli-ms.json",
             "translation_path": "suttas/translation_en/mn/mn14_translation-en-anigha.json",
             "comment_path": "suttas/comment/mn/mn14_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-03-04T22:31:00+01:00"
         },
         "mn15": {
             "id": "MN 15",
@@ -170,7 +170,7 @@
             "root_path": "suttas/root/mn/mn15_root-pli-ms.json",
             "translation_path": "suttas/translation_en/mn/mn15_translation-en-anigha.json",
             "comment_path": "suttas/comment/mn/mn15_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-03-04T22:31:00+01:00"
         },
         "mn16": {
             "id": "MN 16",
@@ -180,7 +180,7 @@
             "root_path": "suttas/root/mn/mn16_root-pli-ms.json",
             "translation_path": "suttas/translation_en/mn/mn16_translation-en-anigha.json",
             "comment_path": "suttas/comment/mn/mn16_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00",
+            "date_added": "2024-03-04T22:31:00+01:00",
             "heading": "Impediments to Progress"
         },
         "mn17": {
@@ -191,7 +191,7 @@
             "root_path": "suttas/root/mn/mn17_root-pli-ms.json",
             "translation_path": "suttas/translation_en/mn/mn17_translation-en-anigha.json",
             "comment_path": "suttas/comment/mn/mn17_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-03-04T22:31:00+01:00"
         },
         "mn18": {
             "id": "MN 18",
@@ -201,7 +201,7 @@
             "root_path": "suttas/root/mn/mn18_root-pli-ms.json",
             "translation_path": "suttas/translation_en/mn/mn18_translation-en-anigha.json",
             "comment_path": "suttas/comment/mn/mn18_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00",
+            "date_added": "2024-03-04T22:31:00+01:00",
             "heading": "Beyond All Thoughts"
         },
         "mn19": {
@@ -212,7 +212,7 @@
             "root_path": "suttas/root/mn/mn19_root-pli-ms.json",
             "translation_path": "suttas/translation_en/mn/mn19_translation-en-anigha.json",
             "comment_path": "suttas/comment/mn/mn19_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00",
+            "date_added": "2024-03-04T22:31:00+01:00",
             "heading": "Renunciation -> Jhāna"
         },
         "mn20": {
@@ -223,7 +223,7 @@
             "root_path": "suttas/root/mn/mn20_root-pli-ms.json",
             "translation_path": "suttas/translation_en/mn/mn20_translation-en-anigha.json",
             "comment_path": "suttas/comment/mn/mn20_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-03-04T22:31:00+01:00"
         },
         "mn21": {
             "id": "MN 21",
@@ -233,7 +233,7 @@
             "root_path": "suttas/root/mn/mn21_root-pli-ms.json",
             "translation_path": "suttas/translation_en/mn/mn21_translation-en-anigha.json",
             "comment_path": "suttas/comment/mn/mn21_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-03-04T22:31:00+01:00"
         },
         "mn22": {
             "id": "MN 22",
@@ -243,7 +243,7 @@
             "root_path": "suttas/root/mn/mn22_root-pli-ms.json",
             "translation_path": "suttas/translation_en/mn/mn22_translation-en-anigha.json",
             "comment_path": "suttas/comment/mn/mn22_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00",
+            "date_added": "2024-03-04T22:31:00+01:00",
             "heading": "A Pernicious View"
         },
         "mn23": {
@@ -254,7 +254,7 @@
             "root_path": "suttas/root/mn/mn23_root-pli-ms.json",
             "translation_path": "suttas/translation_en/mn/mn23_translation-en-anigha.json",
             "comment_path": "suttas/comment/mn/mn23_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-03-04T22:31:00+01:00"
         },
         "mn24": {
             "id": "MN 24",
@@ -264,7 +264,7 @@
             "root_path": "suttas/root/mn/mn24_root-pli-ms.json",
             "translation_path": "suttas/translation_en/mn/mn24_translation-en-anigha.json",
             "comment_path": "suttas/comment/mn/mn24_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00",
+            "date_added": "2024-03-04T22:31:00+01:00",
             "heading": "Stages of Purification"
         },
         "mn25": {
@@ -275,7 +275,7 @@
             "root_path": "suttas/root/mn/mn25_root-pli-ms.json",
             "translation_path": "suttas/translation_en/mn/mn25_translation-en-anigha.json",
             "comment_path": "suttas/comment/mn/mn25_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-03-04T22:31:00+01:00"
         },
         "mn26": {
             "id": "MN 26",
@@ -285,7 +285,7 @@
             "root_path": "suttas/root/mn/mn26_root-pli-ms.json",
             "translation_path": "suttas/translation_en/mn/mn26_translation-en-anigha.json",
             "comment_path": "suttas/comment/mn/mn26_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-03-17T07:49:46+01:00"
         },
         "mn27": {
             "id": "MN 27",
@@ -295,7 +295,7 @@
             "root_path": "suttas/root/mn/mn27_root-pli-ms.json",
             "translation_path": "suttas/translation_en/mn/mn27_translation-en-anigha.json",
             "comment_path": "suttas/comment/mn/mn27_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-03-04T22:31:00+01:00"
         },
         "mn28": {
             "id": "MN 28",
@@ -305,7 +305,7 @@
             "root_path": "suttas/root/mn/mn28_root-pli-ms.json",
             "translation_path": "suttas/translation_en/mn/mn28_translation-en-anigha.json",
             "comment_path": "suttas/comment/mn/mn28_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-03-04T22:31:00+01:00"
         },
         "mn29": {
             "id": "MN 29",
@@ -315,7 +315,7 @@
             "root_path": "suttas/root/mn/mn29_root-pli-ms.json",
             "translation_path": "suttas/translation_en/mn/mn29_translation-en-anigha.json",
             "comment_path": "suttas/comment/mn/mn29_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-03-19T16:24:56+01:00"
         },
         "mn30": {
             "id": "MN 30",
@@ -325,7 +325,7 @@
             "root_path": "suttas/root/mn/mn30_root-pli-ms.json",
             "translation_path": "suttas/translation_en/mn/mn30_translation-en-anigha.json",
             "comment_path": "suttas/comment/mn/mn30_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-03-19T16:24:56+01:00"
         },
         "mn31": {
             "id": "MN 31",
@@ -335,7 +335,7 @@
             "root_path": "suttas/root/mn/mn31_root-pli-ms.json",
             "translation_path": "suttas/translation_en/mn/mn31_translation-en-anigha.json",
             "comment_path": "suttas/comment/mn/mn31_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-03-20T07:36:33+01:00"
         },
         "mn32": {
             "id": "MN 32",
@@ -345,7 +345,7 @@
             "root_path": "suttas/root/mn/mn32_root-pli-ms.json",
             "translation_path": "suttas/translation_en/mn/mn32_translation-en-anigha.json",
             "comment_path": "suttas/comment/mn/mn32_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-03-20T14:53:44+01:00"
         },
         "mn33": {
             "id": "MN 33",
@@ -355,7 +355,7 @@
             "root_path": "suttas/root/mn/mn33_root-pli-ms.json",
             "translation_path": "suttas/translation_en/mn/mn33_translation-en-anigha.json",
             "comment_path": "suttas/comment/mn/mn33_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-03-26T06:54:17+01:00"
         },
         "mn34": {
             "id": "MN 34",
@@ -365,7 +365,7 @@
             "root_path": "suttas/root/mn/mn34_root-pli-ms.json",
             "translation_path": "suttas/translation_en/mn/mn34_translation-en-anigha.json",
             "comment_path": "suttas/comment/mn/mn34_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-03-26T07:49:03+01:00"
         },
         "mn35": {
             "id": "MN 35",
@@ -375,7 +375,7 @@
             "root_path": "suttas/root/mn/mn35_root-pli-ms.json",
             "translation_path": "suttas/translation_en/mn/mn35_translation-en-anigha.json",
             "comment_path": "suttas/comment/mn/mn35_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-03-27T15:51:25+01:00"
         },
         "mn36": {
             "id": "MN 36",
@@ -385,7 +385,7 @@
             "root_path": "suttas/root/mn/mn36_root-pli-ms.json",
             "translation_path": "suttas/translation_en/mn/mn36_translation-en-anigha.json",
             "comment_path": "suttas/comment/mn/mn36_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-04-06T13:12:47+02:00"
         },
         "mn37": {
             "id": "MN 37",
@@ -395,7 +395,7 @@
             "root_path": "suttas/root/mn/mn37_root-pli-ms.json",
             "translation_path": "suttas/translation_en/mn/mn37_translation-en-anigha.json",
             "comment_path": "suttas/comment/mn/mn37_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-04-09T15:17:36+02:00"
         },
         "mn38": {
             "id": "MN 38",
@@ -405,7 +405,7 @@
             "root_path": "suttas/root/mn/mn38_root-pli-ms.json",
             "translation_path": "suttas/translation_en/mn/mn38_translation-en-anigha.json",
             "comment_path": "suttas/comment/mn/mn38_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00",
+            "date_added": "2024-04-15T11:07:18+02:00",
             "heading": "Dependent Origination"
         },
         "mn39": {
@@ -416,7 +416,7 @@
             "root_path": "suttas/root/mn/mn39_root-pli-ms.json",
             "translation_path": "suttas/translation_en/mn/mn39_translation-en-anigha.json",
             "comment_path": "suttas/comment/mn/mn39_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00",
+            "date_added": "2024-04-22T06:10:47+02:00",
             "heading": "Stages of Training"
         },
         "mn40": {
@@ -427,7 +427,7 @@
             "root_path": "suttas/root/mn/mn40_root-pli-ms.json",
             "translation_path": "suttas/translation_en/mn/mn40_translation-en-anigha.json",
             "comment_path": "suttas/comment/mn/mn40_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-04-26T05:05:02+02:00"
         },
         "mn41": {
             "id": "MN 41",
@@ -437,7 +437,7 @@
             "root_path": "suttas/root/mn/mn41_root-pli-ms.json",
             "translation_path": "suttas/translation_en/mn/mn41_translation-en-anigha.json",
             "comment_path": "suttas/comment/mn/mn41_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-04-26T05:26:08+02:00"
         },
         "mn42": {
             "id": "MN 42",
@@ -447,7 +447,7 @@
             "root_path": "suttas/root/mn/mn42_root-pli-ms.json",
             "translation_path": "suttas/translation_en/mn/mn42_translation-en-anigha.json",
             "comment_path": "suttas/comment/mn/mn42_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-04-26T05:29:13+02:00"
         },
         "mn43": {
             "id": "MN 43",
@@ -457,7 +457,7 @@
             "root_path": "suttas/root/mn/mn43_root-pli-ms.json",
             "translation_path": "suttas/translation_en/mn/mn43_translation-en-anigha.json",
             "comment_path": "suttas/comment/mn/mn43_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-04-26T07:59:05+02:00"
         },
         "mn44": {
             "id": "MN 44",
@@ -467,7 +467,7 @@
             "root_path": "suttas/root/mn/mn44_root-pli-ms.json",
             "translation_path": "suttas/translation_en/mn/mn44_translation-en-anigha.json",
             "comment_path": "suttas/comment/mn/mn44_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-04-30T07:44:46+02:00"
         },
         "mn45": {
             "id": "MN 45",
@@ -477,7 +477,7 @@
             "root_path": "suttas/root/mn/mn45_root-pli-ms.json",
             "translation_path": "suttas/translation_en/mn/mn45_translation-en-anigha.json",
             "comment_path": "suttas/comment/mn/mn45_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-05-01T10:54:07+02:00"
         },
         "mn46": {
             "id": "MN 46",
@@ -487,7 +487,7 @@
             "root_path": "suttas/root/mn/mn46_root-pli-ms.json",
             "translation_path": "suttas/translation_en/mn/mn46_translation-en-anigha.json",
             "comment_path": "suttas/comment/mn/mn46_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-05-01T10:54:07+02:00"
         },
         "mn47": {
             "id": "MN 47",
@@ -497,7 +497,7 @@
             "root_path": "suttas/root/mn/mn47_root-pli-ms.json",
             "translation_path": "suttas/translation_en/mn/mn47_translation-en-anigha.json",
             "comment_path": "suttas/comment/mn/mn47_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-05-01T10:54:07+02:00"
         },
         "mn48": {
             "id": "MN 48",
@@ -507,7 +507,7 @@
             "root_path": "suttas/root/mn/mn48_root-pli-ms.json",
             "translation_path": "suttas/translation_en/mn/mn48_translation-en-anigha.json",
             "comment_path": "suttas/comment/mn/mn48_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-05-01T10:54:07+02:00"
         },
         "mn49": {
             "id": "MN 49",
@@ -517,7 +517,7 @@
             "root_path": "suttas/root/mn/mn49_root-pli-ms.json",
             "translation_path": "suttas/translation_en/mn/mn49_translation-en-anigha.json",
             "comment_path": "suttas/comment/mn/mn49_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-05-03T12:56:39+02:00"
         },
         "mn50": {
             "id": "MN 50",
@@ -527,7 +527,7 @@
             "root_path": "suttas/root/mn/mn50_root-pli-ms.json",
             "translation_path": "suttas/translation_en/mn/mn50_translation-en-anigha.json",
             "comment_path": "suttas/comment/mn/mn50_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-05-04T08:16:14+02:00"
         },
         "mn51": {
             "id": "MN 51",
@@ -537,7 +537,7 @@
             "root_path": "suttas/root/mn/mn51_root-pli-ms.json",
             "translation_path": "suttas/translation_en/mn/mn51_translation-en-anigha.json",
             "comment_path": "suttas/comment/mn/mn51_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-05-16T08:14:36+02:00"
         },
         "mn52": {
             "id": "MN 52",
@@ -547,7 +547,7 @@
             "root_path": "suttas/root/mn/mn52_root-pli-ms.json",
             "translation_path": "suttas/translation_en/mn/mn52_translation-en-anigha.json",
             "comment_path": "suttas/comment/mn/mn52_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-05-17T06:59:59+02:00"
         },
         "mn53": {
             "id": "MN 53",
@@ -557,7 +557,7 @@
             "root_path": "suttas/root/mn/mn53_root-pli-ms.json",
             "translation_path": "suttas/translation_en/mn/mn53_translation-en-anigha.json",
             "comment_path": "suttas/comment/mn/mn53_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00",
+            "date_added": "2024-05-17T07:00:39+02:00",
             "heading": "Qualities of a Trainee"
         },
         "mn54": {
@@ -568,7 +568,7 @@
             "root_path": "suttas/root/mn/mn54_root-pli-ms.json",
             "translation_path": "suttas/translation_en/mn/mn54_translation-en-anigha.json",
             "comment_path": "suttas/comment/mn/mn54_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-05-29T07:49:54+02:00"
         },
         "mn55": {
             "id": "MN 55",
@@ -578,7 +578,7 @@
             "root_path": "suttas/root/mn/mn55_root-pli-ms.json",
             "translation_path": "suttas/translation_en/mn/mn55_translation-en-anigha.json",
             "comment_path": "suttas/comment/mn/mn55_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-06-02T08:26:12+02:00"
         },
         "mn56": {
             "id": "MN 56",
@@ -588,7 +588,7 @@
             "root_path": "suttas/root/mn/mn56_root-pli-ms.json",
             "translation_path": "suttas/translation_en/mn/mn56_translation-en-anigha.json",
             "comment_path": "suttas/comment/mn/mn56_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-06-05T07:44:53+02:00"
         },
         "mn57": {
             "id": "MN 57",
@@ -598,7 +598,7 @@
             "root_path": "suttas/root/mn/mn57_root-pli-ms.json",
             "translation_path": "suttas/translation_en/mn/mn57_translation-en-anigha.json",
             "comment_path": "suttas/comment/mn/mn57_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-06-07T08:12:54+02:00"
         },
         "mn58": {
             "id": "MN 58",
@@ -608,7 +608,7 @@
             "root_path": "suttas/root/mn/mn58_root-pli-ms.json",
             "translation_path": "suttas/translation_en/mn/mn58_translation-en-anigha.json",
             "comment_path": "suttas/comment/mn/mn58_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-06-08T07:19:30+02:00"
         },
         "mn59": {
             "id": "MN 59",
@@ -618,7 +618,7 @@
             "root_path": "suttas/root/mn/mn59_root-pli-ms.json",
             "translation_path": "suttas/translation_en/mn/mn59_translation-en-anigha.json",
             "comment_path": "suttas/comment/mn/mn59_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-06-11T15:21:39+02:00"
         },
         "mn60": {
             "id": "MN 60",
@@ -628,7 +628,7 @@
             "root_path": "suttas/root/mn/mn60_root-pli-ms.json",
             "translation_path": "suttas/translation_en/mn/mn60_translation-en-anigha.json",
             "comment_path": "suttas/comment/mn/mn60_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-06-14T15:14:36+02:00"
         },
         "mn61": {
             "id": "MN 61",
@@ -638,7 +638,7 @@
             "root_path": "suttas/root/mn/mn61_root-pli-ms.json",
             "translation_path": "suttas/translation_en/mn/mn61_translation-en-anigha.json",
             "comment_path": "suttas/comment/mn/mn61_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00",
+            "date_added": "2024-06-18T06:41:33+02:00",
             "heading": "Checking Your Actions"
         },
         "mn62": {
@@ -649,7 +649,7 @@
             "root_path": "suttas/root/mn/mn62_root-pli-ms.json",
             "translation_path": "suttas/translation_en/mn/mn62_translation-en-anigha.json",
             "comment_path": "suttas/comment/mn/mn62_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-06-20T07:34:30+02:00"
         },
         "mn63": {
             "id": "MN 63",
@@ -659,7 +659,7 @@
             "root_path": "suttas/root/mn/mn63_root-pli-ms.json",
             "translation_path": "suttas/translation_en/mn/mn63_translation-en-anigha.json",
             "comment_path": "suttas/comment/mn/mn63_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-06-21T11:21:14+02:00"
         },
         "mn64": {
             "id": "MN 64",
@@ -669,7 +669,7 @@
             "root_path": "suttas/root/mn/mn64_root-pli-ms.json",
             "translation_path": "suttas/translation_en/mn/mn64_translation-en-anigha.json",
             "comment_path": "suttas/comment/mn/mn64_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-06-23T06:21:07+02:00"
         },
         "mn107": {
             "id": "MN 107",
@@ -679,7 +679,7 @@
             "root_path": "suttas/root/mn/mn107_root-pli-ms.json",
             "translation_path": "suttas/translation_en/mn/mn107_translation-en-anigha.json",
             "comment_path": "suttas/comment/mn/mn107_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00",
+            "date_added": "2024-05-26T15:19:32+02:00",
             "heading": "The Gradual Training"
         },
         "mn134": {
@@ -690,7 +690,7 @@
             "root_path": "suttas/root/mn/mn134_root-pli-ms.json",
             "translation_path": "suttas/translation_en/mn/mn134_translation-en-anigha.json",
             "comment_path": "suttas/comment/mn/mn134_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-07-04T07:21:42+02:00"
         },
         "sn1.1": {
             "id": "SN 1.1",
@@ -700,7 +700,7 @@
             "root_path": "suttas/root/sn/sn1/sn1.1_root-pli-ms.json",
             "translation_path": "suttas/translation_en/sn/sn1/sn1.1_translation-en-anigha.json",
             "comment_path": "suttas/comment/sn/sn1/sn1.1_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00",
+            "date_added": "2024-07-04T22:04:54+02:00",
             "heading": "The Middle Way (Not ”Moderation”)"
         },
         "sn1.20": {
@@ -711,7 +711,7 @@
             "root_path": "suttas/root/sn/sn1/sn1.20_root-pli-ms.json",
             "translation_path": "suttas/translation_en/sn/sn1/sn1.20_translation-en-anigha.json",
             "comment_path": "suttas/comment/sn/sn1/sn1.20_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-06-09T12:00:20+02:00"
         },
         "sn12.67": {
             "id": "SN 12.67",
@@ -721,7 +721,7 @@
             "root_path": "suttas/root/sn/sn12/sn12.67_root-pli-ms.json",
             "translation_path": "suttas/translation_en/sn/sn12/sn12.67_translation-en-anigha.json",
             "comment_path": "suttas/comment/sn/sn12/sn12.67_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00",
+            "date_added": "2024-04-28T06:02:28+02:00",
             "heading": "Dependent Origination"
         },
         "sn22.81": {
@@ -732,7 +732,7 @@
             "root_path": "suttas/root/sn/sn22/sn22.81_root-pli-ms.json",
             "translation_path": "suttas/translation_en/sn/sn22/sn22.81_translation-en-anigha.json",
             "comment_path": "suttas/comment/sn/sn22/sn22.81_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-05-04T08:16:28+02:00"
         },
         "sn22.101": {
             "id": "SN 22.101",
@@ -742,7 +742,7 @@
             "root_path": "suttas/root/sn/sn22/sn22.101_root-pli-ms.json",
             "translation_path": "suttas/translation_en/sn/sn22/sn22.101_translation-en-anigha.json",
             "comment_path": "suttas/comment/sn/sn22/sn22.101_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-07-22T08:14:21+02:00"
         },
         "sn35.70": {
             "id": "SN 35.70",
@@ -752,7 +752,7 @@
             "root_path": "suttas/root/sn/sn35/sn35.70_root-pli-ms.json",
             "translation_path": "suttas/translation_en/sn/sn35/sn35.70_translation-en-anigha.json",
             "comment_path": "suttas/comment/sn/sn35/sn35.70_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-05-15T07:20:31+02:00"
         },
         "sn35.96": {
             "id": "SN 35.96",
@@ -762,7 +762,7 @@
             "root_path": "suttas/root/sn/sn35/sn35.96_root-pli-ms.json",
             "translation_path": "suttas/translation_en/sn/sn35/sn35.96_translation-en-anigha.json",
             "comment_path": "suttas/comment/sn/sn35/sn35.96_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-04-28T05:19:57+02:00"
         },
         "sn35.97": {
             "id": "SN 35.97",
@@ -772,7 +772,7 @@
             "root_path": "suttas/root/sn/sn35/sn35.97_root-pli-ms.json",
             "translation_path": "suttas/translation_en/sn/sn35/sn35.97_translation-en-anigha.json",
             "comment_path": "suttas/comment/sn/sn35/sn35.97_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-07-27T07:30:46+02:00"
         },
         "sn35.246": {
             "id": "SN 35.246",
@@ -782,7 +782,7 @@
             "root_path": "suttas/root/sn/sn35/sn35.246_root-pli-ms.json",
             "translation_path": "suttas/translation_en/sn/sn35/sn35.246_translation-en-anigha.json",
             "comment_path": "suttas/comment/sn/sn35/sn35.246_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00",
+            "date_added": "2024-03-29T11:38:15+01:00",
             "heading": "Taming the Mind"
         },
         "sn36.6": {
@@ -793,7 +793,7 @@
             "root_path": "suttas/root/sn/sn36/sn36.6_root-pli-ms.json",
             "translation_path": "suttas/translation_en/sn/sn36/sn36.6_translation-en-anigha.json",
             "comment_path": "suttas/comment/sn/sn36/sn36.6_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-03-28T17:18:15+01:00"
         },
         "sn40.1": {
             "id": "SN 40.1",
@@ -803,7 +803,7 @@
             "root_path": "suttas/root/sn/sn40/sn40.1_root-pli-ms.json",
             "translation_path": "suttas/translation_en/sn/sn40/sn40.1_translation-en-anigha.json",
             "comment_path": null,
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-07-13T17:34:10+02:00"
         },
         "sn45.55": {
             "id": "SN 45.55",
@@ -813,7 +813,7 @@
             "root_path": "suttas/root/sn/sn45/sn45.55_root-pli-ms.json",
             "translation_path": "suttas/translation_en/sn/sn45/sn45.55_translation-en-anigha.json",
             "comment_path": "suttas/comment/sn/sn45/sn45.55_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-05-19T16:21:27+02:00"
         },
         "sn47.8": {
             "id": "SN 47.8",
@@ -823,7 +823,7 @@
             "root_path": "suttas/root/sn/sn47/sn47.8_root-pli-ms.json",
             "translation_path": "suttas/translation_en/sn/sn47/sn47.8_translation-en-anigha.json",
             "comment_path": "suttas/comment/sn/sn47/sn47.8_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00",
+            "date_added": "2024-04-24T08:19:39+02:00",
             "heading": "Sign of the Mind"
         },
         "sn55.5": {
@@ -834,7 +834,7 @@
             "root_path": "suttas/root/sn/sn55/sn55.5_root-pli-ms.json",
             "translation_path": "suttas/translation_en/sn/sn55/sn55.5_translation-en-anigha.json",
             "comment_path": null,
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-07-29T17:39:52+02:00"
         },
         "sn56.30": {
             "id": "SN 56.30",
@@ -844,7 +844,7 @@
             "root_path": "suttas/root/sn/sn56/sn56.30_root-pli-ms.json",
             "translation_path": "suttas/translation_en/sn/sn56/sn56.30_translation-en-anigha.json",
             "comment_path": "suttas/comment/sn/sn56/sn56.30_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-08-01T14:48:28+02:00"
         },
         "sn56.40": {
             "id": "SN 56.40",
@@ -854,7 +854,7 @@
             "root_path": "suttas/root/sn/sn56/sn56.40_root-pli-ms.json",
             "translation_path": "suttas/translation_en/sn/sn56/sn56.40_translation-en-anigha.json",
             "comment_path": null,
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-08-03T13:39:32+02:00"
         },
         "an1.51-60": {
             "id": "AN 1.51-60",
@@ -864,7 +864,7 @@
             "root_path": "suttas/root/an/an1/an1.51-60_root-pli-ms.json",
             "translation_path": "suttas/translation_en/an/an1/an1.51-60_translation-en-anigha.json",
             "comment_path": "suttas/comment/an/an1/an1.51-60_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-05-03T12:56:19+02:00"
         },
         "an2.11-20": {
             "id": "AN 2.11-20",
@@ -874,7 +874,7 @@
             "root_path": "suttas/root/an/an2/an2.11-20_root-pli-ms.json",
             "translation_path": "suttas/translation_en/an/an2/an2.11-20_translation-en-anigha.json",
             "comment_path": "suttas/comment/an/an2/an2.11-20_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-07-29T17:35:18+02:00"
         },
         "an3.63": {
             "id": "AN 3.63",
@@ -884,7 +884,7 @@
             "root_path": "suttas/root/an/an3/an3.63_root-pli-ms.json",
             "translation_path": "suttas/translation_en/an/an3/an3.63_translation-en-anigha.json",
             "comment_path": "suttas/comment/an/an3/an3.63_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00",
+            "date_added": "2024-05-17T11:23:19+02:00",
             "heading": "Walking in Jhāna"
         },
         "an3.65": {
@@ -895,7 +895,7 @@
             "root_path": "suttas/root/an/an3/an3.65_root-pli-ms.json",
             "translation_path": "suttas/translation_en/an/an3/an3.65_translation-en-anigha.json",
             "comment_path": "suttas/comment/an/an3/an3.65_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-07-03T10:37:21+02:00"
         },
         "an3.94": {
             "id": "AN 3.94",
@@ -905,7 +905,7 @@
             "root_path": "suttas/root/an/an3/an3.94_root-pli-ms.json",
             "translation_path": "suttas/translation_en/an/an3/an3.94_translation-en-anigha.json",
             "comment_path": "suttas/comment/an/an3/an3.94_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-06-28T14:34:55+02:00"
         },
         "an3.101": {
             "id": "AN 3.101",
@@ -915,7 +915,7 @@
             "root_path": "suttas/root/an/an3/an3.101_root-pli-ms.json",
             "translation_path": "suttas/translation_en/an/an3/an3.101_translation-en-anigha.json",
             "comment_path": "suttas/comment/an/an3/an3.101_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00",
+            "date_added": "2024-04-28T04:49:30+02:00",
             "heading": "From Coarse to Fine Defilements"
         },
         "an3.121": {
@@ -926,7 +926,7 @@
             "root_path": "suttas/root/an/an3/an3.121_root-pli-ms.json",
             "translation_path": "suttas/translation_en/an/an3/an3.121_translation-en-anigha.json",
             "comment_path": "suttas/comment/an/an3/an3.121_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-06-20T15:36:09+02:00"
         },
         "an4.12": {
             "id": "AN 4.12",
@@ -936,7 +936,7 @@
             "root_path": "suttas/root/an/an4/an4.12_root-pli-ms.json",
             "translation_path": "suttas/translation_en/an/an4/an4.12_translation-en-anigha.json",
             "comment_path": "suttas/comment/an/an4/an4.12_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-05-15T18:44:10+02:00"
         },
         "an4.162": {
             "id": "AN 4.162",
@@ -946,7 +946,7 @@
             "root_path": "suttas/root/an/an4/an4.162_root-pli-ms.json",
             "translation_path": "suttas/translation_en/an/an4/an4.162_translation-en-anigha.json",
             "comment_path": "suttas/comment/an/an4/an4.162_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00",
+            "date_added": "2024-06-28T14:00:13+02:00",
             "heading": "Pain of the Practice Optional?"
         },
         "an4.163": {
@@ -957,7 +957,7 @@
             "root_path": "suttas/root/an/an4/an4.163_root-pli-ms.json",
             "translation_path": "suttas/translation_en/an/an4/an4.163_translation-en-anigha.json",
             "comment_path": "suttas/comment/an/an4/an4.163_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-06-28T14:00:13+02:00"
         },
         "an5.24": {
             "id": "AN 5.24",
@@ -967,7 +967,7 @@
             "root_path": "suttas/root/an/an5/an5.24_root-pli-ms.json",
             "translation_path": "suttas/translation_en/an/an5/an5.24_translation-en-anigha.json",
             "comment_path": "suttas/comment/an/an5/an5.24_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00",
+            "date_added": "2024-07-10T06:56:46+02:00",
             "heading": "Vital Conditions for Liberation"
         },
         "an5.113": {
@@ -978,7 +978,7 @@
             "root_path": "suttas/root/an/an5/an5.113_root-pli-ms.json",
             "translation_path": "suttas/translation_en/an/an5/an5.113_translation-en-anigha.json",
             "comment_path": "suttas/comment/an/an5/an5.113_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-07-10T07:42:32+02:00"
         },
         "an5.114": {
             "id": "AN 5.114",
@@ -988,7 +988,7 @@
             "root_path": "suttas/root/an/an5/an5.114_root-pli-ms.json",
             "translation_path": "suttas/translation_en/an/an5/an5.114_translation-en-anigha.json",
             "comment_path": "suttas/comment/an/an5/an5.114_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00",
+            "date_added": "2024-05-07T07:33:39+02:00",
             "heading": "Advice for Beginners"
         },
         "an5.151": {
@@ -999,7 +999,7 @@
             "root_path": "suttas/root/an/an5/an5.151_root-pli-ms.json",
             "translation_path": "suttas/translation_en/an/an5/an5.151_translation-en-anigha.json",
             "comment_path": "suttas/comment/an/an5/an5.151_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-06-27T05:49:34+02:00"
         },
         "an5.152": {
             "id": "AN 5.152",
@@ -1009,7 +1009,7 @@
             "root_path": "suttas/root/an/an5/an5.152_root-pli-ms.json",
             "translation_path": "suttas/translation_en/an/an5/an5.152_translation-en-anigha.json",
             "comment_path": null,
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-06-27T05:49:34+02:00"
         },
         "an5.153": {
             "id": "AN 5.153",
@@ -1019,7 +1019,7 @@
             "root_path": "suttas/root/an/an5/an5.153_root-pli-ms.json",
             "translation_path": "suttas/translation_en/an/an5/an5.153_translation-en-anigha.json",
             "comment_path": "suttas/comment/an/an5/an5.153_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-06-27T05:49:34+02:00"
         },
         "an6.68": {
             "id": "AN 6.68",
@@ -1029,7 +1029,7 @@
             "root_path": "suttas/root/an/an6/an6.68_root-pli-ms.json",
             "translation_path": "suttas/translation_en/an/an6/an6.68_translation-en-anigha.json",
             "comment_path": "suttas/comment/an/an6/an6.68_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00",
+            "date_added": "2024-04-24T08:19:39+02:00",
             "heading": "Impediments to Stream-Entry"
         },
         "an6.73": {
@@ -1040,7 +1040,7 @@
             "root_path": "suttas/root/an/an6/an6.73_root-pli-ms.json",
             "translation_path": "suttas/translation_en/an/an6/an6.73_translation-en-anigha.json",
             "comment_path": "suttas/comment/an/an6/an6.73_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-04-06T13:17:13+02:00"
         },
         "an7.38": {
             "id": "AN 7.38",
@@ -1050,7 +1050,7 @@
             "root_path": "suttas/root/an/an7/an7.38_root-pli-ms.json",
             "translation_path": "suttas/translation_en/an/an7/an7.38_translation-en-anigha.json",
             "comment_path": "suttas/comment/an/an7/an7.38_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-07-03T13:38:33+02:00"
         },
         "an8.53": {
             "id": "AN 8.53",
@@ -1060,7 +1060,7 @@
             "root_path": "suttas/root/an/an8/an8.53_root-pli-ms.json",
             "translation_path": "suttas/translation_en/an/an8/an8.53_translation-en-anigha.json",
             "comment_path": "suttas/comment/an/an8/an8.53_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00",
+            "date_added": "2024-05-10T06:43:55+02:00",
             "heading": "Dhamma VS Not Dhamma"
         },
         "an9.7": {
@@ -1071,7 +1071,7 @@
             "root_path": "suttas/root/an/an9/an9.7_root-pli-ms.json",
             "translation_path": "suttas/translation_en/an/an9/an9.7_translation-en-anigha.json",
             "comment_path": null,
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-05-15T07:29:23+02:00"
         },
         "an9.41": {
             "id": "AN 9.41",
@@ -1081,7 +1081,7 @@
             "root_path": "suttas/root/an/an9/an9.41_root-pli-ms.json",
             "translation_path": "suttas/translation_en/an/an9/an9.41_translation-en-anigha.json",
             "comment_path": "suttas/comment/an/an9/an9.41_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00",
+            "date_added": "2024-04-06T13:17:13+02:00",
             "heading": "What Leads to Samādhi"
         },
         "an9.42": {
@@ -1092,7 +1092,7 @@
             "root_path": "suttas/root/an/an9/an9.42_root-pli-ms.json",
             "translation_path": "suttas/translation_en/an/an9/an9.42_translation-en-anigha.json",
             "comment_path": "suttas/comment/an/an9/an9.42_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00",
+            "date_added": "2024-04-08T16:06:44+02:00",
             "heading": "Five Senses in Jhāna"
         },
         "an10.62": {
@@ -1103,7 +1103,7 @@
             "root_path": "suttas/root/an/an10/an10.62_root-pli-ms.json",
             "translation_path": "suttas/translation_en/an/an10/an10.62_translation-en-anigha.json",
             "comment_path": "suttas/comment/an/an10/an10.62_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-06-18T05:38:34+02:00"
         },
         "an10.76": {
             "id": "AN 10.76",
@@ -1113,7 +1113,7 @@
             "root_path": "suttas/root/an/an10/an10.76_root-pli-ms.json",
             "translation_path": "suttas/translation_en/an/an10/an10.76_translation-en-anigha.json",
             "comment_path": "suttas/comment/an/an10/an10.76_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00",
+            "date_added": "2024-05-23T08:06:59+02:00",
             "heading": "Preconditions for Liberation"
         },
         "an10.93": {
@@ -1124,7 +1124,7 @@
             "root_path": "suttas/root/an/an10/an10.93_root-pli-ms.json",
             "translation_path": "suttas/translation_en/an/an10/an10.93_translation-en-anigha.json",
             "comment_path": "suttas/comment/an/an10/an10.93_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00"
+            "date_added": "2024-05-08T07:24:25+02:00"
         },
         "an10.105": {
             "id": "AN 10.105",
@@ -1134,7 +1134,7 @@
             "root_path": "suttas/root/an/an10/an10.105_root-pli-ms.json",
             "translation_path": "suttas/translation_en/an/an10/an10.105_translation-en-anigha.json",
             "comment_path": "suttas/comment/an/an10/an10.105_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00",
+            "date_added": "2024-07-28T18:23:49+02:00",
             "heading": "There Can Be Wrong Liberation"
         },
         "an11.9": {
@@ -1145,7 +1145,7 @@
             "root_path": "suttas/root/an/an11/an11.9_root-pli-ms.json",
             "translation_path": "suttas/translation_en/an/an11/an11.9_translation-en-anigha.json",
             "comment_path": "suttas/comment/an/an11/an11.9_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00",
+            "date_added": "2024-05-15T18:43:56+02:00",
             "heading": "Wrong Meditation"
         },
         "thag1.21": {
@@ -1156,7 +1156,7 @@
             "root_path": "suttas/root/kn/thag/thag1.21_root-pli-ms.json",
             "translation_path": "suttas/translation_en/kn/thag/thag1.21_translation-en-anigha.json",
             "comment_path": "suttas/comment/kn/thag/thag1.21_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00",
+            "date_added": "2024-06-30T08:22:30+02:00",
             "heading": "The Right Fearlessness"
         },
         "thag2.34": {
@@ -1167,7 +1167,7 @@
             "root_path": "suttas/root/kn/thag/thag2.34_root-pli-ms.json",
             "translation_path": "suttas/translation_en/kn/thag/thag2.34_translation-en-anigha.json",
             "comment_path": null,
-            "date_added": "2024-08-25T06:06:55+02:00",
+            "date_added": "2024-04-12T05:43:17+02:00",
             "heading": "On Sensuality"
         },
         "thag2.36": {
@@ -1178,7 +1178,7 @@
             "root_path": "suttas/root/kn/thag/thag2.36_root-pli-ms.json",
             "translation_path": "suttas/translation_en/kn/thag/thag2.36_translation-en-anigha.json",
             "comment_path": "suttas/comment/kn/thag/thag2.36_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00",
+            "date_added": "2024-06-30T08:25:15+02:00",
             "heading": "The Right Dispassion"
         },
         "snp4.1": {
@@ -1189,7 +1189,7 @@
             "root_path": "suttas/root/kn/snp/vagga4/snp4.1_root-pli-ms.json",
             "translation_path": "suttas/translation_en/kn/snp/vagga4/snp4.1_translation-en-anigha.json",
             "comment_path": "suttas/comment/kn/snp/vagga4/snp4.1_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00",
+            "date_added": "2024-04-13T06:19:10+02:00",
             "author": "Sister Medhini"
         },
         "snp4.2": {
@@ -1200,7 +1200,7 @@
             "root_path": "suttas/root/kn/snp/vagga4/snp4.2_root-pli-ms.json",
             "translation_path": "suttas/translation_en/kn/snp/vagga4/snp4.2_translation-en-anigha.json",
             "comment_path": "suttas/comment/kn/snp/vagga4/snp4.2_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00",
+            "date_added": "2024-03-27T16:00:56+01:00",
             "author": "Sister Medhini"
         },
         "snp4.3": {
@@ -1211,7 +1211,7 @@
             "root_path": "suttas/root/kn/snp/vagga4/snp4.3_root-pli-ms.json",
             "translation_path": "suttas/translation_en/kn/snp/vagga4/snp4.3_translation-en-anigha.json",
             "comment_path": "suttas/comment/kn/snp/vagga4/snp4.3_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00",
+            "date_added": "2024-05-08T07:24:40+02:00",
             "author": "Sister Medhini"
         },
         "snp4.4": {
@@ -1222,7 +1222,7 @@
             "root_path": "suttas/root/kn/snp/vagga4/snp4.4_root-pli-ms.json",
             "translation_path": "suttas/translation_en/kn/snp/vagga4/snp4.4_translation-en-anigha.json",
             "comment_path": "suttas/comment/kn/snp/vagga4/snp4.4_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00",
+            "date_added": "2024-05-25T10:47:01+02:00",
             "author": "Sister Medhini"
         },
         "snp4.9": {
@@ -1233,7 +1233,7 @@
             "root_path": "suttas/root/kn/snp/vagga4/snp4.9_root-pli-ms.json",
             "translation_path": "suttas/translation_en/kn/snp/vagga4/snp4.9_translation-en-anigha.json",
             "comment_path": "suttas/comment/kn/snp/vagga4/snp4.9_comment-en-anigha.json",
-            "date_added": "2024-08-25T06:06:55+02:00",
+            "date_added": "2024-06-24T11:48:56+02:00",
             "author": "Sister Medhini"
         }
     }
