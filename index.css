@@ -596,9 +596,12 @@ a:hover {
 .comment {
   display: inline-block;
   margin-right: 4px;
-  color: #007bff; /* This color is often associated with links or clickable items */
+  color: #007bff; /* Link color */
   cursor: pointer; /* Indicates it's clickable */
+  vertical-align: super; /* Makes the number a superscript */
+  font-size: 0.75em; /* Adjusts the font size to match superscript style */
 }
+
 #suttanav {
   position: fixed;
   top: -50px;
@@ -721,3 +724,8 @@ a:hover {
 .sutta-box h3, .sutta-pali-title, .sutta-date-added {
   margin-bottom: 5px; /* Reduced margin between elements */
 }
+#back-arrow {
+  margin-left: 8px; /* Adjust as needed */
+  cursor: pointer;
+  font-size: 14px;
+

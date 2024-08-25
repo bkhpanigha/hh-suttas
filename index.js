@@ -23,6 +23,11 @@ const forewordText = `Terms and expressions of doctrinal and practical significa
 
 // functions
 
+// Define the goBack function globally
+function goBack() {
+  window.history.back();
+}
+
 function searchSuttas(pattern) {
   if (!fuse) { pattern = "" }; // if Fuse isn't initialized, return empty array
   pattern = pattern.normalize('NFD').replace(/[\u0300-\u036f]/g, ''); // Convert pali letters in latin letters to match pali_title in available_suttas.json
@@ -210,7 +215,7 @@ homeButton.addEventListener("click", () => {
   window.location.href = '/';
 });
 
-var converter = new showdown.Converter()
+var converter = new showdown.Converter();
 
 const response = await fetch('available_suttas.json');
 const availableSuttas = await response.json();
@@ -303,9 +308,10 @@ function buildSutta(slug) {
   Promise.all([htmlResponse, rootResponse, translationResponse, commentResponse, authors])
     .then(responses => {
       const [html_text, root_text, translation_text, comment_text, authors_text] = responses;
-      const keys_order = Object.keys(html_text)
-      keys_order.forEach(segment => {
-
+      const keys_order = Object.keys(html_text);
+      let commentCount = 1;
+      let commentsHtml = '<h3>Comments</h3>';
+      keys_order.forEach((segment) => {
         if (translation_text[segment] === undefined) {
           translation_text[segment] = "";
         }
@@ -316,50 +322,39 @@ function buildSutta(slug) {
           openHtml = openHtml.replace(/^<span class='verse-line'>/, "<br><span class='verse-line'>");
         }
 
-        if (openHtml.includes("sutta-title")) {
-          sutta_title = `${root_text[segment] || ""} : ${translation_text[segment]}`;
+        if (openHtml.includes('sutta-title')) {
+          sutta_title = `${root_text[segment] || ''} : ${translation_text[segment]}`;
         }
 
-        html += `${openHtml}<span class="segment" id="${segment}">` +
-          `<span class="pli-lang" lang="pi">${root_text[segment] || ""}</span>` +
+        html +=
+          `${openHtml}<span class="segment" id="${segment}">` +
+          `<span class="pli-lang" lang="pi">${root_text[segment] || ''}</span>` +
           `<span class="eng-lang" lang="en">${translation_text[segment]}` +
-          `${comment_text[segment] ? `<span class="comment">*<span class="comment-text" style="display: none;">${converter.makeHtml(comment_text[segment]).replace(/^<p>(.*)<\/p>$/, '$1')}</span></span>` : ""}` +
+          `${comment_text[segment] ? `<a href="#comment${commentCount}" class="comment">[${commentCount}]</a>` : ''}` +
           `</span></span>${closeHtml}\n\n`;
+        
+          if (comment_text[segment]) {
+          // Inside the comment HTML
+          commentsHtml += `
+          <p id="comment${commentCount}">
+            ${commentCount}: ${converter.makeHtml(comment_text[segment])
+              .replace(/^<p>(.*)<\/p>$/, '$1')}
+            <span id="back-arrow" style="cursor: pointer; font-size: 14px;">&larr;</span>
+          </p>
+          `;
+
+          commentCount++;
+        }
       });
 
       if (authors_text[slug]) translator = authors_text[slug];
       const translatorByline = `<div class="byline"><p>Translated by ${translator}</p></div>`;
-      suttaArea.innerHTML = `<p class="sc-link"></p>` + html + translatorByline;
+      // render comments
+      suttaArea.innerHTML = `<p class="sc-link"></p>` + html + translatorByline + commentsHtml;
 
       let acronym = sutta_details['id'];
 
       document.title = `${acronym} ` + sutta_title;
-      // render comments
-      const commentElements = document.querySelectorAll('.comment');
-      let currentlyOpenTooltip = null; // Track the currently open tooltip
-      commentElements.forEach(element => {
-        let commentTextSpan = element.querySelector('.comment-text')
-
-        // Event listeners for showing/hiding the tooltip
-        element.addEventListener('click', (event) => {
-          event.stopPropagation();
-          if (currentlyOpenTooltip && currentlyOpenTooltip !== commentTextSpan) {
-            currentlyOpenTooltip.style.display = 'none'; // Hide the previously shown tooltip
-          }
-          commentTextSpan.style.display = 'block';
-          currentlyOpenTooltip = commentTextSpan; // Update the currently open tooltip
-        });
-
-        document.addEventListener('click', (event) => {
-          if (!commentTextSpan.contains(event.target)) {
-            commentTextSpan.style.display = 'none';
-            if (currentlyOpenTooltip === commentTextSpan) {
-              currentlyOpenTooltip = null; // Reset the tracker if the current tooltip is being hidden
-            }
-          }
-        });
-
-      });
 
       toggleThePali();
       addNavbar();
@@ -389,16 +384,36 @@ function addNavbar() {
 
   let lastScrollTop = 0; // variable to store the last scroll position
   const scrollThreshold = 10;
+  let isScrolling = false;
+  let scrollTimeout;
 
   window.addEventListener('scroll', () => {
-    requestAnimationFrame(() => {
-      let currentScrollTop = window.scrollY || document.documentElement.scrollTop;
+    if (!isScrolling) {
+      isScrolling = true;
+      requestAnimationFrame(() => {
+        let currentScrollTop = window.scrollY || document.documentElement.scrollTop;
 
-      if (Math.abs(currentScrollTop - lastScrollTop) > scrollThreshold) {
-        navbar.style.top = (currentScrollTop < 170 || currentScrollTop > lastScrollTop) ? '-50px' : '0';
+        // Detect sudden jump
+        if (Math.abs(currentScrollTop - lastScrollTop) > 100) {
+          // If the jump is large, do not show the navbar
+          navbar.style.top = '-50px';
+        } else if (Math.abs(currentScrollTop - lastScrollTop) > scrollThreshold) {
+          // Only apply the scroll behavior if it's a regular scroll (not a sudden jump)
+          navbar.style.top = currentScrollTop < 170 || currentScrollTop > lastScrollTop ? '-50px' : '0';
+        }
+
         lastScrollTop = currentScrollTop;
-      }
-    });
+        isScrolling = false;
+      });
+    }
+
+    // Clear any previous timeout
+    clearTimeout(scrollTimeout);
+
+    // Set a timeout to handle the case when the user stops scrolling
+    scrollTimeout = setTimeout(() => {
+      isScrolling = false;
+    }, 100);
   });
 }
 
@@ -417,9 +432,20 @@ document.addEventListener('click', function (event) {
     showForeword(); // Call the function to show the foreword
     displaySuttas(availableSuttasJson);
   }
+  // Add a click event listener to the span element
+  if (event.target && event.target.id === 'back-arrow') {
+    goBack();
+  }
 });
 
 window.addEventListener('hashchange', function () {
+  const hash = window.location.hash;
+
+  // Check if the hash starts with "comment"
+  if (hash.startsWith('#comment')) {
+    return; // Let the browser handle the default behavior
+  }
+
   scrollToHash();
 });
 
