@@ -24,6 +24,36 @@ async function displayComments() {
     const totalFetches = Object.keys(availableSuttasJson).length;
     let completedFetches = 0; // Track how many fetches are completed
 
+    // First loop: collect promises to fetch comments
+    for (const [sutta_id, sutta_details] of Object.entries(availableSuttasJson)) {
+        const commentPromise = fetch(sutta_details['comment_path'])
+            .then(commentResponse => {
+                if (!commentResponse.ok) {
+                    console.warn(`Comment file not found for ${sutta_id}`);
+                    return null;
+                }
+                return commentResponse.json().then(comment_text => {
+                    commentData[sutta_id] = comment_text; // Store comment data
+                });
+            })
+            .catch(error => {
+                console.warn(`Error fetching comments for ${sutta_id}:`, error);
+            })
+            .finally(() => {
+                // Update the progress bar
+                completedFetches += 1;
+                const progressPercentage = (completedFetches / totalFetches) * 100;
+                progressBar.value = progressPercentage;
+            });
+
+        // Push the promise to the array
+        commentPromises.push(commentPromise);
+    }
+
+    // Wait for all the comment fetches to complete
+    await Promise.all(commentPromises);
+
+    // Second loop: now that we have all the comments, generate the full HTML
     for (const [sutta_id, sutta_details] of Object.entries(availableSuttasJson)) {
         const id = sutta_details['id'].replace(/\s+/g, '');
         const title = sutta_details['title'];
@@ -54,45 +84,21 @@ async function displayComments() {
         }
 
         // Add the sutta and comments to the HTML
-        htmlContent += `<li>${link}${em ? ` (${em})` : ''}</li>`;
+        htmlContent += `<li>${link}${em ? ` (${em})` : ''}`;
 
-        // Create a promise for fetching the comment and store it
-        const commentPromise = fetch(sutta_details['comment_path'])
-            .then(commentResponse => {
-                if (!commentResponse.ok) {
-                    console.warn(`Comment file not found for ${sutta_id}`);
-                    return null;
-                }
-                return commentResponse.json().then(comment_text => {
-                    commentData[sutta_id] = comment_text; // Store comment data
-                });
-            })
-            .catch(error => {
-                console.warn(`Error fetching comments for ${sutta_id}:`, error);
-            })
-            .finally(() => {
-                // Update the progress bar
-                completedFetches += 1;
-                const progressPercentage = (completedFetches / totalFetches) * 100;
-                progressBar.value = progressPercentage;
-            });
-
-        // Push the promise to the array
-        commentPromises.push(commentPromise);
-    }
-
-    // Wait for all the comment fetches to complete
-    await Promise.all(commentPromises);
-
-    // After all comments are fetched, generate the HTML for the comments
-    for (const [sutta_id, comment_text] of Object.entries(commentData)) {
+        // Retrieve the comment data and append it to the Sutta's HTML
+        const comment_text = commentData[sutta_id];
         if (comment_text) {
             Object.entries(comment_text).forEach(([key, comment]) => {
-                if (comment.trim() !== '') { // Check if comment is not an empty string after trimming whitespace
+                if (comment.trim() !== '') {
+                    // Append comment after the corresponding Sutta link
                     htmlContent += `<p><a href="/?q=${sutta_id}#${key}">${key}</a>: ${converter.makeHtml(comment).replace(/^<p>(.*)<\/p>$/, '$1')}</p>`;
                 }
             });
         }
+
+        // Close the list item after adding the comments
+        htmlContent += `</li>`;
     }
 
     // Close the last <details> section if it's still open
