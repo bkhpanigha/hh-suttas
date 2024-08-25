@@ -774,6 +774,16 @@
             "comment_path": "suttas/comment/sn/sn35/sn35.97_comment-en-anigha.json",
             "date_added": "2024-07-27T07:30:46+02:00"
         },
+        "sn35.228": {
+            "id": "SN 35.228",
+            "title": "The Ocean (1st)",
+            "pali_title": "Pathamasamuddasutta",
+            "html_path": "suttas/html/sn/sn35/sn35.228_html.json",
+            "root_path": "suttas/root/sn/sn35/sn35.228_root-pli-ms.json",
+            "translation_path": "suttas/translation_en/sn/sn35/sn35.228_translation-en-anigha.json",
+            "comment_path": "suttas/comment/sn/sn35/sn35.228_comment-en-anigha.json",
+            "date_added": "2024-08-25T07:44:28+02:00"
+        },
         "sn35.246": {
             "id": "SN 35.246",
             "title": "The Simile of the Lute",
