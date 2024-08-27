@@ -285,7 +285,7 @@ function buildSutta(slug) {
   slug = slug.toLowerCase();
   let sutta_details = availableSuttasJson[slug]
   let translator = "Bhikkhu Anīgha";
-  let html = `<div class="button-area"><button id="hide-pali" class="hide-button">Toggle Pali</button></div>`;
+  let html = ``; // TODO remove
   // TODO if file names are consistent we can get it from the availablesuttasjson
   let sutta_title = sutta_details['title'];
 
@@ -377,10 +377,35 @@ function buildSutta(slug) {
 
 function addNavbar() {
   // Add the navbar to the page
-  const navbar = document.createElement('div');
-  navbar.id = 'suttanav'; // Added ID
-  navbar.innerHTML = document.title;
-  document.body.appendChild(navbar);
+  const navbar = document.getElementById('suttanav');
+  const titleElement = document.createElement('span');
+  titleElement.textContent = document.title;
+
+  // Get the settings button
+  const settingsButton = document.getElementById('settings-button');
+
+  // Insert titleElement before the settings button
+  navbar.insertBefore(titleElement, settingsButton);
+
+  const settingsPanel = document.getElementById('settings-panel');
+  settingsButton.addEventListener('click', () => {
+    settingsPanel.classList.toggle('visible');
+  });
+
+  // Get the increase and decrease text size buttons
+  const increaseTextSizeButton = document.getElementById('increase-text-size');
+  const decreaseTextSizeButton = document.getElementById('decrease-text-size');
+
+  // Function to change text size
+  const changeTextSize = (increment) => {
+    const body = document.body;
+    const currentSize = parseFloat(window.getComputedStyle(body, null).getPropertyValue('font-size'));
+    body.style.fontSize = (currentSize + increment) + 'px';
+  };
+
+  // Add event listeners to the buttons
+  increaseTextSizeButton.addEventListener('click', () => changeTextSize(1));
+  decreaseTextSizeButton.addEventListener('click', () => changeTextSize(-1));
 
   let lastScrollTop = 0; // Variable to store the last scroll position
   const scrollThreshold = 2; // Minimum threshold for small scroll detection
@@ -399,12 +424,14 @@ function addNavbar() {
         if (Math.abs(currentScrollTop - lastScrollTop) > jumpThreshold) {
           // Do not show the navbar if it's a large jump
           navbar.style.top = '-50px';
+          settingsPanel.classList.remove('visible'); // Hide settings panel
         } else if (currentScrollTop < lastScrollTop && Math.abs(currentScrollTop - lastScrollTop) > scrollThreshold) {
           // Show the navbar when scrolling up and exceeding the scroll threshold
           navbar.style.top = '0';
-        } else if (currentScrollTop > lastScrollTop && Math.abs(currentScrollTop - lastScrollTop) > 0) {
+        } else if (currentScrollTop > lastScrollTop && Math.abs(currentScrollTop - lastScrollTop) > scrollThreshold) {
           // Hide the navbar when scrolling down
           navbar.style.top = '-50px';
+          settingsPanel.classList.remove('visible'); // Hide settings panel
         }
 
         lastScrollTop = currentScrollTop;

@@ -728,4 +728,43 @@ a:hover {
   margin-left: 8px; /* Adjust as needed */
   cursor: pointer;
   font-size: 14px;
+}
 
+#settings-button {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+#settings-panel {
+  position: absolute;
+  top: 50px;
+  right: 10px;
+  background: #1a1a1a;
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#settings-panel.visible {
+  display: flex;
+}
+
+.settings-option {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#reset-settings {
+  background: #ff6600;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
