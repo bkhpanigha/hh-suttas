@@ -382,24 +382,29 @@ function addNavbar() {
   navbar.innerHTML = document.title;
   document.body.appendChild(navbar);
 
-  let lastScrollTop = 0; // variable to store the last scroll position
-  const scrollThreshold = 10;
+  let lastScrollTop = 0; // Variable to store the last scroll position
+  const scrollThreshold = 2; // Minimum threshold for small scroll detection
+  const jumpThreshold = 100;  // Larger threshold for detecting jumps
   let isScrolling = false;
   let scrollTimeout;
 
   window.addEventListener('scroll', () => {
     if (!isScrolling) {
       isScrolling = true;
+
       requestAnimationFrame(() => {
         let currentScrollTop = window.scrollY || document.documentElement.scrollTop;
 
-        // Detect sudden jump
-        if (Math.abs(currentScrollTop - lastScrollTop) > 100) {
-          // If the jump is large, do not show the navbar
+        // Detect if this is a large jump
+        if (Math.abs(currentScrollTop - lastScrollTop) > jumpThreshold) {
+          // Do not show the navbar if it's a large jump
           navbar.style.top = '-50px';
-        } else if (Math.abs(currentScrollTop - lastScrollTop) > scrollThreshold) {
-          // Only apply the scroll behavior if it's a regular scroll (not a sudden jump)
-          navbar.style.top = currentScrollTop < 170 || currentScrollTop > lastScrollTop ? '-50px' : '0';
+        } else if (currentScrollTop < lastScrollTop && Math.abs(currentScrollTop - lastScrollTop) > scrollThreshold) {
+          // Show the navbar when scrolling up and exceeding the scroll threshold
+          navbar.style.top = '0';
+        } else if (currentScrollTop > lastScrollTop && Math.abs(currentScrollTop - lastScrollTop) > 0) {
+          // Hide the navbar when scrolling down
+          navbar.style.top = '-50px';
         }
 
         lastScrollTop = currentScrollTop;
