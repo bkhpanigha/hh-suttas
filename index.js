@@ -339,7 +339,7 @@ function buildSutta(slug) {
           <p id="comment${commentCount}">
             ${commentCount}: ${converter.makeHtml(comment_text[segment])
               .replace(/^<p>(.*)<\/p>$/, '$1')}
-            <a href="#${segment}~no-highlight" style="cursor: pointer; font-size: 14px;">&larr;</span>
+            <a href="#${segment}~no-highlight" style="cursor: pointer; font-size: 14px;">&larr;</a>
           </p>
           `;
 
