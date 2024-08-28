@@ -23,11 +23,6 @@ const forewordText = `Terms and expressions of doctrinal and practical significa
 
 // functions
 
-// Define the goBack function globally
-function goBack() {
-  window.history.back();
-}
-
 function searchSuttas(pattern) {
   if (!fuse) { pattern = "" }; // if Fuse isn't initialized, return empty array
   pattern = pattern.normalize('NFD').replace(/[\u0300-\u036f]/g, ''); // Convert pali letters in latin letters to match pali_title in available_suttas.json
@@ -463,10 +458,6 @@ document.addEventListener('click', function (event) {
   if (event.target && event.target.id === 'foreword-button') {
     showForeword(); // Call the function to show the foreword
     displaySuttas(availableSuttasJson);
-  }
-  // Add a click event listener to the span element
-  if (event.target && event.target.id === 'back-arrow') {
-    goBack();
   }
 });
 

@@ -333,10 +333,6 @@ function extractIdsFromUrl() {
     return qValue;
 }
 
-function goBack() {
-  window.history.back();
-}
-
 const suttaId = extractIdsFromUrl();
 
 // Add event listener for text selection
