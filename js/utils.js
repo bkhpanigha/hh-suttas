@@ -1,22 +1,77 @@
 const DEFAULT_BOOKMARK_DICT = { bookmarks: { unlabeled: [] } };
 
+function highlightSegments(startElement, endElement = null, quickHighlight = false) {
+  // Remove all previous highlights
+  document.querySelectorAll('.highlight').forEach(element => {
+    element.classList.remove('highlight');
+  });
+
+  // If it's the single element case (endElement is null), directly highlight it
+  if (startElement && !endElement) {
+    startElement.classList.add("highlight");
+
+    if (quickHighlight) {
+      setTimeout(() => {
+        startElement.classList.remove('highlight'); // Remove highlight after transition
+      }, 2000); // Adjust the quick highlight duration (in ms) as needed
+    }
+    return; // No need to loop or do anything else for the single element case
+  }
+
+  // If there's a startElement and an endElement (range case)
+  if (startElement && endElement) {
+    let highlight = false;
+    const segments = document.getElementsByClassName("segment");
+
+    for (const segment of segments) {
+      if (segment.id === startElement.id) {
+        highlight = true;
+      }
+
+      if (highlight) {
+        segment.classList.add("highlight");
+      }
+
+      // Stop highlighting when we reach the end element
+      if (segment.id === endElement.id) {
+        break;
+      }
+    }
+
+    // If quick highlight is enabled, smoothly de-highlight after a short duration
+    if (quickHighlight) {
+      setTimeout(() => {
+        document.querySelectorAll('.highlight').forEach(element => {
+          element.classList.remove('highlight'); // Let the transition handle smooth de-highlight
+        });
+      }, 2000); // Adjust the quick highlight duration (in ms) as needed
+    }
+  }
+}
+
 
 // This code enables highlighting of text segments in the sutta based on URL hash ranges.
 // For example, accessing the URL 127.0.0.1:8080/?q=mn1#mn1:23.1-mn1:194.6 will highlight the range from mn1:23.1 to mn1:194.6.
 // Similarly, accessing 127.0.0.1:8080/?q=mn1#mn1:23.1 will highlight the single segment at mn1:23.1.
+// it also handles cases where there is a need for quick highlighting and no highlighting
+// 127.0.0.1:8080/?q=mn1#mn1:23.1-mn1:194.6~quick-highlight and 127.0.0.1:8080/?q=mn1#mn1:23.1-mn1:194.6~no-highlight
 function scrollToHash() {
-  // TODO deal with the evam case gracefully
-  const hash = window.location.hash.substring(1); // Remove the '#' from the hash
+  const fullHash = window.location.hash.substring(1); // Remove the '#' from the hash
 
-  // Check if the hash starts with "comment"
+  // Split on `~` to separate the hash part from any options
+  const [hash, options] = fullHash.split('~');
+
+  // Check for the quick-highlight or no-highlight options in the URL
+  const isQuickHighlight = options && options.includes('quick-highlight');
+  const isNoHighlight = options && options.includes('no-highlight');
+
   if (hash.startsWith('comment')) {
-    document.getElementById(hash).scrollIntoView();
-  }
-  else if (hash) {
-    // remove all highlights first
-    document.querySelectorAll('.highlight').forEach(element => {
-      element.classList.remove('highlight');
-    });
+    const commentElement = document.getElementById(hash);
+    if (commentElement) {
+      commentElement.scrollIntoView();
+    }
+  } else if (hash) {
+    // Try matching the range pattern
     const rangeMatch = hash.match(/(.*?):(\d+\.\d+\.\d+|\d+\.\d+)-(.*?):(\d+\.\d+\.\d+|\d+\.\d+)/);
     if (rangeMatch) {
       const [, startIdPrefix, startIdSuffix, endIdPrefix, endIdSuffix] = rangeMatch;
@@ -26,35 +81,25 @@ function scrollToHash() {
       const endElement = document.getElementById(endFullId);
 
       if (startElement && endElement) {
-        let highlight = false;
-        var segments = document.getElementsByClassName("segment");
-
-        for (const segment of segments) {
-          if (segment.id === startFullId) {
-            highlight = true;
-          }
-
-          if (highlight) {
-            segment.classList.add("highlight");
-          }
-
-          if (segment.id === endFullId) {
-            break;
-          }
+        // If no-highlight is present, skip highlighting
+        if (!isNoHighlight) {
+          highlightSegments(startElement, endElement, isQuickHighlight);
         }
-
         startElement.scrollIntoView();
       }
     } else {
-      // Handle single element highlighting
+      // Handle single element case using the same highlightSegments function
       const targetElement = document.getElementById(hash);
       if (targetElement) {
-        targetElement.classList.add("highlight")
-        targetElement.scrollIntoView();
+        if (!isNoHighlight) {
+          highlightSegments(targetElement, null, isQuickHighlight); // Treat single element case
+        }
+        targetElement.scrollIntoView(); // Directly scroll to the single target element
       }
     }
   }
 }
+
 
 function generateLink(idOrRange) {
   const baseUrl = window.location.origin + window.location.pathname;
