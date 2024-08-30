@@ -370,17 +370,12 @@ function buildSutta(slug) {
     });
 }
 
-function addNavbar() {
-  // Add the navbar to the page
-  const navbar = document.getElementById('suttanav');
-  const titleElement = document.createElement('span');
-  titleElement.textContent = document.title;
-
+function addSettingsPanel() {
   // Get the settings button
   const settingsButton = document.getElementById('settings-button');
 
   // Insert titleElement before the settings button
-  navbar.insertBefore(titleElement, settingsButton);
+  // navbar.insertBefore(titleElement, settingsButton);
 
   const settingsPanel = document.getElementById('settings-panel');
   settingsButton.addEventListener('click', () => {
@@ -401,6 +396,14 @@ function addNavbar() {
   // Add event listeners to the buttons
   increaseTextSizeButton.addEventListener('click', () => changeTextSize(1));
   decreaseTextSizeButton.addEventListener('click', () => changeTextSize(-1));
+
+}
+
+function addNavbar() {
+  // Add the navbar to the page
+  const navbar = document.getElementById('suttanav');
+  const titleElement = document.createElement('span');
+  titleElement.textContent = document.title;
 
   let lastScrollTop = 0; // Variable to store the last scroll position
   const scrollThreshold = 2; // Minimum threshold for small scroll detection
@@ -451,6 +454,9 @@ if (document.location.search) {
 } else {
   displaySuttas(availableSuttasJson);
 }
+
+// Call the settings panel initialization
+addSettingsPanel();
 
 
 document.addEventListener('click', function (event) {

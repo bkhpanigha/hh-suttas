@@ -340,4 +340,4 @@ document.addEventListener('selectionchange', handleTextSelection);
 
 
 
-export { scrollToHash, showNotification, changeAcronymNumber, DEFAULT_BOOKMARK_DICT, goBack };
+export { scrollToHash, showNotification, changeAcronymNumber, DEFAULT_BOOKMARK_DICT };
