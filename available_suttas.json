@@ -1031,6 +1031,16 @@
             "comment_path": "suttas/comment/an/an5/an5.153_comment-en-anigha.json",
             "date_added": "2024-06-27T05:49:34+02:00"
         },
+        "an6.10": {
+            "id": "AN 6.10",
+            "title": "With Mahānāma",
+            "pali_title": "Mahanamasutta",
+            "html_path": "suttas/html/an/an6/an6.10_html.json",
+            "root_path": "suttas/root/an/an6/an6.10_root-pli-ms.json",
+            "translation_path": "suttas/translation_en/an/an6/an6.10_translation-en-anigha.json",
+            "comment_path": null,
+            "date_added": "2024-09-05T16:26:48+02:00"
+        },
         "an6.68": {
             "id": "AN 6.68",
             "title": "Enjoying Company",
