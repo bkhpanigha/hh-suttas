@@ -350,6 +350,23 @@ function buildSutta(slug) {
       if (authors_text[slug]) translator = authors_text[slug];
       const translatorByline = `<div class="byline"><p>Translated by ${translator}</p></div>`;
       // render comments
+      const errorButton = document.getElementById('reportButton');
+      errorButton.textContent = 'Report an Error';
+      errorButton.style.display = 'block';
+      errorButton.style.margin = '20px 0';
+      errorButton.style.textAlign = 'center';
+      errorButton.style.backgroundColor = '#f44336';
+      errorButton.style.color = 'white';
+      errorButton.style.padding = '10px 20px';
+      errorButton.style.borderRadius = '5px';
+      errorButton.style.fontWeight = 'bold';
+      errorButton.style.border = 'none';
+      errorButton.style.cursor = 'pointer';
+
+      // Add click event to open Google Form in a new tab
+      errorButton.addEventListener('click', () => {
+        window.open('https://docs.google.com/forms/d/1Ng8Csf9xYJ7UaYUyl3sGEyZ3aa2FJE_0GRS6zI6oIBM/edit', '_blank');
+      });
       suttaArea.innerHTML = `<p class="sc-link"></p>` + html + translatorByline + commentsHtml;
 
       let acronym = sutta_details['id'];

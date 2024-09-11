@@ -110,8 +110,21 @@
         <div id="previous"></div>
         <div id="next"></div>
     </div>
+    
     <div id="footer">
-        <a href="https://hillsidehermitage.org">Hillside Hermitage Website</a>
+        <style>
+        .container {
+            display: flex;
+            flex-direction: column; /* Stack the elements vertically */
+            align-items: center; /* Center them horizontally */
+        }
+        </style>
+        <div class="container">
+            <div class="box"><button id="reportButton" class="report-button">Report an error</button></div>
+            <div class="box"><a href="https://hillsidehermitage.org">Hillside Hermitage Website</a></div>
+        </div>
+        
+        
     </div>
     <script type="module" src="index.js"></script>
 </body>
