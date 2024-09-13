@@ -812,7 +812,7 @@
             "html_path": "suttas/html/sn/sn40/sn40.1_html.json",
             "root_path": "suttas/root/sn/sn40/sn40.1_root-pli-ms.json",
             "translation_path": "suttas/translation_en/sn/sn40/sn40.1_translation-en-anigha.json",
-            "comment_path": null,
+            "comment_path": "suttas/comment/sn/sn40/sn40.1_comment-en-anigha.json",
             "date_added": "2024-07-13T17:34:10+02:00"
         },
         "sn45.55": {
@@ -843,7 +843,7 @@
             "html_path": "suttas/html/sn/sn55/sn55.5_html.json",
             "root_path": "suttas/root/sn/sn55/sn55.5_root-pli-ms.json",
             "translation_path": "suttas/translation_en/sn/sn55/sn55.5_translation-en-anigha.json",
-            "comment_path": null,
+            "comment_path": "suttas/comment/sn/sn55/sn55.5_comment-en-anigha.json",
             "date_added": "2024-07-29T17:39:52+02:00"
         },
         "sn56.30": {
