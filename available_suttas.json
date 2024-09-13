@@ -1255,6 +1255,17 @@
             "comment_path": "suttas/comment/kn/snp/vagga4/snp4.9_comment-en-anigha.json",
             "date_added": "2024-06-24T11:48:56+02:00",
             "author": "Sister Medhini"
+        },
+        "snp5.9": {
+            "id": "Snp 5.9",
+            "title": "The Questions of Hemaka",
+            "pali_title": "Hemakamanavapuccha",
+            "html_path": "suttas/html/kn/snp/vagga5/snp5.9_html.json",
+            "root_path": "suttas/root/kn/snp/vagga5/snp5.9_root-pli-ms.json",
+            "translation_path": "suttas/translation_en/kn/snp/vagga5/snp5.9_translation-en-anigha.json",
+            "comment_path": "suttas/comment/kn/snp/vagga5/snp5.9_comment-en-anigha.json",
+            "date_added": "2024-09-13T09:37:58+02:00",
+            "author": "Sister Medhini"
         }
     }
 }
