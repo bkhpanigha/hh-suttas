@@ -1115,6 +1115,16 @@
             "date_added": "2024-04-08T16:06:44+02:00",
             "heading": "Five Senses in Jhāna"
         },
+        "an10.2": {
+            "id": "AN 10.2",
+            "title": "Making a Wish",
+            "pali_title": "Cetanakaraniyasutta",
+            "html_path": "suttas/html/an/an10/an10.2_html.json",
+            "root_path": "suttas/root/an/an10/an10.2_root-pli-ms.json",
+            "translation_path": "suttas/translation_en/an/an10/an10.2_translation-en-anigha.json",
+            "comment_path": "suttas/comment/an/an10/an10.2_comment-en-anigha.json",
+            "date_added": "2024-09-15T22:11:37+02:00"
+        },
         "an10.62": {
             "id": "AN 10.62",
             "title": "Craving",
