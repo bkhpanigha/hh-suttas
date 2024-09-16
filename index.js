@@ -153,6 +153,7 @@ function toggleThePali() {
       suttaArea.classList.add("hide-pali");
       localStorage.paliToggle = "hide";
       document.querySelector("body").classList.remove("side-by-side");
+      localStorage.sideBySide = "false";
     } else {
       suttaArea.classList.remove("hide-pali");
       localStorage.paliToggle = "show";
