@@ -409,53 +409,42 @@ function addSettingsPanel() {
 
 function addNavbar() {
   // Add the navbar to the page
-  const navbar = document.getElementById('suttanav');
-  const titleElement = document.createElement('span');
-  titleElement.textContent = document.title;
+  const navbar = document.createElement('div');
+  navbar.id = 'suttanav'; // Added ID
+  navbar.innerHTML = document.title;
+  document.body.appendChild(navbar);
+  // After appending, get the navbar's height
+  const navbarHeight = navbar.offsetHeight;
 
-  let lastScrollTop = 0; // Variable to store the last scroll position
-  const scrollThreshold = 2; // Minimum threshold for small scroll detection
-  const jumpThreshold = 100;  // Larger threshold for detecting jumps
-  let isScrolling = false;
-  let scrollTimeout;
+  let lastScrollTop = window.scrollY || document.documentElement.scrollTop;
+  const showThreshold = 1; // Threshold for showing the navbar when scrolling up
+  const suddenJumpThreshold = 100; // Threshold for sudden jumps
+  const topHideThreshold = 170; // Threshold for hiding navbar near the top
 
   window.addEventListener('scroll', () => {
-    if (!isScrolling) {
-      isScrolling = true;
+    requestAnimationFrame(() => {
+      let currentScrollTop = window.scrollY || document.documentElement.scrollTop;
+      let scrollDelta = currentScrollTop - lastScrollTop;
 
-      requestAnimationFrame(() => {
-        let currentScrollTop = window.scrollY || document.documentElement.scrollTop;
+      if (Math.abs(scrollDelta) > suddenJumpThreshold) {
+        // Sudden jump, hide the navbar
+        navbar.style.top = -navbarHeight + 'px';
+      } else if (currentScrollTop < topHideThreshold) {
+        // Near the top, hide the navbar
+        navbar.style.top = -navbarHeight + 'px';
+      } else if (scrollDelta > 0) {
+        // Scrolling down, hide navbar immediately
+        navbar.style.top = -navbarHeight + 'px';
+      } else if (scrollDelta < -showThreshold) {
+        // Scrolling up beyond the threshold, show navbar
+        navbar.style.top = '0';
+      }
+      // If scrolling up but not beyond the threshold, do nothing
 
-        // Detect if this is a large jump
-        if (Math.abs(currentScrollTop - lastScrollTop) > jumpThreshold) {
-          // Do not show the navbar if it's a large jump
-          navbar.style.top = '-50px';
-          settingsPanel.classList.remove('visible'); // Hide settings panel
-        } else if (currentScrollTop < lastScrollTop && Math.abs(currentScrollTop - lastScrollTop) > scrollThreshold) {
-          // Show the navbar when scrolling up and exceeding the scroll threshold
-          navbar.style.top = '0';
-        } else if (currentScrollTop > lastScrollTop && Math.abs(currentScrollTop - lastScrollTop) > scrollThreshold) {
-          // Hide the navbar when scrolling down
-          navbar.style.top = '-50px';
-          settingsPanel.classList.remove('visible'); // Hide settings panel
-        }
-
-        lastScrollTop = currentScrollTop;
-        isScrolling = false;
-      });
-    }
-
-    // Clear any previous timeout
-    clearTimeout(scrollTimeout);
-
-    // Set a timeout to handle the case when the user stops scrolling
-    scrollTimeout = setTimeout(() => {
-      isScrolling = false;
-    }, 100);
+      lastScrollTop = currentScrollTop;
+    });
   });
 }
-
-
 // initialize the whole app
 if (document.location.search) {
   buildSutta(document.location.search.replace("?q=", "").replace(/\s/g, "").replace(/%20/g, ""));
