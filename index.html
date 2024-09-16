@@ -129,13 +129,26 @@
         <div style="display: flex; justify-content: center;"><span id="foreword-button" class="foreword-link">Foreword</span></div>
         <div id="whats-new"></div>
     </div>
-    <hr>
+    <hr style="margin-bottom: -35px;">
     <div id="navigation" class="navigation">
         <div id="previous"></div>
         <div id="next"></div>
     </div>
+    
     <div id="footer">
-        <a href="https://hillsidehermitage.org">Hillside Hermitage Website</a>
+        <style>
+        .container {
+            display: flex;
+            flex-direction: column; /* Stack the elements vertically */
+            align-items: center; /* Center them horizontally */
+        }
+        </style>
+        <div class="container">
+            <div class="box"><button id="reportButton" class="report-button">Report an error</button></div>
+            <div class="box"><a href="https://hillsidehermitage.org">Hillside Hermitage Website</a></div>
+        </div>
+        
+        
     </div>
 
     <div id="suttanav">

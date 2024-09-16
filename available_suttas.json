@@ -812,7 +812,7 @@
             "html_path": "suttas/html/sn/sn40/sn40.1_html.json",
             "root_path": "suttas/root/sn/sn40/sn40.1_root-pli-ms.json",
             "translation_path": "suttas/translation_en/sn/sn40/sn40.1_translation-en-anigha.json",
-            "comment_path": null,
+            "comment_path": "suttas/comment/sn/sn40/sn40.1_comment-en-anigha.json",
             "date_added": "2024-07-13T17:34:10+02:00"
         },
         "sn45.55": {
@@ -843,7 +843,7 @@
             "html_path": "suttas/html/sn/sn55/sn55.5_html.json",
             "root_path": "suttas/root/sn/sn55/sn55.5_root-pli-ms.json",
             "translation_path": "suttas/translation_en/sn/sn55/sn55.5_translation-en-anigha.json",
-            "comment_path": null,
+            "comment_path": "suttas/comment/sn/sn55/sn55.5_comment-en-anigha.json",
             "date_added": "2024-07-29T17:39:52+02:00"
         },
         "sn56.30": {
@@ -1031,6 +1031,16 @@
             "comment_path": "suttas/comment/an/an5/an5.153_comment-en-anigha.json",
             "date_added": "2024-06-27T05:49:34+02:00"
         },
+        "an6.10": {
+            "id": "AN 6.10",
+            "title": "With Mahānāma",
+            "pali_title": "Mahanamasutta",
+            "html_path": "suttas/html/an/an6/an6.10_html.json",
+            "root_path": "suttas/root/an/an6/an6.10_root-pli-ms.json",
+            "translation_path": "suttas/translation_en/an/an6/an6.10_translation-en-anigha.json",
+            "comment_path": null,
+            "date_added": "2024-09-05T16:26:48+02:00"
+        },
         "an6.68": {
             "id": "AN 6.68",
             "title": "Enjoying Company",
@@ -1104,6 +1114,16 @@
             "comment_path": "suttas/comment/an/an9/an9.42_comment-en-anigha.json",
             "date_added": "2024-04-08T16:06:44+02:00",
             "heading": "Five Senses in Jhāna"
+        },
+        "an10.2": {
+            "id": "AN 10.2",
+            "title": "Exerting an Intention",
+            "pali_title": "Cetanakaraniyasutta",
+            "html_path": "suttas/html/an/an10/an10.2_html.json",
+            "root_path": "suttas/root/an/an10/an10.2_root-pli-ms.json",
+            "translation_path": "suttas/translation_en/an/an10/an10.2_translation-en-anigha.json",
+            "comment_path": "suttas/comment/an/an10/an10.2_comment-en-anigha.json",
+            "date_added": "2024-09-15T22:11:37+02:00"
         },
         "an10.62": {
             "id": "AN 10.62",
@@ -1244,6 +1264,17 @@
             "translation_path": "suttas/translation_en/kn/snp/vagga4/snp4.9_translation-en-anigha.json",
             "comment_path": "suttas/comment/kn/snp/vagga4/snp4.9_comment-en-anigha.json",
             "date_added": "2024-06-24T11:48:56+02:00",
+            "author": "Sister Medhini"
+        },
+        "snp5.9": {
+            "id": "Snp 5.9",
+            "title": "The Questions of Hemaka",
+            "pali_title": "Hemakamanavapuccha",
+            "html_path": "suttas/html/kn/snp/vagga5/snp5.9_html.json",
+            "root_path": "suttas/root/kn/snp/vagga5/snp5.9_root-pli-ms.json",
+            "translation_path": "suttas/translation_en/kn/snp/vagga5/snp5.9_translation-en-anigha.json",
+            "comment_path": "suttas/comment/kn/snp/vagga5/snp5.9_comment-en-anigha.json",
+            "date_added": "2024-09-13T09:37:58+02:00",
             "author": "Sister Medhini"
         }
     }

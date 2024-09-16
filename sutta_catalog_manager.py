@@ -6,7 +6,7 @@ import subprocess
 
 
 config = {
-    "vagga_books": {"iti": 11, "snp": 4, "ud": 8},  # Vaggas in the KN collection
+    "vagga_books": {"iti": 11, "snp": 5, "ud": 8},  # Vaggas in the KN collection
     "no_vagga_books": ["thag", "dhp", "thig"],
     "subsection_books": {"an": 11, "sn": 56},  # Subsections in SN and AN collections
 }
@@ -115,6 +115,7 @@ def load_available_suttas(suttas_base_dir):
                         for file_path in vagga_path.glob("*.json"):
                             match = pattern.match(file_path.name)
                             if match:
+                                print(file_path)
                                 data = load_json(file_path)
                                 key = f"{match.group(1)}{match.group(2)}:0.2"  # Key for title in KN texts
                                 add_sutta(available_suttas, match, data, key)
@@ -208,7 +209,7 @@ def generate_paths_for_sutta(sutta_id, base_dir="suttas"):
 
         # Add the date from git history
         paths["date_added"] = get_git_date_added(translation_path)
-
+    if "snp" in paths: print(paths)
     return paths
 
 
