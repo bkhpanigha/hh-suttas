@@ -165,6 +165,13 @@ function initializePaliToggle() {
       togglePali();
       const newOffset = firstVisibleEnglishElement.getBoundingClientRect().top;
       window.scrollBy(0, newOffset - prevOffset);
+    const previousScrollPosition = window.scrollY;
+    if (localStorage.paliToggle === "show") {
+      suttaArea.classList.add("hide-pali");
+      localStorage.paliToggle = "hide";
+      document.querySelector("body").classList.remove("side-by-side");
+      localStorage.sideBySide = "false";
+
     } else {
       togglePali();
     }
