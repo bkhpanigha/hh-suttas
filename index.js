@@ -175,7 +175,7 @@ function initializePaliToggle() {
     } else {
       togglePali();
     }
-  });
+  }});
 }
 
 async function createFuseSearch() {
