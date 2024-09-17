@@ -636,6 +636,7 @@ a:hover {
 .bookmark-container {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
   align-items: center;
   padding: 13px; /* Add padding */
 }
