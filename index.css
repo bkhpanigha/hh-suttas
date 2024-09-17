@@ -637,7 +637,7 @@ a:hover {
 .bookmark-container {
   display: flex;
   justify-content: space-between;
-  gap: .5rem;
+  gap: 1rem;
   align-items: center;
   padding: 1rem;
   box-shadow: 0 0 2px 0 rgba(0, 0, 0, .40);
@@ -648,11 +648,6 @@ a:hover {
   margin: 0;
   flex-grow: 1;
   max-width: 70%;
-}
-
-.bookmark-container a,
-.bookmark-container button {
-  margin-left: 10px;
 }
 
 .bookmark-buttons{
@@ -752,5 +747,11 @@ a:hover {
   }
   .bookmark-container {
     flex-wrap: wrap;
+  }
+  .bookmark-container p{
+    max-width: initial;
+  }
+  .bookmark-buttons{
+    justify-content: space-evenly;
   }
 }
