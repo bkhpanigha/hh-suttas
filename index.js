@@ -327,10 +327,6 @@ function buildSutta(slug) {
           openHtml = openHtml.replace(/^<span class='verse-line'>/, "<br><span class='verse-line'>");
         }
 
-        if (openHtml.includes('sutta-title')) {
-          sutta_title = `${root_text[segment] || ''} : ${translation_text[segment]}`;
-        }
-
         html +=
           `${openHtml}<span class="segment" id="${segment}">` +
           `<span class="pli-lang" lang="pi">${root_text[segment] || ''}</span>` +
