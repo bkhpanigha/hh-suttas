@@ -637,6 +637,7 @@ a:hover {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+  gap: .5rem;
   align-items: center;
   padding: 13px; /* Add padding */
 }
