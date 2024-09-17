@@ -639,7 +639,7 @@ a:hover {
   flex-wrap: wrap;
   gap: .5rem;
   align-items: center;
-  padding: 13px; /* Add padding */
+  padding: 1rem;
 }
 
 .bookmark-container p {
@@ -650,10 +650,6 @@ a:hover {
 .bookmark-container a,
 .bookmark-container button {
   margin-left: 10px;
-}
-
-.label-details {
-  margin-top: 10px;
 }
 
 .label-checkbox-container {
