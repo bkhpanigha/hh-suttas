@@ -137,7 +137,6 @@ function displaySuttas(suttas, isSearch = false) {
   }).join('')}</ul>`;
 }
 
-
 function initializePaliToggle() {
   const hideButton = document.getElementById("hide-pali");
   if (localStorage.paliToggle !== "show") {
@@ -155,6 +154,7 @@ function initializePaliToggle() {
         suttaArea.classList.add("hide-pali");
         localStorage.paliToggle = "hide";
         document.body.classList.remove("side-by-side");
+        localStorage.sideBySide = "false";
       } else {
         suttaArea.classList.remove("hide-pali");
         localStorage.paliToggle = "show";
@@ -162,19 +162,10 @@ function initializePaliToggle() {
     };
     if (firstVisibleEnglishElement) {
       const prevOffset = firstVisibleEnglishElement.getBoundingClientRect().top;
-      togglePali();
       const newOffset = firstVisibleEnglishElement.getBoundingClientRect().top;
       window.scrollBy(0, newOffset - prevOffset);
-    const previousScrollPosition = window.scrollY;
-    if (localStorage.paliToggle === "show") {
-      suttaArea.classList.add("hide-pali");
-      localStorage.paliToggle = "hide";
-      document.querySelector("body").classList.remove("side-by-side");
-      localStorage.sideBySide = "false";
-
-    } else {
+      const previousScrollPosition = window.scrollY;
       togglePali();
-    }
   }});
 }
 
@@ -334,10 +325,6 @@ function buildSutta(slug) {
 
         if (window.addBreaks === true) {
           openHtml = openHtml.replace(/^<span class='verse-line'>/, "<br><span class='verse-line'>");
-        }
-
-        if (openHtml.includes('sutta-title')) {
-          sutta_title = `${root_text[segment] || ''} : ${translation_text[segment]}`;
         }
 
         html +=
