@@ -497,14 +497,6 @@ a:hover {
   background-color: #f5f4ef;
 }
 
-@media only screen and (max-width: 768px) {
-  /* CSS rules for screens smaller than 768px */
-  .comment-text {
-    width: 300px;
-    text-align: center;
-  }
-}
-
 /* Override for dark theme */
 .dark .comment-text {
   color: #FFFFFF;
@@ -747,7 +739,17 @@ a:hover {
   font-size: 14px;
 }
 
-@media only screen and (max-width: 767px){
+#copyButton, 
+bookmarkButton{
+  width: 76px;
+}
+
+@media only screen and (max-width: 768px) {
+  /* CSS rules for screens smaller than 768px */
+  .comment-text {
+    width: 300px;
+    text-align: center;
+  }
   .bookmark-container p{
     max-width: 60%;
   }
