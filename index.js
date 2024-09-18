@@ -162,11 +162,12 @@ function initializePaliToggle() {
     };
     if (firstVisibleEnglishElement) {
       const prevOffset = firstVisibleEnglishElement.getBoundingClientRect().top;
+      togglePali();
       const newOffset = firstVisibleEnglishElement.getBoundingClientRect().top;
       window.scrollBy(0, newOffset - prevOffset);
-      const previousScrollPosition = window.scrollY;
+    } else {
       togglePali();
-  }});
+    }});
 }
 
 async function createFuseSearch() {
