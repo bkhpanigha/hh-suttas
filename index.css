@@ -267,11 +267,6 @@ dt {
   line-height: 1.5;
 }
 
-.hide-pali p .pli-lang,
-.hide-pali h2 .pli-lang,
-.hide-pali h3 .pli-lang,
-.hide-pali h4 .pli-lang,
-.hide-pali h5 .pli-lang,
 .hide-pali li .pli-lang {
   display: none !important;
 }
@@ -286,6 +281,9 @@ dt {
   overflow: hidden;
 }
 
+/* .hide-pali .pli-lang {
+  visibility: hidden;
+} */
 #footer {
   text-align: center;
   padding-top: 1.5em;
@@ -657,7 +655,12 @@ a:hover {
   justify-content: right;
   align-items: center;
   flex-grow: 1;
-  gap: 1rem;  
+  gap: 1rem;
+  max-width: 30%;
+}
+
+.bookmark-buttons > * {
+    max-width: 60%;
 }
 
 .label-checkbox-container {
@@ -742,6 +745,11 @@ a:hover {
   font-size: 14px;
 }
 
+@media only screen and (max-width: 767px){
+  .bookmark-container p{
+    max-width: 60%;
+  }
+}
 @media only screen and (max-width: 600px) {
   #suttanav {
     padding: 5px; /* Reduced padding on smaller screens */
@@ -749,11 +757,13 @@ a:hover {
   }
   .bookmark-container {
     flex-wrap: wrap;
+    flex-direction: column-reverse;
   }
   .bookmark-container p{
     max-width: initial;
   }
   .bookmark-buttons{
     justify-content: space-evenly;
+    width: 100%;
   }
 }
