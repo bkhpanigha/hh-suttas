@@ -132,7 +132,6 @@ function displaySuttas(suttas, isSearch = false) {
   }).join('')}</ul>`;
 }
 
-
 function initializePaliToggle() {
   const hideButton = document.getElementById("hide-pali");
   if (localStorage.paliToggle !== "show") {
@@ -150,6 +149,7 @@ function initializePaliToggle() {
         suttaArea.classList.add("hide-pali");
         localStorage.paliToggle = "hide";
         document.body.classList.remove("side-by-side");
+        localStorage.sideBySide = "false";
       } else {
         suttaArea.classList.remove("hide-pali");
         localStorage.paliToggle = "show";
@@ -162,8 +162,7 @@ function initializePaliToggle() {
       window.scrollBy(0, newOffset - prevOffset);
     } else {
       togglePali();
-    }
-  });
+    }});
 }
 
 async function createFuseSearch() {
@@ -322,10 +321,6 @@ function buildSutta(slug) {
 
         if (window.addBreaks === true) {
           openHtml = openHtml.replace(/^<span class='verse-line'>/, "<br><span class='verse-line'>");
-        }
-
-        if (openHtml.includes('sutta-title')) {
-          sutta_title = `${root_text[segment] || ''} : ${translation_text[segment]}`;
         }
 
         html +=

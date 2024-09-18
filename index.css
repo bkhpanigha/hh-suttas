@@ -281,9 +281,6 @@ dt {
   overflow: hidden;
 }
 
-/* .hide-pali .pli-lang {
-  visibility: hidden;
-} */
 #footer {
   text-align: center;
   padding-top: 1.5em;
@@ -625,33 +622,37 @@ a:hover {
   text-align: center;
   margin: 1rem 0 1rem 0;
 }
-@media only screen and (max-width: 600px) {
-  #suttanav {
-    padding: 5px; /* Reduced padding on smaller screens */
-    font-size: 14px; /* Adjusted font size for smaller screens */
-  }
+
+#bookmarks > details > :not(:last-child) {
+    margin-bottom: .5rem;
 }
 
+#bookmarks > *{
+  margin: .5rem 0;
+}
 
 .bookmark-container {
   display: flex;
   justify-content: space-between;
+  gap: 1rem;
   align-items: center;
-  padding: 13px; /* Add padding */
+  padding: 1rem;
+  box-shadow: 0 0 2px 0 rgba(0, 0, 0, .40);
+  border-radius: 2px;
 }
 
 .bookmark-container p {
   margin: 0;
   flex-grow: 1;
+  max-width: 70%;
 }
 
-.bookmark-container a,
-.bookmark-container button {
-  margin-left: 10px;
-}
-
-.label-details {
-  margin-top: 10px;
+.bookmark-buttons{
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  flex-grow: 1;
+  gap: 1rem;  
 }
 
 .label-checkbox-container {
@@ -729,6 +730,7 @@ a:hover {
 .sutta-box h3, .sutta-pali-title, .sutta-date-added {
   margin-bottom: 5px; /* Reduced margin between elements */
 }
+
 #back-arrow {
   margin-left: 8px; /* Adjust as needed */
   cursor: pointer;
@@ -797,4 +799,19 @@ a:hover {
   padding: 10px;
   border-radius: 5px;
   cursor: pointer;
+}
+@media only screen and (max-width: 600px) {
+  #suttanav {
+    padding: 5px; /* Reduced padding on smaller screens */
+    font-size: 14px; /* Adjusted font size for smaller screens */
+  }
+  .bookmark-container {
+    flex-wrap: wrap;
+  }
+  .bookmark-container p{
+    max-width: initial;
+  }
+  .bookmark-buttons{
+    justify-content: space-evenly;
+  }
 }
