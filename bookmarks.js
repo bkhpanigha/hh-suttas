@@ -113,6 +113,9 @@ async function displayBookmarks() {
           const container = document.createElement('div');
           container.className = 'bookmark-container';
 
+          const buttons_container = document.createElement('div');
+          buttons_container.className = 'bookmark-buttons';
+          
           const pTag = document.createElement('p');
           pTag.textContent = value;
           container.appendChild(pTag);
@@ -121,14 +124,13 @@ async function displayBookmarks() {
           const link = document.createElement('a');
           link.href = `/?q=${citation}#${bookmark}`;
           link.textContent = availableSuttasJson[citation]['id'];
-          container.appendChild(link);
+          buttons_container.appendChild(link);
 
           // Create a delete button
           const deleteButton = document.createElement('button');
           deleteButton.textContent = 'Delete';
           deleteButton.onclick = () => deleteBookmark(label, bookmark);
-          container.appendChild(deleteButton);
-          details.appendChild(container);
+          buttons_container.appendChild(deleteButton);
 
           // Create a collapsible container for label checkboxes
           const labelDetails = document.createElement('details');
@@ -203,7 +205,8 @@ async function displayBookmarks() {
 
           // Append the checkbox container to the collapsible container
           labelDetails.appendChild(labelCheckboxContainer);
-          container.appendChild(labelDetails);
+          buttons_container.appendChild(labelDetails);
+          container.appendChild(buttons_container);
           details.appendChild(container);
         } else {
           console.warn(`Key ${key} not found in ${filePath}`);
