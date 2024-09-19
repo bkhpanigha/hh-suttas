@@ -497,14 +497,6 @@ a:hover {
   background-color: #f5f4ef;
 }
 
-@media only screen and (max-width: 768px) {
-  /* CSS rules for screens smaller than 768px */
-  .comment-text {
-    width: 300px;
-    text-align: center;
-  }
-}
-
 /* Override for dark theme */
 .dark .comment-text {
   color: #FFFFFF;
@@ -657,7 +649,12 @@ a:hover {
   justify-content: right;
   align-items: center;
   flex-grow: 1;
-  gap: 1rem;  
+  gap: 1rem;
+  max-width: 30%;
+}
+
+.bookmark-buttons > * {
+    max-width: 60%;
 }
 
 .label-checkbox-container {
@@ -742,6 +739,21 @@ a:hover {
   font-size: 14px;
 }
 
+#copyButton, 
+bookmarkButton{
+  width: 76px;
+}
+
+@media only screen and (max-width: 768px) {
+  /* CSS rules for screens smaller than 768px */
+  .comment-text {
+    width: 300px;
+    text-align: center;
+  }
+  .bookmark-container p{
+    max-width: 60%;
+  }
+}
 @media only screen and (max-width: 600px) {
   #suttanav {
     padding: 5px; /* Reduced padding on smaller screens */
@@ -749,11 +761,13 @@ a:hover {
   }
   .bookmark-container {
     flex-wrap: wrap;
+    flex-direction: column-reverse;
   }
   .bookmark-container p{
     max-width: initial;
   }
   .bookmark-buttons{
     justify-content: space-evenly;
+    width: 100%;
   }
 }
