@@ -650,7 +650,6 @@ a:hover {
   align-items: center;
   flex-grow: 1;
   gap: 1rem;
-  max-width: 30%;
 }
 
 .bookmark-buttons > * {
@@ -661,12 +660,13 @@ a:hover {
   display: flex;
   flex-direction: column;
   margin-top: 5px;
+  gap: .3rem; /* Add some space between each checkbox-label pair */
 }
 
 .label-checkbox-container div {
   display: flex;
   align-items: center;
-  margin-bottom: 5px; /* Add some space between each checkbox-label pair */
+  gap: .3rem;
 }
 
 .label-checkbox-container input[type="checkbox"] {
@@ -769,5 +769,8 @@ bookmarkButton{
   .bookmark-buttons{
     justify-content: space-evenly;
     width: 100%;
+  }
+  .bookmark-buttons > *{
+      max-width: 30%;
   }
 }
