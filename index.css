@@ -656,6 +656,10 @@ a:hover {
     max-width: 60%;
 }
 
+.bookmark-buttons > a{
+  text-wrap: nowrap;
+}
+
 .label-checkbox-container {
   display: flex;
   flex-direction: column;
