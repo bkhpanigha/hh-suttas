@@ -16,6 +16,7 @@ b{
 :root {
   --off-white: rgb(221, 221, 221);
   --light-off-white: rgb(241, 241, 241);
+  --white: #fff;
   --black: rgb(0, 0, 0);
   --dark-gray: #5a5a5a;
   --darker-gray: #181a1b;
@@ -78,13 +79,12 @@ body.dark {
 
 .dark .highlight {
   font-family: "RobotoSerif Medium";
-  color: #FFFFFF; /* White text for dark background */
-  box-shadow: 0px 1px 3px rgba(255, 255, 255, .4); /* Soft shadow for depth */
+  color: var(--white); /* White text for dark background */
 }
 
 .light .highlight {
   font-family: "RobotoSerif Medium";
-  box-shadow: 0px 2px 3px rgba(0, 0, 0, .1); /* Soft shadow for depth */
+  box-shadow: 0px 2px 3px rgba(0, 0, 0, .2);
 }
 
 .go-button {
