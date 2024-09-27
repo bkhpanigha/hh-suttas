@@ -316,7 +316,7 @@ function buildSutta(slug) {
       const [html_text, root_text, translation_text, comment_text, authors_text] = responses;
       const keys_order = Object.keys(html_text);
       let commentCount = 1;
-      let commentsHtml = '<h3>Comments</h3>';
+      let commentsHtml = '';
       keys_order.forEach((segment) => {
         if (translation_text[segment] === undefined) {
           translation_text[segment] = "";
@@ -336,17 +336,20 @@ function buildSutta(slug) {
           `</span></span>${closeHtml}\n\n`;
         
           if (comment_text[segment]) {
-          // Inside the comment HTML
-          commentsHtml += `
-          <p id="comment${commentCount}">
-            ${commentCount}: ${converter.makeHtml(comment_text[segment])
-              .replace(/^<p>(.*)<\/p>$/, '$1')}
-            <a href="#${segment}~no-highlight" style="cursor: pointer; font-size: 14px;">&larr;</a>
-          </p>
-          `;
-
-          commentCount++;
-        }
+            if(commentCount == 1){
+              commentsHtml += '<h3>Comments</h3>';
+            }
+            // Inside the comment HTML
+            commentsHtml += `
+            <p id="comment${commentCount}">
+              ${commentCount}: ${converter.makeHtml(comment_text[segment])
+                .replace(/^<p>(.*)<\/p>$/, '$1')}
+              <a href="#${segment}~no-highlight" style="cursor: pointer; font-size: 14px;">&larr;</a>
+            </p>
+            `;
+  
+            commentCount++;
+          }
       });
 
       if (authors_text[slug]) translator = authors_text[slug];
