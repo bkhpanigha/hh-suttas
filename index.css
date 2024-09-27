@@ -18,6 +18,7 @@ b{
   --light-off-white: rgb(241, 241, 241);
   --black: rgb(0, 0, 0);
   --dark-gray: #5a5a5a;
+  --darker-gray: #181a1b;
   --dark-orange: #8B4000;
   --light-orange: #FFAC1C;
   --light-gray: #8f8f8f;
@@ -32,7 +33,7 @@ body {
 }
 
 body.dark {
-  background-color: var(--black);
+  background-color: var(--darker-gray);
 }
 
 #form {
@@ -78,13 +79,12 @@ body.dark {
 .dark .highlight {
   font-family: "RobotoSerif Medium";
   color: #FFFFFF; /* White text for dark background */
-  /* padding: 0.2em; */
-  border-radius: 0.25em;
+  box-shadow: 0px 1px 3px rgba(255, 255, 255, .4); /* Soft shadow for depth */
 }
 
 .light .highlight {
   font-family: "RobotoSerif Medium";
-  box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.1); /* Soft underlining */
+  box-shadow: 0px 2px 3px rgba(0, 0, 0, .1); /* Soft shadow for depth */
 }
 
 .go-button {
