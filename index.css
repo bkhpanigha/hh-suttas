@@ -1,6 +1,15 @@
 @font-face {
-  font-family: "Robto Serif";
+  font-family: "RobotoSerif";
   src: url("roboto-lightest.woff");
+}
+
+@font-face {
+  font-family: "RobotoSerif Medium";
+  src: url("RobotoSerif-Medium.ttf");
+}
+
+b{
+  font-family: "RobotoSerif Medium";
 }
 
 :root {
@@ -18,7 +27,7 @@
 body {
   margin: 1rem 3rem;
   background-color: var(--light-off-white);
-  font-family: "Robto Serif", serif;
+  font-family: "RobotoSerif", serif;
 }
 
 body.dark {
@@ -66,19 +75,15 @@ body.dark {
 }
 
 .dark .highlight {
-  font-weight: bold;
-  font-size: 1.25em;
+  font-family: "RobotoSerif Medium";
   color: #FFFFFF; /* White text for dark background */
   /* padding: 0.2em; */
   border-radius: 0.25em;
 }
 
 .light .highlight {
-  font-weight: bold;
-  font-size: 1.25em;
-  color: #000000; /* Dark text for light background */
-  /* background-color: #FFFF00; Bright yellow background */
-  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2); /* Soft shadow for depth */
+  font-family: "RobotoSerif Medium";
+  box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.1); /* Soft underlining */
 }
 
 .go-button {
@@ -541,7 +546,7 @@ a:hover {
   margin-left: auto;
   margin-right: 0em;
   font-size: 12px;
-  font-family: "Robto Serif", serif;
+  font-family: "RobotoSerif", serif;
   background-color: transparent;
   border: 1px solid black;
   /* Optional: adds a border */
