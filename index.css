@@ -1,13 +1,25 @@
 @font-face {
-  font-family: "Robto Serif";
+  font-family: "RobotoSerif";
   src: url("roboto-lightest.woff");
+}
+
+@font-face {
+  font-family: "RobotoSerif Medium";
+  src: url("RobotoSerif-Medium.ttf");
+}
+
+b{
+  font-family: "RobotoSerif Medium";
+  font-weight: normal;
 }
 
 :root {
   --off-white: rgb(221, 221, 221);
   --light-off-white: rgb(241, 241, 241);
+  --white: #fff;
   --black: rgb(0, 0, 0);
   --dark-gray: #5a5a5a;
+  --darker-gray: #181a1b;
   --dark-orange: #8B4000;
   --light-orange: #FFAC1C;
   --light-gray: #8f8f8f;
@@ -18,11 +30,11 @@
 body {
   margin: 1rem 3rem;
   background-color: var(--light-off-white);
-  font-family: "Robto Serif", serif;
+  font-family: "RobotoSerif", serif;
 }
 
 body.dark {
-  background-color: var(--black);
+  background-color: var(--darker-gray);
 }
 
 #form {
@@ -65,20 +77,19 @@ body.dark {
   outline: none;
 }
 
-.dark .highlight {
-  font-weight: bold;
-  font-size: 1.25em;
-  color: #FFFFFF; /* White text for dark background */
-  /* padding: 0.2em; */
-  border-radius: 0.25em;
+.dark .highlight,
+.dark .comment-highlight{
+  font-family: "RobotoSerif Medium";
+  color: var(--white); /* White text for dark background */
 }
 
 .light .highlight {
-  font-weight: bold;
-  font-size: 1.25em;
-  color: #000000; /* Dark text for light background */
-  /* background-color: #FFFF00; Bright yellow background */
-  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2); /* Soft shadow for depth */
+  font-family: "RobotoSerif Medium";
+  box-shadow: 0px 2px 3px rgba(0, 0, 0, .2);
+}
+
+.light .comment-highlight{
+  font-family: "RobotoSerif Medium";
 }
 
 .go-button {
@@ -541,7 +552,7 @@ a:hover {
   margin-left: auto;
   margin-right: 0em;
   font-size: 12px;
-  font-family: "Robto Serif", serif;
+  font-family: "RobotoSerif", serif;
   background-color: transparent;
   border: 1px solid black;
   /* Optional: adds a border */

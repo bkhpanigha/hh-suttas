@@ -68,6 +68,7 @@ function scrollToHash() {
   if (hash.startsWith('comment')) {
     const commentElement = document.getElementById(hash);
     if (commentElement) {
+      commentElement.classList.add("comment-highlight");
       commentElement.scrollIntoView();
     }
   } else if (hash) {
