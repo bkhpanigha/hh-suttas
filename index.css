@@ -215,6 +215,10 @@ span.eng-lang {
   display: inline;
 }
 
+.highlight > span.pli-lang {
+  margin-top: .4rem;
+}
+
 p,
 dt,
 li,
