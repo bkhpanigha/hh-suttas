@@ -341,11 +341,11 @@ function buildSutta(slug) {
             }
             // Inside the comment HTML
             commentsHtml += `
-            <p id="comment${commentCount}">
+            <p id="comment${commentCount}"><span>
               ${commentCount}: ${converter.makeHtml(comment_text[segment])
                 .replace(/^<p>(.*)<\/p>$/, '$1')}
               <a href="#${segment}~no-highlight" style="cursor: pointer; font-size: 14px;">&larr;</a>
-            </p>
+            </span></p>
             `;
   
             commentCount++;

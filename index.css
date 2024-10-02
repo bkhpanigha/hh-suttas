@@ -81,6 +81,7 @@ body.dark {
 .dark .comment-highlight{
   font-family: "RobotoSerif Medium";
   color: var(--white); /* White text for dark background */
+  font-size: 1.1rem;
 }
 
 .light .highlight {
@@ -90,6 +91,11 @@ body.dark {
 
 .light .comment-highlight{
   font-family: "RobotoSerif Medium";
+}
+
+.light .comment-highlight > span{
+  display: inline;
+  box-shadow: 0px 2px 3px rgba(0, 0, 0, .2);
 }
 
 .go-button {
@@ -203,6 +209,14 @@ p.sc-link {
 span.pli-lang,
 span.eng-lang {
   display: block;
+}
+
+.highlight > span.eng-lang{
+  display: inline;
+}
+
+.highlight > span.pli-lang {
+  margin-top: .4rem;
 }
 
 p,
