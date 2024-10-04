@@ -65,9 +65,11 @@ def generate_xhtml(sutta_html, sutta_translation, sutta_comments):
 
     # Add the comments section at the end
     if comments_list:
+        xhtml += "<footer>"
         for num, comment in comments_list:
             xhtml += f'<aside id="note-{num}" epub:type="footnote"><p><sup class="noteref"><a href="#noteref-{num}">{num}</a></sup> {comment}</p></aside>\n'
-
+        xhtml += "</footer>"
+        
     return xhtml
 
 # Main function
@@ -138,11 +140,11 @@ def transform_text(text, filename):
     header += "</head>"
     header += "<body>"
     text = header + text
-	
+    
     # Remove only the <ul><li class='division'> element in the header, without touching other parts
     text = re.sub(r"<ul><li class='division'>.*?</ul>", "", text, flags=re.DOTALL)
 
-	# Add sutta number in the chapter's title
+    # Add sutta number in the chapter's title
     text = re.sub(r'(<h1 class=[\'"](sutta-title|range-title)[\'"]>)([^<]+)(</h1>)', r'\1' + chapter + " - " + r' \3\4', text)
 
     # Replace italic words
@@ -177,10 +179,10 @@ def transform_text(text, filename):
     # Replace links using the replace_link function
     text = re.sub(r'\[(.+?)\]\((.+?)\)', replace_link, text)
 
-	# Add the closing tags of the xhtml file
+    # Add the closing tags of the xhtml file
     text += "</body>"
     text += "</html>"
-	
+    
     return text
 
 def natural_sort_key(s):
