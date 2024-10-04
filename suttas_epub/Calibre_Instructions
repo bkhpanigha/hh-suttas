@@ -18,10 +18,10 @@
     b) Set "Insert page breaks before (XPath expression)" to //*[name()='footer']
     
     -- 'Table of Contents' section --
-    a) Check "Do not add detected chapters to the Table of Contents"
+    a) Check "Force use of auto-generated Table of Contents"
     b) Check "Manually fine-tune the ToC after conversion is completed"
     c) Set "Number of link to add to Table of Contents" to 0
 
 7) Click "OK" and wait for the generation to end and the Table of Content fine-tuning windows to open
-8) Go at the end of the list and check if there are unwanted links after the last sutta (characterized as lone single numbers)
+8) Go at the end of the list and check if there are unwanted chapters after what should be the last sutta (probably duplicates)
    If there are, "left click" on the first and "shift + left click" to select them all, then click the "recycling icon" to remove them
