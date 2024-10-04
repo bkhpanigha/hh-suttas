@@ -3,7 +3,9 @@
 3) Open Calibre and drag-drop "nav.xhtml" on it
 4) Right-click on the book named "Suttas Translations" and click "Convert books" > "Convert"
 
---Metadatas sections--
+--Metadatas section--
 a) Set "Bhikkhu Anīgha" as Author
 b) Modify cover
 
+--Structure Detection section--
+a) set "Detect chapters (XPath expression)" to //*[name()='h1']
