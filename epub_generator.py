@@ -125,8 +125,20 @@ def separate_letter_number(string):
     return re.sub(r'([A-Za-z])([0-9])', r'\1 \2', string)
 
 def transform_text(text):
+    # Add the header of the xhtml file
+    header = "<!DOCTYPE html>"
+    header += "<html xmlns=\"http://www.w3.org/1999/xhtml\" xmlns:epub=\"http://www.idpf.org/2007/ops\" xml:lang=\"en\" lang=\"en\">"
+    header += "<head>"
+    header += "<meta charset=\"UTF-8\"/>"
+    header += "<title></title>"
+    header += "<link rel=\"stylesheet\" type=\"text/css\" href=\"styles/epub3.css\"/>"
+    header += "<link rel=\"stylesheet\" type=\"text/css\" href=\"styles/epub3-css3-only.css\" media=\"(min-device-width: 0px)\"/>"
+    header += "</head>"
+    header += "<body>"
+    text = header + text
+	
     # Remove only the <ul><li class='division'> element in the header, without touching other parts
-    text = re.sub(r"<ul><li class='division'>.*?</li></ul>", "", text)
+    text = re.sub(r"<ul><li class='division'>.*?</ul>", "", text, flags=re.DOTALL)
 
     # Use an expression that captures the header without removing it
     text = re.sub(r"(<article id='([^']+)'>.*?<h1 class='sutta-title'>)(.+?)(</h1>)", 
@@ -164,6 +176,10 @@ def transform_text(text):
     # Replace links using the replace_link function
     text = re.sub(r'\[(.+?)\]\((.+?)\)', replace_link, text)
 
+	# Add the closing tags of the xhtml file
+    text += "</body>"
+    text += "</html>"
+	
     return text
 
 def natural_sort_key(s):
