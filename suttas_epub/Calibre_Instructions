@@ -1,0 +1,9 @@
+1) Generate all .xhtml files by running epub_generator.py
+2) Download "/suttas_epub/xhtml" directory locally
+3) Open Calibre and drag-drop "nav.xhtml" on it
+4) Right-click on the book named "Suttas Translations" and click "Convert books" > "Convert"
+
+--Metadatas sections--
+a) Set "Bhikkhu Anīgha" as Author
+b) Modify cover
+
