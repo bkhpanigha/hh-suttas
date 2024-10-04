@@ -1,11 +1,12 @@
 1) Generate all .xhtml files by running epub_generator.py
 2) Download "/suttas_epub/xhtml" directory locally
 3) Open Calibre and drag-drop "nav.xhtml" on it
-4) Right-click on the book named "Suttas Translations" and click "Convert books" > "Convert"
+4) Right-click on the book named "Suttas Translations" and click "Convert books" > "Convert individually"
 
---Metadatas section--
+--Metadata section--
 a) Set "Bhikkhu Anīgha" as Author
 b) Modify cover
 
 --Structure Detection section--
-a) set "Detect chapters (XPath expression)" to //*[name()='h1']
+a) Set "Detect chapters at (XPath expression)" to //*[name()='h1']
+b) Set "Insert page breaks before (XPath expression)" to //*[name()='footer']
