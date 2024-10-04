@@ -4,7 +4,7 @@ import json
 from collections import OrderedDict
 
 # Folder containing the .xhtml files
-folder = 'suttas_epub'
+folder = 'suttas_epub/xhtml'
 
 # List of URLs and their replacements
 url_replacements = {
@@ -76,7 +76,7 @@ def generate_xhtml_for_suttas():
     translation_dir = os.path.join(base_dir, 'translation_en')
     html_dir = os.path.join(base_dir, 'html')
     comment_dir = os.path.join(base_dir, 'comment')
-    output_dir = 'suttas_epub'  # Output folder for the XHTML files
+    output_dir = folder  # Output folder for the XHTML files
 
     # Create the output directory if it does not exist
     os.makedirs(output_dir, exist_ok=True)
@@ -124,13 +124,15 @@ def generate_xhtml_for_suttas():
 def separate_letter_number(string):
     return re.sub(r'([A-Za-z])([0-9])', r'\1 \2', string)
 
-def transform_text(text):
+def transform_text(text, filename):
+    chapter = separate_letter_number(filename).replace(".xhtml", "").upper()
+    
     # Add the header of the xhtml file
     header = "<!DOCTYPE html>"
     header += "<html xmlns=\"http://www.w3.org/1999/xhtml\" xmlns:epub=\"http://www.idpf.org/2007/ops\" xml:lang=\"en\" lang=\"en\">"
     header += "<head>"
     header += "<meta charset=\"UTF-8\"/>"
-    header += "<title></title>"
+    header += "<title>" + chapter + "</title>"
     header += "<link rel=\"stylesheet\" type=\"text/css\" href=\"styles/epub3.css\"/>"
     header += "<link rel=\"stylesheet\" type=\"text/css\" href=\"styles/epub3-css3-only.css\" media=\"(min-device-width: 0px)\"/>"
     header += "</head>"
@@ -140,9 +142,8 @@ def transform_text(text):
     # Remove only the <ul><li class='division'> element in the header, without touching other parts
     text = re.sub(r"<ul><li class='division'>.*?</ul>", "", text, flags=re.DOTALL)
 
-    # Use an expression that captures the header without removing it
-    text = re.sub(r"(<article id='([^']+)'>.*?<h1 class='sutta-title'>)(.+?)(</h1>)", 
-                  lambda m: f"{m.group(1)}{separate_letter_number(m.group(2)).upper()} - {m.group(3)}{m.group(4)}", text, flags=re.DOTALL)
+	# Add sutta number in the chapter's title
+    text = re.sub(r'(<h1 class=[\'"](sutta-title|range-title)[\'"]>)([^<]+)(</h1>)', r'\1' + chapter + " - " + r' \3\4', text)
 
     # Replace italic words
     text = re.sub(r'_(.+?)_', r'<i>\1</i>', text)
@@ -233,11 +234,12 @@ if __name__ == '__main__':
             with open(input_file_path, 'r', encoding='utf-8') as file:
                 content = file.read()
 
-            modified_content = transform_text(content)
+            modified_content = transform_text(content, filename)
 
             output_file_path = os.path.join(folder, filename)
             with open(output_file_path, 'w', encoding='utf-8') as file:
                 file.write(modified_content)
+                print(f"Formatted XHTML for {filename}")
     
     generate_nav_file()
     print("Process Finished")
