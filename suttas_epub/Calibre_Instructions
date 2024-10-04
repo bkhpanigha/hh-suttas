@@ -1,8 +1,10 @@
 1) Generate all .xhtml files by running epub_generator.py
 2) Download "/suttas_epub/xhtml" directory locally
-3) Open Calibre and drag-drop "nav.xhtml" on it
-4) Right-click on the book named "Suttas Translations" and click "Convert books" > "Convert individually"
-5) Set up the settings:
+3) Open Calibre and go to "Preferences" > "Plugins" and left click on "File Type" in the list, then left click on the plugin named "HTML to ZIP", then click on the button "Customize Plugin".
+   In the new window, check "Add linked files in breadth first order" and click the "OK" button, then the "Apply" button and exit the Preferences
+4) Drag-drop "nav.xhtml" on the Calibre home page
+5) Right-click on the book named "Suttas Translations" and click "Convert books" > "Convert individually"
+6) Set up the settings:
 
     -- 'Metadata' section --
     a) Set "Bhikkhu Anīgha" as Author
@@ -20,6 +22,6 @@
     b) Check "Manually fine-tune the ToC after conversion is completed"
     c) Set "Number of link to add to Table of Contents" to 0
 
-6) Click "OK" and wait for the generation to end and the Table of Content fine-tuning windows to open
-7) Go at the end of the list and check if there are unwanted links after the last sutta (characterized as lone single numbers)
+7) Click "OK" and wait for the generation to end and the Table of Content fine-tuning windows to open
+8) Go at the end of the list and check if there are unwanted links after the last sutta (characterized as lone single numbers)
    If there are, "left click" on the first and "shift + left click" to select them all, then click the "recycling icon" to remove them
