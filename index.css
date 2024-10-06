@@ -407,9 +407,9 @@ br {
 }
 
 .dark .info-btn {
-
   filter: invert(100%);
 }
+
 #infoButton,
 #epubInfoButton{
   border: none;
@@ -613,7 +613,8 @@ a:hover {
 
 }
 
-.dark #cacheButton {
+.dark #cacheButton,
+.dark #downloadEpubButton{
   background-color: var(--dark-blue);
   color: var(--off-white);
   border-color: var(--off-white);
