@@ -422,6 +422,7 @@ document.addEventListener("click", function (event) {
   }
 });
 
+let lastModifiedDate;
 epubInfoButton.addEventListener("click", function (event) {
   event.stopPropagation(); // Prevent click from immediately propagating to document
   let notificationBox = document.querySelector('.info-notification-box')
@@ -434,20 +435,16 @@ epubInfoButton.addEventListener("click", function (event) {
   if (notificationBox.style.display == 'block') {
     notificationBox.style.display = 'none';
   } else {
-
     notificationBox.textContent = "The ‘EPUB’ button gives you the ability to download the translations and comments in the .epub format." + (lastModifiedDate != null ? "\n\nLast updated: " + lastModifiedDate : "");
     notificationBox.style.display = 'block';
   }
 });
-// Add event listener to document to hide notificationBox when clicking outside
-document.addEventListener("click", function (event) {
-  let notificationBox = document.querySelector('.info-notification-box');
-  if (notificationBox && notificationBox.style.display == 'block') {
-    // Check if the click is outside the notificationBox and not on the infoButton
-    if (!notificationBox.contains(event.target) && event.target !== infoButton) {
-      notificationBox.style.display = 'none';
-    }
-  }
+
+document.getElementById('downloadEpubButton').addEventListener('click', function() {
+    const link = document.createElement('a');
+    link.href = 'suttas_epub/Suttas Translations - Bhikkhu Anigha.epub';  // Chemin vers le fichier EPUB
+    link.download = 'Suttas Translations - Bhikkhu Anigha.epub';    // Nom du fichier téléchargé
+    link.click();
 });
 
 navigator.serviceWorker.addEventListener('message', event => {
@@ -460,7 +457,6 @@ navigator.serviceWorker.addEventListener('message', event => {
   }
 });
 
-let lastModifiedDate;
 fetch('/suttas_epub/Suttas Translations - Bhikkhu Anigha.epub')
   .then(response => {
     if (response.ok) {
