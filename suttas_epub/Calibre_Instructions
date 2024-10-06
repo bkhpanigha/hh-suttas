@@ -1,4 +1,4 @@
-1) Generate all .xhtml files by running epub_generator.py
+1) Generate all .xhtml files by running epub_generator.py at the root
 2) Download "/suttas_epub/xhtml" directory locally
 3) Open Calibre and go to "Preferences" > "Plugins" and left click on "File Type" in the list, then left click on the plugin named "HTML to ZIP", then click on the button "Customize Plugin".
    In the new window, check "Add linked files in breadth first order" and click the "OK" button, then the "Apply" button and exit the Preferences
