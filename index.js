@@ -7,26 +7,13 @@ const previous = document.getElementById("previous");
 const next = document.getElementById("next");
 const forewordText = `Terms and expressions of doctrinal and practical significance found in the early Suttas are sometimes misrepresented in existing translations. Unless readers habitually compare different translations to identify discrepancies, they may unknowingly incorporate these inaccuracies into their understanding of the texts. Good examples of this include: 
   <br>
-  (1) The rendition of <em>mettā</em> as “loving-kindness” or even “love” that has become ingrained in contemporary Buddhism and had an impact on the general perception of what that practice entails. Passages like <a href="https://suttas.hillsidehermitage.org/?q=sn45.55">this</a> and <a href="https://suttas.hillsidehermitage.org/?q=an8.53">this</a>, as well as the etymology of the term, undermine that popular interpretation.
+  (1) The rendering of <em>mettā</em> as “loving-kindness” that has become ingrained in contemporary Buddhism and had a significant impact on the general perception of what that practice entails, whereas the actual meaning of the term based on its root is “friendliness”.
   <br>
   (2) The tendency to translate the term <em>yoniso manasikāra</em> along the lines of “appropriate” or “wise” attention, evidently assuming the literal meaning of <em>yoniso</em> to be unimportant. However, there is no reason to think that the Buddha didn’t intentionally opt for this peculiar expression to describe <a href="https://suttas.hillsidehermitage.org/?q=mn2#mn2:3.1-mn2:3.3">what is arguably the core element of the practice</a>, and <a href="https://suttas.hillsidehermitage.org/?q=sn45.55">leads to the acquisition of the Noble Eightfold Path</a>.
   <br><br>
- Although our modern retrospective understanding of Pāli will always be imperfect compared to that of ancient native speakers, it should always be firmly placed first, no matter how helpful or justified the translator believes a deviation to be. When a passage or Sutta does not align with one’s interpretation, it’s the interpretation that must be altered—from the bottom up if necessary—and not the rendition:
-  <br><br>
-  <em>It was, and is, my attitude towards the Suttas that, if I find anything in them that is against my own view, they are right, and I am wrong.</em>
-  <br>
-  —<a href=https://www.nanavira.org/post-sotapatti/1963/92-l-60-2-august-1963#n60-1>Ven. Ñāṇavīra Thera</a>
-  <br><br>
-  This site features adaptations of Bhikkhu Sujato's copyright-free translations, crafted with this context in mind. Elucidation beyond what is explicitly stated in the Pāli and in line with my view, references to relevant Suttas, and links to relevant discussions from the Hillside Hermitage YouTube channel can be found in the comments marked with a blue asterisk (<span class="comment">*</span>).
-  <br><br>
-  —<em>Bhikkhu Anīgha</em>`;
+  On this site, Bhikkhu Sujato’s copyright-free translations have been adapted to create a work that rigorously aims to convey the meaning of significant Pāli terms drawing solely on their etymology—which is generally unambiguous—and eschewing commentarial and later baggage that is often present even in most Pāli dictionaries. Individual perspectives and explanations, along with the reasoning behind the chosen renderings for the infrequent less straightforward terms, have been left for the comments. This approach aims to maintain a clear distinction between translation and interpretation, which is often blurred.`;
 
 // functions
-
-// Define the goBack function globally
-function goBack() {
-  window.history.back();
-}
 
 function searchSuttas(pattern) {
   if (!fuse) { pattern = "" }; // if Fuse isn't initialized, return empty array
@@ -50,55 +37,13 @@ async function showForeword() {
 }
 
 function displaySuttas(suttas, isSearch = false) {
-  // foreword button
   const forewordViewed = localStorage.getItem('forewordViewed', false);
   const forewordButton = document.getElementById('foreword-button');
 
   if (forewordViewed == 'true' && forewordButton) {
     forewordButton.style.display = 'none';
   }
-    // Helper function to calculate "days ago"
-    function daysAgo(dateString) {
-      const dateAdded = new Date(dateString);
-      const currentDate = new Date();
-      const timeDiff = Math.abs(currentDate - dateAdded);
-      const daysDiff = Math.floor(timeDiff / (1000 * 60 * 60 * 24)); // Convert time difference to days
-      return daysDiff === 0 ? 'Today' : `${daysDiff} days ago`;
-    }
-  
 
-    // Select "what's new" area
-    const whatsNewArea = document.getElementById('whats-new');
-
-    // Sort the suttas by date_added in descending order
-    const sortedSuttas = Object.values(suttas).sort((a, b) => new Date(b.date_added) - new Date(a.date_added));
-
-    // Get the most recent suttas (let's say top 3)
-    const recentSuttas = sortedSuttas.slice(0, 5);
-
-    // Create a horizontal display for recent suttas
-    if (whatsNewArea) {
-      whatsNewArea.innerHTML = `<h2>What's New</h2>` + 
-      `<div class="whats-new-container">
-          ${recentSuttas.map(sutta => {
-            const id = sutta.id.replace(/\s+/g, '');
-            const title = sutta.title;
-            const daysAgoAdded = daysAgo(sutta.date_added); // Calculate how many days ago it was added
-            const link = `<a href="/?q=${id.toLowerCase()}">${title}</a>`;
-            return `
-              <div class="sutta-box">
-                <h3 class="sutta-card-title">${link}</h3>
-                <div class="sutta-pali-title"><em>${id}: ${sutta.pali_title}</em></div>
-                <div class="sutta-date-added"><small>Added: ${daysAgoAdded}</small></div>
-              </div>
-            `;
-          }).join('')}
-        </div>
-      `;
-    }
-
-
-  // display all suttas
   const books = {
     "dn": "Dīgha Nikāya",
     "mn": "Majjhima Nikāya",
@@ -113,7 +58,7 @@ function displaySuttas(suttas, isSearch = false) {
     const title = sutta_details['title']
     const heading = sutta_details['heading'] || ""
     const link = `<a href="/?q=${id.toLowerCase()}">${id}: ${title}`;
-    const em = heading ? `<span style="color: #7f6e0a;"><em>${heading}</em></span>` : '';
+    const em = heading ? `<span style="color: #7f6e0a;">${heading}</span>` : '';
     const nikaya = sutta_id.slice(0, 2).toLowerCase();
 
     // Check if the current sutta belongs to a new group
@@ -137,37 +82,34 @@ function displaySuttas(suttas, isSearch = false) {
   }).join('')}</ul>`;
 }
 
-function initializePaliToggle() {
+
+function toggleThePali() {
   const hideButton = document.getElementById("hide-pali");
+
+  // initial state
   if (localStorage.paliToggle !== "show") {
-    localStorage.paliToggle = "hide";
-    suttaArea.classList.add("hide-pali");
+      localStorage.paliToggle = "hide";
+      suttaArea.classList.add("hide-pali");
   }
+
   hideButton.addEventListener("click", () => {
-    const englishElements = Array.from(suttaArea.querySelectorAll(".eng-lang"));
-    const firstVisibleEnglishElement = englishElements.find(el => {
-      const rect = el.getBoundingClientRect();
-      return rect.bottom >= 0 && rect.top <= window.innerHeight;
-    });
-    const togglePali = () => {
-      if (localStorage.paliToggle === "show") {
-        suttaArea.classList.add("hide-pali");
-        localStorage.paliToggle = "hide";
-        document.body.classList.remove("side-by-side");
-        localStorage.sideBySide = "false";
-      } else {
-        suttaArea.classList.remove("hide-pali");
-        localStorage.paliToggle = "show";
-      }
-    };
-    if (firstVisibleEnglishElement) {
-      const prevOffset = firstVisibleEnglishElement.getBoundingClientRect().top;
-      togglePali();
-      const newOffset = firstVisibleEnglishElement.getBoundingClientRect().top;
-      window.scrollBy(0, newOffset - prevOffset);
+    const previousScrollPosition = window.scrollY;
+    
+    if (localStorage.paliToggle === "show") {
+      suttaArea.classList.add("hide-pali");
+      localStorage.paliToggle = "hide";
+      document.querySelector("body").classList.remove("side-by-side");
     } else {
-      togglePali();
-    }});
+      suttaArea.classList.remove("hide-pali");
+      localStorage.paliToggle = "show";
+    }
+
+    setTimeout(() => {
+      const currentScrollPosition = window.scrollY;
+      document.body.scrollTo({ top: currentScrollPosition - (previousScrollPosition - currentScrollPosition)});
+      console.log(currentScrollPosition - (previousScrollPosition - currentScrollPosition));
+    }, 1000);
+  });
 }
 
 async function createFuseSearch() {
@@ -221,7 +163,7 @@ homeButton.addEventListener("click", () => {
   window.location.href = '/';
 });
 
-var converter = new showdown.Converter();
+var converter = new showdown.Converter()
 
 const response = await fetch('available_suttas.json');
 const availableSuttas = await response.json();
@@ -314,10 +256,9 @@ function buildSutta(slug) {
   Promise.all([htmlResponse, rootResponse, translationResponse, commentResponse, authors])
     .then(responses => {
       const [html_text, root_text, translation_text, comment_text, authors_text] = responses;
-      const keys_order = Object.keys(html_text);
-      let commentCount = 1;
-      let commentsHtml = '';
-      keys_order.forEach((segment) => {
+      const keys_order = Object.keys(html_text)
+      keys_order.forEach(segment => {
+
         if (translation_text[segment] === undefined) {
           translation_text[segment] = "";
         }
@@ -328,53 +269,68 @@ function buildSutta(slug) {
           openHtml = openHtml.replace(/^<span class='verse-line'>/, "<br><span class='verse-line'>");
         }
 
-        html +=
-          `${openHtml}<span class="segment" id="${segment}">` +
-          `<span class="pli-lang" lang="pi">${root_text[segment] || ''}</span>` +
+        if (openHtml.includes("sutta-title")) {
+          sutta_title = `${root_text[segment] || ""} : ${translation_text[segment]}`;
+        }
+
+        html += `${openHtml}<span class="segment" id="${segment}">` +
+          `<span class="pli-lang" lang="pi">${root_text[segment] || ""}</span>` +
           `<span class="eng-lang" lang="en">${translation_text[segment]}` +
-          `${comment_text[segment] ? `<a href="#comment${commentCount}" class="comment">[${commentCount}]</a>` : ''}` +
+          `${comment_text[segment] ? `<span class="comment">*<span class="comment-text" style="display: none;">${converter.makeHtml(comment_text[segment]).replace(/^<p>(.*)<\/p>$/, '$1')}</span></span>` : ""}` +
           `</span></span>${closeHtml}\n\n`;
-        
-          if (comment_text[segment]) {
-            if(commentCount == 1){
-              commentsHtml += '<h3>Comments</h3>';
-            }
-            // Inside the comment HTML
-            commentsHtml += `
-            <p id="comment${commentCount}"><span>
-              ${commentCount}: ${converter.makeHtml(comment_text[segment])
-                .replace(/^<p>(.*)<\/p>$/, '$1')}
-              <a href="#${segment}~no-highlight" style="cursor: pointer; font-size: 14px;">&larr;</a>
-            </span></p>
-            `;
-  
-            commentCount++;
-          }
       });
 
       if (authors_text[slug]) translator = authors_text[slug];
       const translatorByline = `<div class="byline"><p>Translated by ${translator}</p></div>`;
-      // render comments
-      
-      suttaArea.innerHTML = `<p class="sc-link"></p>` + html + translatorByline + commentsHtml;
+      suttaArea.innerHTML = `<p class="sc-link"></p>` + html + translatorByline;
 
       let acronym = sutta_details['id'];
 
       document.title = `${acronym} ` + sutta_title;
+      // render comments
+      const commentElements = document.querySelectorAll('.comment');
+      let currentlyOpenTooltip = null; // Track the currently open tooltip
+      commentElements.forEach(element => {
+        let commentTextSpan = element.querySelector('.comment-text')
 
-      initializePaliToggle();
+        // Event listeners for showing/hiding the tooltip
+        element.addEventListener('click', (event) => {
+          event.stopPropagation();
+          if (currentlyOpenTooltip && currentlyOpenTooltip !== commentTextSpan) {
+            currentlyOpenTooltip.style.display = 'none'; // Hide the previously shown tooltip
+          }
+          commentTextSpan.style.display = 'block';
+          currentlyOpenTooltip = commentTextSpan; // Update the currently open tooltip
+        });
+
+        document.addEventListener('click', (event) => {
+          if (!commentTextSpan.contains(event.target)) {
+            commentTextSpan.style.display = 'none';
+            if (currentlyOpenTooltip === commentTextSpan) {
+              currentlyOpenTooltip = null; // Reset the tracker if the current tooltip is being hidden
+            }
+          }
+        });
+
+      });
+
+      toggleThePali();
       addNavbar();
 
       // remove download and info button
       const cacheButton = document.getElementById('cacheButton');
       const infoButton = document.getElementById('infoButton');
+      const epubInfoButton = document.getElementById('epubInfoButton');
+      
       if (cacheButton) cacheButton.style.display = 'none';
       if (infoButton) infoButton.style.display = 'none';
-
+      if (epubInfoButton) epubInfoButton.style.display = 'none';
+      
       // scroll to the quote in the url if present
       scrollToHash();
     })
     .catch(error => {
+      console.log(error);
       suttaArea.innerHTML = `<p>Sorry, "${decodeURIComponent(slug)}" is not a valid sutta citation.
 
     <br><br>Note: Make sure the citation code is correct. Otherwise try finding the sutta from the home page.<br>`;
@@ -390,36 +346,16 @@ function addNavbar() {
 
   let lastScrollTop = 0; // variable to store the last scroll position
   const scrollThreshold = 10;
-  let isScrolling = false;
-  let scrollTimeout;
 
   window.addEventListener('scroll', () => {
-    if (!isScrolling) {
-      isScrolling = true;
-      requestAnimationFrame(() => {
-        let currentScrollTop = window.scrollY || document.documentElement.scrollTop;
+    requestAnimationFrame(() => {
+      let currentScrollTop = window.scrollY || document.documentElement.scrollTop;
 
-        // Detect sudden jump
-        if (Math.abs(currentScrollTop - lastScrollTop) > 100) {
-          // If the jump is large, do not show the navbar
-          navbar.style.top = '-50px';
-        } else if (Math.abs(currentScrollTop - lastScrollTop) > scrollThreshold) {
-          // Only apply the scroll behavior if it's a regular scroll (not a sudden jump)
-          navbar.style.top = currentScrollTop < 170 || currentScrollTop > lastScrollTop ? '-50px' : '0';
-        }
-
+      if (Math.abs(currentScrollTop - lastScrollTop) > scrollThreshold) {
+        navbar.style.top = (currentScrollTop < 170 || currentScrollTop > lastScrollTop) ? '-50px' : '0';
         lastScrollTop = currentScrollTop;
-        isScrolling = false;
-      });
-    }
-
-    // Clear any previous timeout
-    clearTimeout(scrollTimeout);
-
-    // Set a timeout to handle the case when the user stops scrolling
-    scrollTimeout = setTimeout(() => {
-      isScrolling = false;
-    }, 100);
+      }
+    });
   });
 }
 
@@ -438,38 +374,9 @@ document.addEventListener('click', function (event) {
     showForeword(); // Call the function to show the foreword
     displaySuttas(availableSuttasJson);
   }
-  // Add a click event listener to the span element
-  if (event.target && event.target.id === 'back-arrow') {
-    goBack();
-  }
-});
-
-const errorButton = document.getElementById('reportButton');
-errorButton.textContent = 'Report an Error';
-errorButton.style.display = 'block';
-errorButton.style.margin = '20px 0';
-errorButton.style.textAlign = 'center';
-errorButton.style.backgroundColor = '#f44336';
-errorButton.style.color = 'white';
-errorButton.style.padding = '10px 20px';
-errorButton.style.borderRadius = '5px';
-errorButton.style.fontWeight = 'bold';
-errorButton.style.border = 'none';
-errorButton.style.cursor = 'pointer';
-
- // Add click event to open Google Form in a new tab
- errorButton.addEventListener('click', () => {
-  window.open('https://docs.google.com/forms/d/1Ng8Csf9xYJ7UaYUyl3sGEyZ3aa2FJE_0GRS6zI6oIBM/edit', '_blank');
 });
 
 window.addEventListener('hashchange', function () {
-  const hash = window.location.hash;
-
-  // Check if the hash starts with "comment"
-  if (hash.startsWith('#comment')) {
-    return; // Let the browser handle the default behavior
-  }
-
   scrollToHash();
 });
 
@@ -515,6 +422,34 @@ document.addEventListener("click", function (event) {
   }
 });
 
+epubInfoButton.addEventListener("click", function (event) {
+  event.stopPropagation(); // Prevent click from immediately propagating to document
+  let notificationBox = document.querySelector('.info-notification-box')
+  if (!notificationBox) {
+    notificationBox = document.createElement('div');
+    notificationBox.classList.add('info-notification-box');
+    document.body.appendChild(notificationBox);
+  }
+
+  if (notificationBox.style.display == 'block') {
+    notificationBox.style.display = 'none';
+  } else {
+
+    notificationBox.textContent = "The ‘EPUB’ button gives you the ability to download the translations and comments in the .epub format." + (lastModifiedDate != null ? "\n\nLast updated: " + lastModifiedDate : "");
+    notificationBox.style.display = 'block';
+  }
+});
+// Add event listener to document to hide notificationBox when clicking outside
+document.addEventListener("click", function (event) {
+  let notificationBox = document.querySelector('.info-notification-box');
+  if (notificationBox && notificationBox.style.display == 'block') {
+    // Check if the click is outside the notificationBox and not on the infoButton
+    if (!notificationBox.contains(event.target) && event.target !== infoButton) {
+      notificationBox.style.display = 'none';
+    }
+  }
+});
+
 navigator.serviceWorker.addEventListener('message', event => {
   if (event.data && event.data.action === 'cachingSuccess') {
     showNotification("Download successful - site available offline.")
@@ -524,3 +459,27 @@ navigator.serviceWorker.addEventListener('message', event => {
     showNotification("Caching error. Please clear site data, refresh the page, and try again.");
   }
 });
+
+let lastModifiedDate;
+fetch('/suttas_epub/Suttas Translations - Bhikkhu Anigha.epub')
+  .then(response => {
+    if (response.ok) {
+      const lastModified = response.headers.get('Last-Modified');
+      if (lastModified) {
+        const date = new Date(lastModified);
+        // Format date
+        lastModifiedDate = date.toLocaleDateString('en-EN', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        });
+      } else {
+        console.error("Header 'Last-Modified' is missing or invalid.");
+      }
+    } else {
+      console.error('Error when trying to get file :', response.statusText);
+    }
+  })
+  .catch(error => {
+    console.error('Error :', error);
+  });
