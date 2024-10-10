@@ -407,10 +407,11 @@ br {
 }
 
 .dark .info-btn {
-
   filter: invert(100%);
 }
-#infoButton {
+
+#infoButton,
+#epubInfoButton{
   border: none;
   margin-left: -.3em;
   cursor: pointer;
@@ -418,7 +419,8 @@ br {
   background-color: transparent;
 }
 
-#infoButton img {
+#infoButton img,
+#epubInfoButton img{
   width: 14px;
   height: auto;
   filter: opacity(60%);
@@ -551,7 +553,8 @@ a:hover {
   /* Smooth transition for the opacity */
 }
 
-#cacheButton {
+#cacheButton,
+#downloadEpubButton{
   position:relative;
   /* Example padding, adjust as needed */
   background-color: var(--light-gray);
@@ -572,8 +575,7 @@ a:hover {
   /* Optional: adds a border */
   color: black;
   filter: opacity(65%);
-
-  /* Text color */
+  width: 80px;
 }
 
 #container {
@@ -611,7 +613,8 @@ a:hover {
 
 }
 
-.dark #cacheButton {
+.dark #cacheButton,
+.dark #downloadEpubButton{
   background-color: var(--dark-blue);
   color: var(--off-white);
   border-color: var(--off-white);
