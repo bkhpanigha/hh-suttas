@@ -1,4 +1,40 @@
-import { scrollToHash, showNotification, changeAcronymNumber } from './js/utils.js'
+import { scrollToHash, showNotification } from './js/utils.js'
+import importLinesCount from './python-generated/suttas-data-import-lines-count.js';
+
+const db = new Dexie("store");
+db.version(1).stores({
+  suttas: "++id, content",
+});
+
+db.suttas.count().then((count) => {
+  const isEmpty = count === 0;
+  const isDataMissing = importLinesCount > count;
+
+  if (isEmpty || isDataMissing) {
+    import("./python-generated/suttas-data-import.js").then((suttas) => {
+      let suttasData = suttas.default;
+
+      const data = Object.entries(suttasData).map(([key, value]) => ({
+        id: key,
+        value
+      }));
+
+      db.suttas.bulkPut(data).then(() => {
+        const logMessage = isEmpty ? "[SUCCESS] Database setup complete" : "[SUCCESS] Database updated.";
+        console.log(logMessage);
+      }).catch((error) => {
+        console.error("[ERROR] Failed to insert data into database:", error);
+      });
+    }).catch((error) => {
+      console.error("[ERROR] Failed to load suttas data:", error);
+    });
+  } else {
+    console.log("[INFO] Database is up to date. Skipped import.");
+  }
+}).catch((error) => {
+  console.error("[ERROR] Failed to check data count:", error);
+});
+
 const suttaArea = document.getElementById("sutta");
 const homeButton = document.getElementById("home-button");
 const themeButton = document.getElementById("theme-button");
@@ -49,15 +85,15 @@ async function showForeword() {
   localStorage.setItem('forewordViewed', true);
 }
 
-function displaySuttas(suttas, isSearch = false) {
-  // foreword button
-  const forewordViewed = localStorage.getItem('forewordViewed', false);
-  const forewordButton = document.getElementById('foreword-button');
+function getSuttasByIds(suttasIds) {
+  return suttasIds.reduce((acc, suttaId) => {
+    if (availableSuttasJson[suttaId]) {
+      return { ...acc, [suttaId]: availableSuttasJson[suttaId] }
+    }
+    return acc;
+  }, {})
+}
 
-  if (forewordViewed == 'true' && forewordButton) {
-    forewordButton.style.display = 'none';
-  }
-    // Helper function to calculate "days ago"
     function daysAgo(dateString) {
       const dateAdded = new Date(dateString);
       const currentDate = new Date();
@@ -198,7 +234,7 @@ async function createFuseSearch() {
 // Toggle side-by-side mode
 document.onkeyup = function (e) {
   const paliHidden = document.getElementById("sutta").classList.contains("hide-pali");
-  if (!paliHidden && e.target.id != "citation" && e.key == "s") {
+  if (!paliHidden && e.target.id != "search-bar" && e.key == "s") {
     if (localStorage.sideBySide === "true") {
       bodyTag.classList.remove("side-by-side");
       localStorage.sideBySide = "false";
@@ -255,38 +291,46 @@ themeButton.addEventListener("click", () => {
 let fuse = null;
 fuse = await createFuseSearch(); // holds our search engine
 
-const citation = document.getElementById("citation");
-citation.focus();
-
 // input in search bar
-citation.addEventListener("input", e => {
+const searchBar = document.getElementById("search-bar");
+searchBar.focus();
+
+searchBar.addEventListener("input", async (e) => {
   const searchQuery = e.target.value.trim().toLowerCase();
+  if (!searchQuery) {
   suttaArea.innerHTML = "";
-  if (searchQuery) {
-    const searchResults = searchSuttas(searchQuery);
-    if (Object.keys(searchResults).length > 0) {
-      displaySuttas(searchResults, true);
-    }
-    else {
-      suttaArea.innerHTML += "<h2 class=\"no-results\">No results found</h2>";
-    }
+    displaySuttas(availableSuttasJson);
+    return;
+  }
+
+  const db = new Dexie("store");
+  db.version(1).stores({
+    suttas: "++id, content",
+  });
+  const collection = db.suttas.filter((sutta) => {
+    return JSON.stringify(sutta.value).toLowerCase().includes(searchQuery);
+  });
+  const searchResults = await collection.toArray();
+  const suttaIds = searchResults.map((result) => result.id)
+  const suttas = getSuttasByIds(suttaIds);
+  if (suttaIds.length > 0) {
+    suttaArea.innerHTML = "";
+    displaySuttas(suttas, true);
   }
   else {
-    displaySuttas(availableSuttasJson);
+    suttaArea.innerHTML = "<h2 class=\"no-results\">No results found</h2>";
   }
 });
 
 document.getElementById("form").addEventListener("submit", e => {
   e.preventDefault();
-  const citationValue = document.getElementById("citation").value.trim().replace(/\s/g, "");
-  if (citationValue) {
-    buildSutta(citationValue);
-    history.pushState({ page: citationValue }, "", `?q=${citationValue}`);
+  const searchValue = searchBar.value.trim().replace(/\s/g, "");
+  if (searchValue) {
+    buildSutta(searchValue);
+    history.pushState({ page: searchValue }, "", `?q=${searchValue}`);
   }
 });
 
-// TODO what does this line do and when is it called?
-citation.value = document.location.search.replace("?q=", "").replace(/%20/g, "").replace(/\s/g, "");
 function buildSutta(slug) {
   slug = slug.toLowerCase();
   let sutta_details = availableSuttasJson[slug]
