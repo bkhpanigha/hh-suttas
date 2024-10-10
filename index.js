@@ -36,6 +36,7 @@ db.suttas.count().then((count) => {
 });
 
 const suttaArea = document.getElementById("sutta");
+const whatsNewArea = document.getElementById('whats-new');
 const homeButton = document.getElementById("home-button");
 const themeButton = document.getElementById("theme-button");
 const bodyTag = document.querySelector("body");
@@ -94,45 +95,48 @@ function getSuttasByIds(suttasIds) {
   }, {})
 }
 
-    function daysAgo(dateString) {
-      const dateAdded = new Date(dateString);
-      const currentDate = new Date();
-      const timeDiff = Math.abs(currentDate - dateAdded);
-      const daysDiff = Math.floor(timeDiff / (1000 * 60 * 60 * 24)); // Convert time difference to days
-      return daysDiff === 0 ? 'Today' : `${daysDiff} days ago`;
-    }
-  
+function loadWhatsNewArea() {
+  function daysAgo(dateString) {
+    const dateAdded = new Date(dateString);
+    const currentDate = new Date();
+    const timeDiff = Math.abs(currentDate - dateAdded);
+    const daysDiff = Math.floor(timeDiff / (1000 * 60 * 60 * 24)); // Convert time difference to days
+    return daysDiff === 0 ? 'Today' : `${daysDiff} days ago`;
+  }
 
-    // Select "what's new" area
-    const whatsNewArea = document.getElementById('whats-new');
+  // Sort the suttas by date_added in descending order
+  const sortedSuttas = Object.values(availableSuttasJson).sort((a, b) => new Date(b.date_added) - new Date(a.date_added));
+  const recentSuttas = sortedSuttas.slice(0, 5);
 
-    // Sort the suttas by date_added in descending order
-    const sortedSuttas = Object.values(suttas).sort((a, b) => new Date(b.date_added) - new Date(a.date_added));
+  if (whatsNewArea) {
+    whatsNewArea.innerHTML = `<h2>What's New</h2>` + 
+    `<div class="whats-new-container">
+        ${recentSuttas.map(sutta => {
+          const id = sutta.id.replace(/\s+/g, '');
+          const title = sutta.title;
+          const daysAgoAdded = daysAgo(sutta.date_added); // Calculate how many days ago it was added
+          const link = `<a href="/?q=${id.toLowerCase()}">${title}</a>`;
+          return `
+            <div class="sutta-box">
+              <h3 class="sutta-card-title">${link}</h3>
+              <div class="sutta-pali-title"><em>${id}: ${sutta.pali_title}</em></div>
+              <div class="sutta-date-added"><small>Added: ${daysAgoAdded}</small></div>
+            </div>
+          `;
+        }).join('')}
+      </div>
+    `;
+  }
+}
 
-    // Get the most recent suttas (let's say top 3)
-    const recentSuttas = sortedSuttas.slice(0, 5);
+function displaySuttas(suttas, isSearch = false) {
+  // foreword button
+  const forewordViewed = localStorage.getItem('forewordViewed', false);
+  const forewordButton = document.getElementById('foreword-button');
 
-    // Create a horizontal display for recent suttas
-    if (whatsNewArea) {
-      whatsNewArea.innerHTML = `<h2>What's New</h2>` + 
-      `<div class="whats-new-container">
-          ${recentSuttas.map(sutta => {
-            const id = sutta.id.replace(/\s+/g, '');
-            const title = sutta.title;
-            const daysAgoAdded = daysAgo(sutta.date_added); // Calculate how many days ago it was added
-            const link = `<a href="/?q=${id.toLowerCase()}">${title}</a>`;
-            return `
-              <div class="sutta-box">
-                <h3 class="sutta-card-title">${link}</h3>
-                <div class="sutta-pali-title"><em>${id}: ${sutta.pali_title}</em></div>
-                <div class="sutta-date-added"><small>Added: ${daysAgoAdded}</small></div>
-              </div>
-            `;
-          }).join('')}
-        </div>
-      `;
-    }
-
+  if (forewordViewed == 'true' && forewordButton) {
+    forewordButton.style.display = 'none';
+  }
 
   // display all suttas
   const books = {
@@ -143,8 +147,15 @@ function getSuttasByIds(suttasIds) {
     "kn": "Khuddaka Nikāya"
   };
   let currentGroup = -1;
-  suttaArea.innerHTML += `<ul style="margin-top: 20px;">${Object.entries(suttas).map(([sutta_id, sutta_details]) => {
 
+  if (isSearch) {
+    suttaArea.innerHTML += "<h2>Search Results:</h2>";
+    whatsNewArea.style.display = "none";
+  } else {
+    whatsNewArea.style.display = "block";
+  }
+
+  suttaArea.innerHTML += `<ul style="margin-top: 20px;">${Object.entries(suttas).map(([sutta_id, sutta_details]) => {
     const id = sutta_details['id'].replace(/\s+/g, '');;
     const title = sutta_details['title']
     const heading = sutta_details['heading'] || ""
@@ -156,19 +167,13 @@ function getSuttasByIds(suttasIds) {
     const key = Object.keys(books)[currentGroup];
 
     if (!isSearch && nikaya !== key && currentGroup < 4) {
-
       // If it's a new group, display the subheading
       currentGroup += 1;
       const key = Object.keys(books)[currentGroup];
 
-
       return `<h2>${books[key]}</h2><li>${link}${em ? ` (${em})` : ''}</a></li>`;
-
-
     } else {
-
       return `<li>${link}${em ? ` (${em})` : ''}</a></li>`;
-
     }
   }).join('')}</ul>`;
 }
@@ -298,7 +303,7 @@ searchBar.focus();
 searchBar.addEventListener("input", async (e) => {
   const searchQuery = e.target.value.trim().toLowerCase();
   if (!searchQuery) {
-  suttaArea.innerHTML = "";
+    suttaArea.innerHTML = "";
     displaySuttas(availableSuttasJson);
     return;
   }
@@ -473,6 +478,7 @@ if (document.location.search) {
   buildSutta(document.location.search.replace("?q=", "").replace(/\s/g, "").replace(/%20/g, ""));
 } else {
   displaySuttas(availableSuttasJson);
+  loadWhatsNewArea();
 }
 
 
