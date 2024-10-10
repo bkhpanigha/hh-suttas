@@ -28,13 +28,13 @@
 				// Service worker is not yet registered, so register it
 				navigator.serviceWorker.register('sw.js')
 				  .then(registration => {
-					console.log('Service Worker registered with scope:', registration.scope);
+					console.log('[SUCCESS] Service Worker registered with scope:', registration.scope);
 				  })
 				  .catch(error => {
-					console.error('Service Worker registration failed:', error);
+					console.error('[ERROR] Service Worker registration failed:', error);
 				  });
 			  } else {
-				console.log('Service Worker is already registered');
+				console.log('[INFO] Service Worker is already registered');
 			  }
 			});
             
@@ -104,8 +104,8 @@
     </form>
     <div id="app-content">
       <div id="whats-new"></div>
-    <div id="sutta">
-        <div style="display: flex; justify-content: center;"><span id="foreword-button" class="foreword-link">Foreword</span></div>
+      <div id="sutta">
+          <div style="display: flex; justify-content: center;"><span id="foreword-button" class="foreword-link">Foreword</span></div>
       </div>
     </div>
     <hr style="margin-bottom: -35px;">
