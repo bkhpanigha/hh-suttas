@@ -1,10 +1,6 @@
 import { scrollToHash, showNotification } from './js/utils.js'
 import importLinesCount from './python-generated/suttas-data-import-lines-count.js';
-
-const db = new Dexie("store");
-db.version(1).stores({
-  suttas: "++id, content",
-});
+import db from "./js/dexie.js";
 
 db.suttas.count().then((count) => {
   const isEmpty = count === 0;
@@ -308,10 +304,6 @@ searchBar.addEventListener("input", async (e) => {
     return;
   }
 
-  const db = new Dexie("store");
-  db.version(1).stores({
-    suttas: "++id, content",
-  });
   const collection = db.suttas.filter((sutta) => {
     return JSON.stringify(sutta.value).toLowerCase().includes(searchQuery);
   });
