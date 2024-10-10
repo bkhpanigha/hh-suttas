@@ -45,7 +45,7 @@ body.dark {
   align-items: center;
 }
 
-#citation {
+#search-bar {
   border: 2px solid gray;
   border-radius: 20px;
   background-color: transparent;
@@ -56,24 +56,24 @@ body.dark {
   text-indent: 27.5px;
 }
 
-.dark #citation {
+.dark #search-bar {
   color: white;
 }
 
-#citation:hover, #citation:focus {
+#search-bar:hover, #search-bar:focus {
   background: #eae7e7;
   box-shadow: 0 1px 5px 0 #898787;
   border-color: transparent;
 }
 
-.dark #citation:hover, .dark #citation:focus {
+.dark #search-bar:hover, .dark #search-bar:focus {
   background: #2b2e34;
   box-shadow: 0 1px 6px 0 #575353;
   border-color: transparent;
   caret-color: white;
 }
 
-#citation:focus-visible {
+#search-bar:focus-visible {
   outline: none;
 }
 
@@ -146,18 +146,18 @@ p {
   margin-bottom: 1.5rem;
 }
 
-#sutta {
+#app-content {
   padding-top: 1.2em;
 
 }
 
-#sutta ul {
+#app-content ul {
   margin-top: 0rem;
   padding: 0rem;
   list-style-type: none;
 }
 
-#sutta ul li {
+#app-content ul li {
   line-height: 1.3;
 }
 
@@ -286,7 +286,7 @@ dt {
   top: 10px;
 }
 
-#sutta {
+#app-content {
   max-width: 45rem;
   margin: auto;
   line-height: 1.5;
