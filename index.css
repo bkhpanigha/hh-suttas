@@ -329,7 +329,7 @@ dt {
 }
 
 #sutta.hide-pali blockquote.gatha p span.verse-line span.eng-lang {
-  display: block !important;
+  display: inline-block !important;
   margin-bottom: 0rem;
 }
 
