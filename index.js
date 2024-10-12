@@ -1,5 +1,5 @@
 import { scrollToHash, showNotification } from './js/utils.js'
-import importLinesCount from './python-generated/suttas-data-import-lines-count.js';
+import importLinesCount from './python-generated/suttas-count.js';
 import db from "./js/dexie.js";
 
 db.suttas.count().then((count) => {
@@ -7,7 +7,7 @@ db.suttas.count().then((count) => {
   const isDataMissing = importLinesCount > count;
 
   if (isEmpty || isDataMissing) {
-    import("./python-generated/suttas-data-import.js").then((suttas) => {
+    import("./python-generated/suttas-database-data.json", { with: { type: "json" } }).then((suttas) => {
       let suttasData = suttas.default;
 
       const data = Object.entries(suttasData).map(([key, value]) => ({
