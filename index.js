@@ -91,6 +91,11 @@ function getSuttasByIds(suttasIds) {
   }, {})
 }
 
+function removeDiacritics(text) {
+  if (!text) return "";
+  return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+
 function loadWhatsNewArea() {
   function daysAgo(dateString) {
     const dateAdded = new Date(dateString);
@@ -305,7 +310,11 @@ searchBar.addEventListener("input", async (e) => {
   }
 
   const collection = db.suttas.filter((sutta) => {
-    return JSON.stringify(sutta.value).toLowerCase().includes(searchQuery);
+    const suttaContent = JSON.stringify(sutta.value).toLowerCase();
+    if (suttaContent.includes(searchQuery)) return true;
+
+    const suttaContentWithoutDiacritics = removeDiacritics(suttaContent);
+    return suttaContentWithoutDiacritics.includes(searchQuery);
   });
   const searchResults = await collection.toArray();
   const suttaIds = searchResults.map((result) => result.id)
