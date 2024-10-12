@@ -110,6 +110,7 @@
       "an10.105:2.1": "Knowledge is foremost in leading to beneficial things, with shame and remorse [of wrongdoing] following right behind. ",
       "an10.105:2.2": "For a wise person, attained to knowledge, right view arises. For one of right view, right intention arises. For one of right intention, right speech arises. For one of right speech, right action arises. For one of right action, right speech arises. For one of right speech, right livelihood arises. For one of right livelihood, right effort arises. For one of right effort, right recollection arises. For one of right recollection, right composure arises. For one of right composure, right knowledge arises. For one of right knowledge, right liberation arises.” "
     },
+    "heading": "There Can Be Wrong Liberation",
     "root_pli_ms": {
       "an10.105:0.1": "Aṅguttara Nikāya 10.105 ",
       "an10.105:0.2": "11. Samaṇasaññāvagga ",
@@ -460,6 +461,7 @@
       "an10.76:21.9": "Being free from doubt, they can give up passion, aversion, and muddledness. ",
       "an10.76:21.10": "Giving up passion, aversion, and muddledness, they can give up birth, aging, and death.” "
     },
+    "heading": "Preconditions for Liberation",
     "root_pli_ms": {
       "an10.76:0.1": "Aṅguttara Nikāya 10.76 ",
       "an10.76:0.2": "8. Ākaṅkhavagga ",
@@ -836,6 +838,7 @@
       "an11.9:8.3": "We don’t understand ",
       "an11.9:8.4": "what your meditation depends on.’” "
     },
+    "heading": "Wrong Meditation",
     "root_pli_ms": {
       "an11.9:0.1": "Aṅguttara Nikāya 11.9 ",
       "an11.9:0.2": "1. Nissayavagga ",
@@ -1307,6 +1310,7 @@
       "an3.101:8.1": "If he wishes: ‘May I, with the destruction of the influxes, abide having entered upon the liberation by mind and liberation by understanding that is devoid of influxes, having for myself comprehended and realized it right in the present experience.’ ",
       "an3.101:8.2": "He’s able to realize it, provided there is a dimension for memory. "
     },
+    "heading": "From Coarse to Fine Defilements",
     "root_pli_ms": {
       "an3.101:0.1": "Aṅguttara Nikāya 3.101 ",
       "an3.101:0.2": "10. Loṇakapallavagga ",
@@ -1557,6 +1561,7 @@
       "an3.63:12.3": "We go for refuge to Master Gotama, to the Dhamma, and to the Saṅgha of bhikkhus. ",
       "an3.63:12.4": "From this day forth, may Master Gotama remember us as lay followers who have gone for refuge for life.” "
     },
+    "heading": "Walking in Jhāna",
     "root_pli_ms": {
       "an3.63:0.1": "Aṅguttara Nikāya 3.63 ",
       "an3.63:0.2": "7. Mahāvagga ",
@@ -1979,6 +1984,7 @@
       "an4.162:5.8": "This is called the pleasant practice with swift insight. ",
       "an4.162:5.9": "These are the four kinds of practice.” "
     },
+    "heading": "Pain of the Practice Optional?",
     "root_pli_ms": {
       "an4.162:0.1": "Aṅguttara Nikāya 4.162 ",
       "an4.162:0.2": "17. Paṭipadāvagga ",
@@ -2171,6 +2177,7 @@
       "an5.114:6.1": "They should be encouraged, supported, and established in right perspective: ‘Friends, please have right view and right perspective.’ ",
       "an5.114:6.2": "Those bhikkhus who are junior, recently gone forth, newly come to this teaching-and-discipline should be encouraged, supported, and established in these five things.” "
     },
+    "heading": "Advice for Beginners",
     "root_pli_ms": {
       "an5.114:0.1": "Aṅguttara Nikāya 5.114 ",
       "an5.114:0.2": "12. Andhakavindavagga ",
@@ -2300,6 +2307,7 @@
       "an5.24:2.8": "There being accurate knowledge-and-vision, for one who has accomplished accurate knowledge-and-vision, the vital condition for disenchantment and dispassion has been accomplished. ",
       "an5.24:2.9": "There being disenchantment and dispassion, for one who has accomplished disenchantment and dispassion, the vital condition for the knowledge-and-vision of liberation has been accomplished. "
     },
+    "heading": "Vital Conditions for Liberation",
     "root_pli_ms": {
       "an5.24:0.1": "Aṅguttara Nikāya 5.24 ",
       "an5.24:0.2": "3. Pañcaṅgikavagga ",
@@ -2484,6 +2492,7 @@
       "an6.68:2.5": "Having fulfilled Right Composure, it’s possible that he will give up the fetters. ",
       "an6.68:2.6": "Having given up the fetters, it’s possible that he will realize Nibbāna.” "
     },
+    "heading": "Impediments to Stream-Entry",
     "root_pli_ms": {
       "an6.68:0.1": "Aṅguttara Nikāya 6.68 ",
       "an6.68:0.2": "7. Devatāvagga ",
@@ -2600,6 +2609,7 @@
       "an8.53:3.10": "Categorically, you should remember them as ",
       "an8.53:3.11": "the teaching, the training, and the Teacher’s instructions.” "
     },
+    "heading": "Dhamma VS Not Dhamma",
     "root_pli_ms": {
       "an8.53:0.1": "Aṅguttara Nikāya 8.53 ",
       "an8.53:0.2": "6. Gotamīvagga ",
@@ -2810,6 +2820,7 @@
       "an9.41:17.2": "",
       "an9.41:17.3": ""
     },
+    "heading": "What Leads to Samādhi",
     "root_pli_ms": {
       "an9.41:0.1": "Aṅguttara Nikāya 9.41 ",
       "an9.41:0.2": "4. Mahāvagga ",
@@ -3055,6 +3066,7 @@
       "an9.42:12.1": "Furthermore, a bhikkhu, having fully surmounted the extent of neither-perception-nor-non-perception, abides having entered upon the cessation of perception-and-feeling. And, having seen with understanding, his influxes are destroyed. ",
       "an9.42:12.2": "To this extent the Buddha spoke of an opportunity amid confinement in a definitive sense.” "
     },
+    "heading": "Five Senses in Jhāna",
     "root_pli_ms": {
       "an9.42:0.1": "Aṅguttara Nikāya 9.42 ",
       "an9.42:0.2": "5. Sāmaññavagga ",
@@ -3392,6 +3404,7 @@
       "dn10:2.37.9": "I go for refuge to Master Gotama, to the Dhamma, and to the Saṅgha of bhikkhus. ",
       "dn10:2.37.10": "From this day forth, may Master Ānanda remember me as a lay follower who has gone for refuge for life.” "
     },
+    "heading": "Sīla, Samādhi, Paññā",
     "root_pli_ms": {
       "dn10:0.1": "Dīgha Nikāya 10 ",
       "dn10:0.2": "Subhasutta ",
@@ -5452,6 +5465,7 @@
       "thag1.21:1.3": "The bhikkhus tread the path ",
       "thag1.21:1.4": "where fear cannot land. "
     },
+    "heading": "The Right Fearlessness",
     "root_pli_ms": {
       "thag1.21:0.1": "Theragāthā 1.21 ",
       "thag1.21:0.2": "Ekakanipāta ",
@@ -5479,6 +5493,7 @@
       "thag2.34:2.3": "They don’t have the power to cut passion, ",
       "thag2.34:2.4": "so they’re bound to children, spouses, and wealth. "
     },
+    "heading": "On Sensuality",
     "root_pli_ms": {
       "thag2.34:0.1": "Theragāthā 2.34 ",
       "thag2.34:0.2": "Dukanipāta ",
@@ -5514,6 +5529,7 @@
       "thag2.36:2.5": "From where will suffering strike me ",
       "thag2.36:2.6": "whose mind is developed like this? "
     },
+    "heading": "The Right Dispassion",
     "root_pli_ms": {
       "thag2.36:0.1": "Theragāthā 2.36 ",
       "thag2.36:0.2": "Dukanipāta ",
@@ -5640,6 +5656,7 @@
       "mn107:17.3": "I go for refuge to Master Gotama, to the Dhamma, and to the bhikkhu Saṅgha. ",
       "mn107:17.4": "From this day forth, may Master Gotama remember me as a lay follower who has gone for refuge for life.” "
     },
+    "heading": "The Gradual Training",
     "root_pli_ms": {
       "mn107:0.1": "Majjhima Nikāya 107 ",
       "mn107:0.2": "Gaṇakamoggallānasutta ",
@@ -8665,6 +8682,7 @@
       "mn16:27.8": "That is what the Buddha said. ",
       "mn16:27.9": "Pleased, the bhikkhus delighted in what the Buddha said. "
     },
+    "heading": "Impediments to Progress",
     "root_pli_ms": {
       "mn16:0.1": "Majjhima Nikāya 16 ",
       "mn16:0.2": "Cetokhilasutta ",
@@ -9069,6 +9087,7 @@
       "mn18:22.6": "That is what the Buddha said. ",
       "mn18:22.7": "Pleased, Venerable Ānanda delighted in what the Buddha said. "
     },
+    "heading": "Beyond All Thoughts",
     "root_pli_ms": {
       "mn18:0.1": "Majjhima Nikāya 18 ",
       "mn18:0.2": "Madhupiṇḍikasutta ",
@@ -9347,6 +9366,7 @@
       "mn19:27.3": "That is what the Buddha said. ",
       "mn19:27.4": "Pleased, the bhikkhus delighted in what the Buddha said. "
     },
+    "heading": "Renunciation -> Jhāna",
     "root_pli_ms": {
       "mn19:0.1": "Majjhima Nikāya 19 ",
       "mn19:0.2": "Dvedhāvitakkasutta ",
@@ -11136,6 +11156,7 @@
       "mn22:47.3": "That is what the Buddha said. ",
       "mn22:47.4": "Pleased, the bhikkhus delighted in what the Buddha said. "
     },
+    "heading": "A Pernicious View",
     "root_pli_ms": {
       "mn22:0.1": "Majjhima Nikāya 22 ",
       "mn22:0.2": "Alagaddūpamasutta ",
@@ -11852,6 +11873,7 @@
       "mn24:17.12": "Even if they only got to see him and associate with him by carrying him around on their heads on a roll of cloth, it would still be very fortunate for them! And it’s fortunate for me, so very fortunate, that I get to see the venerable and associate with him.” ",
       "mn24:17.13": "And so these two spiritual giants appreciated each other’s fine words. "
     },
+    "heading": "Stages of Purification",
     "root_pli_ms": {
       "mn24:0.1": "Majjhima Nikāya 24 ",
       "mn24:0.2": "Rathavinītasutta ",
@@ -14370,6 +14392,7 @@
       "mn2:22.3": "That is what the Buddha said. ",
       "mn2:22.4": "Pleased, the bhikkhus delighted in what the Buddha said. "
     },
+    "heading": "Gateway to the Dhamma",
     "root_pli_ms": {
       "mn2:0.1": "Majjhima Nikāya 2 ",
       "mn2:0.2": "Sabbāsavasutta ",
@@ -17690,6 +17713,7 @@
       "mn38:41.12": "That is what the Buddha said. ",
       "mn38:41.13": "Pleased, the bhikkhus delighted in what the Buddha said. "
     },
+    "heading": "Dependent Origination",
     "root_pli_ms": {
       "mn38:0.1": "Majjhima Nikāya 38 ",
       "mn38:0.2": "Mahātaṇhāsaṅkhayasutta ",
@@ -18331,6 +18355,7 @@
       "mn39:29.4": "That is what the Buddha said. ",
       "mn39:29.5": "Pleased, the bhikkhus delighted in what the Buddha said. "
     },
+    "heading": "Stages of Training",
     "root_pli_ms": {
       "mn39:0.1": "Majjhima Nikāya 39 ",
       "mn39:0.2": "Mahāassapurasutta ",
@@ -22767,6 +22792,7 @@
       "mn53:26.5": "and the teacher approved. ",
       "mn53:26.6": "Pleased, the Sakyans of Kapilavatthu delighted in what Venerable Ānanda said. "
     },
+    "heading": "Qualities of a Trainee",
     "root_pli_ms": {
       "mn53:0.1": "Majjhima Nikāya 53 ",
       "mn53:0.2": "Sekhasutta ",
@@ -26021,6 +26047,7 @@
       "mn61:18.6": "That is what the Buddha said. ",
       "mn61:18.7": "Pleased, Venerable Rāhula delighted in what the Buddha said. "
     },
+    "heading": "Checking Your Actions",
     "root_pli_ms": {
       "mn61:0.1": "Majjhima Nikāya 61 ",
       "mn61:0.2": "Ambalaṭṭhikarāhulovādasutta ",
@@ -28215,6 +28242,7 @@
       "sn1.1:3.3": "",
       "sn1.1:3.4": "Then that deity, knowing that the teacher approved, bowed and respectfully circled the Buddha, keeping him on his right, before vanishing right there. "
     },
+    "heading": "The Middle Way (Not ”Moderation”)",
     "root_pli_ms": {
       "sn1.1:0.1": "Saṁyutta Nikāya 1.1 ",
       "sn1.1:0.2": "1. Naḷavagga ",
@@ -28527,6 +28555,7 @@
       "sn12.67:9.15": "If he practices for disenchantment, dispassion, and cessation regarding ignorance, he’s qualified to be called a ‘bhikkhu who practices in line with the teaching’. ",
       "sn12.67:9.16": "If he’s liberated through non-assumption by disenchantment, dispassion, and cessation regarding ignorance, he’s qualified to be called a ‘bhikkhu who has attained quenching in the present experience’.” "
     },
+    "heading": "Dependent Origination",
     "root_pli_ms": {
       "sn12.67:0.1": "Saṁyutta Nikāya 12.67 ",
       "sn12.67:0.2": "7. Mahāvagga ",
@@ -29127,6 +29156,7 @@
       "sn35.246:4.28": "",
       "sn35.246:4.29": "any ideas of ‘I’ or ‘mine’ or ‘I am’ do not occur to him.” "
     },
+    "heading": "Taming the Mind",
     "root_pli_ms": {
       "sn35.246:0.1": "Saṁyutta Nikāya 35.246 ",
       "sn35.246:0.2": "19. Āsīvisavagga ",
@@ -29696,6 +29726,7 @@
       "sn47.8:8.2": "Why is that? ",
       "sn47.8:8.3": "Because that wise, competent, skillful bhikkhu picks up the cue of his own mind.” "
     },
+    "heading": "Sign of the Mind",
     "root_pli_ms": {
       "sn47.8:0.1": "Saṁyutta Nikāya 47.8 ",
       "sn47.8:0.2": "1. Ambapālivagga ",

@@ -1,14 +1,14 @@
 import os
-import re
 import json
 
-# Define the directories for English translations and root translations
+# Define the directories for English translations, root translations, and the headings file
 json_translation_directory = './suttas/translation_en'
 json_root_directory = './suttas/root'
+headings_file_path = './suttas/translation_en/headings.json'
 combined_json_path = './python-generated/suttas-database-data.json'
 suttas_count_js_path = './python-generated/suttas-count.js'
 
-def combine_translations(translation_directory, root_directory):
+def combine_translations(translation_directory, root_directory, headings):
     combined_data = {}
 
     # Process the English translations
@@ -27,6 +27,10 @@ def combine_translations(translation_directory, root_directory):
 
                 # Add to combined data with the original name part as the key
                 combined_data[original_name_part] = {'translation_en_anigha': data}
+
+                # Add heading if available
+                if original_name_part in headings:
+                    combined_data[original_name_part]['heading'] = headings[original_name_part]
 
     # Process the root translations, but only add them if a corresponding English translation exists
     for root, dirs, files in os.walk(root_directory):
@@ -54,7 +58,7 @@ def write_combined_json(combined_data, output_path):
     with open(output_path, 'w', encoding='utf-8') as output_file:
         json.dump(combined_data, output_file, ensure_ascii=False, indent=2)
 
-    print(f"Set suttas database data: {combined_json_path}")
+    print(f"Set suttas database data: {output_path}")
 
 def update_suttas_count_js(combined_data, suttas_count_js_path):
     # Count the number of entries in the combined data
@@ -70,8 +74,12 @@ def update_suttas_count_js(combined_data, suttas_count_js_path):
     print(f"Set suttas count ({suttas_count}): {suttas_count_js_path}.")
 
 if __name__ == "__main__":
-    # Combine both English translations and root translations
-    combined_data = combine_translations(json_translation_directory, json_root_directory)
+    # Load the headings data from headings.json
+    with open(headings_file_path, 'r', encoding='utf-8') as headings_file:
+        headings = json.load(headings_file)
+
+    # Combine both English translations, root translations, and add headings
+    combined_data = combine_translations(json_translation_directory, json_root_directory, headings)
 
     # Write the combined JSON data to a file
     write_combined_json(combined_data, combined_json_path)
