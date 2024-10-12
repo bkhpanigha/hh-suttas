@@ -1,14 +1,15 @@
 import os
 import json
 
-# Define the directories for English translations, root translations, and the headings file
+# Define the directories for English translations, root translations, comments, and the headings file
 json_translation_directory = './suttas/translation_en'
 json_root_directory = './suttas/root'
-headings_file_path = './suttas/translation_en/headings.json'
+json_comments_directory = './suttas/comment'
 combined_json_path = './python-generated/suttas-database-data.json'
 suttas_count_js_path = './python-generated/suttas-count.js'
+headings_file_path = './suttas/translation_en/headings.json'
 
-def combine_translations(translation_directory, root_directory, headings):
+def combine_translations(translation_directory, root_directory, comment_directory, headings):
     combined_data = {}
 
     # Process the English translations
@@ -51,6 +52,25 @@ def combine_translations(translation_directory, root_directory, headings):
                     # Add root translation to the corresponding key
                     combined_data[original_name_part]['root_pli_ms'] = data
 
+    # Process the comments, but only add them if a corresponding English translation exists
+    for root, dirs, files in os.walk(comment_directory):
+        for file in files:
+            if file.endswith('.json'):  # Filter for comment files
+                # Extract the part of the file name before the first underscore
+                original_name_part = file.split('_')[0]
+
+                # Only add the comment if the English translation already exists
+                if original_name_part in combined_data:
+                    # Extract file name and path
+                    file_path = os.path.join(root, file)
+
+                    # Load the JSON data
+                    with open(file_path, 'r', encoding='utf-8') as json_file:
+                        data = json.load(json_file)
+
+                    # Add comment to the corresponding key
+                    combined_data[original_name_part]['comment'] = data
+
     return combined_data
 
 def write_combined_json(combined_data, output_path):
@@ -78,8 +98,8 @@ if __name__ == "__main__":
     with open(headings_file_path, 'r', encoding='utf-8') as headings_file:
         headings = json.load(headings_file)
 
-    # Combine both English translations, root translations, and add headings
-    combined_data = combine_translations(json_translation_directory, json_root_directory, headings)
+    # Combine translations, root texts, comments, and headings
+    combined_data = combine_translations(json_translation_directory, json_root_directory, json_comments_directory, headings)
 
     # Write the combined JSON data to a file
     write_combined_json(combined_data, combined_json_path)
