@@ -313,7 +313,6 @@ dt {
 
 #footer {
   text-align: center;
-  padding-top: 1.5em;
 }
 
 .left-align {
@@ -802,4 +801,28 @@ bookmarkButton{
   .bookmark-buttons > *{
       max-width: 30%;
   }
+}
+
+.box-button {
+  display: block;
+  margin: 5px;
+  text-align:center;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+}
+
+.box-button:hover{
+  background-image: linear-gradient(rgb(0 0 0/20%) 0 0);
+}
+
+.red {
+  background-color: #f44336;
+}
+
+.orange {
+  background-color: orange;
 }
