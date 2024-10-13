@@ -450,9 +450,13 @@ document.addEventListener('click', function (event) {
 
 const refreshButton = document.getElementById("hardRefresh");
 refreshButton.addEventListener("click", function () {
-  db.delete();
-  localStorage.clear();
-  window.location.href = "/";
+  db.delete().then(() => {
+    console.log("[SUCCESS] Database deleted");
+    localStorage.clear();
+    window.location.href = "/";
+  }).catch((error) => {
+    console.error("[ERROR] Could not delete database:", error);
+  })
 });
 
 
