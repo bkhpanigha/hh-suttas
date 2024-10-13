@@ -61,20 +61,6 @@ function goBack() {
   window.history.back();
 }
 
-function searchSuttas(pattern) {
-  if (!fuse) { pattern = "" }; // if Fuse isn't initialized, return empty array
-  pattern = pattern.normalize('NFD').replace(/[\u0300-\u036f]/g, ''); // Convert pali letters in latin letters to match pali_title in available_suttas.json
-  pattern = pattern.replace(/\s+/g, ' ') // Removes multiple spaces
-  .replace(/(^|\s)/g, " '");
-
-  let results = fuse.search(pattern).reduce((acc, result) => {
-    acc[result.item.id] = result.item;
-    return acc;
-  }, {});
-  // join up the id with the titles to be displayed
-  return results;
-}
-
 async function showForeword() {
   const forewordButton = document.getElementById('foreword-button');
   suttaArea.innerHTML = `<p>${forewordText}</p>`;
@@ -212,29 +198,6 @@ function initializePaliToggle() {
     }});
 }
 
-async function createFuseSearch() {
-  //Combine all values in a single field so user can do search on multiple fields
-  let searchDict = Object.entries(availableSuttasJson).map(([sutta_id, sutta_details]) => {
-    // Declare search fields here
-    let sutta_details_without_fp = (({ id, title, pali_title, heading}) => ({ id, title, pali_title, heading}))(sutta_details);
-
-    sutta_details_without_fp['citation'] = sutta_id;
-    // Get every element's values and combine them with a white space
-    const combination = Object.values(sutta_details_without_fp).join(' ')
-      .normalize('NFD').replace(/[\u0300-\u036f]/g, ''); //pali normalized in latin for search to work on headings containing pali
-
-    // Return new object with "combination" key added
-    return {
-      ...sutta_details_without_fp,
-      combination: combination
-    };
-  });
-
-  fuse = new Fuse(searchDict, fuseOptions);
-  return fuse
-}
-
-
 // Event listeners
 
 // Toggle side-by-side mode
@@ -250,14 +213,6 @@ document.onkeyup = function (e) {
     }
   }
 };
-
-let fuseOptions = {
-  includeScore: true,
-  useExtendedSearch: true,
-  shouldSort: false,
-  keys: ['combination'],
-};
-
 
 homeButton.addEventListener("click", () => {
   window.location.href = '/';
@@ -294,8 +249,6 @@ themeButton.addEventListener("click", () => {
   const currentThemeIsDark = localStorage.theme === "dark";
   toggleTheme(!currentThemeIsDark);
 });
-let fuse = null;
-fuse = await createFuseSearch(); // holds our search engine
 
 // input in search bar
 const searchBar = document.getElementById("search-bar");
