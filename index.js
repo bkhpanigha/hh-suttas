@@ -69,12 +69,12 @@ async function showForeword() {
 }
 
 function getSuttasByIds(suttasIds) {
-  return suttasIds.reduce((acc, suttaId) => {
-    if (availableSuttasJson[suttaId]) {
-      return { ...acc, [suttaId]: availableSuttasJson[suttaId] }
+  return Object.keys(availableSuttasJson).reduce((acc, suttaId) => {
+    if (suttasIds.includes(suttaId)) {
+      acc[suttaId] = availableSuttasJson[suttaId];
     }
     return acc;
-  }, {})
+  }, {});
 }
 
 function removeDiacritics(text) {
