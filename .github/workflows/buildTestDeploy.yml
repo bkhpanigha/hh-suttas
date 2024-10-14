@@ -47,7 +47,7 @@ jobs:
         run: |
           git config --global user.email "action@github.com"
           git config --global user.name "GitHub Action"
-          git add available_suttas.json files_to_cache.json
+          git add available_suttas.json files_to_cache.json python-generated/suttas-count.js python-generated/suttas-database-data.json
           git commit -m "Update available suttas list and cache files"
           git push
 
