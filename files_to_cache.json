@@ -21,7 +21,7 @@
     "index.html",
     "index.js",
     "index.test.js",
-    "js/fuse.js",
+    "js/dexie.js",
     "js/showdown.min.js",
     "js/utils.js",
     "manifest.json",
@@ -528,5 +528,6 @@
     "suttas/translation_en/sn/sn55/sn55.5_translation-en-anigha.json",
     "suttas/translation_en/sn/sn56/sn56.30_translation-en-anigha.json",
     "suttas/translation_en/sn/sn56/sn56.40_translation-en-anigha.json",
+    "suttas_database_data_generator.py",
     "sw.js"
 ]
