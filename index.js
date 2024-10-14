@@ -1,5 +1,38 @@
-import { scrollToHash, showNotification, changeAcronymNumber } from './js/utils.js'
+import { scrollToHash, showNotification } from './js/utils.js'
+import importLinesCount from './python-generated/suttas-count.js';
+import db from "./js/dexie.js";
+
+db.suttas.count().then((count) => {
+  const isEmpty = count === 0;
+  const isDataMissing = importLinesCount > count;
+
+  if (isEmpty || isDataMissing) {
+    import("./python-generated/suttas-database-data.json", { with: { type: "json" } }).then((suttas) => {
+      let suttasData = suttas.default;
+
+      const data = Object.entries(suttasData).map(([key, value]) => ({
+        id: key,
+        value
+      }));
+
+      db.suttas.bulkPut(data).then(() => {
+        const logMessage = isEmpty ? "[SUCCESS] Database setup complete" : "[SUCCESS] Database updated.";
+        console.log(logMessage);
+      }).catch((error) => {
+        console.error("[ERROR] Failed to insert data into database:", error);
+      });
+    }).catch((error) => {
+      console.error("[ERROR] Failed to load suttas data:", error);
+    });
+  } else {
+    console.log("[INFO] Database is up to date. Skipped import.");
+  }
+}).catch((error) => {
+  console.error("[ERROR] Failed to check data count:", error);
+});
+
 const suttaArea = document.getElementById("sutta");
+const whatsNewArea = document.getElementById('whats-new');
 const homeButton = document.getElementById("home-button");
 const themeButton = document.getElementById("theme-button");
 const bodyTag = document.querySelector("body");
@@ -28,25 +61,59 @@ function goBack() {
   window.history.back();
 }
 
-function searchSuttas(pattern) {
-  if (!fuse) { pattern = "" }; // if Fuse isn't initialized, return empty array
-  pattern = pattern.normalize('NFD').replace(/[\u0300-\u036f]/g, ''); // Convert pali letters in latin letters to match pali_title in available_suttas.json
-  pattern = pattern.replace(/\s+/g, ' ') // Removes multiple spaces
-  .replace(/(^|\s)/g, " '");
-
-  let results = fuse.search(pattern).reduce((acc, result) => {
-    acc[result.item.id] = result.item;
-    return acc;
-  }, {});
-  // join up the id with the titles to be displayed
-  return results;
-}
-
 async function showForeword() {
   const forewordButton = document.getElementById('foreword-button');
   suttaArea.innerHTML = `<p>${forewordText}</p>`;
   forewordButton.style.display = 'none';
   localStorage.setItem('forewordViewed', true);
+}
+
+function getSuttasByIds(suttasIds) {
+  return Object.keys(availableSuttasJson).reduce((acc, suttaId) => {
+    if (suttasIds.includes(suttaId)) {
+      acc[suttaId] = availableSuttasJson[suttaId];
+    }
+    return acc;
+  }, {});
+}
+
+function removeDiacritics(text) {
+  if (!text) return "";
+  return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+
+function loadWhatsNewArea() {
+  function daysAgo(dateString) {
+    const dateAdded = new Date(dateString);
+    const currentDate = new Date();
+    const timeDiff = Math.abs(currentDate - dateAdded);
+    const daysDiff = Math.floor(timeDiff / (1000 * 60 * 60 * 24)); // Convert time difference to days
+    return daysDiff === 0 ? 'Today' : `${daysDiff} days ago`;
+  }
+
+  // Sort the suttas by date_added in descending order
+  const sortedSuttas = Object.values(availableSuttasJson).sort((a, b) => new Date(b.date_added) - new Date(a.date_added));
+  const recentSuttas = sortedSuttas.slice(0, 5);
+
+  if (whatsNewArea) {
+    whatsNewArea.innerHTML = `<h2>What's New</h2>` + 
+    `<div class="whats-new-container">
+        ${recentSuttas.map(sutta => {
+          const id = sutta.id.replace(/\s+/g, '');
+          const title = sutta.title;
+          const daysAgoAdded = daysAgo(sutta.date_added); // Calculate how many days ago it was added
+          const link = `<a href="/?q=${id.toLowerCase()}">${title}</a>`;
+          return `
+            <div class="sutta-box">
+              <h3 class="sutta-card-title">${link}</h3>
+              <div class="sutta-pali-title"><em>${id}: ${sutta.pali_title}</em></div>
+              <div class="sutta-date-added"><small>Added: ${daysAgoAdded}</small></div>
+            </div>
+          `;
+        }).join('')}
+      </div>
+    `;
+  }
 }
 
 function displaySuttas(suttas, isSearch = false) {
@@ -57,46 +124,6 @@ function displaySuttas(suttas, isSearch = false) {
   if (forewordViewed == 'true' && forewordButton) {
     forewordButton.style.display = 'none';
   }
-    // Helper function to calculate "days ago"
-    function daysAgo(dateString) {
-      const dateAdded = new Date(dateString);
-      const currentDate = new Date();
-      const timeDiff = Math.abs(currentDate - dateAdded);
-      const daysDiff = Math.floor(timeDiff / (1000 * 60 * 60 * 24)); // Convert time difference to days
-      return daysDiff === 0 ? 'Today' : `${daysDiff} days ago`;
-    }
-  
-
-    // Select "what's new" area
-    const whatsNewArea = document.getElementById('whats-new');
-
-    // Sort the suttas by date_added in descending order
-    const sortedSuttas = Object.values(suttas).sort((a, b) => new Date(b.date_added) - new Date(a.date_added));
-
-    // Get the most recent suttas (let's say top 3)
-    const recentSuttas = sortedSuttas.slice(0, 5);
-
-    // Create a horizontal display for recent suttas
-    if (whatsNewArea) {
-      whatsNewArea.innerHTML = `<h2>What's New</h2>` + 
-      `<div class="whats-new-container">
-          ${recentSuttas.map(sutta => {
-            const id = sutta.id.replace(/\s+/g, '');
-            const title = sutta.title;
-            const daysAgoAdded = daysAgo(sutta.date_added); // Calculate how many days ago it was added
-            const link = `<a href="/?q=${id.toLowerCase()}">${title}</a>`;
-            return `
-              <div class="sutta-box">
-                <h3 class="sutta-card-title">${link}</h3>
-                <div class="sutta-pali-title"><em>${id}: ${sutta.pali_title}</em></div>
-                <div class="sutta-date-added"><small>Added: ${daysAgoAdded}</small></div>
-              </div>
-            `;
-          }).join('')}
-        </div>
-      `;
-    }
-
 
   // display all suttas
   const books = {
@@ -107,8 +134,15 @@ function displaySuttas(suttas, isSearch = false) {
     "kn": "Khuddaka Nikāya"
   };
   let currentGroup = -1;
-  suttaArea.innerHTML += `<ul style="margin-top: 20px;">${Object.entries(suttas).map(([sutta_id, sutta_details]) => {
 
+  if (isSearch) {
+    suttaArea.innerHTML += "<h2>Search Results:</h2>";
+    whatsNewArea.style.display = "none";
+  } else {
+    whatsNewArea.style.display = "block";
+  }
+
+  suttaArea.innerHTML += `<ul style="margin-top: 20px;">${Object.entries(suttas).map(([sutta_id, sutta_details]) => {
     const id = sutta_details['id'].replace(/\s+/g, '');;
     const title = sutta_details['title']
     const heading = sutta_details['heading'] || ""
@@ -120,19 +154,13 @@ function displaySuttas(suttas, isSearch = false) {
     const key = Object.keys(books)[currentGroup];
 
     if (!isSearch && nikaya !== key && currentGroup < 4) {
-
       // If it's a new group, display the subheading
       currentGroup += 1;
       const key = Object.keys(books)[currentGroup];
 
-
       return `<h2>${books[key]}</h2><li>${link}${em ? ` (${em})` : ''}</a></li>`;
-
-
     } else {
-
       return `<li>${link}${em ? ` (${em})` : ''}</a></li>`;
-
     }
   }).join('')}</ul>`;
 }
@@ -170,35 +198,12 @@ function initializePaliToggle() {
     }});
 }
 
-async function createFuseSearch() {
-  //Combine all values in a single field so user can do search on multiple fields
-  let searchDict = Object.entries(availableSuttasJson).map(([sutta_id, sutta_details]) => {
-    // Declare search fields here
-    let sutta_details_without_fp = (({ id, title, pali_title, heading}) => ({ id, title, pali_title, heading}))(sutta_details);
-
-    sutta_details_without_fp['citation'] = sutta_id;
-    // Get every element's values and combine them with a white space
-    const combination = Object.values(sutta_details_without_fp).join(' ')
-      .normalize('NFD').replace(/[\u0300-\u036f]/g, ''); //pali normalized in latin for search to work on headings containing pali
-
-    // Return new object with "combination" key added
-    return {
-      ...sutta_details_without_fp,
-      combination: combination
-    };
-  });
-
-  fuse = new Fuse(searchDict, fuseOptions);
-  return fuse
-}
-
-
 // Event listeners
 
 // Toggle side-by-side mode
 document.onkeyup = function (e) {
   const paliHidden = document.getElementById("sutta").classList.contains("hide-pali");
-  if (!paliHidden && e.target.id != "citation" && e.key == "s") {
+  if (!paliHidden && e.target.id != "search-bar" && e.key == "s") {
     if (localStorage.sideBySide === "true") {
       bodyTag.classList.remove("side-by-side");
       localStorage.sideBySide = "false";
@@ -208,14 +213,6 @@ document.onkeyup = function (e) {
     }
   }
 };
-
-let fuseOptions = {
-  includeScore: true,
-  useExtendedSearch: true,
-  shouldSort: false,
-  keys: ['combination'],
-};
-
 
 homeButton.addEventListener("click", () => {
   window.location.href = '/';
@@ -252,41 +249,47 @@ themeButton.addEventListener("click", () => {
   const currentThemeIsDark = localStorage.theme === "dark";
   toggleTheme(!currentThemeIsDark);
 });
-let fuse = null;
-fuse = await createFuseSearch(); // holds our search engine
-
-const citation = document.getElementById("citation");
-citation.focus();
 
 // input in search bar
-citation.addEventListener("input", e => {
+const searchBar = document.getElementById("search-bar");
+searchBar.focus();
+
+searchBar.addEventListener("input", async (e) => {
   const searchQuery = e.target.value.trim().toLowerCase();
-  suttaArea.innerHTML = "";
-  if (searchQuery) {
-    const searchResults = searchSuttas(searchQuery);
-    if (Object.keys(searchResults).length > 0) {
-      displaySuttas(searchResults, true);
-    }
-    else {
-      suttaArea.innerHTML += "<h2 class=\"no-results\">No results found</h2>";
-    }
+  if (!searchQuery) {
+    suttaArea.innerHTML = "";
+    displaySuttas(availableSuttasJson);
+    return;
+  }
+
+  const collection = db.suttas.filter((sutta) => {
+    const suttaContent = JSON.stringify(sutta.value).toLowerCase();
+    if (suttaContent.includes(searchQuery)) return true;
+
+    const suttaContentWithoutDiacritics = removeDiacritics(suttaContent);
+    return suttaContentWithoutDiacritics.includes(searchQuery);
+  });
+  const searchResults = await collection.toArray();
+  const suttaIds = searchResults.map((result) => result.id)
+  const suttas = getSuttasByIds(suttaIds);
+  if (suttaIds.length > 0) {
+    suttaArea.innerHTML = "";
+    displaySuttas(suttas, true);
   }
   else {
-    displaySuttas(availableSuttasJson);
+    suttaArea.innerHTML = "<h2 class=\"no-results\">No results found</h2>";
   }
 });
 
 document.getElementById("form").addEventListener("submit", e => {
   e.preventDefault();
-  const citationValue = document.getElementById("citation").value.trim().replace(/\s/g, "");
-  if (citationValue) {
-    buildSutta(citationValue);
-    history.pushState({ page: citationValue }, "", `?q=${citationValue}`);
+  const searchValue = searchBar.value.trim().replace(/\s/g, "");
+  if (searchValue) {
+    buildSutta(searchValue);
+    history.pushState({ page: searchValue }, "", `?q=${searchValue}`);
   }
 });
 
-// TODO what does this line do and when is it called?
-citation.value = document.location.search.replace("?q=", "").replace(/%20/g, "").replace(/\s/g, "");
 function buildSutta(slug) {
   slug = slug.toLowerCase();
   let sutta_details = availableSuttasJson[slug]
@@ -429,6 +432,7 @@ if (document.location.search) {
   buildSutta(document.location.search.replace("?q=", "").replace(/\s/g, "").replace(/%20/g, ""));
 } else {
   displaySuttas(availableSuttasJson);
+  loadWhatsNewArea();
 }
 
 
@@ -444,21 +448,20 @@ document.addEventListener('click', function (event) {
   }
 });
 
-const errorButton = document.getElementById('reportButton');
-errorButton.textContent = 'Report an Error';
-errorButton.style.display = 'block';
-errorButton.style.margin = '20px 0';
-errorButton.style.textAlign = 'center';
-errorButton.style.backgroundColor = '#f44336';
-errorButton.style.color = 'white';
-errorButton.style.padding = '10px 20px';
-errorButton.style.borderRadius = '5px';
-errorButton.style.fontWeight = 'bold';
-errorButton.style.border = 'none';
-errorButton.style.cursor = 'pointer';
+const refreshButton = document.getElementById("hardRefresh");
+refreshButton.addEventListener("click", function () {
+  db.delete().then(() => {
+    console.log("[SUCCESS] Database deleted");
+    localStorage.clear();
+    window.location.href = "/";
+  }).catch((error) => {
+    console.error("[ERROR] Could not delete database:", error);
+  })
+});
 
- // Add click event to open Google Form in a new tab
- errorButton.addEventListener('click', () => {
+
+const errorButton = document.getElementById('reportButton');
+errorButton.addEventListener('click', () => {
   window.open('https://docs.google.com/forms/d/1Ng8Csf9xYJ7UaYUyl3sGEyZ3aa2FJE_0GRS6zI6oIBM/edit', '_blank');
 });
 

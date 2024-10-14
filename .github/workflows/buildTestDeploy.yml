@@ -30,6 +30,9 @@ jobs:
       - name: Run sutta_catalog_manager.py script
         run: python sutta_catalog_manager.py
 
+      - name: Run suttas_database_data_generator.py script
+        run: python suttas_database_data_generator.py
+
       - name: Check for changes
         id: check_changes
         run: |
