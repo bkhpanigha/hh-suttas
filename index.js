@@ -7,7 +7,7 @@ db.suttas.count().then((count) => {
   const isDataMissing = importLinesCount > count;
 
   if (isEmpty || isDataMissing) {
-    import("./python-generated/suttas-database-data.json", { with: { type: "json" } }).then((suttas) => {
+    import("./python-generated/suttas-database-data.json").then((suttas) => {
       let suttasData = suttas.default;
 
       const data = Object.entries(suttasData).map(([key, value]) => ({
