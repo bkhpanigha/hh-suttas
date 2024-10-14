@@ -7,8 +7,8 @@ db.suttas.count().then((count) => {
   const isDataMissing = importLinesCount > count;
 
   if (isEmpty || isDataMissing) {
-    import("./python-generated/suttas-database-data.json", { with: { type: "json" } }).then((suttas) => {
-      let suttasData = suttas.default;
+    fetch("./python-generated/suttas-database-data.json").then(response => response.json()).then((suttas) => {
+      let suttasData = suttas;
 
       const data = Object.entries(suttasData).map(([key, value]) => ({
         id: key,
@@ -24,6 +24,7 @@ db.suttas.count().then((count) => {
     }).catch((error) => {
       console.error("[ERROR] Failed to load suttas data:", error);
     });
+
   } else {
     console.log("[INFO] Database is up to date. Skipped import.");
   }
