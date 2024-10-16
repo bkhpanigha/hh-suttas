@@ -556,7 +556,7 @@ navigator.serviceWorker.addEventListener('message', event => {
   }
 });
 
-fetch('/suttas_epub/Sutta Translations.epub')
+fetch('/suttas_epub/Sutta_Translations.epub')
   .then(response => {
     if (response.ok) {
       const lastModified = response.headers.get('Last-Modified');
