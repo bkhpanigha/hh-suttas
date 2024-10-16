@@ -19,7 +19,8 @@
 
     -- 'Structure detection' section --
     a) Set "Detect chapters at (XPath expression)" to //*[name()='h1']
-    
+    b) Empty field "Insert page breaks before (Xpath expression):"
+
     -- 'Table of Contents' section --
     a) Set "Number of link to add to Table of Contents" to 0
 
