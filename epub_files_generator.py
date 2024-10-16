@@ -293,7 +293,7 @@ def generate_nav_file():
     xhtml += '  <head>\n'
     xhtml += '    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />\n'
     xhtml += '    <meta content="text/css" http-equiv="Content-Style-Type" />\n'
-    xhtml += '    <title>Suttas Translations</title>\n'
+    xhtml += '    <title>Sutta Translations</title>\n'
     xhtml += '  </head>\n'
     xhtml += '  <body>\n'
     xhtml += '    <div>\n'
