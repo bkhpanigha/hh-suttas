@@ -754,6 +754,17 @@
             "comment_path": "suttas/comment/sn/sn35/sn35.70_comment-en-anigha.json",
             "date_added": "2024-05-15T07:20:31+02:00"
         },
+        "sn35.94": {
+            "id": "SN 35.94",
+            "title": "Untamed, Unguarded",
+            "pali_title": "Adantaaguttasutta",
+            "html_path": "suttas/html/sn/sn35/sn35.94_html.json",
+            "root_path": "suttas/root/sn/sn35/sn35.94_root-pli-ms.json",
+            "translation_path": "suttas/translation_en/sn/sn35/sn35.94_translation-en-anigha.json",
+            "comment_path": null,
+            "date_added": "2024-10-10T15:10:20+02:00",
+            "heading": "Restraining the Senses"
+        },
         "sn35.96": {
             "id": "SN 35.96",
             "title": "Falling Away",
