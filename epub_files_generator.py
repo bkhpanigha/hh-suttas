@@ -297,7 +297,7 @@ def generate_nav_file():
     xhtml += '  </head>\n'
     xhtml += '  <body>\n'
     xhtml += '    <div>\n'
-    xhtml += '      <h3>Table of Contents</h3>\n'
+    xhtml += '      <h1>Table of Contents</h1>\n'
 
     # Loop through the chapters to create the sorted list of suttas
     for book, book_data in books.items():
