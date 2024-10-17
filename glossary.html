@@ -6,7 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="index.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous">
     <link rel="icon" type="image/jpeg" href="./images/favicon.jpg">
     <link rel="manifest" href="/manifest.json">
     <title>Hillside Hermitage Sutta Translations</title>
@@ -18,27 +20,26 @@
     <meta property="og:site_name" content="suttas.hillsidehermitage.org" />
     <meta property="og:image" itemprop="image" content="https://suttas.hillsidehermitage.org/images/favicon.jpg" />
     <script defer src="js/showdown.min.js"></script>
-    <script src="https://unpkg.com/dexie/dist/dexie.js"></script>
     <script>
-       if ('serviceWorker' in navigator) {
-		  window.addEventListener('load', () => {
-			navigator.serviceWorker.getRegistrations().then(registrations => {
-			  if (registrations.length === 0) {
-				// Service worker is not yet registered, so register it
-				navigator.serviceWorker.register('sw.js')
-				  .then(registration => {
-					console.log('[SUCCESS] Service Worker registered with scope:', registration.scope);
-				  })
-				  .catch(error => {
-					console.error('[ERROR] Service Worker registration failed:', error);
-				  });
-			  } else {
-				console.log('[INFO] Service Worker is already registered');
-			  }
-			});
-            
-		  });
-}
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.getRegistrations().then(registrations => {
+                    if (registrations.length === 0) {
+                        // Service worker is not yet registered, so register it
+                        navigator.serviceWorker.register('sw.js')
+                            .then(registration => {
+                                console.log('Service Worker registered with scope:', registration.scope);
+                            })
+                            .catch(error => {
+                                console.error('Service Worker registration failed:', error);
+                            });
+                    } else {
+                        console.log('Service Worker is already registered');
+                    }
+                });
+
+            });
+        }
     </script>
 </head>
 
@@ -66,21 +67,14 @@
                     fill="currentColor" />
             </svg>
         </div>
-        <input id="search-bar" type="text" placeholder="Search by citation, title or content">
-        <div id="home-button" class="icon-button">
+        <!-- <input id="citation" type="text" placeholder="Enter citation or search by title"> -->
+        <div id="home-button" class="icon-button" onclick="location.href='/'">
             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="20" viewBox="2.5 0 15 15">
                 <g transform="matrix(0.13384491 0 0 0.13384491 1.7765683 -0)">
                     <path
                         d="M61.44 0L0 60.18L14.99 68.05L61.04 19.7L107.89 68.06L122.88 60.19L61.44 0zM18.26 69.63L61.5 26.38L104.61 69.63L104.61 112.06L73.12 112.06L73.12 82.09L49.49 82.09L49.49 112.06L18.26 112.06L18.26 69.63z"
                         fill="currentColor" />
                 </g>
-            </svg>
-        </div>
-        <div id="theme-button" class="icon-button">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-                <path
-                    d="M0 12c0 6.627 5.373 12 12 12s12-5.373 12-12-5.373-12-12-12-12 5.373-12 12zm2 0c0-5.514 4.486-10 10-10v20c-5.514 0-10-4.486-10-10z"
-                    fill="currentColor" />
             </svg>
         </div>
         <div id="bookmarks-button" class="icon-button" onclick="location.href='/bookmarks.html'">
@@ -116,33 +110,10 @@
             </svg>
         </div>
     </form>
-    <div id="app-content">
-      <div id="whats-new"></div>
-      <div id="sutta">
-          <div style="display: flex; justify-content: center;"><span id="foreword-button" class="foreword-link">Foreword</span></div>
-      </div>
+    <div id="glossaryArea">
     </div>
-    <hr />
-    <div id="navigation" class="navigation">
-        <div id="previous"></div>
-        <div id="next"></div>
-    </div>
-    
-    <div id="footer">
-        <style>
-        .container {
-            display: flex;
-            flex-direction: column; /* Stack the elements vertically */
-            align-items: center; /* Center them horizontally */
-        }
-        </style>
-        <div class="container">
-            <button id="hardRefresh" class="box-button orange">Reset website</button>
-            <button id="reportButton" class="box-button red">Report an error</button>
-            <a style="margin: 5px" href="https://hillsidehermitage.org">Hillside Hermitage Website</a>
-        </div>
-    </div>
-    <script type="module" src="index.js"></script>
+    <!-- <script type="module" src="index.js"></script> -->
+    <script type="module" src="glossary.js"></script>
 </body>
 
 </html>

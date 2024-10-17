@@ -826,3 +826,12 @@ bookmarkButton{
 .orange {
   background-color: orange;
 }
+.glossary-item {
+  margin-bottom: 20px;
+}
+.glossary-item h2 {
+  margin-bottom: 10px;
+}
+.definition {
+  padding-left: 20px;
+}
