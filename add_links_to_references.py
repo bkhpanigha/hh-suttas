@@ -74,6 +74,7 @@ def replace_references(text, translated_suttas):
     # Apply the regex to replace the references
     return re.sub(pattern, replace_match, text)
 
-def main():
-    translated_suttas = get_translated_suttas(translation_dir)
-    process_comments(comment_dir, translated_suttas)
+# Main execution
+if __name__ == "__main__":
+	translated_suttas = get_translated_suttas(translation_dir)
+	process_comments(comment_dir, translated_suttas)
