@@ -1,4 +1,5 @@
 import { scrollToHash, showNotification } from './js/utils.js'
+import { addSettingsPanel } from './settings.js';
 import importLinesCount from './python-generated/suttas-count.js';
 import db from "./js/dexie.js";
 
@@ -56,11 +57,6 @@ const forewordText = `Terms and expressions of doctrinal and practical significa
   —<em>Bhikkhu Anīgha</em>`;
 
 // functions
-
-// Define the goBack function globally
-function goBack() {
-  window.history.back();
-}
 
 async function showForeword() {
   const forewordButton = document.getElementById('foreword-button');
@@ -295,7 +291,7 @@ function buildSutta(slug) {
   slug = slug.toLowerCase();
   let sutta_details = availableSuttasJson[slug]
   let translator = "Bhikkhu Anīgha";
-  let html = `<div class="button-area"><button id="hide-pali" class="hide-button">Toggle Pali</button></div>`;
+  let html = ``; // TODO remove
   // TODO if file names are consistent we can get it from the availablesuttasjson
   let sutta_title = sutta_details['title'];
 
@@ -389,44 +385,71 @@ function addNavbar() {
   // Add the navbar to the page
   const navbar = document.createElement('div');
   navbar.id = 'suttanav'; // Added ID
-  navbar.innerHTML = document.title;
+  // navbar.innerHTML = document.title;
+  
+  // Create a container for the navbar contents to allow flexibility for positioning
+  const navbarContent = document.createElement('div');
+  navbarContent.style.display = 'flex';
+  navbarContent.style.justifyContent = 'space-between';
+  navbarContent.style.width = '100%';
+  
+  // Create a div for the title to stay on the left side
+  const navbarTitle = document.createElement('div');
+  navbarTitle.innerText = document.title;
+  
+  // Create the settings button
+  const settingsButton = document.createElement('button');
+  settingsButton.id = 'navbar-settings-button';
+  settingsButton.className = 'icon-button';
+  settingsButton.innerHTML = '⚙️'; // Using an icon inside the button
+  
+  // Append title and settings button to the navbar content container
+  navbarContent.appendChild(navbarTitle);
+  navbarContent.appendChild(settingsButton);
+  
+  // Append the content container to the navbar
+  navbar.appendChild(navbarContent);
   document.body.appendChild(navbar);
-
-  let lastScrollTop = 0; // variable to store the last scroll position
-  const scrollThreshold = 10;
-  let isScrolling = false;
-  let scrollTimeout;
-
+  
+  // After appending, get the navbar's height
+  const navbarHeight = 50;
+  
+  let lastScrollTop = window.scrollY || document.documentElement.scrollTop;
+  const showThreshold = 1; // Threshold for showing the navbar when scrolling up
+  const suddenJumpThreshold = 100; // Threshold for sudden jumps
+  const topHideThreshold = 170; // Threshold for hiding navbar near the top
+  
+  // Get the settings panel to control its visibility
+  const settingsPanel = document.getElementById('settings-panel');
   window.addEventListener('scroll', () => {
-    if (!isScrolling) {
-      isScrolling = true;
-      requestAnimationFrame(() => {
-        let currentScrollTop = window.scrollY || document.documentElement.scrollTop;
-
-        // Detect sudden jump
-        if (Math.abs(currentScrollTop - lastScrollTop) > 100) {
-          // If the jump is large, do not show the navbar
-          navbar.style.top = '-50px';
-        } else if (Math.abs(currentScrollTop - lastScrollTop) > scrollThreshold) {
-          // Only apply the scroll behavior if it's a regular scroll (not a sudden jump)
-          navbar.style.top = currentScrollTop < 170 || currentScrollTop > lastScrollTop ? '-50px' : '0';
-        }
-
-        lastScrollTop = currentScrollTop;
-        isScrolling = false;
-      });
-    }
-
-    // Clear any previous timeout
-    clearTimeout(scrollTimeout);
-
-    // Set a timeout to handle the case when the user stops scrolling
-    scrollTimeout = setTimeout(() => {
-      isScrolling = false;
-    }, 100);
+    requestAnimationFrame(() => {
+      let currentScrollTop = window.scrollY || document.documentElement.scrollTop;
+      let scrollDelta = currentScrollTop - lastScrollTop;
+      
+      if (Math.abs(scrollDelta) > suddenJumpThreshold) {
+        // Sudden jump, hide the navbar
+        navbar.style.top = -navbarHeight + 'px';
+        settingsPanel.classList.remove('visible');
+      } else if (currentScrollTop < topHideThreshold) {
+        // Near the top, hide the navbar
+        navbar.style.top = -navbarHeight + 'px';
+        settingsPanel.classList.remove('visible');
+      } else if (scrollDelta > 0) {
+        // Scrolling down, hide navbar immediately
+        navbar.style.top = -navbarHeight + 'px';
+        settingsPanel.classList.remove('visible');
+      } else if (scrollDelta < -showThreshold) {
+        // Scrolling up beyond the threshold, show navbar
+        navbar.style.top = '0';
+      }
+      
+      lastScrollTop = currentScrollTop;
+    });
   });
+  
+  // Initialize the settings panel
+  addSettingsPanel('navbar-settings-button', 'navbar'); // Settings panel for the navbar
 }
-
 
 // initialize the whole app
 if (document.location.search) {
@@ -435,6 +458,9 @@ if (document.location.search) {
   displaySuttas(availableSuttasJson);
   loadWhatsNewArea();
 }
+
+// TODO can this be cleaned up Call the settings panel initialization
+addSettingsPanel();
 
 
 document.addEventListener('click', function (event) {

@@ -292,11 +292,6 @@ dt {
   line-height: 1.5;
 }
 
-.hide-pali p .pli-lang,
-.hide-pali h2 .pli-lang,
-.hide-pali h3 .pli-lang,
-.hide-pali h4 .pli-lang,
-.hide-pali h5 .pli-lang,
 .hide-pali li .pli-lang {
   display: none !important;
 }
@@ -571,9 +566,15 @@ a:hover {
   /* Optional: adds a border */
   color: black;
   filter: opacity(65%);
-
-  /* Text color */
 }
+
+.dark #cacheButton {
+  background-color: var(--dark-blue);
+  color: var(--off-white);
+  border-color: var(--off-white);
+}
+
+
 
 #container {
   position: relative;
@@ -608,12 +609,6 @@ a:hover {
   /* Adjust as needed */
  
 
-}
-
-.dark #cacheButton {
-  background-color: var(--dark-blue);
-  color: var(--off-white);
-  border-color: var(--off-white);
 }
 
 .comment {
@@ -765,6 +760,70 @@ a:hover {
   margin-left: 8px; /* Adjust as needed */
   cursor: pointer;
   font-size: 14px;
+}
+
+#settings-button {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+#settings-panel {
+  position: absolute;
+  top: 50px;
+  right: 10px;
+  background: #1a1a1a;
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#settings-panel {
+  /* position:relative; */
+  /* Example padding, adjust as needed */
+  background-color: var(--light-gray);
+  /* Example background color, adjust as needed */
+  color: var(--black);
+  /* Text color */
+  /* border: 0.1px solid var(--dark-gray); */
+  /* Example border, adjust as needed */
+  cursor: pointer;
+  /* Changes cursor to pointer on hover */
+  /* top: -10%; */
+  margin-left: auto;
+  margin-right: 0em;
+  font-size: 12px;
+  font-family: "Robto Serif", serif;
+  background-color: transparent;
+  border: 1px solid black;
+  /* Optional: adds a border */
+  color: black;
+  /* filter: opacity(65%); */
+
+  /* Text color */
+}
+
+#settings-panel.visible {
+  display: flex;
+}
+
+.settings-option {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#reset-settings {
+  background: #ff6600;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 #copyButton, 
