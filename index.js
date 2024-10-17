@@ -440,6 +440,7 @@ function addNavbar() {
     });
   });
 }
+
 // initialize the whole app
 if (document.location.search) {
   buildSutta(document.location.search.replace("?q=", "").replace(/\s/g, "").replace(/%20/g, ""));
@@ -447,7 +448,7 @@ if (document.location.search) {
   displaySuttas(availableSuttasJson);
 }
 
-// Call the settings panel initialization
+// TODO can this be cleaned up Call the settings panel initialization
 addSettingsPanel();
 
 
