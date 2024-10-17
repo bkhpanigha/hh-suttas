@@ -30,6 +30,9 @@ jobs:
       - name: Run sutta_catalog_manager.py script
         run: python sutta_catalog_manager.py
 
+      - name: Run suttas_database_data_generator.py script
+        run: python suttas_database_data_generator.py
+
       - name: Check for changes
         id: check_changes
         run: |
@@ -44,7 +47,7 @@ jobs:
         run: |
           git config --global user.email "action@github.com"
           git config --global user.name "GitHub Action"
-          git add available_suttas.json files_to_cache.json
+          git add available_suttas.json files_to_cache.json python-generated/suttas-count.js python-generated/suttas-database-data.json
           git commit -m "Update available suttas list and cache files"
           git push
 

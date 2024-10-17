@@ -68,6 +68,7 @@ function scrollToHash() {
   if (hash.startsWith('comment')) {
     const commentElement = document.getElementById(hash);
     if (commentElement) {
+      commentElement.classList.add("comment-highlight");
       commentElement.scrollIntoView();
     }
   } else if (hash) {
@@ -282,8 +283,8 @@ function handleTextSelection() {
 
   const ids = segments.map(segment => segment.id);
   const rect = end.getBoundingClientRect();
-  showCopyButton(rect.left + window.scrollX, rect.bottom + window.scrollY, ids);
-  showBookmarkButton(rect.left + window.scrollX + 72, rect.bottom + window.scrollY, ids); // Adjust position as needed
+  showCopyButton(rect.left + window.scrollX, rect.bottom + window.scrollY + 5, ids);
+  showBookmarkButton(rect.left + window.scrollX + 77, rect.bottom + window.scrollY + 5, ids); // Adjust position as needed
 
 }
 
