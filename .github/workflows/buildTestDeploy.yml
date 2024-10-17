@@ -27,6 +27,9 @@ jobs:
           python -m pip install --upgrade pip
           # Add any other dependencies here if needed
 
+      - name: Run add_links_to_references.py script
+        run: python add_links_to_references.py
+        
       - name: Run sutta_catalog_manager.py script
         run: python sutta_catalog_manager.py
 
