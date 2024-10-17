@@ -802,7 +802,7 @@ a:hover {
   border: 1px solid black;
   /* Optional: adds a border */
   color: black;
-  filter: opacity(65%);
+  /* filter: opacity(65%); */
 
   /* Text color */
 }
