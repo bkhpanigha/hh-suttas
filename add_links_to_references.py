@@ -76,5 +76,5 @@ def replace_references(text, translated_suttas):
 
 # Main execution
 if __name__ == "__main__":
-	translated_suttas = get_translated_suttas(translation_dir)
-	process_comments(comment_dir, translated_suttas)
+    translated_suttas = get_translated_suttas(translation_dir)
+    process_comments(comment_dir, translated_suttas)
