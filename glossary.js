@@ -25,7 +25,7 @@ function loadGlossary() {
     
             // Build the HTML output
             output += '<div class="glossary-item">';
-            output += '<h2>' + term + '</h2>';
+            output += '<h2 style="font-style: italic;">' + term + '</h2>';
             output += '<div class="definition">' + definitionHtml + '</div>';
             output += '</div>';
           }
