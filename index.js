@@ -1,6 +1,6 @@
 import { scrollToHash, showNotification } from './js/utils.js'
 import importLinesCount from './python-generated/suttas-count.js';
-import db from "./js/dexie.js";
+import db from "./js/dexie/dexie.js";
 
 db.suttas.count().then((count) => {
   const isEmpty = count === 0;
