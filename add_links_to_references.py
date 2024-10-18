@@ -1,3 +1,5 @@
+#Add links to reference to other existing sutta translations in comments
+
 import os
 import json
 import re
