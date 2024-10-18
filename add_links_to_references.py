@@ -45,7 +45,8 @@ def replace_references(text, translated_suttas):
         normalized_ref = ref.replace(" ", "").lower()
 
         # Check if reference is already linked or translated
-        if re.search(r'https://suttas\.hillsidehermitage\.org/\?q={}'.format(re.escape(ref)), text):
+        if (re.search(r'://suttas\.hillsidehermitage\.org/\?q={}'.format(re.escape(ref)), text) 
+		or re.search(r'://suttacentral.net/{}'.format(re.escape(ref)), text)):
             return ref
         return f"[{ref}](https://suttas.hillsidehermitage.org/?q={normalized_ref})" if normalized_ref in translated_suttas else ref
 
