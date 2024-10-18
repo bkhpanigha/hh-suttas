@@ -1,6 +1,7 @@
 [
     "RobotoSerif-Medium.ttf",
     "RobotoSerif-Regular.ttf",
+    "add_links_to_references.py",
     "authors.json",
     "available_suttas.json",
     "bookmarks.html",
