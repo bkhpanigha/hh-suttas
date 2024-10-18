@@ -1,5 +1,3 @@
-#Add links to reference to other existing sutta translations in comments
-
 import os
 import json
 import re
@@ -46,7 +44,7 @@ def replace_references(text, translated_suttas):
 
         # Check if reference is already linked or translated
         if (re.search(r'://suttas\.hillsidehermitage\.org/\?q={}'.format(re.escape(ref)), text) 
-		or re.search(r'://suttacentral.net/{}'.format(re.escape(ref)), text)):
+        or re.search(r'://suttacentral.net/{}'.format(re.escape(ref)), text)):
             return ref
         return f"[{ref}](https://suttas.hillsidehermitage.org/?q={normalized_ref})" if normalized_ref in translated_suttas else ref
 
