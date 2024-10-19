@@ -506,7 +506,7 @@ infoButton.addEventListener("click", function (event) {
   if (notificationBox.style.display == 'block') {
     notificationBox.style.display = 'none';
   } else {
-    notificationBox.textContent = "The ‘Download’ button makes the site available offline on the current web browser at the same URL (suttas.hillsidehermitage.org).\n\nThe site can also be installed as an application on mobile phones, by tapping ‘Install’ at the menu on the top right corner. Note that hitting the download button is still necessary to make it available offline through the app.\n\nIf downloading again (e.g., when new Suttas become available), make sure to first clear the site's data on your browser/app and reload the page.";
+    notificationBox.textContent = "The ‘Use Offline’ button makes the site available offline on the current web browser at the same URL (suttas.hillsidehermitage.org).\n\nThe site can also be installed as an application on mobile phones, by tapping ‘Install’ at the menu on the top right corner. Note that hitting the ‘Use Offline’ button is still necessary to make it available offline through the app.\n\nIf downloading again (e.g., when new Suttas become available), make sure to first clear the site's data on your browser/app and reload the page.";
     notificationBox.style.display = 'block';
   }
 });
@@ -534,7 +534,7 @@ epubInfoButton.addEventListener("click", function (event) {
   if (notificationBox.style.display == 'block') {
     notificationBox.style.display = 'none';
   } else {
-    notificationBox.textContent = "The ‘EPUB’ button gives you the ability to download the translations and comments in the .epub format." + (lastModifiedDate != null ? "\n\nLast updated: " + lastModifiedDate : "");
+    notificationBox.textContent = "The ‘Get Ebook’ button lets you download the translations and comments in an Ebook with the ‘.epub’ format." + (lastModifiedDate != null ? "\n\nLast updated: " + lastModifiedDate : "");
     notificationBox.style.display = 'block';
   }
 });
