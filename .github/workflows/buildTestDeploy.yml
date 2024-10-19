@@ -15,7 +15,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
         with:
-          fetch-depth: 0 # Fetch all history for all branches and tags
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v2
@@ -42,14 +42,14 @@ jobs:
           MODIFIED_FILES=$(git diff --name-only -- suttas/comment/)
           echo "Modified files: $MODIFIED_FILES"
           if [ -z "$MODIFIED_FILES" ]; then
-              echo "::set-output name=changes::false"
-          else
-              echo "::set-output name=changes::true"
+              echo "changes=false" >> $GITHUB_ENV
+          else:
+              echo "changes=true" >> $GITHUB_ENV
               echo "$MODIFIED_FILES" > modified_files_list.txt
           fi
 
       - name: Commit and push if changes
-        if: steps.check_changes.outputs.changes == 'true'
+        if: env.changes == 'true'
         run: |
           git config --global user.email "action@github.com"
           git config --global user.name "GitHub Action"
@@ -61,43 +61,31 @@ jobs:
           git push
 
       - name: Clean up
-        if: steps.check_changes.outputs.changes == 'true'
+        if: env.changes == 'true'
         run: rm modified_files_list.txt
-      
-      - name: Commit and push if changes
-        if: steps.check_changes.outputs.changes == 'true'
-        run: |
-          git config --global user.email "action@github.com"
-          git config --global user.name "GitHub Action"
-          git add available_suttas.json files_to_cache.json python-generated/suttas-count.js python-generated/suttas-database-data.json
-          git commit -m "Update available suttas list and cache files"
-          git push
 
   test-and-merge:
     needs: update-suttas-list
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '16.15.0'
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16.15.0'
 
-    - name: Install Dependencies
-      run: npm install
+      - name: Install Dependencies
+        run: npm install
 
-    - name: Run Tests
-      run: npm test
+      - name: Run Tests
+        run: npm test
 
-    - name: Merge to gh-pages
-      if: success() && github.event_name == 'push' && github.ref == 'refs/heads/main'
-      run: |
-        git checkout main
-        git pull origin main
-        git checkout -b gh-pages
-        git push -f origin gh-pages
-
-        - name: Check for changes in /suttas/comment
- 
+      - name: Merge to gh-pages
+        if: success() && github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          git checkout main
+          git pull origin main
+          git checkout -b gh-pages
+          git push -f origin gh-pages
