@@ -18,7 +18,7 @@
     <meta property="og:site_name" content="suttas.hillsidehermitage.org" />
     <meta property="og:image" itemprop="image" content="https://suttas.hillsidehermitage.org/images/favicon.jpg" />
     <script defer src="js/showdown.min.js"></script>
-    <script defer src="js/fuse.js"></script>
+    <script src="js/dexie/dist/dexie_dist.js"></script>
     <script>
        if ('serviceWorker' in navigator) {
 		  window.addEventListener('load', () => {
@@ -27,13 +27,13 @@
 				// Service worker is not yet registered, so register it
 				navigator.serviceWorker.register('sw.js')
 				  .then(registration => {
-					console.log('Service Worker registered with scope:', registration.scope);
+					console.log('[SUCCESS] Service Worker registered with scope:', registration.scope);
 				  })
 				  .catch(error => {
-					console.error('Service Worker registration failed:', error);
+					console.error('[ERROR] Service Worker registration failed:', error);
 				  });
 			  } else {
-				console.log('Service Worker is already registered');
+				console.log('[INFO] Service Worker is already registered');
 			  }
 			});
             
@@ -52,7 +52,7 @@
                 width="20px" src="./images/favicon-donate.png" alt="Donate icon"></a>
         <div id="container">
             <div id="buttonsContainer">
-                <button id="cacheButton" class="download-button">Download</button>
+                <button id="cacheButton" class="download-button" title="Offline mode">Download</button>
                 <button id="infoButton" class="info-btn"><img src="images/info-empty.256x256.png" alt="Info"></button>
             </div>
         </div>
@@ -66,8 +66,8 @@
                     fill="currentColor" />
             </svg>
         </div>
-        <input id="citation" type="text" placeholder="Enter citation or search by title">
-        <div id="home-button" class="icon-button">
+        <input id="search-bar" type="text" placeholder="Search by citation, title or content">
+        <div id="home-button" class="icon-button" title="Home">
             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="20" viewBox="2.5 0 15 15">
                 <g transform="matrix(0.13384491 0 0 0.13384491 1.7765683 -0)">
                     <path
@@ -76,36 +76,53 @@
                 </g>
             </svg>
         </div>
-        <div id="theme-button" class="icon-button">
+        <div id="theme-button" class="icon-button" title="Dark mode">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
                 <path
                     d="M0 12c0 6.627 5.373 12 12 12s12-5.373 12-12-5.373-12-12-12-12 5.373-12 12zm2 0c0-5.514 4.486-10 10-10v20c-5.514 0-10-4.486-10-10z"
                     fill="currentColor" />
             </svg>
         </div>
-        <div id="bookmarks-button" class="icon-button" onclick="location.href='/bookmarks.html'">
-            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="currentColor"  width="22" height="20" version="1.1" id="Layer_1" viewBox="0 0 463.273 463.273" xml:space="preserve">
+        <div id="bookmarks-button" class="icon-button" onclick="location.href='/bookmarks.html'" title="Bookmarks">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="currentColor"
+                width="22" height="20" version="1.1" id="Layer_1" viewBox="0 0 463.273 463.273" xml:space="preserve">
                 <g>
                     <g>
-                        <path d="M313.874,0H149.398c-16.28,0-29.477,13.197-29.476,29.477v422.368c0,4.532,2.679,8.637,6.827,10.461    c4.148,1.824,8.983,1.025,12.324-2.038l84.84-77.788c4.369-4.006,11.076-4.006,15.446,0l84.84,77.788    c3.34,3.063,8.175,3.863,12.324,2.038s6.827-5.929,6.827-10.461h0.001V29.477C343.351,13.197,330.154,0,313.874,0z"/>
+                        <path
+                            d="M313.874,0H149.398c-16.28,0-29.477,13.197-29.476,29.477v422.368c0,4.532,2.679,8.637,6.827,10.461    c4.148,1.824,8.983,1.025,12.324-2.038l84.84-77.788c4.369-4.006,11.076-4.006,15.446,0l84.84,77.788    c3.34,3.063,8.175,3.863,12.324,2.038s6.827-5.929,6.827-10.461h0.001V29.477C343.351,13.197,330.154,0,313.874,0z" />
                     </g>
                 </g>
             </svg>
         </div>
-
-        <div id="comments-button" class="icon-button" onclick="location.href='/comments.html'">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <g id="comment-icon">
-              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" fill="currentColor"/></path>
-            </g>
-          </svg>
+        <div id="comments-button" class="icon-button" onclick="location.href='/comments.html'" title="Comments">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <g id="comment-icon">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" fill="currentColor"/></path>
+              </g>
+            </svg>
+        </div>
+        <div id="glossary-button" class="icon-button" onclick="location.href='/glossary.html'" title="Glossary">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" 
+                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" 
+                 class="icon icon-tabler icons-tabler-outline icon-tabler-vocabulary">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M10 19h-6a1 1 0 0 1 -1 -1v-14a1 1 0 0 1 1 -1h6a2 2 0 0 1 2 2a2 2 0 0 1 2 -2h6a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-6a2 2 0 0 0 -2 2a2 2 0 0 0 -2 -2z" />
+                <path d="M12 5v16" />
+                <path d="M7 7h1" />
+                <path d="M7 11h1" />
+                <path d="M16 7h1" />
+                <path d="M16 11h1" />
+                <path d="M16 15h1" />
+            </svg>
         </div>
     </form>
-    <div id="sutta">
-        <div style="display: flex; justify-content: center;"><span id="foreword-button" class="foreword-link">Foreword</span></div>
-        <div id="whats-new"></div>
+    <div id="app-content">
+      <div id="whats-new"></div>
+      <div id="sutta">
+          <div style="display: flex; justify-content: center;"><span id="foreword-button" class="foreword-link">Foreword</span></div>
+      </div>
     </div>
-    <hr style="margin-bottom: -35px;">
+    <hr />
     <div id="navigation" class="navigation">
         <div id="previous"></div>
         <div id="next"></div>
@@ -120,11 +137,10 @@
         }
         </style>
         <div class="container">
-            <div class="box"><button id="reportButton" class="report-button">Report an error</button></div>
-            <div class="box"><a href="https://hillsidehermitage.org">Hillside Hermitage Website</a></div>
+            <button id="hardRefresh" class="box-button orange">Reset website</button>
+            <button id="reportButton" class="box-button red">Report an error</button>
+            <a style="margin: 5px" href="https://hillsidehermitage.org">Hillside Hermitage Website</a>
         </div>
-        
-        
     </div>
     <script type="module" src="index.js"></script>
 </body>

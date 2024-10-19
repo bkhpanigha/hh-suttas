@@ -15,7 +15,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
         with:
-          fetch-depth: 0 # Fetch all history for all branches and tags
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v2
@@ -27,49 +27,65 @@ jobs:
           python -m pip install --upgrade pip
           # Add any other dependencies here if needed
 
+      - name: Run add_links_to_references.py script
+        run: python add_links_to_references.py
+        
       - name: Run sutta_catalog_manager.py script
         run: python sutta_catalog_manager.py
+
+      - name: Run suttas_database_data_generator.py script
+        run: python suttas_database_data_generator.py
 
       - name: Check for changes
         id: check_changes
         run: |
-          if git diff --exit-code; then
-              echo "::set-output name=changes::false"
+          MODIFIED_FILES=$(git diff --name-only -- suttas/comment/)
+          echo "Modified files: $MODIFIED_FILES"
+          if [ -z "$MODIFIED_FILES" ]; then
+              echo "changes=false" >> $GITHUB_ENV
           else
-              echo "::set-output name=changes::true"
+              echo "changes=true" >> $GITHUB_ENV
+              echo "$MODIFIED_FILES" > modified_files_list.txt
           fi
 
       - name: Commit and push if changes
-        if: steps.check_changes.outputs.changes == 'true'
+        if: env.changes == 'true'
         run: |
           git config --global user.email "action@github.com"
           git config --global user.name "GitHub Action"
-          git add available_suttas.json files_to_cache.json
+          git add available_suttas.json files_to_cache.json python-generated/suttas-count.js python-generated/suttas-database-data.json
+          while read file; do
+            git add "$file"
+          done < modified_files_list.txt
           git commit -m "Update available suttas list and cache files"
           git push
+
+      - name: Clean up
+        if: env.changes == 'true'
+        run: rm modified_files_list.txt
 
   test-and-merge:
     needs: update-suttas-list
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '16.15.0'
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16.15.0'
 
-    - name: Install Dependencies
-      run: npm install
+      - name: Install Dependencies
+        run: npm install
 
-    - name: Run Tests
-      run: npm test
+      - name: Run Tests
+        run: npm test
 
-    - name: Merge to gh-pages
-      if: success() && github.event_name == 'push' && github.ref == 'refs/heads/main'
-      run: |
-        git checkout main
-        git pull origin main
-        git checkout -b gh-pages
-        git push -f origin gh-pages
+      - name: Merge to gh-pages
+        if: success() && github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          git checkout main
+          git pull origin main
+          git checkout -b gh-pages
+          git push -f origin gh-pages

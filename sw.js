@@ -1,4 +1,4 @@
-const version = 'v4'; // Update this version manually when filesToCache changes
+const version = 'v5'; // Update this version manually when filesToCache changes
 
 // static files to cache
 const filesToCache = [
