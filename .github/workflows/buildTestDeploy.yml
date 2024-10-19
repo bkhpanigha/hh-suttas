@@ -39,12 +39,31 @@ jobs:
       - name: Check for changes
         id: check_changes
         run: |
-          if git diff --exit-code; then
+          MODIFIED_FILES=$(git diff --name-only -- suttas/comment/)
+          echo "Modified files: $MODIFIED_FILES"
+          if [ -z "$MODIFIED_FILES" ]; then
               echo "::set-output name=changes::false"
           else
               echo "::set-output name=changes::true"
+              echo "$MODIFIED_FILES" > modified_files_list.txt
           fi
 
+      - name: Commit and push if changes
+        if: steps.check_changes.outputs.changes == 'true'
+        run: |
+          git config --global user.email "action@github.com"
+          git config --global user.name "GitHub Action"
+          git add available_suttas.json files_to_cache.json python-generated/suttas-count.js python-generated/suttas-database-data.json
+          while read file; do
+            git add "$file"
+          done < modified_files_list.txt
+          git commit -m "Update available suttas list and cache files"
+          git push
+
+      - name: Clean up
+        if: steps.check_changes.outputs.changes == 'true'
+        run: rm modified_files_list.txt
+      
       - name: Commit and push if changes
         if: steps.check_changes.outputs.changes == 'true'
         run: |
@@ -79,3 +98,6 @@ jobs:
         git pull origin main
         git checkout -b gh-pages
         git push -f origin gh-pages
+
+        - name: Check for changes in /suttas/comment
+ 
