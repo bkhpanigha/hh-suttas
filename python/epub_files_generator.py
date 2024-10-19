@@ -4,7 +4,7 @@ import json
 from collections import OrderedDict
 
 # Folder containing the .xhtml files
-folder = 'suttas_epub/xhtml'
+folder = '../suttas_epub/xhtml'
 
 # List of URLs and their replacements
 url_replacements = {
@@ -99,7 +99,7 @@ def generate_xhtml(sutta_html, sutta_translation, sutta_comments, chapter):
 
 # Main function
 def generate_xhtml_for_suttas():
-    base_dir = 'suttas'  # Base folder for the files
+    base_dir = '../suttas'  # Base folder for the files
     translation_dir = os.path.join(base_dir, 'translation_en')
     html_dir = os.path.join(base_dir, 'html')
     comment_dir = os.path.join(base_dir, 'comment')
@@ -261,7 +261,7 @@ def create_book_title_xhtml(book_name, book_abbr, folder):
     
 def generate_nav_file():
     # Load the data from the JSON file
-    with open('available_suttas.json', 'r', encoding='utf-8') as json_file:
+    with open('../available_suttas.json', 'r', encoding='utf-8') as json_file:
         suttas_data = json.load(json_file)["available_suttas"]
 
     # List of files to include in the table of contents
