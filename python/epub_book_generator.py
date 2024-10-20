@@ -1,26 +1,38 @@
+import xml.etree.ElementTree as ET
 from ebooklib import epub
 
-# Create new ebook
+xhtml_dir = "../suttas_epub/xhtml/"
+
+# Créer un nouvel ebook
 book = epub.EpubBook()
+book.set_title('Sutta translations')
+book.add_author('')
 
-# Define title and author
-book.set_title('Titre de l\'ebook')
-book.add_author('Auteur')
+# Parse du fichier nav.xhtml pour obtenir l'ordre des chapitres
+tree = ET.parse(xhtml_dir + 'nav.xhtml')
+root = tree.getroot()
 
-# Add a chapter from a xhtml file
-with open('fichier.xhtml', 'r', encoding='utf-8') as f:
-    content = f.read()
+# Rechercher les balises <a> dans le fichier nav.xhtml et extraire les chapitres
+chapters = []
+for link in root.iter('a'):
+    href = xhtml_dir + link.attrib.get('href')
+    title = link.text.strip() if link.text else 'Chapitre sans titre'
 
-chapitre = epub.EpubHtml(title='Chapitre 1', file_name='chap1.xhtml', content=content)
-book.add_item(chapitre)
+    # Créer un chapitre pour chaque lien trouvé
+    with open(href, 'r', encoding='utf-8') as chapter_file:
+        chapter_content = chapter_file.read()
 
-# Define Table of Contents and chapters order
-book.toc = (epub.Link('chap1.xhtml', 'Chapitre 1', 'chap1'),)
-book.spine = ['nav', chapitre]
+    chapitre = epub.EpubHtml(title=title, file_name=href, content=chapter_content)
+    book.add_item(chapitre)
+    chapters.append(chapitre)
 
-# Add mandatory ressources
+# Définir la table des matières et la mise en ordre des chapitres
+book.toc = tuple(chapters)
+book.spine = ['nav'] + chapters
+
+# Ajouter les ressources obligatoires
 book.add_item(epub.EpubNcx())
 book.add_item(epub.EpubNav())
 
-# Save ebook
-epub.write_epub('output.epub', book, {})
+# Enregistrer l'ebook
+epub.write_epub('Sutta_Translations.epub', book, {})
