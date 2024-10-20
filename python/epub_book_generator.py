@@ -1,38 +1,79 @@
-import xml.etree.ElementTree as ET
+#need to modify the folders/files path
+#need to add css style #toc a{text-decoration: none}
+
+import os
+import re
 from ebooklib import epub
 
-xhtml_dir = "../suttas_epub/xhtml/"
+# Function to extract chapters and titles from the nav.xhtml file
+def extract_chapters(nav_file):
+    toc_entries = []
 
-# Créer un nouvel ebook
-book = epub.EpubBook()
-book.set_title('Sutta translations')
-book.add_author('')
+    # Read the nav.xhtml file
+    with open(nav_file, 'r', encoding='utf-8') as file:
+        content = file.read()
 
-# Parse du fichier nav.xhtml pour obtenir l'ordre des chapitres
-tree = ET.parse(xhtml_dir + 'nav.xhtml')
-root = tree.getroot()
+    # Add the first entry pointing to the ToC itself
+    toc_entries.append(('Table of Contents', 'nav.xhtml'))
 
-# Rechercher les balises <a> dans le fichier nav.xhtml et extraire les chapitres
-chapters = []
-for link in root.iter('a'):
-    href = xhtml_dir + link.attrib.get('href')
-    title = link.text.strip() if link.text else 'Chapitre sans titre'
+    # Regex to find chapters and their titles
+    chapter_pattern = re.compile(r'<h2><a href="([^"]+)">([^<]+)</a></h2>\s*<ol>(.*?)</ol>', re.DOTALL)
+    sub_chapter_pattern = re.compile(r'<li>\s*<a href="([^"]+)">([^<]+)</a>\s*</li>')
 
-    # Créer un chapitre pour chaque lien trouvé
-    with open(href, 'r', encoding='utf-8') as chapter_file:
-        chapter_content = chapter_file.read()
+    # Find chapters and their sub-chapters
+    for match in chapter_pattern.finditer(content):
+        chapter_link, chapter_title, ol_content = match.groups()
+        toc_entries.append((chapter_title, chapter_link))
 
-    chapitre = epub.EpubHtml(title=title, file_name=href, content=chapter_content)
-    book.add_item(chapitre)
-    chapters.append(chapitre)
+        # Find sub-chapters in the ordered list
+        for sub_match in sub_chapter_pattern.finditer(ol_content):
+            sub_chapter_link, sub_chapter_title = sub_match.groups()
+            toc_entries.append((sub_chapter_title, sub_chapter_link))
 
-# Définir la table des matières et la mise en ordre des chapitres
-book.toc = tuple(chapters)
-book.spine = ['nav'] + chapters
+    return toc_entries
 
-# Ajouter les ressources obligatoires
-book.add_item(epub.EpubNcx())
-book.add_item(epub.EpubNav())
+# Function to create the ebook
+def create_ebook(toc_entries, output_file):
+    book = epub.EpubBook()
 
-# Enregistrer l'ebook
-epub.write_epub('Sutta_Translations.epub', book, {})
+    # Set the metadata for the ebook
+    book.set_title('Sutta Translations')
+    book.set_language('en')
+    book.add_author('Author Name')
+
+    spine_items = []  # To store the chapters to add to the spine
+
+    for title, href in toc_entries:
+        chapter_file_path = href
+
+        # Create a new chapter
+        chapter = epub.EpubHtml(title=title, file_name=chapter_file_path, lang='en')
+
+        # Add the content of the chapter
+        with open(chapter_file_path, 'r', encoding='utf-8') as file:
+            content = file.read()
+            chapter.set_content(content)
+
+        # Add the chapter to the ebook
+        book.add_item(chapter)
+        spine_items.append(chapter)  # Add the chapter to the spine
+
+    # Configure the ToC
+    book.toc = (epub.Link('nav.xhtml', 'Table of Contents', 'toc'),)
+    book.toc += tuple(epub.Link(href, title, title) for title, href in toc_entries)
+
+    # Configure the spine
+    book.spine = ['nav'] + spine_items  # Ensure the spine has content
+
+    # Save the ebook
+    epub.write_epub(output_file, book)
+
+if __name__ == "__main__":
+    nav_file = 'nav.xhtml'  # Path to the nav.xhtml file
+    output_file = 'sutta_translations.epub'  # Output path for the ebook
+
+    # Extract chapters and create the ebook
+    chapters = extract_chapters(nav_file)
+    create_ebook(chapters, output_file)
+
+    print(f"Ebook '{output_file}' created successfully.")
