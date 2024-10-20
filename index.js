@@ -484,12 +484,12 @@ document.getElementById('cacheButton').addEventListener('click', () => {
   if ('serviceWorker' in navigator) {
     // Send message to service worker to trigger caching
     try {
-      showNotification("Downloading...")
+      showNotification("Downloading...", 999999)
       navigator.serviceWorker.controller.postMessage({ action: 'cacheResources' });
     } catch (error) {
       console.log(error);
       // TODO maybe a red colour box here?
-      showNotification("An error occurred while attempting to download. Please refresh the page, wait a few seconds, and retry");
+      showNotification("An error occurred while attempting to download. Please refresh the page, wait a few seconds, and retry", 5000);
     }
   }
 });
@@ -506,7 +506,7 @@ infoButton.addEventListener("click", function (event) {
   if (notificationBox.style.display == 'block') {
     notificationBox.style.display = 'none';
   } else {
-    notificationBox.textContent = "The ‘Use Offline’ button makes the site available offline on the current web browser.\n\nThe site can also be installed as an application on mobile phones from your browser's settings menu, by tapping ‘Install’ or ‘Add to home screen’ depending on your browser (must be done from this page). Note that hitting the ‘Use Offline’ button is still necessary to make it available offline through the app.\n\nIf downloading again (e.g., when new Suttas become available), make sure to first clear the site's data on your browser/app and reload the page.";
+    notificationBox.textContent = "The ‘Use Offline’ button makes the site available offline on the current web browser at the same URL (suttas.hillsidehermitage.org).\n\nThe site can also be installed as an application on mobile phones, by tapping ‘Install’ at the menu on the top right corner. Note that hitting the ‘Use Offline’ button is still necessary to make it available offline through the app.\n\nIf downloading again (e.g., when new Suttas become available), make sure to first clear the site's data on your browser/app and reload the page.";
     notificationBox.style.display = 'block';
   }
 });
@@ -548,7 +548,7 @@ document.getElementById('downloadEpubButton').addEventListener('click', function
 
 navigator.serviceWorker.addEventListener('message', event => {
   if (event.data && event.data.action === 'cachingSuccess') {
-    showNotification("Download successful - site available offline.")
+    showNotification("Download successful - site available offline.", 5000)
   }
   if (event.data && event.data.action === 'cachingError') {
     // TODO again maybe a different colour box
