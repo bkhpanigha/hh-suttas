@@ -1,5 +1,5 @@
 #need to modify the folders/files path
-#need to add css style #toc a{text-decoration: none}
+#need to add css style #toc a{text-decoration: none} (see Not working part in code)
 
 import os
 import re
@@ -39,7 +39,7 @@ def create_ebook(toc_entries, output_file):
     # Set the metadata for the ebook
     book.set_title('Sutta Translations')
     book.set_language('en')
-    book.add_author('Author Name')
+    book.add_author('')
 
     spine_items = []  # To store the chapters to add to the spine
 
@@ -58,12 +58,29 @@ def create_ebook(toc_entries, output_file):
         book.add_item(chapter)
         spine_items.append(chapter)  # Add the chapter to the spine
 
+    ---- start not working ----
+    
+    # Configure the style
+    style = """
+    #toc a { text-decoration: none; }
+    """
+    css_item = epub.EpubItem(uid="style", file_name="style.css", media_type="text/css", content=style)
+    book.add_item(css_item)
+    
+    # Add CSS to chapters
+    for item in spine_items:
+        item.add_link(href='style.css', rel='stylesheet', type='text/css')
+    
+    ---- end not working ----
+    
     # Configure the ToC
-    book.toc = (epub.Link('nav.xhtml', 'Table of Contents', 'toc'),)
+    #book.toc = (epub.Link('nav.xhtml', 'Table of Contents', 'toc'),)
     book.toc += tuple(epub.Link(href, title, title) for title, href in toc_entries)
 
     # Configure the spine
-    book.spine = ['nav'] + spine_items  # Ensure the spine has content
+    book.spine = spine_items  # Ensure the spine has content
+    
+    book.add_item(epub.EpubNcx())
 
     # Save the ebook
     epub.write_epub(output_file, book)
