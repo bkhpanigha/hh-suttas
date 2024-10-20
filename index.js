@@ -372,8 +372,10 @@ function buildSutta(slug) {
       // remove download and info button
       const cacheButton = document.getElementById('cacheButton');
       const infoButton = document.getElementById('infoButton');
+      const epubInfoButton = document.getElementById('epubInfoButton');
       if (cacheButton) cacheButton.style.display = 'none';
       if (infoButton) infoButton.style.display = 'none';
+      if (epubInfoButton) epubInfoButton.style.display = 'none';
 
       // scroll to the quote in the url if present
       scrollToHash();
@@ -504,7 +506,7 @@ infoButton.addEventListener("click", function (event) {
   if (notificationBox.style.display == 'block') {
     notificationBox.style.display = 'none';
   } else {
-    notificationBox.textContent = "The ‘Download’ button makes the site available offline on the current web browser at the same URL (suttas.hillsidehermitage.org).\n\nThe site can also be installed as an application on mobile phones, by tapping ‘Install’ at the menu on the top right corner. Note that hitting the download button is still necessary to make it available offline through the app.\n\nIf downloading again (e.g., when new Suttas become available), make sure to first clear the site's data on your browser/app and reload the page.";
+    notificationBox.textContent = "The ‘Use Offline’ button makes the site available offline on the current web browser at the same URL (suttas.hillsidehermitage.org).\n\nThe site can also be installed as an application on mobile phones, by tapping ‘Install’ at the menu on the top right corner. Note that hitting the ‘Use Offline’ button is still necessary to make it available offline through the app.\n\nIf downloading again (e.g., when new Suttas become available), make sure to first clear the site's data on your browser/app and reload the page.";
     notificationBox.style.display = 'block';
   }
 });
@@ -519,6 +521,31 @@ document.addEventListener("click", function (event) {
   }
 });
 
+let lastModifiedDate;
+epubInfoButton.addEventListener("click", function (event) {
+  event.stopPropagation(); // Prevent click from immediately propagating to document
+  let notificationBox = document.querySelector('.info-notification-box')
+  if (!notificationBox) {
+    notificationBox = document.createElement('div');
+    notificationBox.classList.add('info-notification-box');
+    document.body.appendChild(notificationBox);
+  }
+
+  if (notificationBox.style.display == 'block') {
+    notificationBox.style.display = 'none';
+  } else {
+    notificationBox.textContent = "The ‘Get Ebook’ button lets you download the translations and comments in an Ebook with the ‘.epub’ format." + (lastModifiedDate != null ? "\n\nLast updated: " + lastModifiedDate : "");
+    notificationBox.style.display = 'block';
+  }
+});
+
+document.getElementById('downloadEpubButton').addEventListener('click', function() {
+    const link = document.createElement('a');
+    link.href = '/suttas_epub/Sutta_Translations.epub';  // Path to EPUB file
+    link.download = 'Sutta_Translations.epub';    // Downloaded file name
+    link.click();
+});
+
 navigator.serviceWorker.addEventListener('message', event => {
   if (event.data && event.data.action === 'cachingSuccess') {
     showNotification("Download successful - site available offline.")
@@ -528,3 +555,26 @@ navigator.serviceWorker.addEventListener('message', event => {
     showNotification("Caching error. Please clear site data, refresh the page, and try again.");
   }
 });
+
+fetch('/suttas_epub/Sutta_Translations.epub')
+  .then(response => {
+    if (response.ok) {
+      const lastModified = response.headers.get('Last-Modified');
+      if (lastModified) {
+        const date = new Date(lastModified);
+        // Format date
+        lastModifiedDate = date.toLocaleDateString('en-EN', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        });
+      } else {
+        console.error("Header 'Last-Modified' is missing or invalid.");
+      }
+    } else {
+      console.error('Error when trying to get file :', response.statusText);
+    }
+  })
+  .catch(error => {
+    console.error('Error :', error);
+  });
