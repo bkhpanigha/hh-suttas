@@ -484,12 +484,12 @@ document.getElementById('cacheButton').addEventListener('click', () => {
   if ('serviceWorker' in navigator) {
     // Send message to service worker to trigger caching
     try {
-      showNotification("Downloading...")
+      showNotification("Downloading...", 999999)
       navigator.serviceWorker.controller.postMessage({ action: 'cacheResources' });
     } catch (error) {
       console.log(error);
       // TODO maybe a red colour box here?
-      showNotification("An error occurred while attempting to download. Please refresh the page, wait a few seconds, and retry");
+      showNotification("An error occurred while attempting to download. Please refresh the page, wait a few seconds, and retry", 5000);
     }
   }
 });
@@ -548,7 +548,7 @@ document.getElementById('downloadEpubButton').addEventListener('click', function
 
 navigator.serviceWorker.addEventListener('message', event => {
   if (event.data && event.data.action === 'cachingSuccess') {
-    showNotification("Download successful - site available offline.")
+    showNotification("Download successful - site available offline.", 5000)
   }
   if (event.data && event.data.action === 'cachingError') {
     // TODO again maybe a different colour box
