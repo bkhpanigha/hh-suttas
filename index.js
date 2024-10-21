@@ -225,7 +225,6 @@ const response = await fetch('available_suttas.json');
 const availableSuttas = await response.json();
 const availableSuttasJson = availableSuttas['available_suttas'];
 
-
 // initialize
 if (localStorage.sideBySide) {
   if (localStorage.sideBySide == "true") {
@@ -253,34 +252,36 @@ themeButton.addEventListener("click", () => {
 
 // input in search bar
 const searchBar = document.getElementById("search-bar");
-searchBar.focus();
+if(window.location.href == "https://suttas.hillsidehermitage.org/"){
+  searchBar.focus();
 
-searchBar.addEventListener("input", async (e) => {
-  const searchQuery = e.target.value.trim().toLowerCase();
-  if (!searchQuery) {
-    suttaArea.innerHTML = "";
-    displaySuttas(availableSuttasJson);
-    return;
-  }
-
-  const collection = db.suttas.filter((sutta) => {
-    const suttaContent = JSON.stringify(sutta.value).toLowerCase();
-    if (suttaContent.includes(searchQuery)) return true;
-
-    const suttaContentWithoutDiacritics = removeDiacritics(suttaContent);
-    return suttaContentWithoutDiacritics.includes(searchQuery);
+  searchBar.addEventListener("input", async (e) => {
+    const searchQuery = e.target.value.trim().toLowerCase();
+    if (!searchQuery) {
+      suttaArea.innerHTML = "";
+      displaySuttas(availableSuttasJson);
+      return;
+    }
+  
+    const collection = db.suttas.filter((sutta) => {
+      const suttaContent = JSON.stringify(sutta.value).toLowerCase();
+      if (suttaContent.includes(searchQuery)) return true;
+  
+      const suttaContentWithoutDiacritics = removeDiacritics(suttaContent);
+      return suttaContentWithoutDiacritics.includes(searchQuery);
+    });
+    const searchResults = await collection.toArray();
+    const suttaIds = searchResults.map((result) => result.id)
+    const suttas = getSuttasByIds(suttaIds);
+    if (suttaIds.length > 0) {
+      suttaArea.innerHTML = "";
+      displaySuttas(suttas, true);
+    }
+    else {
+      suttaArea.innerHTML = "<h2 class=\"no-results\">No results found</h2>";
+    }
   });
-  const searchResults = await collection.toArray();
-  const suttaIds = searchResults.map((result) => result.id)
-  const suttas = getSuttasByIds(suttaIds);
-  if (suttaIds.length > 0) {
-    suttaArea.innerHTML = "";
-    displaySuttas(suttas, true);
-  }
-  else {
-    suttaArea.innerHTML = "<h2 class=\"no-results\">No results found</h2>";
-  }
-});
+}
 
 document.getElementById("form").addEventListener("submit", e => {
   e.preventDefault();
@@ -429,27 +430,40 @@ function addNavbar() {
   });
 }
 
-
 // initialize the whole app
 if (document.location.search) {
   buildSutta(document.location.search.replace("?q=", "").replace(/\s/g, "").replace(/%20/g, ""));
 } else {
-  displaySuttas(availableSuttasJson);
-  loadWhatsNewArea();
+  if(window.location.href == "https://suttas.hillsidehermitage.org/"){
+    displaySuttas(availableSuttasJson);
+    loadWhatsNewArea();
+  }
 }
 
+if(window.location.href == "https://suttas.hillsidehermitage.org/"){
+  document.addEventListener('click', function (event) {
+    // Check if the clicked element is the foreword button
+    if (event.target && event.target.id === 'foreword-button') {
+      showForeword(); // Call the function to show the foreword
+      displaySuttas(availableSuttasJson);
+    }
+    // Add a click event listener to the span element
+    if (event.target && event.target.id === 'back-arrow') {
+      goBack();
+    }
+  });
 
-document.addEventListener('click', function (event) {
-  // Check if the clicked element is the foreword button
-  if (event.target && event.target.id === 'foreword-button') {
-    showForeword(); // Call the function to show the foreword
-    displaySuttas(availableSuttasJson);
-  }
-  // Add a click event listener to the span element
-  if (event.target && event.target.id === 'back-arrow') {
-    goBack();
-  }
-});
+  window.addEventListener('hashchange', function () {
+    const hash = window.location.hash;
+  
+    // Check if the hash starts with "comment"
+    if (hash.startsWith('#comment')) {
+      return; // Let the browser handle the default behavior
+    }
+  
+    scrollToHash();
+  });
+}
 
 const refreshButton = document.getElementById("hardRefresh");
 refreshButton.addEventListener("click", function () {
@@ -462,21 +476,9 @@ refreshButton.addEventListener("click", function () {
   })
 });
 
-
 const errorButton = document.getElementById('reportButton');
 errorButton.addEventListener('click', () => {
   window.open('https://docs.google.com/forms/d/1Ng8Csf9xYJ7UaYUyl3sGEyZ3aa2FJE_0GRS6zI6oIBM/edit', '_blank');
-});
-
-window.addEventListener('hashchange', function () {
-  const hash = window.location.hash;
-
-  // Check if the hash starts with "comment"
-  if (hash.startsWith('#comment')) {
-    return; // Let the browser handle the default behavior
-  }
-
-  scrollToHash();
 });
 
 document.getElementById('cacheButton').addEventListener('click', () => {
