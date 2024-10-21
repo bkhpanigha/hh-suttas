@@ -583,7 +583,7 @@ a:hover {
   font-size: 12px;
   font-family: "RobotoSerif", serif;
   background-color: transparent;
-  border: 1px solid black;
+  border: 1px solid gray;
   /* Optional: adds a border */
   color: black;
   filter: opacity(65%);
