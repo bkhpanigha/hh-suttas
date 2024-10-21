@@ -315,6 +315,12 @@ dt {
   text-align: center;
 }
 
+#footer .container {
+  display: flex;
+  flex-direction: column; /* Stack the elements vertically */
+  align-items: center; /* Center them horizontally */
+}
+
 .left-align {
   text-align: left;
 }
