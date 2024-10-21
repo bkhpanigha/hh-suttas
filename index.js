@@ -430,7 +430,6 @@ function addNavbar() {
   });
 }
 
-
 // initialize the whole app
 if (document.location.search) {
   buildSutta(document.location.search.replace("?q=", "").replace(/\s/g, "").replace(/%20/g, ""));
@@ -453,22 +452,6 @@ if(window.location.href == "https://suttas.hillsidehermitage.org/"){
       goBack();
     }
   });
-  
-  const refreshButton = document.getElementById("hardRefresh");
-  refreshButton.addEventListener("click", function () {
-    db.delete().then(() => {
-      console.log("[SUCCESS] Database deleted");
-      localStorage.clear();
-      window.location.href = "/";
-    }).catch((error) => {
-      console.error("[ERROR] Could not delete database:", error);
-    })
-  });
-  
-  const errorButton = document.getElementById('reportButton');
-  errorButton.addEventListener('click', () => {
-    window.open('https://docs.google.com/forms/d/1Ng8Csf9xYJ7UaYUyl3sGEyZ3aa2FJE_0GRS6zI6oIBM/edit', '_blank');
-  });
 
   window.addEventListener('hashchange', function () {
     const hash = window.location.hash;
@@ -481,6 +464,22 @@ if(window.location.href == "https://suttas.hillsidehermitage.org/"){
     scrollToHash();
   });
 }
+
+const refreshButton = document.getElementById("hardRefresh");
+refreshButton.addEventListener("click", function () {
+  db.delete().then(() => {
+    console.log("[SUCCESS] Database deleted");
+    localStorage.clear();
+    window.location.href = "/";
+  }).catch((error) => {
+    console.error("[ERROR] Could not delete database:", error);
+  })
+});
+
+const errorButton = document.getElementById('reportButton');
+errorButton.addEventListener('click', () => {
+  window.open('https://docs.google.com/forms/d/1Ng8Csf9xYJ7UaYUyl3sGEyZ3aa2FJE_0GRS6zI6oIBM/edit', '_blank');
+});
 
 document.getElementById('cacheButton').addEventListener('click', () => {
   // Check if service worker is supported by the browser
