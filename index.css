@@ -38,7 +38,6 @@ body.dark {
 }
 
 #form {
-  text-align: center;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -114,11 +113,19 @@ body.dark {
   background-color: var(--light-gray);
 }
 
+.button-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: .3rem;
+}
+
 .icon-button {
   color: gray;
   border: none;
   background: none;
-  margin-left: 7px;
   cursor: pointer;
 }
 
