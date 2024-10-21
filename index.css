@@ -792,7 +792,7 @@ bookmarkButton{
   .bookmark-container p{
     max-width: 60%;
   }
-  #form {
+  #top-buttons.button-container{
     margin-top: initial;
   }
   .links-area {
