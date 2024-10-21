@@ -43,7 +43,7 @@
     </script>
 </head>
 
-<body class="dark">
+<body>
     <div class="links-area">
         <a href="https://github.com/bkhpanigha/hh-suttas" title="The source code for this site" rel="noreferrer"
             target="_blank"><img width="20px" src="./images/GitHub-Mark-64px-black.png" alt="GitHub icon"></a>
@@ -52,12 +52,16 @@
         <a href="https://www.hillsidehermitage.org/support-us/" title="Support Us" rel="noreferrer" target="_blank"><img
                 width="20px" src="./images/favicon-donate.png" alt="Donate icon"></a>
         <div id="container">
-            <div id="buttonsContainer">
-                <button id="cacheButton" class="download-button">Download</button>
-                <button id="infoButton" class="info-btn"><img src="images/info-empty.256x256.png" alt="Info"></button>
-            </div>
+        	<div id="buttonsContainer">
+        		<button id="cacheButton" class="download-button">Use Offline</button>
+        		<button id="infoButton" class="info-btn"><img src="images/info-empty.256x256.png" alt="Info"></button>
+        	</div>
+        	<div id="epubButtonsContainer">
+        		<button id="downloadEpubButton" class="download-button">Get Ebook</button>
+        		<button id="epubInfoButton" class="info-btn"><img src="images/info-empty.256x256.png" alt="Info"></button>
+        	</div>
         </div>
-        </div>
+    </div>
 
     <form id="form">
         <div class="search-icon">
@@ -67,7 +71,6 @@
                     fill="currentColor" />
             </svg>
         </div>
-        <!-- <input id="citation" type="text" placeholder="Enter citation or search by title"> -->
         <div id="home-button" class="icon-button" onclick="location.href='/'">
             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="20" viewBox="2.5 0 15 15">
                 <g transform="matrix(0.13384491 0 0 0.13384491 1.7765683 -0)">
@@ -75,6 +78,11 @@
                         d="M61.44 0L0 60.18L14.99 68.05L61.04 19.7L107.89 68.06L122.88 60.19L61.44 0zM18.26 69.63L61.5 26.38L104.61 69.63L104.61 112.06L73.12 112.06L73.12 82.09L49.49 82.09L49.49 112.06L18.26 112.06L18.26 69.63z"
                         fill="currentColor" />
                 </g>
+            </svg>
+        </div>
+        <div id="theme-button" class="icon-button" title="Dark mode">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                <path d="M0 12c0 6.627 5.373 12 12 12s12-5.373 12-12-5.373-12-12-12-12 5.373-12 12zm2 0c0-5.514 4.486-10 10-10v20c-5.514 0-10-4.486-10-10z" fill="currentColor"></path>
             </svg>
         </div>
         <div id="bookmarks-button" class="icon-button" onclick="location.href='/bookmarks.html'">
