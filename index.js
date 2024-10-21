@@ -225,7 +225,6 @@ const response = await fetch('available_suttas.json');
 const availableSuttas = await response.json();
 const availableSuttasJson = availableSuttas['available_suttas'];
 
-
 // initialize
 if (localStorage.sideBySide) {
   if (localStorage.sideBySide == "true") {
@@ -253,34 +252,36 @@ themeButton.addEventListener("click", () => {
 
 // input in search bar
 const searchBar = document.getElementById("search-bar");
-searchBar.focus();
+if(window.location.href == "https://suttas.hillsidehermitage.org/"){
+  searchBar.focus();
 
-searchBar.addEventListener("input", async (e) => {
-  const searchQuery = e.target.value.trim().toLowerCase();
-  if (!searchQuery) {
-    suttaArea.innerHTML = "";
-    displaySuttas(availableSuttasJson);
-    return;
-  }
-
-  const collection = db.suttas.filter((sutta) => {
-    const suttaContent = JSON.stringify(sutta.value).toLowerCase();
-    if (suttaContent.includes(searchQuery)) return true;
-
-    const suttaContentWithoutDiacritics = removeDiacritics(suttaContent);
-    return suttaContentWithoutDiacritics.includes(searchQuery);
+  searchBar.addEventListener("input", async (e) => {
+    const searchQuery = e.target.value.trim().toLowerCase();
+    if (!searchQuery) {
+      suttaArea.innerHTML = "";
+      displaySuttas(availableSuttasJson);
+      return;
+    }
+  
+    const collection = db.suttas.filter((sutta) => {
+      const suttaContent = JSON.stringify(sutta.value).toLowerCase();
+      if (suttaContent.includes(searchQuery)) return true;
+  
+      const suttaContentWithoutDiacritics = removeDiacritics(suttaContent);
+      return suttaContentWithoutDiacritics.includes(searchQuery);
+    });
+    const searchResults = await collection.toArray();
+    const suttaIds = searchResults.map((result) => result.id)
+    const suttas = getSuttasByIds(suttaIds);
+    if (suttaIds.length > 0) {
+      suttaArea.innerHTML = "";
+      displaySuttas(suttas, true);
+    }
+    else {
+      suttaArea.innerHTML = "<h2 class=\"no-results\">No results found</h2>";
+    }
   });
-  const searchResults = await collection.toArray();
-  const suttaIds = searchResults.map((result) => result.id)
-  const suttas = getSuttasByIds(suttaIds);
-  if (suttaIds.length > 0) {
-    suttaArea.innerHTML = "";
-    displaySuttas(suttas, true);
-  }
-  else {
-    suttaArea.innerHTML = "<h2 class=\"no-results\">No results found</h2>";
-  }
-});
+}
 
 document.getElementById("form").addEventListener("submit", e => {
   e.preventDefault();
@@ -434,147 +435,149 @@ function addNavbar() {
 if (document.location.search) {
   buildSutta(document.location.search.replace("?q=", "").replace(/\s/g, "").replace(/%20/g, ""));
 } else {
-  displaySuttas(availableSuttasJson);
-  loadWhatsNewArea();
+  if(window.location.href == "https://suttas.hillsidehermitage.org/"){
+    displaySuttas(availableSuttasJson);
+    loadWhatsNewArea();
+  }
 }
 
-
-document.addEventListener('click', function (event) {
-  // Check if the clicked element is the foreword button
-  if (event.target && event.target.id === 'foreword-button') {
-    showForeword(); // Call the function to show the foreword
-    displaySuttas(availableSuttasJson);
-  }
-  // Add a click event listener to the span element
-  if (event.target && event.target.id === 'back-arrow') {
-    goBack();
-  }
-});
-
-const refreshButton = document.getElementById("hardRefresh");
-refreshButton.addEventListener("click", function () {
-  db.delete().then(() => {
-    console.log("[SUCCESS] Database deleted");
-    localStorage.clear();
-    window.location.href = "/";
-  }).catch((error) => {
-    console.error("[ERROR] Could not delete database:", error);
-  })
-});
-
-
-const errorButton = document.getElementById('reportButton');
-errorButton.addEventListener('click', () => {
-  window.open('https://docs.google.com/forms/d/1Ng8Csf9xYJ7UaYUyl3sGEyZ3aa2FJE_0GRS6zI6oIBM/edit', '_blank');
-});
-
-window.addEventListener('hashchange', function () {
-  const hash = window.location.hash;
-
-  // Check if the hash starts with "comment"
-  if (hash.startsWith('#comment')) {
-    return; // Let the browser handle the default behavior
-  }
-
-  scrollToHash();
-});
-
-document.getElementById('cacheButton').addEventListener('click', () => {
-  // Check if service worker is supported by the browser
-  if ('serviceWorker' in navigator) {
-    // Send message to service worker to trigger caching
-    try {
-      showNotification("Downloading...", 999999)
-      navigator.serviceWorker.controller.postMessage({ action: 'cacheResources' });
-    } catch (error) {
-      console.log(error);
-      // TODO maybe a red colour box here?
-      showNotification("An error occurred while attempting to download. Please refresh the page, wait a few seconds, and retry", 5000);
+if(window.location.href == "https://suttas.hillsidehermitage.org/"){
+  document.addEventListener('click', function (event) {
+    // Check if the clicked element is the foreword button
+    if (event.target && event.target.id === 'foreword-button') {
+      showForeword(); // Call the function to show the foreword
+      displaySuttas(availableSuttasJson);
     }
-  }
-});
-
-infoButton.addEventListener("click", function (event) {
-  event.stopPropagation(); // Prevent click from immediately propagating to document
-  let notificationBox = document.querySelector('.info-notification-box')
-  if (!notificationBox) {
-    notificationBox = document.createElement('div');
-    notificationBox.classList.add('info-notification-box');
-    document.body.appendChild(notificationBox);
-  }
-
-  if (notificationBox.style.display == 'block') {
-    notificationBox.style.display = 'none';
-  } else {
-    notificationBox.textContent = "The ‘Use Offline’ button makes the site available offline on the current web browser at the same URL (suttas.hillsidehermitage.org).\n\nThe site can also be installed as an application on mobile phones, by tapping ‘Install’ at the menu on the top right corner. Note that hitting the ‘Use Offline’ button is still necessary to make it available offline through the app.\n\nIf downloading again (e.g., when new Suttas become available), make sure to first clear the site's data on your browser/app and reload the page.";
-    notificationBox.style.display = 'block';
-  }
-});
-// Add event listener to document to hide notificationBox when clicking outside
-document.addEventListener("click", function (event) {
-  let notificationBox = document.querySelector('.info-notification-box');
-  if (notificationBox && notificationBox.style.display == 'block') {
-    // Check if the click is outside the notificationBox and not on the infoButton
-    if (!notificationBox.contains(event.target) && event.target !== infoButton) {
-      notificationBox.style.display = 'none';
+    // Add a click event listener to the span element
+    if (event.target && event.target.id === 'back-arrow') {
+      goBack();
     }
-  }
-});
-
-let lastModifiedDate;
-epubInfoButton.addEventListener("click", function (event) {
-  event.stopPropagation(); // Prevent click from immediately propagating to document
-  let notificationBox = document.querySelector('.info-notification-box')
-  if (!notificationBox) {
-    notificationBox = document.createElement('div');
-    notificationBox.classList.add('info-notification-box');
-    document.body.appendChild(notificationBox);
-  }
-
-  if (notificationBox.style.display == 'block') {
-    notificationBox.style.display = 'none';
-  } else {
-    notificationBox.textContent = "The ‘Get Ebook’ button lets you download the translations and comments in an Ebook with the ‘.epub’ format." + (lastModifiedDate != null ? "\n\nLast updated: " + lastModifiedDate : "");
-    notificationBox.style.display = 'block';
-  }
-});
-
-document.getElementById('downloadEpubButton').addEventListener('click', function() {
-    const link = document.createElement('a');
-    link.href = '/suttas_epub/Sutta_Translations.epub';  // Path to EPUB file
-    link.download = 'Sutta_Translations.epub';    // Downloaded file name
-    link.click();
-});
-
-navigator.serviceWorker.addEventListener('message', event => {
-  if (event.data && event.data.action === 'cachingSuccess') {
-    showNotification("Download successful - site available offline.", 5000)
-  }
-  if (event.data && event.data.action === 'cachingError') {
-    // TODO again maybe a different colour box
-    showNotification("Caching error. Please clear site data, refresh the page, and try again.");
-  }
-});
-
-fetch('/suttas_epub/Sutta_Translations.epub')
-  .then(response => {
-    if (response.ok) {
-      const lastModified = response.headers.get('Last-Modified');
-      if (lastModified) {
-        const date = new Date(lastModified);
-        // Format date
-        lastModifiedDate = date.toLocaleDateString('en-EN', {
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric'
-        });
-      } else {
-        console.error("Header 'Last-Modified' is missing or invalid.");
-      }
-    } else {
-      console.error('Error when trying to get file :', response.statusText);
-    }
-  })
-  .catch(error => {
-    console.error('Error :', error);
   });
+  
+  const refreshButton = document.getElementById("hardRefresh");
+  refreshButton.addEventListener("click", function () {
+    db.delete().then(() => {
+      console.log("[SUCCESS] Database deleted");
+      localStorage.clear();
+      window.location.href = "/";
+    }).catch((error) => {
+      console.error("[ERROR] Could not delete database:", error);
+    })
+  });
+  
+  const errorButton = document.getElementById('reportButton');
+  errorButton.addEventListener('click', () => {
+    window.open('https://docs.google.com/forms/d/1Ng8Csf9xYJ7UaYUyl3sGEyZ3aa2FJE_0GRS6zI6oIBM/edit', '_blank');
+  });
+
+  window.addEventListener('hashchange', function () {
+    const hash = window.location.hash;
+  
+    // Check if the hash starts with "comment"
+    if (hash.startsWith('#comment')) {
+      return; // Let the browser handle the default behavior
+    }
+  
+    scrollToHash();
+  });
+
+  document.getElementById('cacheButton').addEventListener('click', () => {
+    // Check if service worker is supported by the browser
+    if ('serviceWorker' in navigator) {
+      // Send message to service worker to trigger caching
+      try {
+        showNotification("Downloading...")
+        navigator.serviceWorker.controller.postMessage({ action: 'cacheResources' });
+      } catch (error) {
+        console.log(error);
+        // TODO maybe a red colour box here?
+        showNotification("An error occurred while attempting to download. Please refresh the page, wait a few seconds, and retry");
+      }
+    }
+  });
+  
+  infoButton.addEventListener("click", function (event) {
+    event.stopPropagation(); // Prevent click from immediately propagating to document
+    let notificationBox = document.querySelector('.info-notification-box')
+    if (!notificationBox) {
+      notificationBox = document.createElement('div');
+      notificationBox.classList.add('info-notification-box');
+      document.body.appendChild(notificationBox);
+    }
+  
+    if (notificationBox.style.display == 'block') {
+      notificationBox.style.display = 'none';
+    } else {
+      notificationBox.textContent = "The ‘Use Offline’ button makes the site available offline on the current web browser at the same URL (suttas.hillsidehermitage.org).\n\nThe site can also be installed as an application on mobile phones, by tapping ‘Install’ at the menu on the top right corner. Note that hitting the ‘Use Offline’ button is still necessary to make it available offline through the app.\n\nIf downloading again (e.g., when new Suttas become available), make sure to first clear the site's data on your browser/app and reload the page.";
+      notificationBox.style.display = 'block';
+    }
+  });
+  // Add event listener to document to hide notificationBox when clicking outside
+  document.addEventListener("click", function (event) {
+    let notificationBox = document.querySelector('.info-notification-box');
+    if (notificationBox && notificationBox.style.display == 'block') {
+      // Check if the click is outside the notificationBox and not on the infoButton
+      if (!notificationBox.contains(event.target) && event.target !== infoButton) {
+        notificationBox.style.display = 'none';
+      }
+    }
+  });
+  
+  let lastModifiedDate;
+  epubInfoButton.addEventListener("click", function (event) {
+    event.stopPropagation(); // Prevent click from immediately propagating to document
+    let notificationBox = document.querySelector('.info-notification-box')
+    if (!notificationBox) {
+      notificationBox = document.createElement('div');
+      notificationBox.classList.add('info-notification-box');
+      document.body.appendChild(notificationBox);
+    }
+  
+    if (notificationBox.style.display == 'block') {
+      notificationBox.style.display = 'none';
+    } else {
+      notificationBox.textContent = "The ‘Get Ebook’ button lets you download the translations and comments in an Ebook with the ‘.epub’ format." + (lastModifiedDate != null ? "\n\nLast updated: " + lastModifiedDate : "");
+      notificationBox.style.display = 'block';
+    }
+  });
+  
+  document.getElementById('downloadEpubButton').addEventListener('click', function() {
+      const link = document.createElement('a');
+      link.href = '/suttas_epub/Sutta_Translations.epub';  // Path to EPUB file
+      link.download = 'Sutta_Translations.epub';    // Downloaded file name
+      link.click();
+  });
+  
+  navigator.serviceWorker.addEventListener('message', event => {
+    if (event.data && event.data.action === 'cachingSuccess') {
+      showNotification("Download successful - site available offline.")
+    }
+    if (event.data && event.data.action === 'cachingError') {
+      // TODO again maybe a different colour box
+      showNotification("Caching error. Please clear site data, refresh the page, and try again.");
+    }
+  });
+  
+  fetch('/suttas_epub/Sutta_Translations.epub')
+    .then(response => {
+      if (response.ok) {
+        const lastModified = response.headers.get('Last-Modified');
+        if (lastModified) {
+          const date = new Date(lastModified);
+          // Format date
+          lastModifiedDate = date.toLocaleDateString('en-EN', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+          });
+        } else {
+          console.error("Header 'Last-Modified' is missing or invalid.");
+        }
+      } else {
+        console.error('Error when trying to get file :', response.statusText);
+      }
+    })
+    .catch(error => {
+      console.error('Error :', error);
+    });
+}
