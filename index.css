@@ -113,7 +113,7 @@ body.dark {
   background-color: var(--light-gray);
 }
 
-.button-container{
+#top-buttons.button-container{
   display: flex;
   flex-direction: row;
   justify-content: center;
