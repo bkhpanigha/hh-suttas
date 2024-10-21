@@ -44,7 +44,6 @@ body.dark {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  margin-top: -47px;
 }
 
 #search-bar {
@@ -123,6 +122,7 @@ body.dark {
   align-items: center;
   flex-wrap: wrap;
   gap: .3rem;
+  margin-top: -60px;
 }
 
 .icon-button {
