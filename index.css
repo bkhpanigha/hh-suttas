@@ -116,6 +116,15 @@ body.dark {
   background-color: var(--light-gray);
 }
 
+#top-buttons.button-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: .3rem;
+}
+
 .icon-button {
   color: gray;
   border: none;
@@ -315,6 +324,12 @@ dt {
 
 #footer {
   text-align: center;
+}
+
+#footer .container {
+  display: flex;
+  flex-direction: column; /* Stack the elements vertically */
+  align-items: center; /* Center them horizontally */
 }
 
 .left-align {
