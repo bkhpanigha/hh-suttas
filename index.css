@@ -13,11 +13,6 @@ b{
   font-weight: normal;
 }
 
-.hidden
-{
-  display: none;
-}
-
 :root {
   --off-white: rgb(221, 221, 221);
   --light-off-white: rgb(241, 241, 241);
@@ -842,4 +837,10 @@ bookmarkButton{
 }
 .definition {
   padding-left: 20px;
+}
+
+
+.hidden
+{
+  display: none;
 }

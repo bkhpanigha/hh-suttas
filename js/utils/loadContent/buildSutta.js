@@ -5,6 +5,10 @@ import { initializePaliToggle } from "./initializePaliToggle.js";
 
 export function buildSutta(slug, availableSuttasJson) 
 {
+    const footer = document.getElementById('footer');
+    const originalDisplay = footer.style.display;
+    footer.style.display = 'none';
+
     const converter = new showdown.Converter();
     const {suttaArea} = getDocumentAreas();
 
@@ -94,6 +98,9 @@ export function buildSutta(slug, availableSuttasJson)
       if (infoButton) infoButton.style.display = 'none';
       if (epubInfoButton) epubInfoButton.style.display = 'none';
 
+
+      footer.style.display = originalDisplay;
+      
       // scroll to the quote in the url if present
       scrollToHash();
     })
