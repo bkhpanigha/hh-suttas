@@ -8,11 +8,12 @@ export default function activateHideNotificationBoxWhenClickingOutside()
     document.addEventListener("click", function (event) 
     {
         let notificationBox = document.querySelector('.info-notification-box');
+        if(!notificationBox) return;
+
         const targetNotInfoBox = event.target !== infoButton;
         const notificationBoxDoesNotContainTarget = (notificationBox.contains(event.target) === false)
 
         if (
-            notificationBox &&
             notificationBox.style.display == 'block' && 
             targetNotInfoBox && 
             notificationBoxDoesNotContainTarget
