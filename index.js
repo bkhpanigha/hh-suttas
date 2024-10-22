@@ -8,8 +8,6 @@ import { buildSutta } from "./js/utils/loadContent/buildSutta.js";
 import { handleFetchSuttaTranslations } from "./js/utils/async/handleFetchSuttaTranslations.js";
 import updateSuttaDatabase from './js/database/updateSuttaDatabase.js';
 
-
-
 // Wait for DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', async function() {
   try {
