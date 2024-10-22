@@ -1,7 +1,7 @@
 import db from "../dexie/dexie.js";
 import importLinesCount from '../../python-generated/suttas-count.js'
 
-export default function fetchSuttaData()
+export default function updateSuttaDatabase()
 {
   db.suttas.count().then((count) => {
     const isEmpty = count === 0;
@@ -33,6 +33,3 @@ export default function fetchSuttaData()
     console.error("[ERROR] Failed to check data count:", error);
   });
 }
-
-
-export {fetchSuttaData}
