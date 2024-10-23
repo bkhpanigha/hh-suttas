@@ -57,10 +57,8 @@ def create_ebook(toc_entries, output_file):
         # Add the chapter to the ebook
         book.add_item(chapter)
         spine_items.append(chapter)  # Add the chapter to the spine
-
-    ---- start not working ----
     
-    # Configure the style
+    # Configure the style of every xhtml files
     style = """
     #toc a { text-decoration: none; }
     """
@@ -70,8 +68,6 @@ def create_ebook(toc_entries, output_file):
     # Add CSS to chapters
     for item in spine_items:
         item.add_link(href='style.css', rel='stylesheet', type='text/css')
-    
-    ---- end not working ----
     
     # Configure the ToC
     #book.toc = (epub.Link('nav.xhtml', 'Table of Contents', 'toc'),)
