@@ -69,6 +69,34 @@ def create_ebook(toc_entries, output_file):
     for item in spine_items:
         item.add_link(href='style.css', rel='stylesheet', type='text/css')
     
+	
+	--- start not working ---
+    #Configure the cover
+    
+    # Create xhtml file for cover
+    cover = epub.EpubHtml(title='Cover', file_name='cover.xhtml', lang='fr')
+    cover.content = """<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Cover</title>
+    </head>
+    <body>
+        <div style="text-align: center;">
+            <img src="pictures/cover.jpg" alt="Couverture du livre" width="100%"/>
+        </div>
+    </body>
+    </html>
+    """
+
+    book.add_item(cover)
+
+    # Add the picture to the ressources
+    book.add_item(epub.EpubItem(uid="img1", file_name="pictures/cover.png", media_type="image/png"))
+
+    # Define the cover
+    book.set_cover("pictures/cover.png", "image/png")
+    
+	--- end not working ---
+	
     # Configure the ToC
     #book.toc = (epub.Link('nav.xhtml', 'Table of Contents', 'toc'),)
     book.toc += tuple(epub.Link(href, title, title) for title, href in toc_entries)
