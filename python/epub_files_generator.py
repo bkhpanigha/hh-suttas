@@ -295,8 +295,8 @@ def generate_nav_file():
     xhtml += '    <meta content="text/css" http-equiv="Content-Style-Type" />\n'
     xhtml += '    <title>Sutta Translations</title>\n'
     xhtml += '  </head>\n'
-    xhtml += '  <body id="toc">\n'
-    xhtml += '    <div>\n'
+    xhtml += '  <body>\n'
+    xhtml += '    <div id="toc">\n'
     xhtml += '      <h1>Table of Contents</h1>\n'
 
     # Loop through the chapters to create the sorted list of suttas
