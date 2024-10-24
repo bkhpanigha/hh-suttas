@@ -1,4 +1,4 @@
-
+import db from '../../dexie/dexie.js';
 
 export default function activateRefreshButton()
 {
