@@ -43,7 +43,7 @@ import { loadWhatsNewArea } from "./js/utils/contentSections/loadWhatsNewArea.js
 import { displaySuttas } from "./js/utils/contentSections/displaySuttas.js";
 import { activateEventListeners } from "./js/utils/loadContent/activateEventListeners.js";
 import { fetchAvailableSuttas } from "./js/utils/loadContent/fetchAvailableSuttas.js";
-import initializeSideBySide from "./js/utils/loadContent/initializeSidebyside.js";
+import initializeSideBySide from "./js/utils/loadContent/initializeSideBySide.js";
 import { toggleTheme } from "./js/utils/misc/toggleTheme.js";
 import { buildSutta } from "./js/utils/loadContent/buildSutta.js";
 import { handleFetchSuttaTranslations } from "./js/utils/async/handleFetchSuttaTranslations.js";
