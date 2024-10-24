@@ -10,7 +10,7 @@ import { activateThemeButton } from "../eventListeners/activateThemeButton.js";
 import activateSearchBar from "../eventListeners/activateSearchBar.js";
 import activateForm from "../eventListeners/activateForm.js";
 import activateViewForewordAndGoBackButtons from "../eventListeners/activateViewForewordAndGoBackButtons.js";
-import activateRefreshButton from "../eventListeners/activateRefershButton.js";
+import activateRefreshButton from "../eventListeners/activateRefreshButton.js";
 import activateErrorButton from "../eventListeners/activateErrorButton.js";
 import activateCacheButton from "../eventListeners/activateCacheButton.js";
 import activateInfoButton from "../eventListeners/activateInfoButton.js";
