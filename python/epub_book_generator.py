@@ -4,9 +4,8 @@ import json
 from collections import OrderedDict
 from ebooklib import epub
 
-path_to_root = "./../"
-suttas_epub_folder = path_to_root + "suttas_epub/"
-xhtml_folder = suttas_epub_folder + "xhtml/"
+suttas_epub_folder = "suttas_epub"
+xhtml_folder = suttas_epub_folder + "/xhtml"
 
 #
 #
@@ -53,7 +52,7 @@ def create_ebook(toc_entries, output_file):
     spine_items = []  # To store the chapters to add to the spine
     
     # Add the cover picture to the ressources
-    book.add_item(epub.EpubItem(uid="img1", file_name="pictures/cover.jpg", media_type="image/jpeg", content=open(suttas_epub_folder + 'pictures/cover.jpg', 'rb').read()))
+    book.add_item(epub.EpubItem(uid="img1", file_name="pictures/cover.jpg", media_type="image/jpeg", content=open(suttas_epub_folder + '/pictures/cover.jpg', 'rb').read()))
     #Configure cover page
     c0 = epub.EpubHtml(title='Cover', file_name='cover.xhtml')
     c0.content='<img src="pictures/cover.jpg" alt="Cover Image"/>'
@@ -62,7 +61,7 @@ def create_ebook(toc_entries, output_file):
     spine_items.append(c0)
     
     for title, href in toc_entries:
-        chapter_file_path = href
+        chapter_file_path = "/" + href
 
         # Create a new chapter
         chapter = epub.EpubHtml(title=title, file_name=chapter_file_path, lang='en')
@@ -197,7 +196,7 @@ def generate_xhtml(sutta_html, sutta_translation, sutta_comments, chapter):
 
 
 def generate_xhtml_for_suttas():
-    base_dir = path_to_root + 'suttas'  # Base folder for the files
+    base_dir = 'suttas'  # Base folder for the files
     translation_dir = os.path.join(base_dir, 'translation_en')
     html_dir = os.path.join(base_dir, 'html')
     comment_dir = os.path.join(base_dir, 'comment')
@@ -357,7 +356,7 @@ def create_book_title_xhtml(book_name, book_abbr, folder):
     
 def generate_nav_file():
     # Load the data from the JSON file
-    with open(path_to_root + 'available_suttas.json', 'r', encoding='utf-8') as json_file:
+    with open('available_suttas.json', 'r', encoding='utf-8') as json_file:
         suttas_data = json.load(json_file)["available_suttas"]
 
     # List of files to include in the table of contents
@@ -460,8 +459,8 @@ if __name__ == '__main__':
     generate_nav_file()
 
     #Ebook creation
-    nav_file = xhtml_folder + 'nav.xhtml'  # Path to the nav.xhtml file
-    output_file = path_to_root + 'suttas_epub/Sutta_Translations.epub'  # Output path for the ebook
+    nav_file = xhtml_folder + '/nav.xhtml'  # Path to the nav.xhtml file
+    output_file = suttas_epub_folder + '/Sutta_Translations.epub'  # Output path for the ebook
 
     # Extract chapters and create the ebook
     chapters = extract_chapters(nav_file)
@@ -471,4 +470,4 @@ if __name__ == '__main__':
     
     clean_xhtml_folder(xhtml_folder)
     
-    print("Xhtml folder cleaned successfully.")
+    print("Xhtml folder cleaned")
