@@ -93,11 +93,12 @@ export function buildSutta(slug, availableSuttasJson)
       // remove download and info button
       const cacheButton = document.getElementById('cacheButton');
       const infoButton = document.getElementById('infoButton');
+      const downloadEpubButton = document.getElementById('downloadEpubButton');
       const epubInfoButton = document.getElementById('epubInfoButton');
       if (cacheButton) cacheButton.style.display = 'none';
       if (infoButton) infoButton.style.display = 'none';
+      if (downloadEpubButton) downloadEpubButton.style.display = 'none';      
       if (epubInfoButton) epubInfoButton.style.display = 'none';
-
 
       footer.style.display = originalDisplay;
       
