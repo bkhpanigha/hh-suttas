@@ -2,9 +2,106 @@ import re
 import os
 import json
 from collections import OrderedDict
+from ebooklib import epub
 
-# Folder containing the .xhtml files
-folder = '../suttas_epub/xhtml'
+suttas_epub_folder = "suttas_epub"
+xhtml_folder = suttas_epub_folder + "/xhtml"
+
+#
+#
+# Epub Generation Code Below
+#
+#
+
+# Function to extract chapters and titles from the nav.xhtml file
+def extract_chapters(nav_file):
+    toc_entries = []
+
+    # Read the nav.xhtml file
+    with open(nav_file, 'r', encoding='utf-8') as file:
+        content = file.read()
+
+    # Add the first entry pointing to the ToC itself
+    toc_entries.append(('Table of Contents', 'nav.xhtml'))
+
+    # Regex to find chapters and their titles
+    chapter_pattern = re.compile(r'<h2><a href="([^"]+)">([^<]+)</a></h2>\s*<ol>(.*?)</ol>', re.DOTALL)
+    sub_chapter_pattern = re.compile(r'<li>\s*<a href="([^"]+)">([^<]+)</a>\s*</li>')
+
+    # Find chapters and their sub-chapters
+    for match in chapter_pattern.finditer(content):
+        chapter_link, chapter_title, ol_content = match.groups()
+        toc_entries.append((chapter_title, chapter_link))
+
+        # Find sub-chapters in the ordered list
+        for sub_match in sub_chapter_pattern.finditer(ol_content):
+            sub_chapter_link, sub_chapter_title = sub_match.groups()
+            toc_entries.append((sub_chapter_title, sub_chapter_link))
+
+    return toc_entries
+
+# Function to create the ebook
+def create_ebook(toc_entries, output_file):
+    book = epub.EpubBook()
+
+    # Set the metadata for the ebook
+    book.set_title('Sutta Translations')
+    book.set_language('en')
+    book.add_author('')
+    
+    spine_items = []  # To store the chapters to add to the spine
+    
+    # Add the cover picture to the ressources
+    book.add_item(epub.EpubItem(uid="img1", file_name="pictures/cover.jpg", media_type="image/jpeg", content=open(suttas_epub_folder + '/pictures/cover.jpg', 'rb').read()))
+    #Configure cover page
+    c0 = epub.EpubHtml(title='Cover', file_name='cover.xhtml')
+    c0.content='<img src="pictures/cover.jpg" alt="Cover Image"/>'
+    #Add cover to book and spine
+    book.add_item(c0)
+    spine_items.append(c0)
+    
+    for title, href in toc_entries:
+        chapter_file_path = "/" + href
+
+        # Create a new chapter
+        chapter = epub.EpubHtml(title=title, file_name=chapter_file_path, lang='en')
+
+        # Add the content of the chapter
+        with open(xhtml_folder + chapter_file_path, 'r', encoding='utf-8') as file:
+            content = file.read()
+            chapter.set_content(content)
+
+        # Add the chapter to the ebook
+        book.add_item(chapter)
+        spine_items.append(chapter)  # Add the chapter to the spine
+
+    # Configure the style of every xhtml files
+    style = """
+    #toc a { text-decoration: none; }
+    """
+    css_item = epub.EpubItem(uid="style", file_name="style.css", media_type="text/css", content=style)
+    book.add_item(css_item)
+    
+    # Add CSS to chapters
+    for item in spine_items:
+        item.add_link(href='style.css', rel='stylesheet', type='text/css')
+    
+    # Configure the ToC
+    book.toc += tuple(epub.Link(href, title, title) for title, href in toc_entries)
+
+    # Configure the spine
+    book.spine = spine_items
+    
+    book.add_item(epub.EpubNcx())
+
+    # Save the ebook
+    epub.write_epub(output_file, book)
+
+#
+#
+# Xhtml Files Generation Code Below
+#
+#
 
 # List of URLs and their replacements
 url_replacements = {
@@ -90,20 +187,20 @@ def generate_xhtml(sutta_html, sutta_translation, sutta_comments, chapter):
 
     # Add the comments section at the end
     if comments_list:
-        xhtml += f"<footer><br /><h3>{chapter} - Comments</h3><hr />"
+        xhtml += f"<footer><br /><h2>{chapter} - Comments</h2><hr />"
         for num, comment in comments_list:
-            xhtml += f'<div id="note-{num}" epub:type="footnote"><p><a href="#noteref-{num}">{num}</a> {comment}</p></div>\n'
+            xhtml += f'<aside id="note-{num}" epub:type="footnote"><p><a href="#noteref-{num}">{num}</a> {comment}</p></aside>\n'
         xhtml += "</footer>"
         
     return xhtml
 
-# Main function
+
 def generate_xhtml_for_suttas():
-    base_dir = '../suttas'  # Base folder for the files
+    base_dir = 'suttas'  # Base folder for the files
     translation_dir = os.path.join(base_dir, 'translation_en')
     html_dir = os.path.join(base_dir, 'html')
     comment_dir = os.path.join(base_dir, 'comment')
-    output_dir = folder  # Output folder for the XHTML files
+    output_dir = xhtml_folder  # Output folder for the XHTML files
 
     # Create the output directory if it does not exist
     os.makedirs(output_dir, exist_ok=True)
@@ -228,8 +325,6 @@ def categorize_sutta(sutta_number):
     else:
         return "Khuddaka Nikāya"
 
-import os
-
 def create_book_title_xhtml(book_name, book_abbr, folder):
     #Dynamic XHTML with book name
     xhtml_content = f"""<!DOCTYPE html>
@@ -261,11 +356,11 @@ def create_book_title_xhtml(book_name, book_abbr, folder):
     
 def generate_nav_file():
     # Load the data from the JSON file
-    with open('../available_suttas.json', 'r', encoding='utf-8') as json_file:
+    with open('available_suttas.json', 'r', encoding='utf-8') as json_file:
         suttas_data = json.load(json_file)["available_suttas"]
 
     # List of files to include in the table of contents
-    files = sorted([f for f in os.listdir(folder) if f.endswith('.xhtml')], key=natural_sort_key)
+    files = sorted([f for f in os.listdir(xhtml_folder) if f.endswith('.xhtml')], key=natural_sort_key)
 
     # Create a dictionary with books and their respective abbreviations
     books = {
@@ -295,8 +390,8 @@ def generate_nav_file():
     xhtml += '    <meta content="text/css" http-equiv="Content-Style-Type" />\n'
     xhtml += '    <title>Sutta Translations</title>\n'
     xhtml += '  </head>\n'
-    xhtml += '  <body id="toc">\n'
-    xhtml += '    <div>\n'
+    xhtml += '  <body>\n'
+    xhtml += '    <div id="toc">\n'
     xhtml += '      <h1>Table of Contents</h1>\n'
 
     # Loop through the chapters to create the sorted list of suttas
@@ -305,7 +400,7 @@ def generate_nav_file():
         book_abbr = book_data["abbr"]
         
         #Create the xhtml file containing the book title
-        create_book_title_xhtml(book, book_abbr, folder)
+        create_book_title_xhtml(book, book_abbr, xhtml_folder)
 
         # Add the book header with a link
         xhtml += f'      <h2><a href="book-{book_abbr}.xhtml">{book}</a></h2>\n'
@@ -333,27 +428,46 @@ def generate_nav_file():
     xhtml += '</html>\n'
 
     # Save the nav.xhtml file
-    with open(os.path.join(folder, 'nav.xhtml'), 'w', encoding='utf-8') as f:
+    with open(os.path.join(xhtml_folder, 'nav.xhtml'), 'w', encoding='utf-8') as f:
         f.write(xhtml)
 
-        
-# Execute the script
+#Delete every xhtml files generated
+def clean_xhtml_folder(folder):
+    for file in os.listdir(folder):
+        full_path = os.path.join(folder, file)
+        if os.path.isfile(full_path):
+            os.remove(full_path)
+
 if __name__ == '__main__':
+    #Xhtml files generation
     generate_xhtml_for_suttas()
 
     # Process the files in the folder
-    for filename in os.listdir(folder):
+    for filename in os.listdir(xhtml_folder):
         if filename.endswith('.xhtml') and not filename.startswith("book"):
-            input_file_path = os.path.join(folder, filename)
+            input_file_path = os.path.join(xhtml_folder, filename)
             with open(input_file_path, 'r', encoding='utf-8') as file:
                 content = file.read()
 
             modified_content = transform_text(content, filename)
 
-            output_file_path = os.path.join(folder, filename)
+            output_file_path = os.path.join(xhtml_folder, filename)
             with open(output_file_path, 'w', encoding='utf-8') as file:
                 file.write(modified_content)
                 print(f"Formatted XHTML for {filename}")
     
     generate_nav_file()
-    print("Process Finished")
+
+    #Ebook creation
+    nav_file = xhtml_folder + '/nav.xhtml'  # Path to the nav.xhtml file
+    output_file = suttas_epub_folder + '/Sutta_Translations.epub'  # Output path for the ebook
+
+    # Extract chapters and create the ebook
+    chapters = extract_chapters(nav_file)
+    create_ebook(chapters, output_file)
+
+    print(f"Ebook '{output_file}' created successfully.")
+    
+    clean_xhtml_folder(xhtml_folder)
+    
+    print("Xhtml folder cleaned")

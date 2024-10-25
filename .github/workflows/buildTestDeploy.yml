@@ -25,6 +25,7 @@ jobs:
       - name: Install Python dependencies
         run: |
           python -m pip install --upgrade pip
+          python -m pip install ebooklib
           # Add any other dependencies here if needed
 
       - name: Run add_links_to_references.py script
@@ -36,33 +37,30 @@ jobs:
       - name: Run suttas_database_data_generator.py script
         run: python suttas_database_data_generator.py
 
-      - name: Check for changes
-        id: check_changes
-        run: |
-          MODIFIED_FILES=$(git diff --name-only -- suttas/comment/)
-          echo "Modified files: $MODIFIED_FILES"
-          if [ -z "$MODIFIED_FILES" ]; then
-              echo "changes=false" >> $GITHUB_ENV
-          else
-              echo "changes=true" >> $GITHUB_ENV
-              echo "$MODIFIED_FILES" > modified_files_list.txt
-          fi
-
-      - name: Commit and push if changes
-        if: env.changes == 'true'
+      - name: Run epub_book_generator.py script
+        run: python ./python/epub_book_generator.py
+        
+      - name: Set up Git config
         run: |
           git config --global user.email "action@github.com"
           git config --global user.name "GitHub Action"
-          git add available_suttas.json files_to_cache.json python-generated/suttas-count.js python-generated/suttas-database-data.json
-          while read file; do
-            git add "$file"
-          done < modified_files_list.txt
-          git commit -m "Update available suttas list and cache files"
-          git push
 
-      - name: Clean up
+      - name: Check for changes
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "Changes detected. Preparing to push changes."
+            git add -A
+            git commit -m "Auto-commit changes from GitHub Actions" || echo "No changes to commit"
+            echo "changes=true" >> $GITHUB_ENV
+          else
+            echo "No changes to push."
+            echo "changes=false" >> $GITHUB_ENV
+          fi
+  
+      - name: Push changes
         if: env.changes == 'true'
-        run: rm modified_files_list.txt
+        run: |
+          git push
 
   test-and-merge:
     needs: update-suttas-list

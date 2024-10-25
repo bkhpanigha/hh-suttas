@@ -1,7 +1,6 @@
 export default function activateEPUBInfoButton()
 {
     const epubInfoButton = document.getElementById('epubInfoButton');
-    let lastModifiedDate; //looks like this was a placeholder for future logic.
 
     epubInfoButton.addEventListener("click", function (event) 
     {
@@ -18,7 +17,7 @@ export default function activateEPUBInfoButton()
         if (notificationBox.style.display == 'block') notificationBox.style.display = 'none';
         else 
         {
-            notificationBox.textContent = "The ‘Get Ebook’ button lets you download the translations and comments in an Ebook with the ‘.epub’ format." + (lastModifiedDate != null ? "\n\nLast updated: " + lastModifiedDate : "");
+            notificationBox.textContent = "The ‘Get Ebook’ button lets you download the translations and comments in an Ebook with the ‘.epub’ format.";
             notificationBox.style.display = 'block';
         }
     });
