@@ -60,13 +60,12 @@ document.addEventListener('DOMContentLoaded', async function() {
       if (document.location.search) {
           const slug = document.location.search.replace("?q=", "").replace(/\s/g, "").replace(/%20/g, "");
           buildSutta(slug, availableSuttasJson);
-      } else {
+      } else if(window.location.href == "https://suttas.hillsidehermitage.org/"){
           displaySuttas(availableSuttasJson);
           loadWhatsNewArea(availableSuttasJson);
       }
 
       // Additional setup steps
-      await handleFetchSuttaTranslations();
       updateSuttaDatabase();
       activateEventListeners(availableSuttasJson);
       initializeSideBySide();
