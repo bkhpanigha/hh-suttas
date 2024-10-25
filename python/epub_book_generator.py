@@ -5,7 +5,8 @@ from collections import OrderedDict
 from ebooklib import epub
 
 path_to_root = "./../"
-xhtml_folder = path_to_root + "/suttas_epub/xhtml/"
+suttas_epub_folder = path_to_root + "/suttas_epub/"
+xhtml_folder = suttas_epub_folder + "xhtml/"
 
 #
 #
@@ -52,7 +53,7 @@ def create_ebook(toc_entries, output_file):
     spine_items = []  # To store the chapters to add to the spine
     
 	# Add the cover picture to the ressources
-    book.add_item(epub.EpubItem(uid="img1", file_name="pictures/cover.jpg", media_type="image/jpeg", content=open(xhtml_folder + 'pictures/cover.jpg', 'rb').read()))
+    book.add_item(epub.EpubItem(uid="img1", file_name="pictures/cover.jpg", media_type="image/jpeg", content=open(suttas_epub_folder + 'pictures/cover.jpg', 'rb').read()))
 	#Configure cover page
     c0 = epub.EpubHtml(title='Cover', file_name='cover.xhtml')
     c0.content='<img src="pictures/cover.jpg" alt="Cover Image"/>'
