@@ -114,11 +114,20 @@ body.dark {
   background-color: var(--light-gray);
 }
 
+#top-buttons.button-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: .3rem;
+  margin-top: -60px;
+}
+
 .icon-button {
   color: gray;
   border: none;
   background: none;
-  margin-left: 7px;
   cursor: pointer;
 }
 
@@ -315,6 +324,12 @@ dt {
   text-align: center;
 }
 
+#footer .container {
+  display: flex;
+  flex-direction: column; /* Stack the elements vertically */
+  align-items: center; /* Center them horizontally */
+}
+
 .left-align {
   text-align: left;
 }
@@ -373,16 +388,8 @@ br {
   flex-direction: row;
   gap: 1rem;
   justify-content: left;
+  align-items: center;
   margin-top: 2rem;
-}
-
-@media only screen and (max-width: 768px) {
-  /* CSS rules for screens smaller than 768px */
-  .links-area {
-      /* margin-top: 2rem; */
-      margin: 1rem;
-      /* Override styles here */
-  }
 }
 
 .links-area a {
@@ -570,7 +577,7 @@ a:hover {
   font-size: 12px;
   font-family: "RobotoSerif", serif;
   background-color: transparent;
-  border: 1px solid black;
+  border: 1px solid gray;
   /* Optional: adds a border */
   color: black;
   filter: opacity(65%);
@@ -784,6 +791,12 @@ bookmarkButton{
   .bookmark-container p{
     max-width: 60%;
   }
+  #top-buttons.button-container{
+    margin-top: initial;
+  }
+  .links-area {
+      margin: 1rem;
+  }
 }
 @media only screen and (max-width: 600px) {
   #suttanav {
@@ -838,9 +851,6 @@ bookmarkButton{
 .definition {
   padding-left: 20px;
 }
-
-
-.hidden
-{
+.hidden{
   display: none;
 }
