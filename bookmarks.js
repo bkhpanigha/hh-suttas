@@ -1,4 +1,5 @@
-import { showNotification, DEFAULT_BOOKMARK_DICT } from './js/utils.js';
+import { DEFAULT_BOOKMARK_DICT } from "./js/utils/misc/default_bookmark_dict";
+import { showNotification } from './js/utils/userActions/showNotification.js';
 
 // TODO check if this is needed or move to utils
 const response = await fetch('available_suttas.json');

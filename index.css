@@ -838,3 +838,9 @@ bookmarkButton{
 .definition {
   padding-left: 20px;
 }
+
+
+.hidden
+{
+  display: none;
+}

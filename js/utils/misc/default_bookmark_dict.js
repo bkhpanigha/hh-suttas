@@ -1,0 +1,1 @@
+export const DEFAULT_BOOKMARK_DICT = { bookmarks: { unlabeled: [] } };

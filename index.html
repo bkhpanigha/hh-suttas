@@ -42,7 +42,7 @@
     </script>
 </head>
 
-<body class="dark">
+<body id = 'appbody' class="dark hidden">
     <div class="links-area">
         <a href="https://github.com/bkhpanigha/hh-suttas" title="The source code for this site" rel="noreferrer"
             target="_blank"><img width="20px" src="./images/GitHub-Mark-64px-black.png" alt="GitHub icon"></a>
@@ -120,7 +120,7 @@
             </svg>
         </div>
     </form>
-    <div id="app-content">
+    <div id="app-content" >
       <div id="whats-new"></div>
       <div id="sutta">
           <div style="display: flex; justify-content: center;"><span id="foreword-button" class="foreword-link">Foreword</span></div>
@@ -140,13 +140,14 @@
             align-items: center; /* Center them horizontally */
         }
         </style>
-        <div class="container">
+        <div class="container" id = "footer">
             <button id="hardRefresh" class="box-button orange">Reset website</button>
             <button id="reportButton" class="box-button red">Report an error</button>
             <a style="margin: 5px" href="https://hillsidehermitage.org">Hillside Hermitage Website</a>
         </div>
     </div>
-    <script type="module" src="index.js"></script>
+
+    <script type="module" src="/index.js"></script>
 </body>
 
 </html>
