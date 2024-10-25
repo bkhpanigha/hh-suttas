@@ -1,4 +1,4 @@
-export function showNotification(message, duration = 3000) {
+export function showNotification(message, duration = 5000) {
     let notificationBox = document.querySelector('.notification-box');
     if (!notificationBox) {
       notificationBox = document.createElement('div');
