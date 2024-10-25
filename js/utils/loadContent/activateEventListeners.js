@@ -18,15 +18,14 @@ import activateHideNotificationBoxWhenClickingOutside from "../eventListeners/ac
 import activateEPUBInfoButton from "../eventListeners/activateEPUBInfoButton.js";
 import activateDownloadEPUBButton from "../eventListeners/activateDownloadEPUBButton.js";
 import activateMessageListener from "../eventListeners/activateMessageListener.js";
+import activateHashChangeListener from "../eventListeners/activateHashChangeListener.js";
 
 export function activateEventListeners(availableSuttasJson)
 {
     activateSideBySideEventListenerKeyUp();
     activateHomeButton();
     activateThemeButton();
-    activateSearchBar(availableSuttasJson);
     activateForm();
-    activateViewForewordAndGoBackButtons();
     activateRefreshButton();
     activateErrorButton();
     activateCacheButton();
@@ -35,4 +34,10 @@ export function activateEventListeners(availableSuttasJson)
     activateEPUBInfoButton();
     activateDownloadEPUBButton();
     activateMessageListener();
+    
+    if(window.location.href == "https://suttas.hillsidehermitage.org/"){
+        activateSearchBar(availableSuttasJson);
+        activateViewForewordAndGoBackButtons();
+        activateHashChangeListener();
+    }
 }
