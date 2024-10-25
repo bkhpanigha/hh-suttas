@@ -11,7 +11,7 @@ export default function activateCacheButton()
           // Send message to service worker to trigger caching
           try 
           {
-            showNotification("Downloading...")
+            showNotification("Downloading...", 999999)
             navigator.serviceWorker.controller.postMessage({ action: 'cacheResources' });
           } 
           catch (error) 
