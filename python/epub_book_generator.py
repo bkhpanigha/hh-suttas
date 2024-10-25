@@ -5,7 +5,7 @@ from collections import OrderedDict
 from ebooklib import epub
 
 path_to_root = "./../"
-suttas_epub_folder = path_to_root + "/suttas_epub/"
+suttas_epub_folder = path_to_root + "suttas_epub/"
 xhtml_folder = suttas_epub_folder + "xhtml/"
 
 #
