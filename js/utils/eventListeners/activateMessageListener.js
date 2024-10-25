@@ -1,4 +1,4 @@
-
+import { showNotification } from "../../userActions/showNotification.js";
 
 export default function activateMessageListener()
 {
