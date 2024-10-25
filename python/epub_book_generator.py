@@ -52,12 +52,12 @@ def create_ebook(toc_entries, output_file):
     
     spine_items = []  # To store the chapters to add to the spine
     
-	# Add the cover picture to the ressources
+    # Add the cover picture to the ressources
     book.add_item(epub.EpubItem(uid="img1", file_name="pictures/cover.jpg", media_type="image/jpeg", content=open(suttas_epub_folder + 'pictures/cover.jpg', 'rb').read()))
-	#Configure cover page
+    #Configure cover page
     c0 = epub.EpubHtml(title='Cover', file_name='cover.xhtml')
     c0.content='<img src="pictures/cover.jpg" alt="Cover Image"/>'
-	#Add cover to book and spine
+    #Add cover to book and spine
     book.add_item(c0)
     spine_items.append(c0)
     
@@ -432,9 +432,15 @@ def generate_nav_file():
     with open(os.path.join(xhtml_folder, 'nav.xhtml'), 'w', encoding='utf-8') as f:
         f.write(xhtml)
 
+#Delete every xhtml files generated
+def clean_xhtml_folder(folder):
+    for file in os.listdir(folder):
+        full_path = os.path.join(folder, file)
+        if os.path.isfile(full_path):
+            os.remove(full_path)
 
 if __name__ == '__main__':
-	#Xhtml files generation
+    #Xhtml files generation
     generate_xhtml_for_suttas()
 
     # Process the files in the folder
@@ -453,7 +459,7 @@ if __name__ == '__main__':
     
     generate_nav_file()
 
-	#Ebook creation
+    #Ebook creation
     nav_file = xhtml_folder + 'nav.xhtml'  # Path to the nav.xhtml file
     output_file = path_to_root + 'suttas_epub/Sutta_Translations.epub'  # Output path for the ebook
 
@@ -462,3 +468,7 @@ if __name__ == '__main__':
     create_ebook(chapters, output_file)
 
     print(f"Ebook '{output_file}' created successfully.")
+    
+    clean_xhtml_folder(xhtml_folder)
+    
+    print("Xhtml folder cleaned successfully.")
