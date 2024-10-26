@@ -6,7 +6,7 @@ from ebooklib import epub
 
 suttas_epub_folder = "python/generated/suttas_epub"
 xhtml_folder = suttas_epub_folder + "/xhtml"
-available_suttas_path = "python/generated/available_suttas"
+available_suttas_path = "python/generated/available_suttas.json"
 
 #
 #
