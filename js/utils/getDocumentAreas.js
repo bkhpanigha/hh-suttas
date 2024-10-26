@@ -5,7 +5,7 @@ export default function getDocumentAreas()
     let suttaArea = null;
     let whatsNewArea = null;
     let form = null;
-    if(window.location.href == "https://suttas.hillsidehermitage.org/"){
+    if(window.location.href == "https://suttas.hillsidehermitage.org/" || window.location.href.startsWith("https://suttas.hillsidehermitage.org/?q=")){
         suttaArea = document.getElementById("sutta");
         whatsNewArea = document.getElementById('whats-new');
         form = document.getElementById('form');
