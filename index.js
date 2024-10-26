@@ -46,7 +46,6 @@ import { fetchAvailableSuttas } from "./js/utils/loadContent/fetchAvailableSutta
 import initializeSideBySide from "./js/utils/loadContent/initializeSideBySide.js";
 import { toggleTheme } from "./js/utils/misc/toggleTheme.js";
 import { buildSutta } from "./js/utils/loadContent/buildSutta.js";
-import { handleFetchSuttaTranslations } from "./js/utils/async/handleFetchSuttaTranslations.js";
 import updateSuttaDatabase from './js/database/updateSuttaDatabase.js';
 
 // Wait for DOM to be fully loaded -- prevents funny business
@@ -66,7 +65,6 @@ document.addEventListener('DOMContentLoaded', async function() {
       }
 
       // Additional setup steps
-      await handleFetchSuttaTranslations();
       updateSuttaDatabase();
       activateEventListeners(availableSuttasJson);
       initializeSideBySide();
