@@ -2,7 +2,7 @@ import { DEFAULT_BOOKMARK_DICT } from "./js/utils/misc/default_bookmark_dict.js"
 import { showNotification } from './js/utils/userActions/showNotification.js';
 
 // TODO check if this is needed or move to utils
-const response = await fetch('available_suttas.json');
+const response = await fetch('python/generated/available_suttas.json');
 const availableSuttas = await response.json();
 const availableSuttasJson = availableSuttas['available_suttas'];
 
