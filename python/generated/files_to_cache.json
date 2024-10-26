@@ -34,6 +34,7 @@
     "js/utils/eventListeners/activateEPUBInfoButton.js",
     "js/utils/eventListeners/activateErrorButton.js",
     "js/utils/eventListeners/activateForm.js",
+    "js/utils/eventListeners/activateHandleTextSelection.js",
     "js/utils/eventListeners/activateHashChangeListener.js",
     "js/utils/eventListeners/activateHideNotificationBoxWhenClickingOutside.js",
     "js/utils/eventListeners/activateHomeButton.js",
