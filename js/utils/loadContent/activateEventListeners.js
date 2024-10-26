@@ -19,6 +19,7 @@ import activateEPUBInfoButton from "../eventListeners/activateEPUBInfoButton.js"
 import activateDownloadEPUBButton from "../eventListeners/activateDownloadEPUBButton.js";
 import activateMessageListener from "../eventListeners/activateMessageListener.js";
 import activateHashChangeListener from "../eventListeners/activateHashChangeListener.js";
+import activateHandleTextSelection from "../eventListeners/activateHandleTextSelection.js";
 
 export function activateEventListeners(availableSuttasJson)
 {
@@ -39,5 +40,6 @@ export function activateEventListeners(availableSuttasJson)
         activateViewForewordAndGoBackButtons();
         activateHashChangeListener();
         activateForm();
+        activateHandleTextSelection();
     }
 }
