@@ -1,5 +1,8 @@
 import { generateLink } from "../misc/generateLink.js";
 import { hideCopyButton } from "../userActions/hideCopyButton.js";
+import { copyToClipboard } from "../../utils/misc/copyToClipboard.js";
+import { hideBookmarkButton } from "../userActions/hideBookmarkButton.js";
+import { clearSelection } from "../userActions/clearSelection.js";
 
 // Function to display the copy button
 export function showCopyButton(x, y, ids) {
