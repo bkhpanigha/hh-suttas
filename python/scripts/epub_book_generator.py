@@ -4,7 +4,7 @@ import json
 from collections import OrderedDict
 from ebooklib import epub
 
-suttas_epub_folder = "suttas_epub"
+suttas_epub_folder = "python/generated/suttas_epub"
 xhtml_folder = suttas_epub_folder + "/xhtml"
 
 #

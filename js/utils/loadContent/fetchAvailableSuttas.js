@@ -6,7 +6,7 @@ export async function fetchAvailableSuttas()
 
     try
     {
-        const response = await fetch('available_suttas.json');
+        const response = await fetch('python/generated/available_suttas.json');
         const availableSuttas = await response.json();
         availableSuttasJson = availableSuttas['available_suttas'];
     }

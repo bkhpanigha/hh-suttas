@@ -1,14 +1,14 @@
 import db from "../dexie/dexie.js";
-import importLinesCount from '../../python-generated/suttas-count.js'
+import suttasCount from '../../python/generated/suttas-count.js'
 
 export default function updateSuttaDatabase()
 {
   db.suttas.count().then((count) => {
     const isEmpty = count === 0;
-    const isDataMissing = importLinesCount > count;
+    const isDataMissing = suttasCount > count;
   
     if (isEmpty || isDataMissing) {
-      fetch("./python-generated/suttas-database-data.json").then(response => response.json()).then((suttas) => {
+      fetch("../../python/generated/suttas-database-data.json").then(response => response.json()).then((suttas) => {
         let suttasData = suttas;
   
         const data = Object.entries(suttasData).map(([key, value]) => ({

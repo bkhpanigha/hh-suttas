@@ -6,8 +6,8 @@ json_translation_directory = './suttas/translation_en'
 json_root_directory = './suttas/root'
 json_comments_directory = './suttas/comment'
 headings_file_path = './suttas/translation_en/headings.json'
-combined_json_path = './python-generated/suttas-database-data.json'
-suttas_count_js_path = './python-generated/suttas-count.js'
+combined_json_path = './python/generated/suttas-database-data.json'
+suttas_count_js_path = './python/generated/suttas-count.js'
 
 def combine_translations(translation_directory, root_directory, comment_directory, headings):
     combined_data = {}

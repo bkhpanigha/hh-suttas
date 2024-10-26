@@ -10,7 +10,7 @@ const filesToCache = [
   "index.js",
 ];
 // Load additional files from files_to_cache.json and add them to filesToCache
-fetch('files_to_cache.json')
+fetch('../../python/generated/files_to_cache.json')
   .then(response => response.json())
   .then(data => {
     data.forEach(file => {
