@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', async function() {
       if (document.location.search) {
           const slug = document.location.search.replace("?q=", "").replace(/\s/g, "").replace(/%20/g, "");
           buildSutta(slug, availableSuttasJson);
-      } else if(window.location.href == "https://suttas.hillsidehermitage.org/" || window.location.href.startsWith("https://suttas.hillsidehermitage.org/?q=")){
+      } else if (!window.location.href.endsWith("/bookmarks.html") && !window.location.href.endsWith("/glossary.html") && !window.location.href.endsWith("/comments.html")){
           displaySuttas(availableSuttasJson);
           loadWhatsNewArea(availableSuttasJson);
       }
