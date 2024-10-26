@@ -25,7 +25,6 @@ export function activateEventListeners(availableSuttasJson)
     activateSideBySideEventListenerKeyUp();
     activateHomeButton();
     activateThemeButton();
-    activateForm();
     activateRefreshButton();
     activateErrorButton();
     activateCacheButton();
@@ -39,5 +38,6 @@ export function activateEventListeners(availableSuttasJson)
         activateSearchBar(availableSuttasJson);
         activateViewForewordAndGoBackButtons();
         activateHashChangeListener();
+        activateForm();
     }
 }
