@@ -38,7 +38,7 @@ jobs:
         run: python python/scripts/suttas_database_data_generator.py
 
       - name: Run epub_book_generator.py script
-        run: python python/scripts/python/epub_book_generator.py
+        run: python python/scripts/epub_book_generator.py
         
       - name: Set up Git config
         run: |
