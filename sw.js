@@ -1,10 +1,10 @@
-const version = 'v5'; // Update this version manually when filesToCache changes
+const version = 'v6'; // Update this version manually when filesToCache changes
 
 // static files to cache
 const filesToCache = [
   "roboto-lightest.woff",
   "RobotoSerif-Regular.ttf",
-  "available_suttas.json",
+  "../../python/generated/available_suttas.json",
   "index.css",
   "index.html",
   "index.js",
