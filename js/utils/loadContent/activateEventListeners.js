@@ -35,7 +35,7 @@ export function activateEventListeners(availableSuttasJson)
     activateDownloadEPUBButton();
     activateMessageListener();
     
-    if(window.location.href == "https://suttas.hillsidehermitage.org/" || window.location.href.startsWith("https://suttas.hillsidehermitage.org/?q=")){
+    if (!window.location.href.endsWith("/bookmarks.html") && !window.location.href.endsWith("/glossary.html") && !window.location.href.endsWith("/comments.html")){
         activateSearchBar(availableSuttasJson);
         activateViewForewordAndGoBackButtons();
         activateHashChangeListener();
