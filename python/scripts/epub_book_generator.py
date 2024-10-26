@@ -4,8 +4,9 @@ import json
 from collections import OrderedDict
 from ebooklib import epub
 
-suttas_epub_folder = "suttas_epub"
+suttas_epub_folder = "python/generated/suttas_epub"
 xhtml_folder = suttas_epub_folder + "/xhtml"
+available_suttas_path = "python/generated/available_suttas.json"
 
 #
 #
@@ -356,7 +357,7 @@ def create_book_title_xhtml(book_name, book_abbr, folder):
     
 def generate_nav_file():
     # Load the data from the JSON file
-    with open('available_suttas.json', 'r', encoding='utf-8') as json_file:
+    with open(available_suttas_path, 'r', encoding='utf-8') as json_file:
         suttas_data = json.load(json_file)["available_suttas"]
 
     # List of files to include in the table of contents

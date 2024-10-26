@@ -4,6 +4,8 @@ import unicodedata
 from pathlib import Path
 import subprocess
 
+available_suttas_path = './python/generated/available_suttas.json'
+files_to_cache_path = './python/generated/files_to_cache.json'
 
 config = {
     "vagga_books": {"iti": 11, "snp": 5, "ud": 8},  # Vaggas in the KN collection
@@ -213,7 +215,7 @@ def generate_paths_for_sutta(sutta_id, base_dir="suttas"):
     return paths
 
 
-def generate_corresponding_files_list(available_suttas, output_file):
+def generate_corresponding_files_list(available_suttas):
     files_to_cache = []
 
     # Directories to cache
@@ -242,7 +244,7 @@ def generate_corresponding_files_list(available_suttas, output_file):
         files_to_cache.extend(sutta_paths)
 
     files_to_cache.sort()
-    with open(output_file, "w", encoding="utf-8") as out_file:
+    with open(files_to_cache_path, "w", encoding="utf-8") as out_file:
         json.dump(files_to_cache, out_file, ensure_ascii=False, indent=4)
 
 # Main execution
@@ -250,6 +252,6 @@ if __name__ == "__main__":
     suttas_base_dir = "suttas"
     available_suttas = load_available_suttas(suttas_base_dir)
     if available_suttas:
-        with open("available_suttas.json", "w", encoding="utf-8") as out_file:
+        with open(available_suttas_path, "w", encoding="utf-8") as out_file:
             json.dump({"available_suttas": available_suttas}, out_file, ensure_ascii=False, indent=4)
-        generate_corresponding_files_list(available_suttas, "files_to_cache.json")
+        generate_corresponding_files_list(available_suttas)

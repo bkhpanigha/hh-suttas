@@ -241,7 +241,7 @@ const retry = async (fn, retries = 3, delay = 1000) => {
     await testCitationSearch('snp4.2');
     await testCitationSearch('mn10');
     await testPaliTitleSearch('sabba', 'mn2');
-    await testAllCacheFilesReachable('files_to_cache.json');
+    await testAllCacheFilesReachable('../../python/generated/files_to_cache.json');
     await testBookmarkLabelCreation();
     await testBookmarkJsonUpload();
 

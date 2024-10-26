@@ -29,16 +29,16 @@ jobs:
           # Add any other dependencies here if needed
 
       - name: Run add_links_to_references.py script
-        run: python add_links_to_references.py
+        run: python python/scripts/add_links_to_references.py
         
       - name: Run sutta_catalog_manager.py script
-        run: python sutta_catalog_manager.py
+        run: python python/scripts/sutta_catalog_manager.py
 
       - name: Run suttas_database_data_generator.py script
-        run: python suttas_database_data_generator.py
+        run: python python/scripts/suttas_database_data_generator.py
 
       - name: Run epub_book_generator.py script
-        run: python ./python/epub_book_generator.py
+        run: python python/scripts/epub_book_generator.py
         
       - name: Set up Git config
         run: |
