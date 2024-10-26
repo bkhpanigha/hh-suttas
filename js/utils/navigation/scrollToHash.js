@@ -1,4 +1,4 @@
-import './highlightSegments.js';
+import { highlightSegments } from './highlightSegments.js';
 
 // This code enables highlighting of text segments in the sutta based on URL hash ranges.
 // For example, accessing the URL 127.0.0.1:8080/?q=mn1#mn1:23.1-mn1:194.6 will highlight the range from mn1:23.1 to mn1:194.6.
