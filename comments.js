@@ -1,7 +1,7 @@
 var converter = new showdown.Converter();
 
 async function displayComments() {
-    const response = await fetch('available_suttas.json');
+    const response = await fetch('python/generated/available_suttas.json');
     const availableSuttas = await response.json();
     const availableSuttasJson = availableSuttas['available_suttas'];
     const commentsArea = document.getElementById("commentsArea");
