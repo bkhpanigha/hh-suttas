@@ -3,7 +3,7 @@ import { goBack } from "../navigation/goBack.js";
 import { showForeword } from "../userActions/showForeword.js";
 
 
-export default function activateViewForewordAndGoBackButtons()
+export default function activateViewForewordAndGoBackButtons(availableSuttasJson)
 {
     document.addEventListener('click', function (event) 
     {
