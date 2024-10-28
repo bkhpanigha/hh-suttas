@@ -37,7 +37,7 @@ export function activateEventListeners(availableSuttasJson)
     
     if (!window.location.href.endsWith("/bookmarks.html") && !window.location.href.endsWith("/glossary.html") && !window.location.href.endsWith("/comments.html")){
         activateSearchBar(availableSuttasJson);
-        activateViewForewordAndGoBackButtons();
+        activateViewForewordAndGoBackButtons(availableSuttasJson);
         activateHashChangeListener();
         activateForm();
         activateHandleTextSelection();
