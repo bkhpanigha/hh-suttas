@@ -15,7 +15,7 @@ export function buildSutta(slug, availableSuttasJson)
     slug = slug.toLowerCase();
     const sutta_details = availableSuttasJson[slug]
 
-    const translator = "Bhikkhu Anīgha";
+    let translator = "Bhikkhu Anīgha";
     let html = `<div class="button-area"><button id="hide-pali" class="hide-button">Toggle Pali</button></div>`;
     const sutta_title = sutta_details['title'];
 
