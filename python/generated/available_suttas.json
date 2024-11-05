@@ -1306,7 +1306,8 @@
             "root_path": "suttas/root/kn/iti/vagga9/iti80_root-pli-ms.json",
             "translation_path": "suttas/translation_en/kn/iti/vagga9/iti80_translation-en-anigha.json",
             "comment_path": "suttas/comment/kn/iti/vagga9/iti80_comment-en-anigha.json",
-            "date_added": "2024-11-05T17:48:40+01:00"
+            "date_added": "2024-11-05T17:48:40+01:00",
+            "heading": "Unwholesome Sympathy"
         }
     }
 }
