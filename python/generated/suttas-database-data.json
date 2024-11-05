@@ -618,6 +618,56 @@
       "snp4.2:7.2": "Translating _phassa_ as “experience”: “Dependent on the eye and forms, eye-consciousness arises; the meeting of the three is [an] experience. With experience, there is feeling; with feeling, craving …” (SN 12.43)"
     }
   },
+  "iti80": {
+    "translation_en_anigha": {
+      "iti80:0.1": "So It Was Said 80 ",
+      "iti80:0.2": "The Book of the Threes ",
+      "iti80:0.3": "Chapter Four ",
+      "iti80:0.4": "Thoughts ",
+      "iti80:1.1": "This was said by the Blessed One, the Arahant: that is what I heard. ",
+      "iti80:2.1": "“Bhikkhus, there are these three [types of] unbeneficial thoughts. ",
+      "iti80:2.2": "What three? ",
+      "iti80:2.3": "Thoughts connected with reputation, thoughts connected with gain, honor, and popularity, and thoughts of sympathy for others. ",
+      "iti80:2.4": "These are the three [types of] unbeneficial thoughts.” ",
+      "iti80:2.5": "The Blessed One spoke this matter. ",
+      "iti80:2.6": "On this it is said: ",
+      "iti80:3.1": "“One fettered by reputation, ",
+      "iti80:3.2": "by gain, honor, and respect, ",
+      "iti80:3.3": "sharing joys with friends, ",
+      "iti80:3.4": "is far from destroying the fetters. ",
+      "iti80:4.1": "But one who gives up children and livestock, ",
+      "iti80:4.2": "marriage and acquisitions—",
+      "iti80:4.3": "such a bhikkhu is capable ",
+      "iti80:4.4": "of experiencing the supreme awakening.” ",
+      "iti80:5.1": "This too is a matter that was spoken by the Blessed One: that is what I heard. "
+    },
+    "root_pli_ms": {
+      "iti80:0.1": "Itivuttaka 80 ",
+      "iti80:0.2": "Tikanipāta ",
+      "iti80:0.3": "Catutthavagga ",
+      "iti80:0.4": "Vitakkasutta ",
+      "iti80:1.1": "Vuttañhetaṁ bhagavatā vuttamarahatāti me sutaṁ: ",
+      "iti80:2.1": "“Tayome, bhikkhave, akusalavitakkā. ",
+      "iti80:2.2": "Katame tayo? ",
+      "iti80:2.3": "Anavaññattipaṭisaṁyutto vitakko, lābhasakkārasilokapaṭisaṁyutto vitakko, parānuddayatāpaṭisaṁyutto vitakko. ",
+      "iti80:2.4": "Ime kho, bhikkhave, tayo akusalavitakkā”ti. ",
+      "iti80:2.5": "Etamatthaṁ bhagavā avoca. ",
+      "iti80:2.6": "Tatthetaṁ iti vuccati: ",
+      "iti80:3.1": "“Anavaññattisaṁyutto, ",
+      "iti80:3.2": "lābhasakkāragāravo; ",
+      "iti80:3.3": "Sahanandī amaccehi, ",
+      "iti80:3.4": "ārā saṁyojanakkhayā. ",
+      "iti80:4.1": "Yo ca puttapasuṁ hitvā, ",
+      "iti80:4.2": "Vivāhe saṁharāni ca; ",
+      "iti80:4.3": "Bhabbo so tādiso bhikkhu, ",
+      "iti80:4.4": "Phuṭṭhuṁ sambodhimuttaman”ti. ",
+      "iti80:5.1": "Ayampi attho vutto bhagavatā, iti me sutanti. ",
+      "iti80:5.2": "Paṭhamaṁ. "
+    },
+    "comment": {
+      "iti80:2.3": "The Pāli for the third item is _parānuddayatā_, which I translate as “sympathy” to avoid confusion with _karuṇa_, the second _brahmavihāra_.<br><br>This distinction highlights how the latter is not about being concerned about the welfare of others or sharing their joys and sorrows—which is called a form of bondage in the verse just below—but simply about abandoning all underlying tendencies to annoyance and cruelty (AN 6.13), in the same way as _mettā_ [is simply about fully uprooting any liability to aversion](https://suttas.hillsidehermitage.org/?q=mn55#mn55:7.5-mn55:7.7). "
+    }
+  },
   "dn2": {
     "translation_en_anigha": {
       "dn2:0.1": "Long Discourses 2 ",

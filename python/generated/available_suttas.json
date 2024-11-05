@@ -1297,6 +1297,16 @@
             "comment_path": "suttas/comment/kn/snp/vagga5/snp5.9_comment-en-anigha.json",
             "date_added": "2024-09-13T09:37:58+02:00",
             "author": "Sister Medhini"
+        },
+        "iti80": {
+            "id": "Iti 80",
+            "title": "Thoughts",
+            "pali_title": "Vitakkasutta",
+            "html_path": "suttas/html/kn/iti/vagga9/iti80_html.json",
+            "root_path": "suttas/root/kn/iti/vagga9/iti80_root-pli-ms.json",
+            "translation_path": "suttas/translation_en/kn/iti/vagga9/iti80_translation-en-anigha.json",
+            "comment_path": "suttas/comment/kn/iti/vagga9/iti80_comment-en-anigha.json",
+            "date_added": "2024-11-05T17:48:40+01:00"
         }
     }
 }
