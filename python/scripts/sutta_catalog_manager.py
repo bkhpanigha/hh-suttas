@@ -42,7 +42,6 @@ def split_id(s):
 def add_sutta(available_suttas, match, data, key):
     """Extract sutta title from data and add it to the list if present."""
     sutta_title = data.get(key).rstrip()
-
     if sutta_title:
         with open("authors.json", "r", encoding='utf-8') as authors, open("suttas/translation_en/headings.json", "r", encoding='utf-8') as headings:
             author = json.load(authors).get(f"{match.group(1)}{match.group(2)}")
@@ -50,12 +49,15 @@ def add_sutta(available_suttas, match, data, key):
             first_group = match.group(1)
             
             html_path, root_path, translation_path, comment_path, date_added = generate_paths_for_sutta(f"{match.group(1)}{match.group(2)}", "./suttas").values()
+            
             if root_path:
+                
                 with open(root_path, "r", encoding='utf-8') as pali_lines:
+                  
                     pali_title = json.load(pali_lines).get(key)
                     pali_title = ''.join([char for char in pali_title if char.isalpha()]) #extract letters only
                     pali_title = ''.join(c for c in unicodedata.normalize('NFD', pali_title) if unicodedata.category(c) != 'Mn') #convert pali letters to latin letters
-            
+                    
 
             if first_group.upper() in ["MN", "AN", "SN", "DN"]:
                 book = first_group.upper() 
@@ -106,7 +108,6 @@ def load_available_suttas(suttas_base_dir):
                             match2 = pattern2.match(match.group(2))
                             if match2:
                                 key = f"{match.group(1)}{match2.group(1)}:0.2" 
-                                
                             add_sutta(available_suttas, match, data, key)
             # Handle special structure for texts in the KN collection
             elif nikaya_dir.name == 'kn':
@@ -117,10 +118,13 @@ def load_available_suttas(suttas_base_dir):
                         for file_path in vagga_path.glob("*.json"):
                             match = pattern.match(file_path.name)
                             if match:
-                                print(file_path)
                                 data = load_json(file_path)
-                                key = f"{match.group(1)}{match.group(2)}:0.2"  # Key for title in KN texts
+                                if book == "iti":
+                                    key = f"{match.group(1)}{match.group(2)}:0.4"  # Key for title in Itivuttaka texts
+                                else:
+                                    key = f"{match.group(1)}{match.group(2)}:0.2"  # Key for title in KN texts
                                 add_sutta(available_suttas, match, data, key)
+                                
                 for book in config["no_vagga_books"]:
                     book_path = nikaya_dir / book
                     for file_path in book_path.glob("*.json"):
@@ -169,11 +173,17 @@ def generate_paths_for_sutta(sutta_id, base_dir="suttas"):
     }
 
     # Adjust directory structure based on book type
-    if book in ["snp", "ud", "iti"]:
+    if book in ["snp", "ud"]:
         vagga_number = number.split('.')[0]
         vagga = f"vagga{vagga_number}"
         for key in base_paths:
             base_paths[key] = base_paths[key] / "kn" / book / vagga
+    elif book == "iti":
+        vagga_number = int(number[0]) + 1
+        vagga = f"vagga{vagga_number}"
+        print(vagga)
+        for key in base_paths:
+            base_paths[key] = base_paths[key] / "kn" / "iti" / vagga
     elif book in ["sn", "an"]:
         subsection_number = number.split('.')[0]
         subsection = f"{book}{subsection_number}"
