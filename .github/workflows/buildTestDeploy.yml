@@ -28,25 +28,28 @@ jobs:
           python -m pip install ebooklib
           # Add any other dependencies here if needed
 
+      - name: Check if files in /suttas changed
+        run: |
+          if git diff --name-only HEAD^ HEAD | grep -q "^suttas/"; then
+            echo "suttas_changed=true" >> $GITHUB_ENV
+          else 
+            echo "suttas_changed=false" >> $GITHUB_ENV
+          fi
+          
       - name: Run add_links_to_references.py script
+        if: env.suttas_changed == 'true'
         run: python python/scripts/add_links_to_references.py
         
       - name: Run sutta_catalog_manager.py script
+        if: env.suttas_changed == 'true'
         run: python python/scripts/sutta_catalog_manager.py
-
+      
       - name: Run suttas_database_data_generator.py script
+        if: env.suttas_changed == 'true'
         run: python python/scripts/suttas_database_data_generator.py
       
-      - name: Check if suttas-database-data.json changed
-        run: |
-          if git status --porcelain | grep -q "^[AM]\s.*python/generated/suttas-database-data.json$"; then
-            echo "file_changed=true" >> $GITHUB_ENV
-          else
-            echo "file_changed=false" >> $GITHUB_ENV
-          fi
-      
       - name: Run epub_book_generator.py script
-        if: env.file_changed == 'true'
+        if: env.suttas_changed == 'true'
         run: python python/scripts/epub_book_generator.py
       
       - name: Set up Git config
