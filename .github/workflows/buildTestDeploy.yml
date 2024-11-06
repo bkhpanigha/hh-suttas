@@ -17,17 +17,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: '3.x'
-
-      - name: Install Python dependencies
-        run: |
-          python -m pip install --upgrade pip
-          python -m pip install ebooklib
-          # Add any other dependencies here if needed
-
       - name: Check if files in /suttas changed
         run: |
           if git diff --name-only HEAD^ HEAD | grep -q "^suttas/"; then
@@ -35,6 +24,19 @@ jobs:
           else 
             echo "suttas_changed=false" >> $GITHUB_ENV
           fi
+
+      - name: Set up Python
+        if: env.suttas_changed == 'true'
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install Python dependencies
+        if: env.suttas_changed == 'true'
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install ebooklib
+          # Add any other dependencies here if needed
           
       - name: Run add_links_to_references.py script
         if: env.suttas_changed == 'true'
