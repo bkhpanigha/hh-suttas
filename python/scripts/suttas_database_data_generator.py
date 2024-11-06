@@ -8,7 +8,7 @@ json_root_directory = './suttas/root'
 json_comments_directory = './suttas/comment'
 headings_file_path = './suttas/translation_en/headings.json'
 combined_json_path = './python/generated/suttas-database-data.json'
-combined_json_hash_path = './python/generated/suttas-database-data-hash.txt'
+combined_json_hash_path = './python/generated/suttas-database-data-hash.js'
 suttas_count_js_path = './python/generated/suttas-count.js'
 
 def combine_translations(translation_directory, root_directory, comment_directory, headings):
@@ -122,4 +122,4 @@ if __name__ == "__main__":
     unique_id = generate_unique_id()
     file_path = combined_json_hash_path
     with open(file_path, "w") as file:
-        file.write(unique_id)
+        file.write("const hash = \"" + unique_id + "\";\rexport default hash;")
