@@ -62,10 +62,10 @@ def create_ebook(toc_entries, output_file):
     spine_items.append(c0)
     
     for title, href in toc_entries:
-        chapter_file_path = "/" + href
-
         # Create a new chapter
-        chapter = epub.EpubHtml(title=title, file_name=chapter_file_path, lang='en')
+        chapter = epub.EpubHtml(title=title, file_name=href, lang='en')
+        
+        chapter_file_path = "/" + href
 
         # Add the content of the chapter
         with open(xhtml_folder + chapter_file_path, 'r', encoding='utf-8') as file:
@@ -353,8 +353,6 @@ def create_book_title_xhtml(book_name, book_abbr, folder):
 
     print(f'Created file : {filepath}')
 
-    
-    
 def generate_nav_file():
     # Load the data from the JSON file
     with open(available_suttas_path, 'r', encoding='utf-8') as json_file:
