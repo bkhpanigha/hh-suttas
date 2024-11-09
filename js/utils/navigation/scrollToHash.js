@@ -1,78 +1,60 @@
 import { highlightSegments } from './highlightSegments.js';
 
-// This code enables highlighting of text segments in the sutta based on URL hash ranges.
-// Examples:
-// - Single verse: 127.0.0.1:8080/?q=mn1#mn1:23.1
-// - Verse range: 127.0.0.1:8080/?q=mn1#mn1:23.1-mn1:194.6
-// - Compound verse: 127.0.0.1:8080/?q=mn28#mn28:29-30.1
-// - Compound verse range: 127.0.0.1:8080/?q=mn28#mn28:29-30.1-mn28:37.1
-// Options:
-// - Quick highlight: append ~quick-highlight
-// - No highlight: append ~no-highlight
-
-function parseVerseId(verseId) {
-    // Match patterns like:
-    // mn28:29.1
-    // mn28:29-30.1
-    const basicPattern = /^(mn\d+):(\d+(?:-\d+)?\.(?:\d+))$/;
-    const match = verseId.match(basicPattern);
-    
-    if (!match) return null;
-    return match[1] + ':' + match[2];
-}
-
 export function scrollToHash() {
     const fullHash = window.location.hash.substring(1); // Remove the '#' from the hash
-    
+  
     // Split on `~` to separate the hash part from any options
     const [hash, options] = fullHash.split('~');
-    
+  
     // Check for the quick-highlight or no-highlight options in the URL
     const isQuickHighlight = options && options.includes('quick-highlight');
     const isNoHighlight = options && options.includes('no-highlight');
-    
+  
     if (hash.startsWith('comment')) {
         const commentElement = document.getElementById(hash);
         if (commentElement) {
             commentElement.classList.add("comment-highlight");
             commentElement.scrollIntoView();
         }
-        return;
-    }
-    
-    if (!hash) return;
-    
-    // Try matching the range pattern first
-    // This will match patterns like:
-    // mn1:23.1-mn1:194.6
-    // mn28:29-30.1-mn28:37.1
-    const rangePattern = /^(.+?)-(.+?)$/;
-    const rangeMatch = hash.match(rangePattern);
-    
-    if (rangeMatch) {
-        // We have a range
-        const [, startId, endId] = rangeMatch;
-        
-        // Parse both IDs
-        const parsedStartId = parseVerseId(startId);
-        const parsedEndId = parseVerseId(endId);
-        
-        if (parsedStartId && parsedEndId) {
-            const startElement = document.getElementById(parsedStartId);
-            const endElement = document.getElementById(parsedEndId);
+    } else if (hash) {
+        // Enhanced regex pattern to match both normal and composite IDs
+        // Examples it will match:
+        // - mn1:1.2_mn1:1.5
+        // - mn28:29-30.1_mn28:37.1
+        // - mn28:28.9_mn28:31-32.1
+        const rangeMatch = hash.match(
+            /(.*?):(\d+(?:-\d+)?(?:\.\d+)?)(?:_(.*?):(\d+(?:-\d+)?(?:\.\d+)?))?/
+        );
+
+        if (rangeMatch) {
+            const [, startIdPrefix, startIdSuffix, endIdPrefix, endIdSuffix] = rangeMatch;
+            const startFullId = `${startIdPrefix}:${startIdSuffix}`;
             
-            if (startElement && endElement) {
+            // If there's no end range (single element case), use the start ID for both
+            const endFullId = endIdPrefix ? 
+                `${endIdPrefix}:${endIdSuffix}` : 
+                startFullId;
+            
+            const startElement = document.getElementById(startFullId);
+            const endElement = endIdPrefix ? 
+                document.getElementById(endFullId) : 
+                startElement;
+
+            if (startElement) {
+                // If no-highlight is present, skip highlighting
                 if (!isNoHighlight) {
-                    highlightSegments(startElement, endElement, isQuickHighlight);
+                    // If there's no end range, pass null as endElement for single element case
+                    highlightSegments(
+                        startElement, 
+                        endIdPrefix ? endElement : null, 
+                        isQuickHighlight
+                    );
                 }
                 startElement.scrollIntoView();
             }
-        }
-    } else {
-        // Handle single element case
-        const parsedId = parseVerseId(hash);
-        if (parsedId) {
-            const targetElement = document.getElementById(parsedId);
+        } else {
+            // Handle single element case for both normal and composite IDs
+            const targetElement = document.getElementById(hash);
             if (targetElement) {
                 if (!isNoHighlight) {
                     highlightSegments(targetElement, null, isQuickHighlight);
