@@ -1,53 +1,3 @@
-// Helper function to parse segment IDs into comparable parts
-function parseSegmentId(id) {
-    // Format expected: mnXX:YY.Z or mnXX:YY-ZZ.W
-    const match = id.match(/^mn(\d+):(\d+)(?:-(\d+))?\.(\d+)$/);
-    if (!match) return null;
-    
-    const [_, sutra, startVerse, endVerse, subVerse] = match;
-    return {
-        sutra: parseInt(sutra),
-        startVerse: parseInt(startVerse),
-        endVerse: endVerse ? parseInt(endVerse) : parseInt(startVerse),
-        subVerse: parseInt(subVerse)
-    };
-}
-
-// Helper function to compare two segment positions
-function compareSegmentPositions(id1, id2) {
-    const pos1 = parseSegmentId(id1);
-    const pos2 = parseSegmentId(id2);
-    
-    if (!pos1 || !pos2) return 0;
-    
-    // Compare sutra numbers
-    if (pos1.sutra !== pos2.sutra) {
-        return pos1.sutra - pos2.sutra;
-    }
-    
-    // Compare verses
-    if (pos1.startVerse !== pos2.startVerse) {
-        return pos1.startVerse - pos2.startVerse;
-    }
-    
-    // If one has an endVerse and the other doesn't, compare appropriately
-    if (pos1.endVerse !== pos2.endVerse) {
-        return pos1.endVerse - pos2.endVerse;
-    }
-    
-    // Compare subverses
-    return pos1.subVerse - pos2.subVerse;
-}
-
-// Helper function to check if a segment is within range
-function isSegmentInRange(currentId, startId, endId) {
-    const compareStart = compareSegmentPositions(currentId, startId);
-    const compareEnd = compareSegmentPositions(currentId, endId);
-    
-    // If current segment is equal to or after start, and equal to or before end
-    return compareStart >= 0 && compareEnd <= 0;
-}
-
 export function highlightSegments(startElement, endElement = null, quickHighlight = false) {
     // Remove all previous highlights
     document.querySelectorAll('.highlight').forEach(element => {
@@ -57,7 +7,7 @@ export function highlightSegments(startElement, endElement = null, quickHighligh
     // If it's the single element case (endElement is null), directly highlight it
     if (startElement && !endElement) {
         startElement.classList.add("highlight");
-        
+
         if (quickHighlight) {
             setTimeout(() => {
                 startElement.classList.remove('highlight');
@@ -66,15 +16,70 @@ export function highlightSegments(startElement, endElement = null, quickHighligh
         return;
     }
 
+    // Helper function to parse segment ID into comparable parts
+    function parseSegmentId(id) {
+        // Updated regex to handle formats like "sn1.20:4.1" and "mn28:29-30.1"
+        // Matches: prefix (including dots) : chapter (-optional verse) . subdivision
+        const regex = /^([a-z]+\d+(?:\.\d+)?):(\d+)(?:-(\d+))?\.(\d+)$/i;
+        const match = id.match(regex);
+        
+        if (!match) return null;
+        
+        return {
+            prefix: match[1],        // e.g., "sn1.20" or "mn28"
+            chapter: parseInt(match[2]),
+            verse: match[3] ? parseInt(match[3]) : parseInt(match[2]), // If no verse (after -), use chapter
+            subdivision: parseInt(match[4])
+        };
+    }
+
+    // Helper function to compare two segment IDs
+    function compareSegmentIds(id1, id2) {
+        const parsed1 = parseSegmentId(id1);
+        const parsed2 = parseSegmentId(id2);
+
+        if (!parsed1 || !parsed2) return 0;
+        
+        // First compare the complete prefix (e.g., "sn1.20")
+        if (parsed1.prefix !== parsed2.prefix) {
+            return parsed1.prefix.localeCompare(parsed2.prefix);
+        }
+        
+        // Then compare chapter numbers
+        if (parsed1.chapter !== parsed2.chapter) {
+            return parsed1.chapter - parsed2.chapter;
+        }
+        
+        // Then compare verse numbers
+        if (parsed1.verse !== parsed2.verse) {
+            return parsed1.verse - parsed2.verse;
+        }
+        
+        // Finally compare subdivisions
+        return parsed1.subdivision - parsed2.subdivision;
+    }
+
     // If there's a startElement and an endElement (range case)
     if (startElement && endElement) {
-        const startId = startElement.id;
-        const endId = endElement.id;
-        const segments = document.getElementsByClassName("segment");
+        let highlight = false;
+        const segments = Array.from(document.getElementsByClassName("segment"));
+        
+        // Sort segments based on their IDs to ensure correct order
+        segments.sort((a, b) => compareSegmentIds(a.id, b.id));
 
         for (const segment of segments) {
-            if (isSegmentInRange(segment.id, startId, endId)) {
+            // Compare current segment with start and end elements
+            const currentCompare = compareSegmentIds(segment.id, startElement.id);
+            const endCompare = compareSegmentIds(segment.id, endElement.id);
+            
+            // Only highlight if segment is within range (inclusive)
+            if (currentCompare >= 0 && endCompare <= 0) {
                 segment.classList.add("highlight");
+            }
+
+            // Stop when we've passed the end element
+            if (endCompare > 0) {
+                break;
             }
         }
 
