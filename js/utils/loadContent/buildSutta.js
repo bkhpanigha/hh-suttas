@@ -2,6 +2,7 @@ import getDocumentAreas from "../getDocumentAreas.js";
 import { scrollToHash } from "../navigation/scrollToHash.js";
 import { addNavbar } from "./addNavbar.js";
 import { initializePaliToggle } from "./initializePaliToggle.js";
+import { checkSearchUrlParam } from '../navigation/checkSearchUrlParam.js';
 
 const getSuttaNavigation = (slug, availableSuttasJson) => {
   const suttasKeys = Object.keys(availableSuttasJson);
@@ -62,38 +63,40 @@ export function buildSutta(slug, availableSuttasJson)
         let commentCount = 1;
         let commentsHtml = '';
 
-          keys_order.forEach((segment) => {
+        keys_order.forEach((segment) => 
+        {
             if (translation_text[segment] === undefined) translation_text[segment] = "";
 
             let [openHtml, closeHtml] = html_text[segment].split(/{}/);
 
-            // Only apply breaks inside verse lines
-            if (openHtml.includes("class='verse-line'") || closeHtml.includes("class='verse-line'")) {
-              openHtml = openHtml.replace(/^<span class='verse-line'>/, "<span class='verse-line'>");
-              closeHtml = closeHtml.replace(/<\/span>$/, "</span><br>");
+            if (window.addBreaks === true) 
+            {
+                openHtml = openHtml.replace(/^<span class='verse-line'>/, "<br><span class='verse-line'>");
             }
 
             html +=
-              `${openHtml}<span class="segment" id="${segment}">` +
-              `<span class="pli-lang" lang="pi">${root_text[segment] || ''}</span>` +
-              `<span class="eng-lang" lang="en">${translation_text[segment]}` +
-              `${comment_text[segment] ? `<a href="#comment${commentCount}" class="comment">[${commentCount}]</a>` : ''}` +
-              `</span></span>${closeHtml}\n\n`;
+            `${openHtml}<span class="segment" id="${segment}">` +
+            `<span class="pli-lang" lang="pi">${root_text[segment] || ''}</span>` +
+            `<span class="eng-lang" lang="en">${translation_text[segment]}` +
+            `${comment_text[segment] ? `<a href="${window.location.origin}?q=${slug}#comment${commentCount}" class="comment">[${commentCount}]</a>` : ''}` +
+            `</span></span>${closeHtml}\n\n`;
+        
+            if (comment_text[segment]) 
+            {
+                if(commentCount == 1) commentsHtml += '<h3>Comments</h3>';
 
-            if (comment_text[segment]) {
-              if (commentCount == 1) commentsHtml += '<h3>Comments</h3>';
-
-              commentsHtml += `
-                  <p id="comment${commentCount}"><span>
-                  ${commentCount}: ${converter.makeHtml(comment_text[segment])
-                  .replace(/^<p>(.*)<\/p>$/, '$1')}
-                  <a href="#${segment}~no-highlight" style="cursor: pointer; font-size: 14px;">&larr;</a>
-                  </span></p>
-                  `;
-
-              commentCount++;
-            }
-          });
+                // Inside the comment HTML
+                commentsHtml += `
+                <p id="comment${commentCount}"><span>
+                ${commentCount}: ${converter.makeHtml(comment_text[segment])
+                    .replace(/^<p>(.*)<\/p>$/, '$1')}
+                <a href="${window.location.origin}?q=${slug}#${segment}~no-highlight" style="cursor: pointer; font-size: 14px;">&larr;</a>
+                </span></p>
+                `;
+    
+                commentCount++;
+          }
+      });
 
       if (authors_text[slug]) translator = authors_text[slug];
       const translatorByline = `<div class="byline"><p>Translated by ${translator}</p></div>`;
@@ -119,8 +122,13 @@ export function buildSutta(slug, availableSuttasJson)
 
       footer.style.display = originalDisplay;
       
+	  // highlight search term
+	  checkSearchUrlParam();
+	  
       // scroll to the quote in the url if present
       scrollToHash();
+	  
+	  
     })
     .catch(error => {
       console.log(error);
