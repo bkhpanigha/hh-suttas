@@ -144,7 +144,7 @@ export async function searchSuttasWithStop(searchTerm, options) {
         searchAndAddResults(suttasPl, 'pl')
     ]);
 
-    if (!gotResults && !searchState.shouldStopSearch) {  // Modifié ici
+    if (!gotResults && !searchState.shouldStopSearch) {
         addResultToDOM("", "No results found", `No results were found with the expression: ${originalSearch}`, "none");
     }
 
