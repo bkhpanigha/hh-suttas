@@ -4,6 +4,25 @@ import { addNavbar } from "./addNavbar.js";
 import { initializePaliToggle } from "./initializePaliToggle.js";
 import { checkSearchUrlParam } from '../navigation/checkSearchUrlParam.js';
 
+const getSuttaNavigation = (slug, availableSuttasJson) => {
+  const suttasKeys = Object.keys(availableSuttasJson);
+  const slugIndex = suttasKeys.indexOf(slug);
+
+  const createSuttaNavigationButton = (text, index, linkStyle = "") => {
+    const sutta = availableSuttasJson[suttasKeys[index]];
+
+    if (!sutta) return "<div></div>";
+
+    const id = sutta.id.replace(/\s+/g, '').toLowerCase();
+    return `<a href="/?q=${id}" style="${linkStyle}"><span>${text}</span><span>${sutta.id}: ${sutta.title}</span></a>`
+  }
+
+  const previousSuttaButton = createSuttaNavigationButton("← Previous", slugIndex - 1);
+  const nextSuttaButton = createSuttaNavigationButton("Next →", slugIndex + 1, "align-items: flex-end");
+
+  return `<div class="suttaNavigation">${previousSuttaButton}${nextSuttaButton}</div>`
+}
+
 export function buildSutta(slug, availableSuttasJson) 
 {
     const footer = document.getElementById('footer');
@@ -19,6 +38,7 @@ export function buildSutta(slug, availableSuttasJson)
     let translator = "Bhikkhu Anīgha";
     let html = `<div class="button-area"><button id="hide-pali" class="hide-button">Toggle Pali</button></div>`;
     const sutta_title = sutta_details['title'];
+    const acronym = sutta_details['id'];
 
     const rootResponse = fetch(sutta_details['root_path']).then(response => response.json());
     const translationResponse = fetch(sutta_details['translation_path']).then(response => response.json());
@@ -80,13 +100,12 @@ export function buildSutta(slug, availableSuttasJson)
 
       if (authors_text[slug]) translator = authors_text[slug];
       const translatorByline = `<div class="byline"><p>Translated by ${translator}</p></div>`;
-      // render comments
       
-      suttaArea.innerHTML = `<p class="sc-link"></p>` + html + translatorByline + commentsHtml;
+      const suttaNavigation = getSuttaNavigation(slug, availableSuttasJson);
 
-      let acronym = sutta_details['id'];
-
-      document.title = `${acronym} ` + sutta_title;
+      suttaArea.innerHTML = `<p class="sc-link"></p>` + html + translatorByline + suttaNavigation + commentsHtml;
+      
+      document.title = `${acronym} ${sutta_title}`;
 
       initializePaliToggle();
       addNavbar();

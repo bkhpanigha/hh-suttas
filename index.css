@@ -29,6 +29,7 @@ b{
   --dark-orange: #8B4000;
   --orange: #D55600;
   --light-orange: #FFAC1C;
+  --orange-yellow: #BD970D;
   --light-gray: #8f8f8f;
   --lighter-gray: #ccc;
   --dark-blue: #42426a;
@@ -507,7 +508,7 @@ a:hover {
 }
 
 .foreword-link {
-  color: rgb(189, 151, 13); /* Set the text color to blue */
+  color: var(--orange-yellow);
   text-decoration: none; /* Remove any default underline */
   text-align:center;
   font-size:30px;
@@ -897,4 +898,30 @@ bookmarkButton{
 }
 .hidden{
   display: none;
+}
+
+.suttaNavigation {
+  display: flex;
+  justify-content: space-between;
+
+  a {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.9rem;
+    cursor: pointer;
+    border-radius: 48px;
+    padding: 15px;
+    width: max-content;
+    background-color: var(--orange-yellow);
+    text-decoration: none;
+    color: white;
+
+    span:nth-child(2) {
+      font-size: 1rem;
+    }
+
+    &:hover {
+      filter: brightness(85%);
+    }
+  }
 }
