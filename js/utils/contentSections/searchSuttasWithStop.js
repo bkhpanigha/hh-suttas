@@ -9,20 +9,20 @@ import { searchState } from '../userActions/searchState.js';
 import { fetchAvailableSuttas } from "../loadContent/fetchAvailableSuttas.js";
 import { removeDiacritics } from '../misc/removeDiacritics.js';
 import { getSearchLimits } from '../misc/advancedSearchConfig.js';
+import { LoadingBarManager } from '../LoadingBarManager.js';
 import db from "../../dexie/dexie.js";
 
 export async function searchSuttasWithStop(searchTerm, options) {
     const availableSuttasJson = await fetchAvailableSuttas();
     const originalSearch = searchTerm;
     searchTerm = cleanSearchTerm(searchTerm.toLowerCase());
-	
-	const { maxWordsEn, maxWordsPl } = getSearchLimits();
-	
+    
+    const { maxWordsEn, maxWordsPl } = getSearchLimits();
+    
     const resultsDiv = document.querySelector('.results');
-    const loadingBar = document.getElementById('loadingBar');
+    const loadingBar = new LoadingBarManager(document.getElementById('loadingBar'));
     resultsDiv.innerHTML = ''; 
-    loadingBar.style.width = '0%';
-	
+    
     const [suttasEn, suttasPl] = await Promise.all([
         options['en'] ? getSuttas(db, options, 'en') : [],
         options['pali'] ? getSuttas(db, options, 'pl') : []
@@ -34,10 +34,28 @@ export async function searchSuttasWithStop(searchTerm, options) {
 
     const searchTermUrl = encodeStringForURL(searchTerm);
 
+    // Callback for results processing
+    const processResult = async (result, sutta, id, displayTitle, isComment = false) => {
+        if (searchState.shouldStopSearch) return;
+
+        const link = isComment 
+            ? `${window.location.origin}/?q=${sutta.id}&search=${searchTermUrl}#comment${result.commentNb}`
+            : `${window.location.origin}/?q=${sutta.id}&search=${searchTermUrl}&pali=${options['pali'] ? 'show' : 'hide'}#${result.verseRange}`;
+
+        const title = isComment ? `${displayTitle} - Comments` : displayTitle;
+        await addResultToDOMAsync(id, title, result.passage, link, { target: "_blank" });
+        gotResults = true;
+    };
+
+    const updateProgress = () => {
+        currentIteration++;
+        loadingBar.setTargetProgress((currentIteration / totalIterations) * 100);
+    };
+
     const searchAndAddResults = async (suttas, lang) => {
         for (const sutta of suttas) {
             if (searchState.shouldStopSearch) {
-                loadingBar.style.width = '0%';
+                await loadingBar.reset(true);  // Instant reset
                 return;
             }
 
@@ -62,80 +80,63 @@ export async function searchSuttasWithStop(searchTerm, options) {
                 }
             }
 
-            const searchInContent = async (content, isComments = false) => {
-                const results = await searchSutta(
-                    content, 
-                    searchTerm, 
-                    isComments, 
-                    options['strict'], 
-                    lang === 'pl', 
-                    options['single']
-                );
-
-                return results;
-            };
+            const finalDisplayTitle = titleMatch ? displayTitle : title;
 
             if (lang === 'en') {
-                // Search in main content and comments
-                const mainResults = await searchInContent(sutta.translation_en_anigha);
-                let commentResults = [];
+                // Search in main content with progressive display
+                const mainResults = await searchSutta(
+                    sutta.translation_en_anigha, 
+                    searchTerm,
+                    false,
+                    options['strict'],
+                    false,
+                    options['single'],
+                    async (result) => processResult(result, sutta, id, finalDisplayTitle)
+                );
+
+                // Search in comments with progressive display
                 if (sutta.comment) {
-                    commentResults = await searchInContent(sutta.comment, true);
-                    currentIteration++;
-                    loadingBar.style.width = `${(currentIteration / totalIterations) * 100}%`;
+                    const commentResults = await searchSutta(
+                        sutta.comment,
+                        searchTerm,
+                        true,
+                        options['strict'],
+                        false,
+                        options['single'],
+                        async (result) => processResult(result, sutta, id, finalDisplayTitle, true)
+                    );
+                    updateProgress();
                 }
 
-                // If we found matches in content or comments
-                if (mainResults.length > 0 || commentResults.length > 0) {
-                    // Add main content results with highlighted title if there was a title match
-                    for (const result of mainResults) {
-                        if (searchState.shouldStopSearch) return;  // Ajouté ici
-                        const link = `${window.location.origin}/?q=${sutta.id}&search=${searchTermUrl}&pali=hide#${result.verseRange}`;
-                        await addResultToDOMAsync(id, titleMatch ? displayTitle : title, result.passage, link, { target: "_blank" });
-                        gotResults = true;
-                    }
-                    // Add comment results
-                    for (const result of commentResults) {
-                        if (searchState.shouldStopSearch) return;  // Ajouté ici
-                        const link = `${window.location.origin}/?q=${sutta.id}&search=${searchTermUrl}#comment${result.commentNb}`;
-                        await addResultToDOMAsync(id, `${titleMatch ? displayTitle : title} - Comments`, result.passage, link, { target: "_blank" });
-                        gotResults = true;
-                    }
-                } 
-                // If no content matches but title matches
-                else if (titleMatch) {
-                    if (searchState.shouldStopSearch) return;  // Ajouté ici
+                // Handle title match without content match
+                if (titleMatch && !gotResults && !searchState.shouldStopSearch) {
                     const firstPassage = getFirstPassage(sutta.translation_en_anigha, maxWordsEn);
                     const link = `${window.location.origin}/?q=${sutta.id}`;
-                    await addResultToDOMAsync(id, displayTitle, firstPassage, link, { target: "_blank" });
+                    await addResultToDOMAsync(id, finalDisplayTitle, firstPassage, link, { target: "_blank" });
                     gotResults = true;
                 }
             } else if (lang === 'pl') {
-                // Search in Pali content
-                const results = await searchInContent(sutta.root_pli_ms);
+                // Search in Pali content with progressive display
+                const results = await searchSutta(
+                    sutta.root_pli_ms,
+                    searchTerm,
+                    false,
+                    options['strict'],
+                    true,
+                    options['single'],
+                    async (result) => processResult(result, sutta, id, finalDisplayTitle)
+                );
 
-                // If we found matches in content
-                if (results.length > 0) {
-                    // Add results with highlighted title if there was a title match
-                    for (const result of results) {
-                        if (searchState.shouldStopSearch) return;  // Ajouté ici
-                        const link = `${window.location.origin}/?q=${sutta.id}&search=${searchTermUrl}&pali=show#${result.verseRange}`;
-                        await addResultToDOMAsync(id, titleMatch ? displayTitle : title, result.passage, link, { target: "_blank" });
-                        gotResults = true;
-                    }
-                }
-                // If no content matches but title matches
-                else if (titleMatch) {
-                    if (searchState.shouldStopSearch) return;  // Ajouté ici
+                // Handle title match without content match
+                if (titleMatch && !gotResults && !searchState.shouldStopSearch) {
                     const firstPassage = getFirstPassage(sutta.root_pli_ms, maxWordsPl);
                     const link = `${window.location.origin}/?q=${sutta.id}`;
-                    await addResultToDOMAsync(id, displayTitle, firstPassage, link, { target: "_blank" });
+                    await addResultToDOMAsync(id, finalDisplayTitle, firstPassage, link, { target: "_blank" });
                     gotResults = true;
                 }
             }
             
-            currentIteration++;
-            loadingBar.style.width = `${(currentIteration / totalIterations) * 100}%`;
+            updateProgress();
         }
     };
 
@@ -148,7 +149,10 @@ export async function searchSuttasWithStop(searchTerm, options) {
         addResultToDOM("", "No results found", `No results were found with the expression: ${originalSearch}`, "none");
     }
 
-    loadingBar.style.width = '0%';
+    // Normal reset at the end if search complete
+    if (!searchState.shouldStopSearch) {
+        await loadingBar.reset();
+    }
 }
 
 // Helper functions that are used only within searchSuttasWithStop

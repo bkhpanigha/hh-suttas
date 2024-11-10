@@ -279,7 +279,6 @@ class SuttaSearch {
 
 	async findMatches(searchTerm, strict = false, isComment = false, singleResult = false, resultCallback) {
 		const maxWords = (this.pali ? 100 : 150);
-		const maxResults = (singleResult ? 1 : 10);
 		
 		// Create search term variations
 		let searchTerms = new Set();
@@ -436,18 +435,16 @@ class SuttaSearch {
                     
                     results.push(result);
 
-                    if (results.length >= maxResults) break;
+                    if (singleResult) break;
                 }
             }
 
             // If we have enough results, break out of the outer loop
-            if (results.length >= maxResults) break;
+            if (singleResult && results.length >= 1) break;
         }
 
         return results;
     }
-
-
 
     findOriginalTextMatch(processedMatchStart, processedMatchEnd) {
 		// Use the position map to find the original positions

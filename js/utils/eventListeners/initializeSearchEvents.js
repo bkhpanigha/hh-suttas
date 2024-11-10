@@ -19,10 +19,12 @@ export function initializeSearchEvents() {
         const categoryInputs = Array.from(document.querySelectorAll('input[name="book"]'));
 
         function checkInputs() {
-            const isSearchInputNotEmpty = searchInput.value.trim() !== '';
+            const searchValue = searchInput.value.trim();
+            const isSearchInputValid = searchValue.length >= 3; // At least 3 characters
             const isLangChecked = langInputs.some(input => input.checked);
             const isCategoryChecked = categoryInputs.some(input => input.checked);
-            searchButton.disabled = !(isSearchInputNotEmpty && isLangChecked && isCategoryChecked);
+            
+            searchButton.disabled = !(isSearchInputValid && isLangChecked && isCategoryChecked);
         }
 
         [...langInputs, ...categoryInputs].forEach(input => {
