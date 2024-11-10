@@ -1,5 +1,6 @@
 import os
 import json
+import time
 
 # Define the directories for English translations, root translations, comments, and the headings file
 json_translation_directory = './suttas/translation_en'
@@ -7,6 +8,7 @@ json_root_directory = './suttas/root'
 json_comments_directory = './suttas/comment'
 headings_file_path = './suttas/translation_en/headings.json'
 combined_json_path = './python/generated/suttas-database-data.json'
+combined_json_hash_path = './python/generated/suttas-database-data-hash.js'
 suttas_count_js_path = './python/generated/suttas-count.js'
 
 def combine_translations(translation_directory, root_directory, comment_directory, headings):
@@ -93,6 +95,16 @@ def update_suttas_count_js(combined_data, suttas_count_js_path):
 
     print(f"Set suttas count ({suttas_count}): {suttas_count_js_path}.")
 
+def generate_unique_id():
+    # Get timestamp in milliseconds
+    timestamp = int(time.time() * 1000000)  # microseconds
+    # Get process id 
+    pid = os.getpid()
+    # Combine timestamp and pid to create a somewhat unique identifier
+    unique_id = timestamp + pid
+    
+    return str(unique_id)
+
 if __name__ == "__main__":
     # Load the headings data from headings.json
     with open(headings_file_path, 'r', encoding='utf-8') as headings_file:
@@ -106,3 +118,8 @@ if __name__ == "__main__":
 
     # Update the suttas-data-import-lines-count.js file with the count of entries
     update_suttas_count_js(combined_data, suttas_count_js_path)
+
+    unique_id = generate_unique_id()
+    file_path = combined_json_hash_path
+    with open(file_path, "w") as file:
+        file.write("const hash = \"" + unique_id + "\";\rexport default hash;")

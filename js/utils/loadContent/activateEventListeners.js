@@ -23,7 +23,6 @@ import activateHandleTextSelection from "../eventListeners/activateHandleTextSel
 
 export function activateEventListeners(availableSuttasJson)
 {
-    activateSideBySideEventListenerKeyUp();
     activateHomeButton();
     activateThemeButton();
     activateRefreshButton();
@@ -35,7 +34,11 @@ export function activateEventListeners(availableSuttasJson)
     activateDownloadEPUBButton();
     activateMessageListener();
     
-    if (!window.location.href.endsWith("/bookmarks.html") && !window.location.href.endsWith("/glossary.html") && !window.location.href.endsWith("/comments.html")){
+    if (!window.location.href.endsWith("/bookmarks.html") 
+    && !window.location.href.endsWith("/glossary.html") 
+    && !window.location.href.endsWith("/comments.html") 
+    && !window.location.href.endsWith("/advanced-search.html")){
+		activateSideBySideEventListenerKeyUp();
         activateSearchBar(availableSuttasJson);
         activateViewForewordAndGoBackButtons(availableSuttasJson);
         activateHashChangeListener();

@@ -5,7 +5,10 @@ export default function getDocumentAreas()
     let suttaArea = null;
     let whatsNewArea = null;
     let form = null;
-    if (!window.location.href.endsWith("/bookmarks.html") && !window.location.href.endsWith("/glossary.html") && !window.location.href.endsWith("/comments.html")){
+    if (!window.location.href.endsWith("/bookmarks.html") 
+	&& !window.location.href.endsWith("/glossary.html") 
+	&& !window.location.href.endsWith("/comments.html")
+	&& !window.location.href.endsWith("/advanced-search.html")){
         suttaArea = document.getElementById("sutta");
         whatsNewArea = document.getElementById('whats-new');
         form = document.getElementById('form');
