@@ -13,7 +13,7 @@ function isVerseReference(str) {
 }
 
 // Function to transform URLs
-export function redirectSuttaUrl(url) {
+function redirectSuttaUrl(url) {
   try {
     const urlObj = new URL(url);
     
@@ -47,3 +47,12 @@ export function redirectSuttaUrl(url) {
     return url;
   }
 }
+
+// Redirect if old link format (e.g. `#mn1.1:20.1-mn1.1:20.1` -> `#mn1.1:20.1_mn1.1:20.1`)
+(function() {
+	const currentUrl = window.location.href;
+	const newUrl = redirectSuttaUrl(currentUrl);
+	if (newUrl !== currentUrl) {
+		window.history.replaceState({}, '', newUrl);
+	}
+})();

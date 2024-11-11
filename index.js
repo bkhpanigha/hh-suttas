@@ -48,6 +48,7 @@ import { toggleTheme } from "./js/utils/misc/toggleTheme.js";
 import { buildSutta } from "./js/utils/loadContent/buildSutta.js";
 import updateSuttaDatabase from './js/database/updateSuttaDatabase.js';
 import { checkPaliUrlParam } from './js/utils/navigation/checkPaliUrlParam.js';
+import { preventFlashing } from './js/utils/navigation/preventFlashing.js';
 
 // Wait for DOM to be fully loaded -- prevents funny business
 document.addEventListener('DOMContentLoaded', async function() {
@@ -81,8 +82,7 @@ document.addEventListener('DOMContentLoaded', async function() {
   }
   finally
   {
-    //always reveal default content AFTER loading -- prevents flashing. 
-    document.getElementById('appbody').classList.remove('hidden');
+    preventFlashing();
   }
 
 });
