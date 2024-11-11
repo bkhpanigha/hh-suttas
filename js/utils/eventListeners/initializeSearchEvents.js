@@ -2,11 +2,44 @@ import { startSearch } from '../userActions/startSearch.js';
 import { searchState } from '../userActions/searchState.js';
 
 export function initializeSearchEvents() {
-    document.querySelector('#searchButton').addEventListener('click', () => {
+    // Add button for mobile
+    const mobileButton = document.createElement('button');
+    mobileButton.className = 'mobile-menu-button';
+    mobileButton.textContent = 'Search Options';
+    document.body.insertBefore(mobileButton, document.body.firstChild);
+    
+    const optionPanel = document.getElementById('optionPanel');
+    const searchButton = document.getElementById('searchButton');
+    
+    // Function to close menu
+    const closeMenu = () => {
+        if (window.innerWidth <= 768) {
+            optionPanel.classList.remove('open');
+            mobileButton.classList.remove('open');
+        }
+    };
+    
+    // Handle menu open/close
+    mobileButton.addEventListener('click', () => {
+        optionPanel.classList.toggle('open');
+        mobileButton.classList.toggle('open');
+    });
+    
+    // Close the menu when the search button is clicked
+    searchButton.addEventListener('click', () => {
         if (searchState.isSearching) {
             searchState.shouldStopSearch = true;
         } else {
             startSearch();
+        }
+        closeMenu();
+    });
+    
+    // Handle window resizing
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 768) {
+            optionPanel.classList.remove('open');
+            mobileButton.classList.remove('open');
         }
     });
 
@@ -38,6 +71,7 @@ export function initializeSearchEvents() {
             if (event.key === 'Enter') {
                 if (!searchButton.disabled) {
                     startSearch();
+                    closeMenu();
                 }
                 event.preventDefault();
             }
