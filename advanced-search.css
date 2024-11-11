@@ -35,11 +35,11 @@ h2, h3{
 }
 
 #optionPanel {
-    width: 250px;
-    padding: 20px;
-    background-color: #f8f9fa;
-    border: 1px solid var(--off-white);
-    border-radius: 5px;
+	width: 250px;
+	padding: 20px;
+	background-color: #f8f9fa;
+	border: 1px solid var(--off-white);
+	border-radius: 5px;
 }
 .dark #optionPanel{
 	background-color: var(--dark-brown);
@@ -57,7 +57,7 @@ h2, h3{
 
 #configuration label,
 #configuration input {
-    cursor: pointer;
+	cursor: pointer;
 }
 
 .search-field input{
@@ -80,8 +80,8 @@ h2, h3{
 
 .options label {
 	display: flex;
-    flex-direction: row;
-    gap: .3rem;
+	flex-direction: row;
+	gap: .3rem;
 	margin: 8px 0;
 	font-size: 0.9em;
 }
@@ -120,8 +120,8 @@ h2, h3{
 }
 
 .content {
-    flex: 1;
-    padding-left: 10px;
+	flex: 1;
+	padding-left: 10px;
 	min-width: 200px;
 }
 
@@ -147,7 +147,7 @@ h2, h3{
 }
 
 .dark .result {
-    background-color: var(--dark-brown);
+	background-color: var(--dark-brown);
 }
 
 .result > .link{
@@ -170,9 +170,9 @@ h2, h3{
 }
 
 b {
-    font-family: "RobotoSerif Bold";
-    font-weight: normal;
-    color: var(--light-orange);
+	font-family: "RobotoSerif Bold";
+	font-weight: normal;
+	color: var(--light-orange);
 }
 
 b.dark{
@@ -184,9 +184,9 @@ b.dark{
 }
 
 .loading-bar-container {
-    width: 100%;
-    position: relative;
-    height: .3rem;
+	width: 100%;
+	position: relative;
+	height: .3rem;
 	background-color: var(--light-off-white);
 }
 
@@ -195,52 +195,54 @@ b.dark{
 }
 
 .loading-bar {
-    height: 100%;
-    width: 0;
-    background-color: #007bff;
+	height: 100%;
+	width: 0;
+	background-color: #007bff;
 	background-image: linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
-    background-size: 1rem 1rem;
+	background-size: 1rem 1rem;
 }
 
 #optionPanel {
-    width: 250px;
-    padding: 20px;
-    background-color: #f8f9fa;
-    border: 1px solid var(--off-white);
-    border-radius: 5px;
-    position: sticky;
-    top: 4px;
-    height: fit-content;
-    transition: transform 0.3s ease;
+	width: 250px;
+	padding: 20px;
+	background-color: #f8f9fa;
+	border: 1px solid var(--off-white);
+	border-radius: 5px;
+	position: sticky;
+	top: 4px;
+	height: fit-content;
+	transition: transform 0.3s ease;
 }
 
 .mobile-menu-button {
-    display: none;
-    position: fixed;
-    top: .4rem;
-    left: 50%;
-    transform: translateX(-50%);
-    font-family: "RobotoSerif Medium";
-    border: 1px solid var(--lighter-gray);
-    border-radius: 5px;
-    background-color: white;
-    color: var(--charcoal);
-    z-index: 1000;
-    cursor: pointer;
-    padding: .5rem 1.2rem;
+	display: none;
+	position: fixed;
+	top: .4rem;
+	left: 50%;
+	transform: translateX(-50%);
+	font-family: "RobotoSerif Medium";
+	border: 2px solid gray;
+	border-radius: 20px;
+	background-color: white;
+	color: var(--charcoal);
+	z-index: 1000;
+	cursor: pointer;
+	padding: .5rem 1.2rem;
 }
 
 .dark .mobile-menu-button{
 	background-color: var(--dark-brown);
+	color: var(--off-white);
+	border: 1px solid var(--off-white);
 }
 
 .mobile-menu-button::after {
-    content: "▼";
-    margin-left: 8px;
+	content: "▼";
+	margin-left: 8px;
 }
 
 .mobile-menu-button.open::after {
-    content: "▲";
+	content: "▲";
 }
 
 @media (max-width: 768px) {
@@ -287,21 +289,21 @@ b.dark{
 		line-height: 1.1;
 	}
 	.mobile-menu-button {
-        display: block;
-    }
+        	display: block;
+    	}
 
-    #optionPanel {
-        position: fixed;
-        top: -100%;
-        left: 1%;
-        width: 98%;
-        z-index: 999;
-        background-color: #f8f9fa;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        transition: top 0.3s ease;
-    }
+   	 #optionPanel {
+	        position: fixed;
+	        top: -100%;
+	        left: 1%;
+	        width: 98%;
+	        z-index: 999;
+	        background-color: #f8f9fa;
+	        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+	        transition: top 0.3s ease;
+    	}
 
-    #optionPanel.open {
-        top: 2.8rem;
-    }
+    	#optionPanel.open {
+       		top: 2.8rem;
+    	}
 }
