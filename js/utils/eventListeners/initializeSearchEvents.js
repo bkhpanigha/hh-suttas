@@ -5,7 +5,7 @@ export function initializeSearchEvents() {
     // Add button for mobile
     const mobileButton = document.createElement('button');
     mobileButton.className = 'mobile-menu-button';
-    mobileButton.textContent = 'Search Options';
+    mobileButton.textContent = 'Search Panel';
     document.body.insertBefore(mobileButton, document.body.firstChild);
     
     const optionPanel = document.getElementById('optionPanel');
