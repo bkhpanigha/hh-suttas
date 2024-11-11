@@ -13,6 +13,20 @@
   src: url("RobotoSerif-Bold.ttf");
 }
 
+html:not(.theme-loaded) {
+  display: none;
+}
+
+html.light,
+body.light {
+  background-color: var(--light-off-white);
+}
+
+html.dark,
+body.dark {
+  background-color: var(--darker-gray);
+}
+
 b{
   font-family: "RobotoSerif Medium";
   font-weight: normal;
@@ -42,12 +56,7 @@ b{
 
 body {
   margin: 0 3rem;
-  background-color: var(--light-off-white);
   font-family: "RobotoSerif", serif;
-}
-
-body.dark {
-  background-color: var(--darker-gray);
 }
 
 #form {

@@ -1,3 +1,5 @@
+import { preventFlashing } from './js/utils/navigation/preventFlashing.js';
+
 var converter = new showdown.Converter();
 
 function loadGlossary() {
@@ -39,4 +41,12 @@ function loadGlossary() {
       });
   }
 
-  loadGlossary();
+try{
+    loadGlossary();
+} catch (error) {
+    console.error('[ERROR] Something went wrong:', error);
+}
+finally
+{
+    preventFlashing();
+}

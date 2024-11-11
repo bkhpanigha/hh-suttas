@@ -7,8 +7,15 @@
 	<title>Advanced Sutta Search - Hillside Hermitage</title>
 	<link rel="stylesheet" href="index.css">
 	<link rel="stylesheet" href="advanced-search.css">
+	<script>
+        (function() {
+			// While waiting body to be displayed we apply .dark on html to prevent flashing
+			document.documentElement.classList.add(localStorage.theme);
+            document.documentElement.classList.add('theme-loaded');
+        })();
+    </script>
 </head>
-<body id="appbody" class="advanced-search">
+<body id="appbody" class="advanced-search hidden">
 	<div id="header-placeholder"></div>
 	
 	<div id="panelsContainer">
