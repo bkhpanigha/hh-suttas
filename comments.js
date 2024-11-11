@@ -1,3 +1,5 @@
+import { preventFlashing } from './js/utils/navigation/preventFlashing.js';
+
 var converter = new showdown.Converter();
 
 async function displayComments() {
@@ -112,5 +114,13 @@ async function displayComments() {
     progressContainer.style.display = 'none';
 }
 
-// Call the function to display comments
-displayComments();
+try{
+    // Call the function to display comments
+    displayComments();
+} catch (error) {
+    console.error('[ERROR] Something went wrong:', error);
+}
+finally
+{
+    preventFlashing();
+}
