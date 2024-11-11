@@ -221,7 +221,7 @@ b.dark{
 	left: 50%;
 	transform: translateX(-50%);
 	font-family: "RobotoSerif Medium";
-	border: 2px solid gray;
+	border: .1rem solid gray;
 	border-radius: 20px;
 	background-color: white;
 	color: var(--charcoal);
@@ -233,7 +233,7 @@ b.dark{
 .dark .mobile-menu-button{
 	background-color: var(--dark-brown);
 	color: var(--off-white);
-	border: 1px solid var(--off-white);
+	border: .1rem solid var(--off-white);
 }
 
 .mobile-menu-button::after {
