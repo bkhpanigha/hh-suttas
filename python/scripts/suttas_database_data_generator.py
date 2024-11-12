@@ -122,4 +122,4 @@ if __name__ == "__main__":
     unique_id = generate_unique_id()
     file_path = combined_json_hash_path
     with open(file_path, "w") as file:
-        file.write("const hash = \"" + unique_id + "\";\rexport default hash;")
+        file.write("const hash = \"" + unique_id + "\";\nexport default hash;")
