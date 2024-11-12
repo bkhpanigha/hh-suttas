@@ -209,9 +209,11 @@ b.dark{
 	border: 1px solid var(--off-white);
 	border-radius: 5px;
 	position: sticky;
-	top: 4px;
-	height: fit-content;
-	transition: transform 0.3s ease;
+	top: 0;
+    	max-height: calc(100vh - 20px);
+    	overflow-y: auto;
+    	height: fit-content;
+    	transition: transform 0.3s ease;
 }
 
 .mobile-menu-button {
@@ -243,6 +245,23 @@ b.dark{
 
 .mobile-menu-button.open::after {
 	content: "▲";
+}
+#optionPanel::-webkit-scrollbar {
+    width: 4px;
+}
+
+#optionPanel::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+#optionPanel::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+#optionPanel::-webkit-scrollbar-thumb:hover {
+    background: #555;
 }
 
 @media (max-width: 768px) {
@@ -306,4 +325,10 @@ b.dark{
     	#optionPanel.open {
        		top: 2.8rem;
     	}
+}
+
+@media (max-width: 480px) {
+	.mobile-menu-button{
+		padding: .5rem;
+	}
 }
