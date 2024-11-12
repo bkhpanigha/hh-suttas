@@ -5,7 +5,7 @@ import { normalizeSpaces } from '../misc/normalizeSpaces.js';
 
 // Main search class for better data organization and caching
 class SuttaSearch {
-    constructor(textData, pali = false, maxWords) {
+    constructor(textData, pali = false) {
         this.originalText = textData;
         this.pali = pali;
         this.verseKeys = Object.keys(textData);
@@ -472,7 +472,7 @@ export const searchSutta = async (textData, searchTerm, isComment = false, stric
         return [];
     }
     
-    const searcher = new SuttaSearch(textData, pali, maxWords);
+    const searcher = new SuttaSearch(textData, pali);
     return await searcher.findMatches(searchTerm, strict, isComment, singleResult, maxWords, resultCallback);
 };
 
