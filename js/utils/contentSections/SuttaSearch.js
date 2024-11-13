@@ -2,7 +2,6 @@ import { removeDiacritics } from '../misc/removeDiacritics.js';
 import { cleanVerse } from '../misc/cleanVerse.js';
 import { escapeRegExp } from '../misc/escapeRegExp.js';
 import { normalizeSpaces } from '../misc/normalizeSpaces.js';
-import { getSearchLimits } from '../misc/advancedSearchConfig.js';
 
 // Main search class for better data organization and caching
 class SuttaSearch {
@@ -16,9 +15,6 @@ class SuttaSearch {
         this.commentNumbers = new Map();
         this.positionMap = new Map();
         this.cleanedVerses = new Map();
-		const { maxWordsEn, maxWordsPl } = getSearchLimits();
-		this.maxWordsEn = maxWordsEn;
-        this.maxWordsPl = maxWordsPl;
         this.initialize();
     }
 
@@ -277,9 +273,7 @@ class SuttaSearch {
 		}
 	}
 
-	async findMatches(searchTerm, strict = false, isComment = false, singleResult = false, resultCallback) {
-		const maxWords = (this.pali ? 100 : 150);
-		
+	async findMatches(searchTerm, strict = false, isComment = false, singleResult = false, maxWords, resultCallback) {
 		// Create search term variations
 		let searchTerms = new Set();
 		
@@ -473,13 +467,13 @@ class SuttaSearch {
 }
 
 // Main search function
-export const searchSutta = async (textData, searchTerm, isComment = false, strict = false, pali = false, singleResult = false, resultCallback) => {
+export const searchSutta = async (textData, searchTerm, isComment = false, strict = false, pali = false, singleResult = false, maxWords, resultCallback) => {
     if (!textData || !searchTerm || typeof searchTerm !== 'string') {
         return [];
     }
     
     const searcher = new SuttaSearch(textData, pali);
-    return await searcher.findMatches(searchTerm, strict, isComment, singleResult, resultCallback);
+    return await searcher.findMatches(searchTerm, strict, isComment, singleResult, maxWords, resultCallback);
 };
 
 export default searchSutta;
