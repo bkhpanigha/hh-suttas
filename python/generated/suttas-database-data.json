@@ -1,4 +1,74 @@
 {
+  "ud1.8": {
+    "translation_en_anigha": {
+      "ud1.8:0.1": "Heartfelt Sayings 1.8 ",
+      "ud1.8:0.2": "With Saṅgāmaji ",
+      "ud1.8:1.1": "So I have heard. ",
+      "ud1.8:1.2": "At one time the Buddha was staying near Sāvatthī in Jeta’s Grove, Anāthapiṇḍika’s monastery. ",
+      "ud1.8:1.3": "Now at that time Venerable Saṅgāmaji had arrived at Sāvatthī to see the Buddha. ",
+      "ud1.8:1.4": "His former wife heard ",
+      "ud1.8:1.5": "that he had arrived, ",
+      "ud1.8:1.6": "and went to the Jetavana, taking their boy. ",
+      "ud1.8:2.1": "Now at that time Venerable Saṅgāmaji was sitting at the root of a tree for the day’s abiding. ",
+      "ud1.8:2.2": "Then his former wife went up to him and said, ",
+      "ud1.8:2.3": "“Ascetic, please raise this little boy.” ",
+      "ud1.8:2.4": "When she said this, Venerable Saṅgāmaji kept silent. ",
+      "ud1.8:3.1": "For a second time she said, ",
+      "ud1.8:3.2": "“Ascetic, please raise this little boy.” ",
+      "ud1.8:3.3": "For a second time, Venerable Saṅgāmaji kept silent. ",
+      "ud1.8:4.1": "For a third time she said, ",
+      "ud1.8:4.2": "“Ascetic, please raise this little boy.” ",
+      "ud1.8:4.3": "For a third time, Venerable Saṅgāmaji kept silent. ",
+      "ud1.8:5.1": "Then she put down the boy in front of Venerable Saṅgāmaji, saying, ",
+      "ud1.8:5.2": "“This is your child, ascetic. Please raise him.” ",
+      "ud1.8:6.1": "But Venerable Saṅgāmaji neither looked at the boy nor spoke to him. ",
+      "ud1.8:6.2": "Then his former wife went a little distance away. Looking back, she saw Venerable Saṅgāmaji ignoring the boy, and thought, ",
+      "ud1.8:6.3": "“This ascetic doesn’t even want his child.” ",
+      "ud1.8:6.4": "She returned to pick up the boy, then left. ",
+      "ud1.8:6.5": "With the divine eye that is purified and superhuman, the Buddha saw how Venerable Saṅgāmaji’s former wife went back for the child. ",
+      "ud1.8:7.1": "Then, understanding this matter, on that occasion the Buddha expressed this heartfelt sentiment: ",
+      "ud1.8:8.1": "“When she came he was not glad, ",
+      "ud1.8:8.2": "when she left he did not grieve. ",
+      "ud1.8:8.3": "Victorious in battle, freed from bonds, ",
+      "ud1.8:8.4": "that’s who I call a brahmin.” "
+    },
+    "root_pli_ms": {
+      "ud1.8:0.1": "Udāna 1.8 ",
+      "ud1.8:0.2": "Saṅgāmajisutta ",
+      "ud1.8:1.1": "Evaṁ me sutaṁ—",
+      "ud1.8:1.2": "ekaṁ samayaṁ bhagavā sāvatthiyaṁ viharati jetavane anāthapiṇḍikassa ārāme. ",
+      "ud1.8:1.3": "Tena kho pana samayena āyasmā saṅgāmaji sāvatthiṁ anuppatto hoti bhagavantaṁ dassanāya. ",
+      "ud1.8:1.4": "Assosi kho āyasmato saṅgāmajissa purāṇadutiyikā: ",
+      "ud1.8:1.5": "“ayyo kira saṅgāmaji sāvatthiṁ anuppatto”ti. ",
+      "ud1.8:1.6": "Sā dārakaṁ ādāya jetavanaṁ agamāsi. ",
+      "ud1.8:2.1": "Tena kho pana samayena āyasmā saṅgāmaji aññatarasmiṁ rukkhamūle divāvihāraṁ nisinno hoti. ",
+      "ud1.8:2.2": "Atha kho āyasmato saṅgāmajissa purāṇadutiyikā yenāyasmā saṅgāmaji tenupasaṅkami; upasaṅkamitvā āyasmantaṁ saṅgāmajiṁ etadavoca: ",
+      "ud1.8:2.3": "“khuddaputtañhi, samaṇa, posa man”ti. ",
+      "ud1.8:2.4": "Evaṁ vutte, āyasmā saṅgāmaji tuṇhī ahosi. ",
+      "ud1.8:3.1": "Dutiyampi kho āyasmato saṅgāmajissa purāṇadutiyikā āyasmantaṁ saṅgāmajiṁ etadavoca: ",
+      "ud1.8:3.2": "“khuddaputtañhi, samaṇa, posa man”ti. ",
+      "ud1.8:3.3": "Dutiyampi kho āyasmā saṅgāmaji tuṇhī ahosi. ",
+      "ud1.8:4.1": "Tatiyampi kho āyasmato saṅgāmajissa purāṇadutiyikā āyasmantaṁ saṅgāmajiṁ etadavoca: ",
+      "ud1.8:4.2": "“khuddaputtañhi, samaṇa, posa man”ti. ",
+      "ud1.8:4.3": "Tatiyampi kho āyasmā saṅgāmaji tuṇhī ahosi. ",
+      "ud1.8:5.1": "Atha kho āyasmato saṅgāmajissa purāṇadutiyikā taṁ dārakaṁ āyasmato saṅgāmajissa purato nikkhipitvā pakkāmi: ",
+      "ud1.8:5.2": "“eso te, samaṇa, putto; posa nan”ti. ",
+      "ud1.8:6.1": "Atha kho āyasmā saṅgāmaji taṁ dārakaṁ neva olokesi nāpi ālapi. ",
+      "ud1.8:6.2": "Atha kho āyasmato saṅgāmajissa purāṇadutiyikā avidūraṁ gantvā apalokentī addasa āyasmantaṁ saṅgāmajiṁ taṁ dārakaṁ neva olokentaṁ nāpi ālapantaṁ, disvānassā etadahosi: ",
+      "ud1.8:6.3": "“na cāyaṁ samaṇo puttenapi atthiko”ti. ",
+      "ud1.8:6.4": "Tato paṭinivattitvā dārakaṁ ādāya pakkāmi. ",
+      "ud1.8:6.5": "Addasā kho bhagavā dibbena cakkhunā visuddhena atikkantamānusakena āyasmato saṅgāmajissa purāṇadutiyikāya evarūpaṁ vippakāraṁ. ",
+      "ud1.8:7.1": "Atha kho bhagavā etamatthaṁ viditvā tāyaṁ velāyaṁ imaṁ udānaṁ udānesi: ",
+      "ud1.8:8.1": "“Āyantiṁ nābhinandati, ",
+      "ud1.8:8.2": "pakkamantiṁ na socati; ",
+      "ud1.8:8.3": "Saṅgā saṅgāmajiṁ muttaṁ, ",
+      "ud1.8:8.4": "tamahaṁ brūmi brāhmaṇan”ti. ",
+      "ud1.8:8.5": "Aṭṭhamaṁ. "
+    },
+    "comment": {
+      "ud1.8:0.2": "For some context on why the Buddha _praised_ the monk in this Sutta—which is likely to seem outrageous even to Buddhists—see [AN 3.110](https://suttas.hillsidehermitage.org/?q=an3.110), [Iti 80](https://suttas.hillsidehermitage.org/?q=iti80), and [AN 8.53](https://suttas.hillsidehermitage.org/?q=an8.53). "
+    }
+  },
   "thag2.34": {
     "translation_en_anigha": {
       "thag2.34:0.1": "Verses of the Senior Monks 2.34 ",
@@ -6050,6 +6120,44 @@
     },
     "comment": {
       "an3.121:3.7": "Note how purity is not defined as the simple absence of these things (which can happen out of circumstance or accident). The principle behind this counterintuitive situation is that when these states have been fully understood (i.e., _avijjā_ is destroyed), they cannot be called “hindrances” anymore. They are hindrances when there is craving, and without ignorance craving cannot exist, even amidst the things that used to provoke it. To use an analogy, if someone has the key for the cell door and knows for a fact that they can get out at will, can that really be called imprisonment? The Dhamma applies to and must be realized solely within oneself, which in turn means that one is either hindered by these things because there is craving and ignorance in one’s own mind, or one isn’t. Thus it would be wrong to say “the hindrances are not _actually_ hindrances” as if it were a universal truth independent of one’s point of view. "
+    }
+  },
+  "an3.110": {
+    "translation_en_anigha": {
+      "an3.110:0.1": "Numbered Discourses 3.110 ",
+      "an3.110:0.2": "11. Awakening ",
+      "an3.110:0.3": "Amiss ",
+      "an3.110:1.1": "Seated to one side, the Buddha said to the householder Anāthapiṇḍika: ",
+      "an3.110:1.2": "“Householder, when the mind is amiss, bodily, verbal, and mental actions are also amiss. ",
+      "an3.110:1.3": "One whose bodily, verbal, and mental actions are amiss will not have a good death. ",
+      "an3.110:1.4": "Just as when a bungalow is  poorly roofed, the roof peak, rafters, and walls are also amiss, ",
+      "an3.110:1.5": "in the same way, when the mind is amiss, bodily, verbal, and mental actions are also amiss. ",
+      "an3.110:1.6": "One whose bodily, verbal, and mental actions are amiss will not have a good death. ",
+      "an3.110:2.1": "When the mind is not amiss, bodily, verbal, and mental actions are also not amiss. ",
+      "an3.110:2.2": "One whose bodily, verbal, and mental actions are not amiss will have a good death. ",
+      "an3.110:2.3": "Just as when a bungalow is well-roofed, the roof peak, rafters, and walls are also not amiss, ",
+      "an3.110:2.4": "in the same way, when the mind is not amiss, bodily, verbal, and mental actions are also not amiss. ",
+      "an3.110:2.5": "One whose bodily, verbal, and mental actions are not amiss will have a good death.” "
+    },
+    "root_pli_ms": {
+      "an3.110:0.1": "Aṅguttara Nikāya 3.110 ",
+      "an3.110:0.2": "11. Sambodhavagga ",
+      "an3.110:0.3": "Byāpannasutta ",
+      "an3.110:1.1": "Ekamantaṁ nisinnaṁ kho anāthapiṇḍikaṁ gahapatiṁ bhagavā etadavoca: ",
+      "an3.110:1.2": "“citte, gahapati, byāpanne kāyakammampi byāpannaṁ hoti, vacīkammampi byāpannaṁ hoti, manokammampi byāpannaṁ hoti. ",
+      "an3.110:1.3": "Tassa byāpannakāyakammantassa byāpannavacīkammantassa byāpannamanokammantassa na bhaddakaṁ maraṇaṁ hoti, na bhaddikā kālakiriyā. ",
+      "an3.110:1.4": "Seyyathāpi, gahapati, kūṭāgāre ducchanne kūṭampi byāpannaṁ hoti, gopānasiyopi byāpannā honti, bhittipi byāpannā hoti; ",
+      "an3.110:1.5": "evamevaṁ kho, gahapati, citte byāpanne kāyakammampi byāpannaṁ hoti, vacīkammampi byāpannaṁ hoti, manokammampi byāpannaṁ hoti. ",
+      "an3.110:1.6": "Tassa byāpannakāyakammantassa byāpannavacīkammantassa byāpannamanokammantassa na bhaddakaṁ maraṇaṁ hoti, na bhaddikā kālakiriyā. ",
+      "an3.110:2.1": "Citte, gahapati, abyāpanne kāyakammampi abyāpannaṁ hoti, vacīkammampi abyāpannaṁ hoti, manokammampi abyāpannaṁ hoti. ",
+      "an3.110:2.2": "Tassa abyāpannakāyakammantassa abyāpannavacīkammantassa abyāpannamanokammantassa bhaddakaṁ maraṇaṁ hoti, bhaddikā kālakiriyā. ",
+      "an3.110:2.3": "Seyyathāpi, gahapati, kūṭāgāre succhanne kūṭampi abyāpannaṁ hoti, gopānasiyopi abyāpannā honti, bhittipi abyāpannā hoti; ",
+      "an3.110:2.4": "evamevaṁ kho, gahapati, citte abyāpanne kāyakammampi abyāpannaṁ hoti, vacīkammampi abyāpannaṁ hoti, manokammampi abyāpannaṁ hoti. ",
+      "an3.110:2.5": "Tassa abyāpannakāyakammantassa …pe… abyāpannamanokammantassa bhaddakaṁ maraṇaṁ hoti, bhaddikā kālakiriyā”ti. ",
+      "an3.110:2.6": "Aṭṭhamaṁ. "
+    },
+    "comment": {
+      "an3.110:1.2": "Here “mind” is _citta_, while “mental action” is _mano-kamma_. See [this](https://www.youtube.com/watch?v=BafurjP_lJY) for a discussion that practically illustrates the distinction between _citta_ and _mano_. <br><br> What this means is that it's not the external properties of an act (even an act of thinking or _mano_)  that determine its righteousness, but the state of mind (_citta_) that underlies it at that very moment. Therefore, acts that the whole world may regard as good and praiseworthy are, in light of the Dhamma, mistaken (_akusala_) if they are motivated by a defiled state of mind, while acts that the whole world may find reprehensible are righteous (_kusala_) if they are motivated by non-greed, non-aversion, and non-muddledness (e.g., [ going forth and leaving behind one’s family](https://suttas.hillsidehermitage.org/?q=ud1.8)). <br><br> See also the essay [“Intentions behind one’s actions”](https://www.hillsidehermitage.org/intentions-behind-ones-actions/). "
     }
   },
   "an3.101": {
