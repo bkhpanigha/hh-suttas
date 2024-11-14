@@ -1,5 +1,4 @@
 import getDocumentAreas from "../getDocumentAreas.js";
-import { scrollToHash } from "../navigation/scrollToHash.js";
 import { addNavbar } from "./addNavbar.js";
 import { initializePaliToggle } from "./initializePaliToggle.js";
 import { checkSearchUrlParam } from '../navigation/checkSearchUrlParam.js';
@@ -115,7 +114,6 @@ export async function buildSutta(slug, availableSuttasJson) {
 
         // Navigation and search
         checkSearchUrlParam();
-        scrollToHash();
 
     } catch (error) {
         console.error(error);
