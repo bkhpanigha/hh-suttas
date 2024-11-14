@@ -49,6 +49,7 @@ import { buildSutta } from "./js/utils/loadContent/buildSutta.js";
 import updateSuttaDatabase from './js/database/updateSuttaDatabase.js';
 import { checkPaliUrlParam } from './js/utils/navigation/checkPaliUrlParam.js';
 import { preventFlashing } from './js/utils/navigation/preventFlashing.js';
+import { scrollToHash } from "./js/utils/navigation/scrollToHash.js";
 
 // Wait for DOM to be fully loaded -- prevents funny business
 document.addEventListener('DOMContentLoaded', async function() {
@@ -79,6 +80,7 @@ document.addEventListener('DOMContentLoaded', async function() {
       
       // Now we can reveal the content
       preventFlashing();
+      scrollToHash();
 
   } catch (error) {
       console.error('[ERROR] Something went wrong:', error);
