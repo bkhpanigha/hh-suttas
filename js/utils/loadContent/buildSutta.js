@@ -74,6 +74,12 @@ export async function buildSutta(slug, availableSuttasJson) {
                 openHtml = openHtml.replace(/^<span class='verse-line'>/, "<br><span class='verse-line'>");
             }
 
+            // Only apply breaks inside verse lines
+            if (openHtml.includes("class='verse-line'") || closeHtml.includes("class='verse-line'")) {
+                openHtml = openHtml.replace(/^<span class='verse-line'>/, "<span class='verse-line'>");
+                closeHtml = closeHtml.replace(/<\/span>$/, "</span><br>");
+            }
+          
             html +=
             `${openHtml}<span class="segment" id="${segment}">` +
             `<span class="pli-lang" lang="pi">${root_text[segment] || ''}</span>` +
