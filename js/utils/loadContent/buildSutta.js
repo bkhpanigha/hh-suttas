@@ -23,134 +23,106 @@ const getSuttaNavigation = (slug, availableSuttasJson) => {
   return `<div class="suttaNavigation">${previousSuttaButton}${nextSuttaButton}</div>`
 }
 
-export function buildSutta(slug, availableSuttasJson) {
-    return new Promise((resolve, reject) => {
-        const footer = document.getElementById('footer');
-        const originalDisplay = footer.style.display;
-        // Hide footer to prevent flashing
+export async function buildSutta(slug, availableSuttasJson) {
+    const {suttaArea} = getDocumentAreas();
+    const footer = document.getElementById('footer');
+    const originalDisplay = footer.style.display;
+    
+    try {
+        // Hide footer during loading
         footer.style.display = 'none';
-		
-        const {suttaArea} = getDocumentAreas();
-		
+
+        // Handle simple cases
         if (!slug) {
             suttaArea.innerHTML = '<div style="display: flex; justify-content: center;"><span id="foreword-button" class="foreword-link">Foreword</span></div>';
-            resolve();
+            return;
+        }
+
+        slug = slug.toLowerCase();
+        const sutta_details = availableSuttasJson[slug];
+        if (!sutta_details) {
             return;
         }
 
         const converter = new showdown.Converter();
-
-        slug = slug.toLowerCase();
-        const sutta_details = availableSuttasJson[slug]
-        if(!sutta_details){
-			footer.style.display = originalDisplay;
-            resolve();
-            return;
-        }
-		
         let translator = "Bhikkhu Anīgha";
         let html = `<div class="button-area"><button id="hide-pali" class="hide-button">Toggle Pali</button></div>`;
         const sutta_title = sutta_details['title'];
         const acronym = sutta_details['id'];
 
-        const rootResponse = fetch(sutta_details['root_path']).then(response => response.json());
-        const translationResponse = fetch(sutta_details['translation_path']).then(response => response.json());
-        const htmlResponse = fetch(sutta_details['html_path']).then(response => response.json());
-        const commentResponse = fetch(sutta_details['comment_path'])
-        .then(response => {
-            if (!response.ok) throw new Error(`Comment file not found for ${slug}`);
-            return response.json();
-        })
-        .catch(error => {
-            console.warn(error.message);
-            return; // Return an empty object if the comment file is not found
+        // Group all fetch promises
+        const [html_text, root_text, translation_text, comment_text, authors_text] = await Promise.all([
+            fetch(sutta_details['html_path']).then(response => response.json()),
+            fetch(sutta_details['root_path']).then(response => response.json()),
+            fetch(sutta_details['translation_path']).then(response => response.json()),
+            fetch(sutta_details['comment_path'])
+                .then(response => response.ok ? response.json() : {})
+                .catch(() => ({})),
+            fetch('authors.json').then(response => response.json())
+        ]);
+
+        // Build HTML
+        const keys_order = Object.keys(html_text);
+        let commentCount = 1;
+        let commentsHtml = '';
+
+        keys_order.forEach((segment) => {
+            if (translation_text[segment] === undefined) translation_text[segment] = "";
+
+            let [openHtml, closeHtml] = html_text[segment].split(/{}/);
+
+            if (window.addBreaks === true) {
+                openHtml = openHtml.replace(/^<span class='verse-line'>/, "<br><span class='verse-line'>");
+            }
+
+            html +=
+            `${openHtml}<span class="segment" id="${segment}">` +
+            `<span class="pli-lang" lang="pi">${root_text[segment] || ''}</span>` +
+            `<span class="eng-lang" lang="en">${translation_text[segment]}` +
+            `${comment_text[segment] ? `<a href="${window.location.origin}?q=${slug}#comment${commentCount}" class="comment">[${commentCount}]</a>` : ''}` +
+            `</span></span>${closeHtml}\n\n`;
+        
+            if (comment_text[segment]) {
+                if(commentCount == 1) commentsHtml += '<h3>Comments</h3>';
+                commentsHtml += `
+                <p id="comment${commentCount}"><span>
+                ${commentCount}: ${converter.makeHtml(comment_text[segment])
+                    .replace(/^<p>(.*)<\/p>$/, '$1')}
+                <a href="${window.location.origin}?q=${slug}#${segment}~no-highlight" style="cursor: pointer; font-size: 14px;">&larr;</a>
+                </span></p>`;
+                commentCount++;
+            }
         });
 
-        const authors = fetch(`authors.json`).then(response => response.json());
+        if (authors_text[slug]) translator = authors_text[slug];
+        const translatorByline = `<div class="byline"><p>Translated by ${translator}</p></div>`;
+        const suttaNavigation = getSuttaNavigation(slug, availableSuttasJson);
 
-        // Get root, translation and html jsons from folder
-        Promise.all([htmlResponse, rootResponse, translationResponse, commentResponse, authors])
-            .then(responses => {
-                const [html_text, root_text, translation_text, comment_text, authors_text] = responses;
-                const keys_order = Object.keys(html_text);
-                let commentCount = 1;
-                let commentsHtml = '';
+        // Update DOM
+        suttaArea.innerHTML = `<p class="sc-link"></p>` + html + translatorByline + suttaNavigation + commentsHtml;
+        document.title = `${acronym} ${sutta_title}`;
 
-                keys_order.forEach((segment) => {
-                    if (translation_text[segment] === undefined) translation_text[segment] = "";
+        // Initialize features
+        initializePaliToggle();
+        addNavbar();
 
-                    let [openHtml, closeHtml] = html_text[segment].split(/{}/);
+        // Handle buttons
+        const buttons = ['cacheButton', 'infoButton', 'downloadEpubButton', 'epubInfoButton'];
+        buttons.forEach(id => {
+            const button = document.getElementById(id);
+            if (button) button.style.display = 'none';
+        });
 
-                    if (window.addBreaks === true) {
-                        openHtml = openHtml.replace(/^<span class='verse-line'>/, "<br><span class='verse-line'>");
-                    }
-                    // Only apply breaks inside verse lines
-                    if (openHtml.includes("class='verse-line'") || closeHtml.includes("class='verse-line'")) {
-                        openHtml = openHtml.replace(/^<span class='verse-line'>/, "<span class='verse-line'>");
-                        closeHtml = closeHtml.replace(/<\/span>$/, "</span><br>");
-                    }
-                    html +=
-                    `${openHtml}<span class="segment" id="${segment}">` +
-                    `<span class="pli-lang" lang="pi">${root_text[segment] || ''}</span>` +
-                    `<span class="eng-lang" lang="en">${translation_text[segment]}` +
-                    `${comment_text[segment] ? `<a href="${window.location.origin}?q=${slug}#comment${commentCount}" class="comment">[${commentCount}]</a>` : ''}` +
-                    `</span></span>${closeHtml}\n\n`;
-                
-                    if (comment_text[segment]) {
-                        if(commentCount == 1) commentsHtml += '<h3>Comments</h3>';
+        // Navigation and search
+        checkSearchUrlParam();
+        scrollToHash();
 
-                        // Inside the comment HTML
-                        commentsHtml += `
-                        <p id="comment${commentCount}"><span>
-                        ${commentCount}: ${converter.makeHtml(comment_text[segment])
-                            .replace(/^<p>(.*)<\/p>$/, '$1')}
-                        <a href="${window.location.origin}?q=${slug}#${segment}~no-highlight" style="cursor: pointer; font-size: 14px;">&larr;</a>
-                        </span></p>
-                        `;
-            
-                        commentCount++;
-                    }
-                });
-
-                if (authors_text[slug]) translator = authors_text[slug];
-                const translatorByline = `<div class="byline"><p>Translated by ${translator}</p></div>`;
-                
-                const suttaNavigation = getSuttaNavigation(slug, availableSuttasJson);
-
-                suttaArea.innerHTML = `<p class="sc-link"></p>` + html + translatorByline + suttaNavigation + commentsHtml;
-                
-                document.title = `${acronym} ${sutta_title}`;
-
-                initializePaliToggle();
-                addNavbar();
-
-                // remove download and info button
-                const cacheButton = document.getElementById('cacheButton');
-                const infoButton = document.getElementById('infoButton');
-                const downloadEpubButton = document.getElementById('downloadEpubButton');
-                const epubInfoButton = document.getElementById('epubInfoButton');
-                if (cacheButton) cacheButton.style.display = 'none';
-                if (infoButton) infoButton.style.display = 'none';
-                if (downloadEpubButton) downloadEpubButton.style.display = 'none';      
-                if (epubInfoButton) epubInfoButton.style.display = 'none';
-                
-                // highlight search term
-                checkSearchUrlParam();
-                
-                // scroll to the quote in the url if present
-                scrollToHash();
-
-                // display footer again once everything is ready
-                footer.style.display = originalDisplay;
-
-                resolve();
-            })
-            .catch(error => {
-                console.log(error);
-                suttaArea.innerHTML = `<p>Sorry, "${decodeURIComponent(slug)}" is not a valid sutta citation.
-                <br><br>Note: Make sure the citation code is correct. Otherwise try finding the sutta from the home page.<br>`;
-                footer.style.display = originalDisplay;
-                reject(error);
-            });
-    });
+    } catch (error) {
+        console.error(error);
+        suttaArea.innerHTML = `<p>Sorry, "${decodeURIComponent(slug)}" is not a valid sutta citation.
+        <br><br>Note: Make sure the citation code is correct. Otherwise try finding the sutta from the home page.<br>`;
+    } finally {
+        // Always show footer
+        footer.style.display = originalDisplay;
+    }
 }
