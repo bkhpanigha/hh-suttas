@@ -1,106 +1,108 @@
-import { fetchAvailableVideos } from '../loadContent/fetchAvailableVideos.js';
+import {
+	fetchAvailableVideos
+} from '../loadContent/fetchAvailableVideos.js';
 
 class YoutubePreview {
 	// Configuration constants
-    static CONNECTIVITY_CHECK_URL = 'https://www.youtube.com';
-    static MOBILE_BREAKPOINT = 768;
-    static PREVIEW_DELAY = 50;
-    static PREVIEW_FADE_DURATION = 150;
-    static THROTTLE_DELAY = 16;
+	static CONNECTIVITY_CHECK_URL = 'https://www.youtube.com';
+	static MOBILE_BREAKPOINT = 768;
+	static PREVIEW_DELAY = 50;
+	static PREVIEW_FADE_DURATION = 150;
+	static THROTTLE_DELAY = 16;
 
-    constructor() {
+	constructor() {
 		// Centralized state management for better data organization and access
-        this.state = {
-            previewElement: null,
-            cache: new Map(),
-            currentLink: null,
-            timeouts: {
-                preload: null,
-                show: null,
-                hide: null
-            },
-            isMobileDevice: this.checkIfMobile(),
-            availableVideos: null,
-            lastMoveTime: 0
-        };
+		this.state = {
+			previewElement: null,
+			cache: new Map(),
+			currentLink: null,
+			timeouts: {
+				preload: null,
+				show: null,
+				hide: null
+			},
+			isMobileDevice: this.checkIfMobile(),
+			availableVideos: null,
+			lastMoveTime: 0
+		};
 
-        this.initializeComponents()
-            .catch(error => console.error('Initialization failed:', error));
-    }
-	
+		this.initializeComponents()
+			.catch(error => console.error('Initialization failed:', error));
+	}
+
 	// Initialize all components asynchronously using Promise.all for parallel execution
-    async initializeComponents() {
-        try {
-            await Promise.all([
-                this.initPreview(),
-                this.addYouTubeStyles(),
-                this.loadAvailableVideos()
-            ]);
-            this.initEventListeners();
-        } catch (error) {
-            console.error('Component initialization failed:', error);
-            throw error;
-        }
-    }
+	async initializeComponents() {
+		try {
+			await Promise.all([
+				this.initPreview(),
+				this.addYouTubeStyles(),
+				this.loadAvailableVideos()
+			]);
+			this.initEventListeners();
+		} catch (error) {
+			console.error('Component initialization failed:', error);
+			throw error;
+		}
+	}
 
 	// Fetch available videos with error handling
-    async loadAvailableVideos() {
-        try {
-            this.state.availableVideos = await fetchAvailableVideos();
-        } catch (error) {
-            console.error('Failed to load available videos:', error);
-            this.state.availableVideos = {};
-        }
-    }
+	async loadAvailableVideos() {
+		try {
+			this.state.availableVideos = await fetchAvailableVideos();
+		} catch (error) {
+			console.error('Failed to load available videos:', error);
+			this.state.availableVideos = {};
+		}
+	}
 
 	// Check internet connectivity with timeout using AbortController
-    async checkConnectivity() {
-        try {
-            const controller = new AbortController();
-            const timeoutId = setTimeout(() => controller.abort(), 5000);
+	async checkConnectivity() {
+		try {
+			const controller = new AbortController();
+			const timeoutId = setTimeout(() => controller.abort(), 5000);
 
-            const response = await fetch(YoutubePreview.CONNECTIVITY_CHECK_URL, { 
-                method: 'HEAD',
-                mode: 'no-cors',
-                signal: controller.signal
-            });
-            clearTimeout(timeoutId);
-            return true;
-        } catch (error) {
-            return false;
-        }
-    }
+			const response = await fetch(YoutubePreview.CONNECTIVITY_CHECK_URL, {
+				method: 'HEAD',
+				mode: 'no-cors',
+				signal: controller.signal
+			});
+			clearTimeout(timeoutId);
+			return true;
+		} catch (error) {
+			return false;
+		}
+	}
 
-    checkIfMobile() {
-        const mobileRegex = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
-        return mobileRegex.test(navigator.userAgent) || 
-               window.innerWidth <= YoutubePreview.MOBILE_BREAKPOINT;
-    }
+	checkIfMobile() {
+		const mobileRegex = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
+		return mobileRegex.test(navigator.userAgent) ||
+			window.innerWidth <= YoutubePreview.MOBILE_BREAKPOINT;
+	}
 
-    initPreview() {
-        try {
-            this.state.previewElement = document.createElement('div');
-            this.state.previewElement.className = 'youtube-preview';
-            document.body.appendChild(this.state.previewElement);
-        } catch (error) {
-            console.error('Preview initialization failed:', error);
-            throw error;
-        }
-    }
+	initPreview() {
+		try {
+			this.state.previewElement = document.createElement('div');
+			this.state.previewElement.className = 'youtube-preview';
+			document.body.appendChild(this.state.previewElement);
+		} catch (error) {
+			console.error('Preview initialization failed:', error);
+			throw error;
+		}
+	}
 
-    addYouTubeStyles() {
-        try {
-            const styleSheet = document.createElement("style");
-            styleSheet.textContent = this.getYoutubeStyles();
-            document.head.appendChild(styleSheet);
-        } catch (error) {
-            console.error('Style initialization failed:', error);
-            throw error;
-        }
-    }
+	addYouTubeStyles() {
+		try {
+			const styleSheet = document.createElement("style");
+			styleSheet.textContent = this.getYoutubeStyles();
+			document.head.appendChild(styleSheet);
+		} catch (error) {
+			console.error('Style initialization failed:', error);
+			throw error;
+		}
+	}
 
-    getYoutubeStyles() {
-        return `
+	getYoutubeStyles() {
+		return `
             a[href*="youtube.com"]:not(.links-area a), a[href*="youtu.be"]:not(.links-area a) {
                 display: inline-flex;
                 align-items: center;
@@ -152,265 +154,286 @@ class YoutubePreview {
                 font-family: 'RobotoSerif', serif;
             }
         `;
-    }
+	}
 
 	// Event handlers for desktop and mobile
-    initEventListeners() {
-        if (this.state.isMobileDevice) {
-            this.initMobileEventListeners();
-            return;
-        }
-        this.initDesktopEventListeners();
-    }
+	initEventListeners() {
+		if (this.state.isMobileDevice) {
+			this.initMobileEventListeners();
+			return;
+		}
+		this.initDesktopEventListeners();
+	}
 
-    initMobileEventListeners() {
-        document.addEventListener('click', this.handleMobileEvents.bind(this));
-    }
+	initMobileEventListeners() {
+		document.addEventListener('click', this.handleMobileEvents.bind(this));
+	}
 
-    initDesktopEventListeners() {
-        document.addEventListener('mouseover', this.handleMouseEnter.bind(this));
-        document.addEventListener('mouseout', this.handleMouseLeave.bind(this));
-        document.addEventListener('mousemove', this.handleMouseMove.bind(this), { passive: true });
-    }
-	
+	initDesktopEventListeners() {
+		document.addEventListener('mouseover', this.handleMouseEnter.bind(this));
+		document.addEventListener('mouseout', this.handleMouseLeave.bind(this));
+		document.addEventListener('mousemove', this.handleMouseMove.bind(this), {
+			passive: true
+		});
+	}
+
 	async handleMouseEnter(event) {
-        const link = event.target.closest('a[href*="youtube.com"]:not(.links-area a), a[href*="youtu.be"]:not(.links-area a)');
-        if (!link) return;
+		const link = event.target.closest('a[href*="youtube.com"]:not(.links-area a), a[href*="youtu.be"]:not(.links-area a)');
+		if (!link) return;
 
-        this.clearTimeouts('hide');
-        this.clearTimeouts('show');
+		this.clearTimeouts('hide');
+		this.clearTimeouts('show');
 
-        this.state.previewElement.style.display = 'block';
-        
-        const videoInfo = await this.getVideoInfo(link);
-        if (!videoInfo) return;
+		this.state.previewElement.style.display = 'block';
 
-        const isOnline = await this.checkConnectivity();
-        if (isOnline) {
-            this.showPreview(videoInfo, event);
-        } else {
-            this.showOfflinePreview(videoInfo, event);
-        }
-    }
+		const videoInfo = await this.getVideoInfo(link);
+		if (!videoInfo) return;
 
-    handleMouseLeave(event) {
-        if (!(event.target instanceof Element)) return;
+		const isOnline = await this.checkConnectivity();
+		if (isOnline) {
+			this.showPreview(videoInfo, event);
+		} else {
+			this.showOfflinePreview(videoInfo, event);
+		}
+	}
 
-        const link = event.target.closest('a[href*="youtube.com"], a[href*="youtu.be"]');
-        if (!link) return;
+	handleMouseLeave(event) {
+		if (!(event.target instanceof Element)) return;
 
-        this.clearTimeouts('show');
-        this.clearTimeouts('hide');
+		const link = event.target.closest('a[href*="youtube.com"], a[href*="youtu.be"]');
+		if (!link) return;
 
-        this.state.timeouts.hide = setTimeout(() => {
-            this.hidePreview();
-        }, YoutubePreview.PREVIEW_DELAY);
-    }
+		this.clearTimeouts('show');
+		this.clearTimeouts('hide');
+
+		this.state.timeouts.hide = setTimeout(() => {
+			this.hidePreview();
+		}, YoutubePreview.PREVIEW_DELAY);
+	}
 
 	// Throttled mousemove handler for performance optimization
-    handleMouseMove(event) {
-        const now = Date.now();
-        if (now - this.state.lastMoveTime < YoutubePreview.THROTTLE_DELAY) return;
-        this.state.lastMoveTime = now;
+	handleMouseMove(event) {
+		const now = Date.now();
+		if (now - this.state.lastMoveTime < YoutubePreview.THROTTLE_DELAY) return;
+		this.state.lastMoveTime = now;
 
-        if (!(event.target instanceof Element)) return;
+		if (!(event.target instanceof Element)) return;
 
-        const link = event.target.closest('a[href*="youtube.com"], a[href*="youtu.be"]');
-        if (link && this.state.previewElement.style.display === 'block') {
-            this.updatePreviewPosition(event);
-        }
-    }
+		const link = event.target.closest('a[href*="youtube.com"], a[href*="youtu.be"]');
+		if (link && this.state.previewElement.style.display === 'block') {
+			this.updatePreviewPosition(event);
+		}
+	}
 
-    async handleMobileEvents(event) {
-        if (!(event.target instanceof Element)) return;
+	async handleMobileEvents(event) {
+		if (!(event.target instanceof Element)) return;
 
-        const link = event.target.closest('a[href*="youtube.com"]:not(.links-area a), a[href*="youtu.be"]:not(.links-area a)');
-        const previewClick = event.target.closest('.youtube-preview');
+		const link = event.target.closest('a[href*="youtube.com"]:not(.links-area a), a[href*="youtu.be"]:not(.links-area a)');
+		const previewClick = event.target.closest('.youtube-preview');
 
-        if (link && !previewClick) {
-            event.preventDefault();
-            await this.handleMobileClick(event, link);
-        } else if (previewClick && this.state.currentLink && !this.state.previewElement.classList.contains('offline')) {
-            window.location.href = this.state.currentLink.href;
-        } else if (!previewClick && this.state.previewElement.style.display === 'block') {
-            this.hidePreview();
-        }
-    }
+		if (link && !previewClick) {
+			event.preventDefault();
+			await this.handleMobileClick(event, link);
+		} else if (previewClick && this.state.currentLink && !this.state.previewElement.classList.contains('offline')) {
+			window.location.href = this.state.currentLink.href;
+		} else if (!previewClick && this.state.previewElement.style.display === 'block') {
+			this.hidePreview();
+		}
+	}
 
-    async handleMobileClick(event, link) {
-        this.state.currentLink = link;
-        const videoInfo = await this.getVideoInfo(link);
-        if (!videoInfo) return;
+	async handleMobileClick(event, link) {
+		this.state.currentLink = link;
+		const videoInfo = await this.getVideoInfo(link);
+		if (!videoInfo) return;
 
-        const isOnline = await this.checkConnectivity();
-        isOnline ? this.showMobilePreview(videoInfo) : this.showOfflineMobilePreview(videoInfo);
-    }
+		const isOnline = await this.checkConnectivity();
+		isOnline ? this.showMobilePreview(videoInfo) : this.showOfflineMobilePreview(videoInfo);
+	}
 
-    async getVideoInfo(link) {
-        const videoId = this.extractVideoId(link.href);
-        if (!videoId || !this.state.availableVideos) return null;
-        return this.state.availableVideos[videoId];
-    }
+	async getVideoInfo(link) {
+		const videoId = this.extractVideoId(link.href);
+		if (!videoId || !this.state.availableVideos) return null;
+		return this.state.availableVideos[videoId];
+	}
 
 	// Extract video ID using regex pattern matching
-    extractVideoId(url) {
-        const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-        const match = url.match(regExp);
-        return match && match[2].length === 11 ? match[2] : null;
-    }
-	
+	extractVideoId(url) {
+		const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+		const match = url.match(regExp);
+		return match && match[2].length === 11 ? match[2] : null;
+	}
+
 	// Force browser repaint for smooth animations using requestAnimationFrame
-    showPreview(videoInfo, event) {
-        const previewContent = this.createPreviewContent(videoInfo);
-        this.state.previewElement.style.cssText = previewContent.styles;
-        this.state.previewElement.innerHTML = previewContent.html;
-        
-        // Force repaint
-        requestAnimationFrame(() => {
-            this.state.previewElement.style.display = 'block';
-            this.state.previewElement.style.opacity = '1';
-            this.state.previewElement.style.transform = 'translateY(0)';
-            this.updatePreviewPosition(event);
-        });
-    }
+	showPreview(videoInfo, event) {
+		const previewContent = this.createPreviewContent(videoInfo);
+		this.state.previewElement.style.cssText = previewContent.styles;
+		this.state.previewElement.innerHTML = previewContent.html;
 
-    showOfflinePreview(videoInfo, event) {
-        const previewContent = this.createOfflinePreviewContent(videoInfo);
-        this.renderPreview(previewContent, true);
-        this.updatePreviewPosition(event);
-    }
+		// Force repaint
+		requestAnimationFrame(() => {
+			this.state.previewElement.style.display = 'block';
+			this.state.previewElement.style.opacity = '1';
+			this.state.previewElement.style.transform = 'translateY(0)';
+			this.updatePreviewPosition(event);
+		});
+	}
 
-    showMobilePreview(videoInfo) {
-        const previewContent = this.createMobilePreviewContent(videoInfo);
-        this.renderMobilePreview(previewContent, false);
-    }
+	showOfflinePreview(videoInfo, event) {
+		const previewContent = this.createOfflinePreviewContent(videoInfo);
+		this.renderPreview(previewContent, true);
+		this.updatePreviewPosition(event);
+	}
 
-    showOfflineMobilePreview(videoInfo) {
-        const previewContent = this.createOfflineMobilePreviewContent(videoInfo);
-        this.renderMobilePreview(previewContent, true);
-    }
+	showMobilePreview(videoInfo) {
+		const previewContent = this.createMobilePreviewContent(videoInfo);
+		this.renderMobilePreview(previewContent, false);
+	}
 
-    createPreviewContent(videoInfo) {
-        const isDarkMode = document.documentElement.classList.contains('dark');
-        return {
-            styles: this.getPreviewStyles(isDarkMode, false),
-            html: this.getPreviewHTML(videoInfo, isDarkMode, false)
-        };
-    }
+	showOfflineMobilePreview(videoInfo) {
+		const previewContent = this.createOfflineMobilePreviewContent(videoInfo);
+		this.renderMobilePreview(previewContent, true);
+	}
 
-    createOfflinePreviewContent(videoInfo) {
-        const isDarkMode = document.documentElement.classList.contains('dark');
-        return {
-            styles: this.getPreviewStyles(isDarkMode, true),
-            html: this.getPreviewHTML(videoInfo, isDarkMode, true)
-        };
-    }
+	createPreviewContent(videoInfo) {
+		const isDarkMode = document.documentElement.classList.contains('dark');
+		return {
+			styles: this.getPreviewStyles(isDarkMode, false),
+			html: this.getPreviewHTML(videoInfo, isDarkMode, false)
+		};
+	}
 
-    createMobilePreviewContent(videoInfo) {
-        const isDarkMode = document.documentElement.classList.contains('dark');
-        return {
-            styles: this.getMobilePreviewStyles(isDarkMode),
-            html: this.getMobilePreviewHTML(videoInfo, isDarkMode)
-        };
-    }
+	createOfflinePreviewContent(videoInfo) {
+		const isDarkMode = document.documentElement.classList.contains('dark');
+		return {
+			styles: this.getPreviewStyles(isDarkMode, true),
+			html: this.getPreviewHTML(videoInfo, isDarkMode, true)
+		};
+	}
 
-    createOfflineMobilePreviewContent(videoInfo) {
-        const isDarkMode = document.documentElement.classList.contains('dark');
-        return {
-            styles: this.getMobilePreviewStyles(isDarkMode, true),
-            html: this.getOfflineMobilePreviewHTML(videoInfo, isDarkMode)
-        };
-    }
+	createMobilePreviewContent(videoInfo) {
+		const isDarkMode = document.documentElement.classList.contains('dark');
+		return {
+			styles: this.getMobilePreviewStyles(isDarkMode),
+			html: this.getMobilePreviewHTML(videoInfo, isDarkMode)
+		};
+	}
 
-    renderPreview(content, isOffline) {
-        const { styles, html } = content;
-        this.state.previewElement.style.cssText = styles;
-        this.state.previewElement.innerHTML = html;
-        if (isOffline) this.state.previewElement.classList.add('offline');
-        
-        requestAnimationFrame(() => {
-            this.state.previewElement.style.opacity = '1';
-            this.state.previewElement.style.transform = 'translateY(0)';
-        });
-    }
+	createOfflineMobilePreviewContent(videoInfo) {
+		const isDarkMode = document.documentElement.classList.contains('dark');
+		return {
+			styles: this.getMobilePreviewStyles(isDarkMode, true),
+			html: this.getOfflineMobilePreviewHTML(videoInfo, isDarkMode)
+		};
+	}
 
-    renderMobilePreview(content, isOffline) {
-        const { styles, html } = content;
-        this.state.previewElement.style.cssText = styles;
-        this.state.previewElement.innerHTML = html;
-        if (isOffline) this.state.previewElement.classList.add('offline');
-    }
+	renderPreview(content, isOffline) {
+		const {
+			styles,
+			html
+		} = content;
+		this.state.previewElement.style.cssText = styles;
+		this.state.previewElement.innerHTML = html;
+		if (isOffline) this.state.previewElement.classList.add('offline');
 
-    updatePreviewPosition(event) {
-        const preview = this.state.previewElement;
-        const margin = 20;
-        const viewportWidth = window.innerWidth;
-        const viewportHeight = window.innerHeight;
-        const previewRect = preview.getBoundingClientRect();
-        const { clientX: cursorX, clientY: cursorY } = event;
+		requestAnimationFrame(() => {
+			this.state.previewElement.style.opacity = '1';
+			this.state.previewElement.style.transform = 'translateY(0)';
+		});
+	}
 
-        const position = this.calculatePreviewPosition({
-            previewRect,
-            cursorX,
-            cursorY,
-            viewportWidth,
-            viewportHeight,
-            margin
-        });
+	renderMobilePreview(content, isOffline) {
+		const {
+			styles,
+			html
+		} = content;
+		this.state.previewElement.style.cssText = styles;
+		this.state.previewElement.innerHTML = html;
+		if (isOffline) this.state.previewElement.classList.add('offline');
+	}
 
-        Object.assign(preview.style, position);
-    }
+	updatePreviewPosition(event) {
+		const preview = this.state.previewElement;
+		const margin = 20;
+		const viewportWidth = window.innerWidth;
+		const viewportHeight = window.innerHeight;
+		const previewRect = preview.getBoundingClientRect();
+		const {
+			clientX: cursorX,
+			clientY: cursorY
+		} = event;
+
+		const position = this.calculatePreviewPosition({
+			previewRect,
+			cursorX,
+			cursorY,
+			viewportWidth,
+			viewportHeight,
+			margin
+		});
+
+		Object.assign(preview.style, position);
+	}
 
 	// Calculate preview position based on viewport constraints
-    calculatePreviewPosition({ previewRect, cursorX, cursorY, viewportWidth, viewportHeight, margin }) {
-        const spaceAbove = cursorY;
-        const spaceBelow = viewportHeight - cursorY;
-        const spaceRight = viewportWidth - cursorX;
-        const spaceLeft = cursorX;
+	calculatePreviewPosition({
+		previewRect,
+		cursorX,
+		cursorY,
+		viewportWidth,
+		viewportHeight,
+		margin
+	}) {
+		const spaceAbove = cursorY;
+		const spaceBelow = viewportHeight - cursorY;
+		const spaceRight = viewportWidth - cursorX;
+		const spaceLeft = cursorX;
 
-        let top, left;
+		let top, left;
 
-        if (spaceAbove > previewRect.height + margin) {
-            top = cursorY - previewRect.height - margin;
-        } else if (spaceBelow > previewRect.height + margin) {
-            top = cursorY + margin;
-        } else {
-            top = Math.max(margin, Math.min(viewportHeight - previewRect.height - margin,
-                (viewportHeight - previewRect.height) / 2));
-        }
+		if (spaceAbove > previewRect.height + margin) {
+			top = cursorY - previewRect.height - margin;
+		} else if (spaceBelow > previewRect.height + margin) {
+			top = cursorY + margin;
+		} else {
+			top = Math.max(margin, Math.min(viewportHeight - previewRect.height - margin,
+				(viewportHeight - previewRect.height) / 2));
+		}
 
-        if (spaceRight > previewRect.width + margin) {
-            left = cursorX + margin;
-        } else if (spaceLeft > previewRect.width + margin) {
-            left = cursorX - previewRect.width - margin;
-        } else {
-            left = Math.max(margin, Math.min(viewportWidth - previewRect.width - margin,
-                (viewportWidth - previewRect.width) / 2));
-        }
+		if (spaceRight > previewRect.width + margin) {
+			left = cursorX + margin;
+		} else if (spaceLeft > previewRect.width + margin) {
+			left = cursorX - previewRect.width - margin;
+		} else {
+			left = Math.max(margin, Math.min(viewportWidth - previewRect.width - margin,
+				(viewportWidth - previewRect.width) / 2));
+		}
 
-        return { left: `${left}px`, top: `${top}px` };
-    }
+		return {
+			left: `${left}px`,
+			top: `${top}px`
+		};
+	}
 
-    hidePreview() {
-        this.state.previewElement.style.opacity = '0';
-        this.state.previewElement.style.transform = 'translateY(4px)';
-        
-        setTimeout(() => {
-            this.state.previewElement.style.display = 'none';
-            this.state.previewElement.classList.remove('offline');
-        }, YoutubePreview.PREVIEW_FADE_DURATION);
-    }
+	hidePreview() {
+		this.state.previewElement.style.opacity = '0';
+		this.state.previewElement.style.transform = 'translateY(4px)';
+
+		setTimeout(() => {
+			this.state.previewElement.style.display = 'none';
+			this.state.previewElement.classList.remove('offline');
+		}, YoutubePreview.PREVIEW_FADE_DURATION);
+	}
 
 	// Memory cleanup and state reset
-    clearTimeouts(type) {
-        if (this.state.timeouts[type]) {
-            clearTimeout(this.state.timeouts[type]);
-            this.state.timeouts[type] = null;
-        }
-    }
+	clearTimeouts(type) {
+		if (this.state.timeouts[type]) {
+			clearTimeout(this.state.timeouts[type]);
+			this.state.timeouts[type] = null;
+		}
+	}
 
-    getPreviewStyles(isDarkMode, isOffline) {
-        return `
+	getPreviewStyles(isDarkMode, isOffline) {
+		return `
             position: fixed;
             background: ${isDarkMode ? 'linear-gradient(to bottom, #27292a 0%, #1f2122 100%)' : 'linear-gradient(to bottom, #ffffff 0%, #f9f9f9 100%)'};
             border-radius: 16px;
@@ -427,10 +450,10 @@ class YoutubePreview {
             transform: translateY(4px);
             will-change: transform, opacity;
         `;
-    }
+	}
 
-    getMobilePreviewStyles(isDarkMode, isOffline = false) {
-        return `
+	getMobilePreviewStyles(isDarkMode, isOffline = false) {
+		return `
             position: fixed;
             background: ${isDarkMode ? 'linear-gradient(to bottom, #27292a 0%, #1f2122 100%)' : 'linear-gradient(to bottom, #ffffff 0%, #f9f9f9 100%)'};
             border-radius: 16px;
@@ -449,18 +472,21 @@ class YoutubePreview {
             opacity: 1;
             ${!isOffline ? 'cursor: pointer;' : ''}
         `;
-    }
+	}
 
-    getPreviewHTML(videoInfo, isDarkMode, isOffline) {
-        return isOffline ? this.getOfflinePreviewHTML(videoInfo, isDarkMode) : this.getOnlinePreviewHTML(videoInfo, isDarkMode);
-    }
+	getPreviewHTML(videoInfo, isDarkMode, isOffline) {
+		return isOffline ? this.getOfflinePreviewHTML(videoInfo, isDarkMode) : this.getOnlinePreviewHTML(videoInfo, isDarkMode);
+	}
 
-    getOnlinePreviewHTML(videoInfo, isDarkMode) {
-        return `
+	getOnlinePreviewHTML(videoInfo, isDarkMode) {
+		// Get the best available thumbnail quality
+		const thumbnailUrl = videoInfo.thumbnails.maxresdefault || videoInfo.thumbnails.hqdefault;
+
+		return `
             <div style="display: flex; flex-direction: column; gap: 12px;">
                 <div style="position: relative;">
                     <div style="width: 100%; padding-top: 56.25%; position: relative; border-radius: 12px; overflow: hidden;">
-                        <img src="${videoInfo.thumbnails.maxresdefault}" 
+                        <img src="${thumbnailUrl}" 
                              alt="Thumbnail" 
                              style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;">
                     </div>
@@ -469,29 +495,30 @@ class YoutubePreview {
                 <div class="youtube-duration">${videoInfo.duration}</div>
             </div>
         `;
-    }
+	}
 
-    getOfflinePreviewHTML(videoInfo, isDarkMode) {
-        return `
+	getOfflinePreviewHTML(videoInfo, isDarkMode) {
+		return `
             <div style="display: flex; flex-direction: column; gap: 12px;">
                 ${this.getCommonPreviewContent(videoInfo, isDarkMode)}
                 <div class="youtube-duration">${videoInfo.duration}</div>
             </div>
         `;
-    }
+	}
 
-    getMobilePreviewHTML(videoInfo, isDarkMode) {
-        const playIcon = `
+	getMobilePreviewHTML(videoInfo, isDarkMode) {
+		const thumbnailUrl = videoInfo.thumbnails.maxresdefault || videoInfo.thumbnails.hqdefault;
+		const playIcon = `
             <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
                 <path d="M8 5v14l11-7z"/>
             </svg>
         `;
 
-        return `
+		return `
             <div style="display: flex; flex-direction: column; gap: 12px;" onclick="window.location.href = '${this.state.currentLink?.href}">
                 <div style="position: relative;">
                     <div style="width: 100%; padding-top: 56.25%; position: relative; border-radius: 12px; overflow: hidden; background: #000;">
-                        <img src="${videoInfo.thumbnails.maxresdefault}" 
+                        <img src="${thumbnailUrl}" 
                             alt="Thumbnail" 
                             style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;">
                         <div style="
@@ -518,20 +545,20 @@ class YoutubePreview {
                 <div class="youtube-duration">${videoInfo.duration}</div>
             </div>
         `;
-    }
+	}
 
-    getOfflineMobilePreviewHTML(videoInfo, isDarkMode) {
-        return `
+	getOfflineMobilePreviewHTML(videoInfo, isDarkMode) {
+		return `
             <div style="display: flex; flex-direction: column; gap: 12px;">
                 ${this.getCommonPreviewContent(videoInfo, isDarkMode)}
                 <div class="youtube-duration">${videoInfo.duration}</div>
             </div>
         `;
-    }
+	}
 
-	// Shared template for tooltip content to maintain consistency
-    getCommonPreviewContent(videoInfo, isDarkMode) {
-        return `
+	// Shared template for preview content to maintain consistency
+	getCommonPreviewContent(videoInfo, isDarkMode) {
+		return `
             <div style="padding: 0 4px;">
                 <div style="
                     font-family: 'RobotoSerif Medium', serif;
@@ -564,7 +591,7 @@ class YoutubePreview {
                 </div>
             </div>
         `;
-    }
+	}
 }
 
 export default YoutubePreview;
