@@ -89,5 +89,7 @@ def get_channel_videos(channel_url: str) -> Dict:
 
 # Usage example
 if __name__ == "__main__":
-    channel_url = "https://www.youtube.com/@HillsideHermitage"  # Replace with channel URL
-    videos = get_channel_videos(channel_url)
+    channel_url = "https://www.youtube.com/@HillsideHermitage"
+    get_channel_videos(channel_url)
+    channel_url = "https://www.youtube.com/@SamanadipaHermitage"
+    get_channel_videos(channel_url)
