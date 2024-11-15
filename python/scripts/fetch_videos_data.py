@@ -34,7 +34,7 @@ def format_duration(duration_seconds: float) -> str:
     else:
         return f"{int(minutes):02d}:{int(seconds):02d}"
 
-def get_channel_videos(channel_url: str, mode) -> Dict:
+def get_channel_videos(channel_url: str) -> Dict:
     ydl_opts = {
         'quiet': True,
         'no_warnings': True,
@@ -42,14 +42,13 @@ def get_channel_videos(channel_url: str, mode) -> Dict:
         'extract_flat': True,
     }
     
+    videos = {}
+    
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
         try:
             # Extract channel information
-            print("Fetching channel data...")
+            print(f"Fetching data from {channel_url}...")
             channel_info = ydl.extract_info(channel_url, download=False)
-            
-            # Prepare output dictionary
-            output = {"available_videos": {}}
             
             # Loop through videos
             print("Processing videos...")
@@ -66,30 +65,41 @@ def get_channel_videos(channel_url: str, mode) -> Dict:
                 duration = entry.get('duration')
                 formatted_duration = format_duration(duration) if duration else None
                 
-                # Format upload date
-                upload_date = entry.get('upload_date', '')
-                
                 # Store video information
-                output["available_videos"][video_id] = {
+                videos[video_id] = {
                     "title": entry['title'],
                     "thumbnails": thumbnails,
                     "duration": formatted_duration,
                 }
             
-            # Save to JSON file
-            print("Saving to JSON file...")
-            with open(available_videos_path, mode, encoding='utf-8') as f:
-                json.dump(output, f, ensure_ascii=False, indent=4)
-                
-            return output
+            return videos
             
         except Exception as e:
             print(f"Error during extraction: {str(e)}")
-            return None
+            return {}
 
-# Usage example
+def process_channels(channel_urls: list) -> None:
+    """
+    Process multiple channels and save all videos to a single JSON file
+    """
+    all_videos = {"available_videos": {}}
+    
+    # Fetch videos from all channels
+    for channel_url in channel_urls:
+        channel_videos = get_channel_videos(channel_url)
+        all_videos["available_videos"].update(channel_videos)
+    
+    # Save all videos to JSON file
+    print(f"\nSaving {len(all_videos['available_videos'])} videos to JSON file...")
+    with open(available_videos_path, 'w', encoding='utf-8') as f:
+        json.dump(all_videos, f, ensure_ascii=False, indent=4)
+    
+    print("Video data extraction done")
+
 if __name__ == "__main__":
-    channel_url = "https://www.youtube.com/@HillsideHermitage"
-    get_channel_videos(channel_url, 'w')
-    channel_url = "https://www.youtube.com/@SamanadipaHermitage"
-    get_channel_videos(channel_url, 'a+')
+    channels = [
+        "https://www.youtube.com/@HillsideHermitage",
+        "https://www.youtube.com/@SamanadipaHermitage"
+    ]
+    
+    process_channels(channels)
