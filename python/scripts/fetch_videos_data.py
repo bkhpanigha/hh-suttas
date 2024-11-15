@@ -34,7 +34,7 @@ def format_duration(duration_seconds: float) -> str:
     else:
         return f"{int(minutes):02d}:{int(seconds):02d}"
 
-def get_channel_videos(channel_url: str) -> Dict:
+def get_channel_videos(channel_url: str, mode) -> Dict:
     ydl_opts = {
         'quiet': True,
         'no_warnings': True,
@@ -78,7 +78,7 @@ def get_channel_videos(channel_url: str) -> Dict:
             
             # Save to JSON file
             print("Saving to JSON file...")
-            with open(available_videos_path, 'w', encoding='utf-8') as f:
+            with open(available_videos_path, mode, encoding='utf-8') as f:
                 json.dump(output, f, ensure_ascii=False, indent=4)
                 
             return output
@@ -90,6 +90,6 @@ def get_channel_videos(channel_url: str) -> Dict:
 # Usage example
 if __name__ == "__main__":
     channel_url = "https://www.youtube.com/@HillsideHermitage"
-    get_channel_videos(channel_url)
+    get_channel_videos(channel_url, 'w')
     channel_url = "https://www.youtube.com/@SamanadipaHermitage"
-    get_channel_videos(channel_url)
+    get_channel_videos(channel_url, 'a+')
