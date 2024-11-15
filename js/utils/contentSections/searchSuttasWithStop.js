@@ -91,7 +91,8 @@ export async function searchSuttasWithStop(searchTerm, options) {
                     options['strict'],
                     false,
                     options['single'],
-                    async (result) => processResult(result, sutta, id, finalDisplayTitle)
+					maxWordsEn,
+                    async (result) => processResult(result, sutta, id, finalDisplayTitle),
                 );
 
                 // Search in comments with progressive display
@@ -103,7 +104,8 @@ export async function searchSuttasWithStop(searchTerm, options) {
                         options['strict'],
                         false,
                         options['single'],
-                        async (result) => processResult(result, sutta, id, finalDisplayTitle, true)
+						maxWordsEn,
+                        async (result) => processResult(result, sutta, id, finalDisplayTitle, true),
                     );
                     updateProgress();
                 }
@@ -124,7 +126,8 @@ export async function searchSuttasWithStop(searchTerm, options) {
                     options['strict'],
                     true,
                     options['single'],
-                    async (result) => processResult(result, sutta, id, finalDisplayTitle)
+					maxWordsPl,
+                    async (result) => processResult(result, sutta, id, finalDisplayTitle),
                 );
 
                 // Handle title match without content match

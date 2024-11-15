@@ -49,6 +49,7 @@ import { buildSutta } from "./js/utils/loadContent/buildSutta.js";
 import updateSuttaDatabase from './js/database/updateSuttaDatabase.js';
 import { checkPaliUrlParam } from './js/utils/navigation/checkPaliUrlParam.js';
 import { preventFlashing } from './js/utils/navigation/preventFlashing.js';
+import { scrollToHash } from "./js/utils/navigation/scrollToHash.js";
 
 // Wait for DOM to be fully loaded -- prevents funny business
 document.addEventListener('DOMContentLoaded', async function() {
@@ -60,13 +61,13 @@ document.addEventListener('DOMContentLoaded', async function() {
       // Initialize based on URL or default content
       if (document.location.search) {
           const slug = document.location.search.replace("?q=", "").split("&")[0].replace(/\s/g, "").replace(/%20/g, "");
-          buildSutta(slug, availableSuttasJson);
-		  
-		  checkPaliUrlParam();
+          await buildSutta(slug, availableSuttasJson); //  Wait for buildSutta to end
+          checkPaliUrlParam();
       } else if (!window.location.href.endsWith("/bookmarks.html") 
-		&& !window.location.href.endsWith("/glossary.html") 
-		&& !window.location.href.endsWith("/comments.html")
-		&& !window.location.href.endsWith("/advanced-search.html")){
+        && !window.location.href.endsWith("/glossary.html") 
+        && !window.location.href.endsWith("/comments.html")
+        && !window.location.href.endsWith("/advanced-search.html")) {
+          await buildSutta(null, null); // Wait here too
           displaySuttas(availableSuttasJson);
           loadWhatsNewArea(availableSuttasJson);
       }
@@ -76,13 +77,14 @@ document.addEventListener('DOMContentLoaded', async function() {
       activateEventListeners(availableSuttasJson);
       initializeSideBySide();
       toggleTheme(initialThemeSetting);
+      
+      // Now we can reveal the content
+      preventFlashing();
+      scrollToHash();
 
   } catch (error) {
       console.error('[ERROR] Something went wrong:', error);
+      // If error, we still display the content
+      preventFlashing();
   }
-  finally
-  {
-    preventFlashing();
-  }
-
 });

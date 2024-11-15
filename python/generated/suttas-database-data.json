@@ -1,4 +1,74 @@
 {
+  "ud1.8": {
+    "translation_en_anigha": {
+      "ud1.8:0.1": "Heartfelt Sayings 1.8 ",
+      "ud1.8:0.2": "With Saṅgāmaji ",
+      "ud1.8:1.1": "So I have heard. ",
+      "ud1.8:1.2": "At one time the Buddha was staying near Sāvatthī in Jeta’s Grove, Anāthapiṇḍika’s monastery. ",
+      "ud1.8:1.3": "Now at that time Venerable Saṅgāmaji had arrived at Sāvatthī to see the Buddha. ",
+      "ud1.8:1.4": "His former wife heard ",
+      "ud1.8:1.5": "that he had arrived, ",
+      "ud1.8:1.6": "and went to the Jetavana, taking their boy. ",
+      "ud1.8:2.1": "Now at that time Venerable Saṅgāmaji was sitting at the root of a tree for the day’s abiding. ",
+      "ud1.8:2.2": "Then his former wife went up to him and said, ",
+      "ud1.8:2.3": "“Ascetic, please raise this little boy.” ",
+      "ud1.8:2.4": "When she said this, Venerable Saṅgāmaji kept silent. ",
+      "ud1.8:3.1": "For a second time she said, ",
+      "ud1.8:3.2": "“Ascetic, please raise this little boy.” ",
+      "ud1.8:3.3": "For a second time, Venerable Saṅgāmaji kept silent. ",
+      "ud1.8:4.1": "For a third time she said, ",
+      "ud1.8:4.2": "“Ascetic, please raise this little boy.” ",
+      "ud1.8:4.3": "For a third time, Venerable Saṅgāmaji kept silent. ",
+      "ud1.8:5.1": "Then she put down the boy in front of Venerable Saṅgāmaji, saying, ",
+      "ud1.8:5.2": "“This is your child, ascetic. Please raise him.” ",
+      "ud1.8:6.1": "But Venerable Saṅgāmaji neither looked at the boy nor spoke to him. ",
+      "ud1.8:6.2": "Then his former wife went a little distance away. Looking back, she saw Venerable Saṅgāmaji ignoring the boy, and thought, ",
+      "ud1.8:6.3": "“This ascetic doesn’t even want his child.” ",
+      "ud1.8:6.4": "She returned to pick up the boy, then left. ",
+      "ud1.8:6.5": "With the divine eye that is purified and superhuman, the Buddha saw how Venerable Saṅgāmaji’s former wife went back for the child. ",
+      "ud1.8:7.1": "Then, understanding this matter, on that occasion the Buddha expressed this heartfelt sentiment: ",
+      "ud1.8:8.1": "“When she came he was not glad, ",
+      "ud1.8:8.2": "when she left he did not grieve. ",
+      "ud1.8:8.3": "Victorious in battle [<em>Saṅgāmaji</em>], freed from bonds, ",
+      "ud1.8:8.4": "that’s who I call a brahmin.” "
+    },
+    "root_pli_ms": {
+      "ud1.8:0.1": "Udāna 1.8 ",
+      "ud1.8:0.2": "Saṅgāmajisutta ",
+      "ud1.8:1.1": "Evaṁ me sutaṁ—",
+      "ud1.8:1.2": "ekaṁ samayaṁ bhagavā sāvatthiyaṁ viharati jetavane anāthapiṇḍikassa ārāme. ",
+      "ud1.8:1.3": "Tena kho pana samayena āyasmā saṅgāmaji sāvatthiṁ anuppatto hoti bhagavantaṁ dassanāya. ",
+      "ud1.8:1.4": "Assosi kho āyasmato saṅgāmajissa purāṇadutiyikā: ",
+      "ud1.8:1.5": "“ayyo kira saṅgāmaji sāvatthiṁ anuppatto”ti. ",
+      "ud1.8:1.6": "Sā dārakaṁ ādāya jetavanaṁ agamāsi. ",
+      "ud1.8:2.1": "Tena kho pana samayena āyasmā saṅgāmaji aññatarasmiṁ rukkhamūle divāvihāraṁ nisinno hoti. ",
+      "ud1.8:2.2": "Atha kho āyasmato saṅgāmajissa purāṇadutiyikā yenāyasmā saṅgāmaji tenupasaṅkami; upasaṅkamitvā āyasmantaṁ saṅgāmajiṁ etadavoca: ",
+      "ud1.8:2.3": "“khuddaputtañhi, samaṇa, posa man”ti. ",
+      "ud1.8:2.4": "Evaṁ vutte, āyasmā saṅgāmaji tuṇhī ahosi. ",
+      "ud1.8:3.1": "Dutiyampi kho āyasmato saṅgāmajissa purāṇadutiyikā āyasmantaṁ saṅgāmajiṁ etadavoca: ",
+      "ud1.8:3.2": "“khuddaputtañhi, samaṇa, posa man”ti. ",
+      "ud1.8:3.3": "Dutiyampi kho āyasmā saṅgāmaji tuṇhī ahosi. ",
+      "ud1.8:4.1": "Tatiyampi kho āyasmato saṅgāmajissa purāṇadutiyikā āyasmantaṁ saṅgāmajiṁ etadavoca: ",
+      "ud1.8:4.2": "“khuddaputtañhi, samaṇa, posa man”ti. ",
+      "ud1.8:4.3": "Tatiyampi kho āyasmā saṅgāmaji tuṇhī ahosi. ",
+      "ud1.8:5.1": "Atha kho āyasmato saṅgāmajissa purāṇadutiyikā taṁ dārakaṁ āyasmato saṅgāmajissa purato nikkhipitvā pakkāmi: ",
+      "ud1.8:5.2": "“eso te, samaṇa, putto; posa nan”ti. ",
+      "ud1.8:6.1": "Atha kho āyasmā saṅgāmaji taṁ dārakaṁ neva olokesi nāpi ālapi. ",
+      "ud1.8:6.2": "Atha kho āyasmato saṅgāmajissa purāṇadutiyikā avidūraṁ gantvā apalokentī addasa āyasmantaṁ saṅgāmajiṁ taṁ dārakaṁ neva olokentaṁ nāpi ālapantaṁ, disvānassā etadahosi: ",
+      "ud1.8:6.3": "“na cāyaṁ samaṇo puttenapi atthiko”ti. ",
+      "ud1.8:6.4": "Tato paṭinivattitvā dārakaṁ ādāya pakkāmi. ",
+      "ud1.8:6.5": "Addasā kho bhagavā dibbena cakkhunā visuddhena atikkantamānusakena āyasmato saṅgāmajissa purāṇadutiyikāya evarūpaṁ vippakāraṁ. ",
+      "ud1.8:7.1": "Atha kho bhagavā etamatthaṁ viditvā tāyaṁ velāyaṁ imaṁ udānaṁ udānesi: ",
+      "ud1.8:8.1": "“Āyantiṁ nābhinandati, ",
+      "ud1.8:8.2": "pakkamantiṁ na socati; ",
+      "ud1.8:8.3": "Saṅgā saṅgāmajiṁ muttaṁ, ",
+      "ud1.8:8.4": "tamahaṁ brūmi brāhmaṇan”ti. ",
+      "ud1.8:8.5": "Aṭṭhamaṁ. "
+    },
+    "comment": {
+      "ud1.8:0.2": "For some context on why the Buddha _praised_ the monk in this Sutta—which is likely to seem outrageous even to Buddhists—see [AN 3.110](https://suttas.hillsidehermitage.org/?q=an3.110), [Iti 80](https://suttas.hillsidehermitage.org/?q=iti80), and [AN 8.53](https://suttas.hillsidehermitage.org/?q=an8.53). "
+    }
+  },
   "thag2.34": {
     "translation_en_anigha": {
       "thag2.34:0.1": "Verses of the Senior Monks 2.34 ",
@@ -533,7 +603,7 @@
       "snp4.1:6.5": "Kāmasuttaṁ paṭhamaṁ. "
     },
     "comment": {
-      "snp4.1:0.2": "For this sutta I thought to translate kāma as ‘attraction(s)’. I don’t think this would necessarily work everywhere, but it has a few advantages: <br><br>1) It has the double sense of the object of desire and the desire itself, like the word kāma does -<br><br>2) It avoids the problem of ‘sensual pleasure’ which can easily get understood as only referring to specific coarse objects of bodily pleasure, especially sexuality, whereas kāma is much broader than that (cattle, lands, family); but at the same time avoids the problem of a more general word like ‘pleasure’ which can end up leading to trying to run away from anything and everything that happens to be agreeable.<br><br>It also fits the definition quite well of ‘_Cakkhuviññeyyā rūpā iṭṭhā kantā manāpā piyarūpā kāmūpasaṁhitā rajanīyā_, etc’., (‘Forms cognizable by the eye that are likable, desirable, agreeable, pleasant, sensual, and arousing’).<br><br>Moreover, there’s a subtle implication of possible danger or entrapment in the word ‘attraction’ (especially as a noun). ",
+      "snp4.1:0.2": "For this sutta I thought to translate kāma as ‘attraction(s)’. I don’t think this would necessarily work everywhere, but it has a few advantages: <br><br>1) It has the double sense of the object of desire and the desire itself, like the word kāma does -<br><br>2) It avoids the problem of ‘sensual pleasure’ which can easily get understood as only referring to specific coarse objects of bodily pleasure, especially sexuality, whereas kāma is much broader than that (cattle, lands, family); but at the same time avoids the problem of a more general word like ‘pleasure’ which can end up leading to trying to run away from anything and everything that happens to be agreeable.<br><br>It also fits the definition quite well of ‘_Cakkhuviññeyyā rūpā iṭṭhā kantā manāpā piyarūpā kāmūpasaṁhitā rajanīyā_, etc’., (‘Forms cognizable by the eye that are likable, desirable, agreeable, pleasant, sensual, and enticing’).<br><br>Moreover, there’s a subtle implication of possible danger or entrapment in the word ‘attraction’ (especially as a noun). ",
       "snp4.1:3.1": "<em>Anīgha:</em> As stated in [AN 9.42](https://suttas.hillsidehermitage.org/?q=an9.42#an9.42:3.2-an9.42:3.9), we are “confined” within things that can arouse desire, so it’s not about trying—[in vain](https://suttas.hillsidehermitage.org/?q=mn25)—to hide from everything agreeable so as to avoid the snake’s head. It’s about seeing that the trap lies in the passionate intention that would arise towards agreeable things—which are in themselves not the “attraction” as said in AN 6.63. [“Sensuality VS Agreeability”](https://www.youtube.com/watch?v=wc9XWIZ64Wc&pp=ygUjc2Vuc3VhbGl0eSB2cyBhZ3JlZWFiaWxpdHkgaGlsbHNpZGU%3D) ",
       "snp4.1:5.4": "<em>Anīgha:</em> Delight in and acquisition of pleasures is the opening through which suffering flows in. No matter how much effort and clever strategies are employed to remove it, there will be water in the boat for as long as this is not abandoned. "
     }
@@ -6050,6 +6120,44 @@
     },
     "comment": {
       "an3.121:3.7": "Note how purity is not defined as the simple absence of these things (which can happen out of circumstance or accident). The principle behind this counterintuitive situation is that when these states have been fully understood (i.e., _avijjā_ is destroyed), they cannot be called “hindrances” anymore. They are hindrances when there is craving, and without ignorance craving cannot exist, even amidst the things that used to provoke it. To use an analogy, if someone has the key for the cell door and knows for a fact that they can get out at will, can that really be called imprisonment? The Dhamma applies to and must be realized solely within oneself, which in turn means that one is either hindered by these things because there is craving and ignorance in one’s own mind, or one isn’t. Thus it would be wrong to say “the hindrances are not _actually_ hindrances” as if it were a universal truth independent of one’s point of view. "
+    }
+  },
+  "an3.110": {
+    "translation_en_anigha": {
+      "an3.110:0.1": "Numbered Discourses 3.110 ",
+      "an3.110:0.2": "11. Awakening ",
+      "an3.110:0.3": "Amiss ",
+      "an3.110:1.1": "Seated to one side, the Buddha said to the householder Anāthapiṇḍika: ",
+      "an3.110:1.2": "“Householder, when the mind is amiss, bodily, verbal, and mental actions are also amiss. ",
+      "an3.110:1.3": "One whose bodily, verbal, and mental actions are amiss will not have a good death. ",
+      "an3.110:1.4": "Just as when a bungalow is  poorly roofed, the roof peak, rafters, and walls are also amiss, ",
+      "an3.110:1.5": "in the same way, when the mind is amiss, bodily, verbal, and mental actions are also amiss. ",
+      "an3.110:1.6": "One whose bodily, verbal, and mental actions are amiss will not have a good death. ",
+      "an3.110:2.1": "When the mind is not amiss, bodily, verbal, and mental actions are also not amiss. ",
+      "an3.110:2.2": "One whose bodily, verbal, and mental actions are not amiss will have a good death. ",
+      "an3.110:2.3": "Just as when a bungalow is well-roofed, the roof peak, rafters, and walls are also not amiss, ",
+      "an3.110:2.4": "in the same way, when the mind is not amiss, bodily, verbal, and mental actions are also not amiss. ",
+      "an3.110:2.5": "One whose bodily, verbal, and mental actions are not amiss will have a good death.” "
+    },
+    "root_pli_ms": {
+      "an3.110:0.1": "Aṅguttara Nikāya 3.110 ",
+      "an3.110:0.2": "11. Sambodhavagga ",
+      "an3.110:0.3": "Byāpannasutta ",
+      "an3.110:1.1": "Ekamantaṁ nisinnaṁ kho anāthapiṇḍikaṁ gahapatiṁ bhagavā etadavoca: ",
+      "an3.110:1.2": "“citte, gahapati, byāpanne kāyakammampi byāpannaṁ hoti, vacīkammampi byāpannaṁ hoti, manokammampi byāpannaṁ hoti. ",
+      "an3.110:1.3": "Tassa byāpannakāyakammantassa byāpannavacīkammantassa byāpannamanokammantassa na bhaddakaṁ maraṇaṁ hoti, na bhaddikā kālakiriyā. ",
+      "an3.110:1.4": "Seyyathāpi, gahapati, kūṭāgāre ducchanne kūṭampi byāpannaṁ hoti, gopānasiyopi byāpannā honti, bhittipi byāpannā hoti; ",
+      "an3.110:1.5": "evamevaṁ kho, gahapati, citte byāpanne kāyakammampi byāpannaṁ hoti, vacīkammampi byāpannaṁ hoti, manokammampi byāpannaṁ hoti. ",
+      "an3.110:1.6": "Tassa byāpannakāyakammantassa byāpannavacīkammantassa byāpannamanokammantassa na bhaddakaṁ maraṇaṁ hoti, na bhaddikā kālakiriyā. ",
+      "an3.110:2.1": "Citte, gahapati, abyāpanne kāyakammampi abyāpannaṁ hoti, vacīkammampi abyāpannaṁ hoti, manokammampi abyāpannaṁ hoti. ",
+      "an3.110:2.2": "Tassa abyāpannakāyakammantassa abyāpannavacīkammantassa abyāpannamanokammantassa bhaddakaṁ maraṇaṁ hoti, bhaddikā kālakiriyā. ",
+      "an3.110:2.3": "Seyyathāpi, gahapati, kūṭāgāre succhanne kūṭampi abyāpannaṁ hoti, gopānasiyopi abyāpannā honti, bhittipi abyāpannā hoti; ",
+      "an3.110:2.4": "evamevaṁ kho, gahapati, citte abyāpanne kāyakammampi abyāpannaṁ hoti, vacīkammampi abyāpannaṁ hoti, manokammampi abyāpannaṁ hoti. ",
+      "an3.110:2.5": "Tassa abyāpannakāyakammantassa …pe… abyāpannamanokammantassa bhaddakaṁ maraṇaṁ hoti, bhaddikā kālakiriyā”ti. ",
+      "an3.110:2.6": "Aṭṭhamaṁ. "
+    },
+    "comment": {
+      "an3.110:1.2": "Here “mind” is _citta_, while “mental action” is _mano-kamma_. See [this](https://www.youtube.com/watch?v=BafurjP_lJY) for a discussion that practically illustrates the distinction between _citta_ and _mano_. <br><br> What this means is that it's not the external properties of an act (even an act of thinking or _mano_)  that determine its righteousness, but the state of mind (_citta_) that underlies it at that very moment. Therefore, acts that the whole world may regard as good and praiseworthy are, in light of the Dhamma, mistaken (_akusala_) if they are motivated by a defiled state of mind, while acts that the whole world may find reprehensible are righteous (_kusala_) if they are motivated by non-greed, non-aversion, and non-muddledness (e.g., [ going forth and leaving behind one’s family](https://suttas.hillsidehermitage.org/?q=ud1.8)). <br><br> See also the essay [“Intentions behind one’s actions”](https://www.hillsidehermitage.org/intentions-behind-ones-actions/). "
     }
   },
   "an3.101": {
@@ -21043,7 +21151,7 @@
       "mn50:13.6": "",
       "mn50:13.7": "They’re just like a cat by an alley or a drain or a dustbin, which meditates and contemplates and cogitates and ruminates as it hunts a mouse. ",
       "mn50:13.8": "",
-      "mn50:13.9": "They’re just like an unladen donkey by an alley or a drain or a dustbin, meditates and contemplates and cogitates and ruminates. ",
+      "mn50:13.9": "They’re just like an unladen donkey by an alley or a drain or a dustbin, which meditates and contemplates and cogitates and ruminates. ",
       "mn50:13.10": "In the same way, these shavelings, fake ascetics, primitives, black spawn from the feet of our kinsman, say, “We practice jhāna! We practice jhāna!” Slouching, downcast, and dopey, they meditate and contemplate and cogitate and ruminate.’ ",
       "mn50:13.11": "Most of the people who died at that time—when their body broke up, after death—were reborn in a place of loss, a bad place, the underworld, hell. ",
       "mn50:14.1": "Then Kakusandha the Blessed One, the Arahant, the fully awakened Buddha, addressed the bhikkhus: ",
@@ -27513,7 +27621,7 @@
       "mn13:5.14": " ",
       "mn13:6.1": "“Bhikkhus, when wanderers of other sects say this, you should say to them: ",
       "mn13:6.2": "‘But friends, what’s the gratification of sensuality, what is its peril, and what is the escape from it? ",
-      "mn13:6.3": "What’s the gratification of form, what is its peril, and what is the escape from it ",
+      "mn13:6.3": "What’s the gratification of form, what is its peril, and what is the escape from it? ",
       "mn13:6.4": "What’s the gratification of feelings, what is their peril, and what is the escape from them? ",
       "mn13:6.5": "Questioned like this, the wanderers of other sects would be stumped, and, in addition, would get frustrated. ",
       "mn13:6.6": "Why is that? ",
@@ -27522,7 +27630,7 @@
       "mn13:7.1": "And what is the gratification of sensuality? ",
       "mn13:7.2": "There are these five strands of sensuality. ",
       "mn13:7.3": "What five? ",
-      "mn13:7.4": "forms known by the eye that are likable, desirable, agreeable, pleasant, sensual, and arousing. ",
+      "mn13:7.4": "Sights cognizable by the eye that are likable, desirable, agreeable, pleasant, sensual, and enticing. ",
       "mn13:7.5": "Sounds cognizable by the ear … ",
       "mn13:7.6": "Smells cognizable by the nose … ",
       "mn13:7.7": "Tastes cognizable by the tongue … ",
@@ -27790,7 +27898,7 @@
       "mn13:7.4": "Note that a thing being likable, desirable, etc., is not a property of the object “out there in the world” that is publicly agreed as such by everyone. A thing's attractiveness is determined by one's own sense organs and the preferences they have circumstantially developed. “Beauty is in the eye of the beholder”, as the saying goes. It is therefore necessary to make oneself fully dispassionate and unmoved regarding what one's senses happen to find agreeable, as opposed to removing the agreeability itself. The five strands of sensuality are called “confinement” in [AN 9.42](https://suttas.hillsidehermitage.org/?q=an9.42), and the true escape can only be found *within* that confinement. See [“Not Wanting the Wanting of Sensuality”](https://www.youtube.com/watch?v=_ttVxzlzlj0). ",
       "mn13:8.1": "[MN 54](https://suttas.hillsidehermitage.org/?q=mn54). ",
       "mn13:18.1": "I've opted for the singular even though the Pāli is plural so as to not cause confusion with “forms” as the counterparts of the eye organ. ",
-      "mn13:32.5": "i.e., a sense of safety from all threats. See the similes given for the abandonment of the five hindrances in [MN 39](https://suttas.hillsidehermitage.org/?q=mn39). This is quite different from the popular conception of the pleasre of the _jhānas_, where the gratification comes from a sense of ecstasy (often centered around physical sensations) that has nothing to do with the _recognition_ that one is free from danger and affliction. The bliss is usually only possible through disabling one's capacity to reflect in the way that the Suttas say give rise to the right type of joy (_pīti_). There are a great many passages describing what actually leads leads to this joy, and it's not concentration techniques. A few examples: [DN 2](https://suttas.hillsidehermitage.org/?q=dn2), DN 9, [DN 10](https://suttas.hillsidehermitage.org/?q=dn10), DN 13, [MN 7](https://suttas.hillsidehermitage.org/?q=mn7), [MN 15](https://suttas.hillsidehermitage.org/?q=mn15), [MN 39](https://suttas.hillsidehermitage.org/?q=mn39), [AN 9.41](https://suttas.hillsidehermitage.org/?q=an9.41), [AN 10.2](https://suttas.hillsidehermitage.org/?q=an10.2). See also [AN 6.73](https://suttas.hillsidehermitage.org/?q=an6.73). "
+      "mn13:32.5": "i.e., a sense of safety from all threats. See the similes given for the abandonment of the five hindrances in [MN 39](https://suttas.hillsidehermitage.org/?q=mn39). This is quite different from the popular conception of the pleasure of the _jhānas_, where the gratification comes from a sense of ecstasy (often centered around physical sensations) that has nothing to do with the _recognition_ that one is free from danger and affliction. The bliss is usually only possible through disabling one's capacity to reflect in the way that the Suttas say give rise to the right type of joy (_pīti_). There are a great many passages describing what actually leads to this joy, and it's not concentration techniques. A few examples: [DN 2](https://suttas.hillsidehermitage.org/?q=dn2), DN 9, [DN 10](https://suttas.hillsidehermitage.org/?q=dn10), DN 13, [MN 7](https://suttas.hillsidehermitage.org/?q=mn7), [MN 15](https://suttas.hillsidehermitage.org/?q=mn15), [MN 39](https://suttas.hillsidehermitage.org/?q=mn39), [AN 9.41](https://suttas.hillsidehermitage.org/?q=an9.41), [AN 10.2](https://suttas.hillsidehermitage.org/?q=an10.2). See also [AN 6.73](https://suttas.hillsidehermitage.org/?q=an6.73). "
     }
   },
   "mn64": {

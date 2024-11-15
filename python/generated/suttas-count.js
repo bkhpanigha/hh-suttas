@@ -1,2 +1,2 @@
-const suttasCount = 127;
+const suttasCount = 129;
 export default suttasCount;
