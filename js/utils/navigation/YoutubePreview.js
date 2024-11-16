@@ -4,44 +4,160 @@ import {
 
 class YoutubePreview {
 	// Configuration constants
-	static CONNECTIVITY_CHECK_URL = 'https://www.youtube.com';
 	static MOBILE_BREAKPOINT = 768;
-	static PREVIEW_DELAY = 50;
-	static PREVIEW_FADE_DURATION = 150;
 	static THROTTLE_DELAY = 16;
 
 	constructor() {
-		// Centralized state management for better data organization and access
 		this.state = {
 			previewElement: null,
-			cache: new Map(),
 			currentLink: null,
-			timeouts: {
-				preload: null,
-				show: null,
-				hide: null
-			},
 			isMobileDevice: this.checkIfMobile(),
-			availableVideos: null,
-			lastMoveTime: 0
+			availableVideos: null, // Will only be fully populated on desktop
+			videoCache: new Map(), // For storing individual video data on mobile
+			preloadedContent: new Map(),
+			preloadedImages: new Map(),
+			isOnline: null, // Will be set during initialization
+			mouseTracker: {
+				isOverLink: false,
+				isOverPreview: false,
+				checkInterval: null
+			}
 		};
 
 		this.initializeComponents()
 			.catch(error => console.error('Initialization failed:', error));
 	}
 
-	// Initialize all components asynchronously using Promise.all for parallel execution
+	// Initialize components based on device type
 	async initializeComponents() {
 		try {
-			await Promise.all([
-				this.initPreview(),
-				this.addYouTubeStyles(),
-				this.loadAvailableVideos()
-			]);
+			// Check connectivity first
+			this.state.isOnline = await this.checkConnectivity();
+
+			if (this.state.isMobileDevice) {
+				// On mobile, only initialize basic components
+				await Promise.all([
+					this.initPreview(),
+					this.addYouTubeStyles()
+				]);
+			} else {
+				// On desktop, load everything
+				await Promise.all([
+					this.initPreview(),
+					this.addYouTubeStyles(),
+					this.loadAvailableVideos(),
+					this.preloadAllPreviews()
+				]);
+			}
+
 			this.initEventListeners();
 		} catch (error) {
 			console.error('Component initialization failed:', error);
 			throw error;
+		}
+	}
+
+	async preloadAllPreviews() {
+		if (!this.state.availableVideos) return;
+
+		const links = document.querySelectorAll('a[href*="youtube.com"]:not(.links-area a), a[href*="youtu.be"]:not(.links-area a)');
+		const isDarkMode = document.documentElement.classList.contains('dark');
+
+		// If online, preload images first
+		if (this.state.isOnline) {
+			const imagePromises = Array.from(links).map(async (link) => {
+				const videoId = this.extractVideoId(link.href);
+				if (!videoId || !this.state.availableVideos[videoId]) return;
+
+				const videoInfo = this.state.availableVideos[videoId];
+				if (!videoInfo.thumbnails) return;
+
+				const thumbnail = videoInfo.thumbnails.maxresdefault || videoInfo.thumbnails.hqdefault;
+
+				try {
+					const img = new Image();
+					const loadPromise = new Promise((resolve, reject) => {
+						img.onload = resolve;
+						img.onerror = reject;
+					});
+					img.src = thumbnail;
+					await loadPromise;
+					this.state.preloadedImages.set(videoId, img);
+				} catch (error) {
+					console.error(`Failed to preload image for ${videoId}:`, error);
+				}
+			});
+
+			await Promise.allSettled(imagePromises);
+		}
+
+		// Prepare preview content based on online status
+		links.forEach((link) => {
+			const videoId = this.extractVideoId(link.href);
+			if (!videoId || !this.state.availableVideos[videoId]) return;
+
+			const videoInfo = this.state.availableVideos[videoId];
+
+			// Only create needed content based on online status
+			const preloadedContent = {
+				desktop: this.state.isOnline ?
+					this.createPreviewContent(videoInfo, isDarkMode) : this.createOfflinePreviewContent(videoInfo, isDarkMode),
+				mobile: this.state.isOnline ?
+					this.createMobilePreviewContent(videoInfo, isDarkMode) : this.createOfflineMobilePreviewContent(videoInfo, isDarkMode)
+			};
+
+			this.state.preloadedContent.set(videoId, preloadedContent);
+		});
+	}
+
+	// Load video data for a specific video ID
+	async loadVideoData(videoId) {
+		// Check if we already have this video's data cached
+		if (this.state.videoCache.has(videoId)) {
+			return this.state.videoCache.get(videoId);
+		}
+
+		try {
+			// Fetch data only for this specific video
+			const videos = await fetchAvailableVideos();
+			const videoData = videos[videoId];
+
+			if (videoData) {
+				// Cache the video data
+				this.state.videoCache.set(videoId, videoData);
+
+				// Preload image if we're online
+				if (this.state.isOnline && videoData.thumbnails) {
+					const thumbnail = videoData.thumbnails.maxresdefault || videoData.thumbnails.hqdefault;
+					try {
+						const img = new Image();
+						await new Promise((resolve, reject) => {
+							img.onload = resolve;
+							img.onerror = reject;
+							img.src = thumbnail;
+						});
+						this.state.preloadedImages.set(videoId, img);
+					} catch (error) {
+						console.error(`Failed to preload image for ${videoId}:`, error);
+					}
+				}
+
+				// Create and cache preview content
+				const isDarkMode = document.documentElement.classList.contains('dark');
+				const mobileContent = this.state.isOnline ?
+					this.createMobilePreviewContent(videoData, isDarkMode) :
+					this.createOfflineMobilePreviewContent(videoData, isDarkMode);
+
+				this.state.preloadedContent.set(videoId, {
+					mobile: mobileContent
+				});
+
+				return videoData;
+			}
+			return null;
+		} catch (error) {
+			console.error('Failed to load video data:', error);
+			return null;
 		}
 	}
 
@@ -58,17 +174,25 @@ class YoutubePreview {
 	// Check internet connectivity with timeout using AbortController
 	async checkConnectivity() {
 		try {
-			const controller = new AbortController();
-			const timeoutId = setTimeout(() => controller.abort(), 5000);
+			// Verify if browser indicate offline status
+			if (!navigator.onLine) {
+				return false;
+			}
 
-			const response = await fetch(YoutubePreview.CONNECTIVITY_CHECK_URL, {
+			// Double check with network request
+			const controller = new AbortController();
+			const timeoutId = setTimeout(() => controller.abort(), 3000);
+
+			const response = await fetch('https://www.youtube.com/favicon.ico', {
 				method: 'HEAD',
 				mode: 'no-cors',
 				signal: controller.signal
 			});
+
 			clearTimeout(timeoutId);
 			return true;
 		} catch (error) {
+			console.log('Network check failed, assuming offline:', error);
 			return false;
 		}
 	}
@@ -175,40 +299,74 @@ class YoutubePreview {
 		document.addEventListener('mousemove', this.handleMouseMove.bind(this), {
 			passive: true
 		});
+		document.addEventListener('click', this.handleDesktopClick.bind(this));
+		document.addEventListener('scroll', this.handleScroll.bind(this), {
+			passive: true
+		});
+
+		// Start hover state verification
+		this.startHoverCheck();
 	}
 
-	async handleMouseEnter(event) {
+	startHoverCheck() {
+		// Clear any existing interval
+		if (this.state.mouseTracker.checkInterval) {
+			clearInterval(this.state.mouseTracker.checkInterval);
+		}
+
+		// Check hover state every 100ms
+		this.state.mouseTracker.checkInterval = setInterval(() => {
+			if (!this.state.mouseTracker.isOverLink && !this.state.mouseTracker.isOverPreview) {
+				if (this.state.previewElement.style.display === 'block') {
+					this.hidePreview();
+					this.state.currentLink = null;
+				}
+			}
+		}, 100);
+	}
+
+	handleMouseEnter(event) {
 		const link = event.target.closest('a[href*="youtube.com"]:not(.links-area a), a[href*="youtu.be"]:not(.links-area a)');
-		if (!link) return;
+		const preview = event.target.closest('.youtube-preview');
 
-		this.clearTimeouts('hide');
-		this.clearTimeouts('show');
+		// If hovering a YouTube link
+		if (link) {
+			this.state.mouseTracker.isOverLink = true;
+			this.state.currentLink = link;
 
-		this.state.previewElement.style.display = 'block';
+			const videoId = this.extractVideoId(link.href);
+			if (!videoId || !this.state.availableVideos[videoId]) return;
 
-		const videoInfo = await this.getVideoInfo(link);
-		if (!videoInfo) return;
-
-		const isOnline = await this.checkConnectivity();
-		if (isOnline) {
+			const videoInfo = this.state.availableVideos[videoId];
 			this.showPreview(videoInfo, event);
-		} else {
-			this.showOfflinePreview(videoInfo, event);
 		}
 	}
 
 	handleMouseLeave(event) {
-		if (!(event.target instanceof Element)) return;
+		// Check if we exit youtube link or its preview
+		const link = event.target.closest('a[href*="youtube.com"]:not(.links-area a), a[href*="youtu.be"]:not(.links-area a)');
+		const preview = event.target.closest('.youtube-preview');
 
-		const link = event.target.closest('a[href*="youtube.com"], a[href*="youtu.be"]');
-		if (!link) return;
+		if (link) {
+			this.state.mouseTracker.isOverLink = false;
+		}
 
-		this.clearTimeouts('show');
-		this.clearTimeouts('hide');
+		if (preview) {
+			this.state.mouseTracker.isOverPreview = false;
+		}
+	}
 
-		this.state.timeouts.hide = setTimeout(() => {
+	handleDesktopClick(event) {
+		if (this.state.isMobileDevice) return; // Only handle for desktop
+
+		const clickedPreview = event.target.closest('.youtube-preview');
+		const clickedLink = event.target.closest('a[href*="youtube.com"]:not(.links-area a), a[href*="youtu.be"]:not(.links-area a)');
+
+		// If click is outside preview and outside YouTube link, hide preview
+		if (!clickedPreview && !clickedLink && this.state.previewElement.style.display === 'block') {
 			this.hidePreview();
-		}, YoutubePreview.PREVIEW_DELAY);
+			this.state.currentLink = null;
+		}
 	}
 
 	// Throttled mousemove handler for performance optimization
@@ -225,7 +383,14 @@ class YoutubePreview {
 		}
 	}
 
-	async handleMobileEvents(event) {
+	handleScroll() {
+		// Force check hover state on scroll
+		if (!this.state.isMobileDevice) {
+			this.verifyHoverState();
+		}
+	}
+
+	handleMobileEvents(event) {
 		if (!(event.target instanceof Element)) return;
 
 		const link = event.target.closest('a[href*="youtube.com"]:not(.links-area a), a[href*="youtu.be"]:not(.links-area a)');
@@ -233,27 +398,53 @@ class YoutubePreview {
 
 		if (link && !previewClick) {
 			event.preventDefault();
-			await this.handleMobileClick(event, link);
-		} else if (previewClick && this.state.currentLink && !this.state.previewElement.classList.contains('offline')) {
-			window.location.href = this.state.currentLink.href;
-		} else if (!previewClick && this.state.previewElement.style.display === 'block') {
+			this.handleMobileClick(event, link);
+		} else if (previewClick) {
+			if (this.state.currentLink) {
+				window.location.href = this.state.currentLink.href;
+			}
+		} else if (!link && !previewClick) {
 			this.hidePreview();
 		}
 	}
 
 	async handleMobileClick(event, link) {
+		event.preventDefault();
 		this.state.currentLink = link;
-		const videoInfo = await this.getVideoInfo(link);
-		if (!videoInfo) return;
+		const videoId = this.extractVideoId(link.href);
 
-		const isOnline = await this.checkConnectivity();
-		isOnline ? this.showMobilePreview(videoInfo) : this.showOfflineMobilePreview(videoInfo);
+		if (!videoId) return;
+
+		// Show loading state
+		this.showLoadingPreview();
+
+		try {
+			// Load video data if not cached
+			const videoInfo = await this.loadVideoData(videoId);
+
+			if (!videoInfo) {
+				this.showErrorPreview();
+				return;
+			}
+
+			this.showMobilePreview(videoInfo);
+		} catch (error) {
+			console.error('Failed to handle mobile click:', error);
+			this.showErrorPreview();
+		}
 	}
 
-	async getVideoInfo(link) {
-		const videoId = this.extractVideoId(link.href);
-		if (!videoId || !this.state.availableVideos) return null;
-		return this.state.availableVideos[videoId];
+	verifyHoverState() {
+		const hoveredLink = document.querySelector('a[href*="youtube.com"]:hover:not(.links-area a), a[href*="youtu.be"]:hover:not(.links-area a)');
+		const hoveredPreview = document.querySelector('.youtube-preview:hover');
+
+		this.state.mouseTracker.isOverLink = !!hoveredLink;
+		this.state.mouseTracker.isOverPreview = !!hoveredPreview;
+
+		if (!hoveredLink && !hoveredPreview) {
+			this.hidePreview();
+			this.state.currentLink = null;
+		}
 	}
 
 	// Extract video ID using regex pattern matching
@@ -265,33 +456,124 @@ class YoutubePreview {
 
 	// Force browser repaint for smooth animations using requestAnimationFrame
 	showPreview(videoInfo, event) {
-		const previewContent = this.createPreviewContent(videoInfo);
-		this.state.previewElement.style.cssText = previewContent.styles;
-		this.state.previewElement.innerHTML = previewContent.html;
+		const videoId = this.extractVideoId(this.state.currentLink.href);
+		const preloadedContent = this.state.preloadedContent.get(videoId);
 
-		// Force repaint
+		if (!preloadedContent) {
+			console.warn('No preloaded content found for video:', videoId);
+			const isDarkMode = document.documentElement.classList.contains('dark');
+			const content = this.state.isOnline ?
+				this.createPreviewContent(videoInfo, isDarkMode) :
+				this.createOfflinePreviewContent(videoInfo, isDarkMode);
+			this.renderPreviewContent(content, event);
+			return;
+		}
+
+		this.renderPreviewContent(preloadedContent.desktop, event);
+	}
+
+	showMobilePreview(videoInfo) {
+		const videoId = this.extractVideoId(this.state.currentLink.href);
+		const preloadedContent = this.state.preloadedContent.get(videoId);
+
+		if (!preloadedContent) {
+			console.warn('No preloaded content found for video:', videoId);
+			const isDarkMode = document.documentElement.classList.contains('dark');
+			const content = this.state.isOnline ?
+				this.createMobilePreviewContent(videoInfo, isDarkMode) :
+				this.createOfflineMobilePreviewContent(videoInfo, isDarkMode);
+			this.renderMobilePreviewContent(content);
+			return;
+		}
+
+		this.renderMobilePreviewContent(preloadedContent.mobile);
+	}
+
+	showLoadingPreview() {
+		const isDarkMode = document.documentElement.classList.contains('dark');
+		const loadingContent = {
+			styles: this.getMobilePreviewStyles(isDarkMode),
+			html: `
+                <div style="
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    min-height: 200px;
+                    color: ${isDarkMode ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.6)'};
+                ">
+                    <div style="text-align: center;">
+                        <div style="margin-bottom: 8px;">Loading preview...</div>
+                        <div style="width: 24px; height: 24px; border: 2px solid; border-radius: 50%; margin: 0 auto; border-right-color: transparent; animation: spin 1s linear infinite;"></div>
+                    </div>
+                </div>
+                <style>
+                    @keyframes spin {
+                        from { transform: rotate(0deg); }
+                        to { transform: rotate(360deg); }
+                    }
+                </style>
+            `
+		};
+
+		this.renderMobilePreviewContent(loadingContent);
+	}
+
+	showErrorPreview() {
+		const isDarkMode = document.documentElement.classList.contains('dark');
+		const errorContent = {
+			styles: this.getMobilePreviewStyles(isDarkMode),
+			html: `
+                <div style="
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    min-height: 200px;
+                    color: ${isDarkMode ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.6)'};
+                ">
+                    <div style="text-align: center;">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+                        </svg>
+                        <div style="margin-top: 8px;">Failed to load preview</div>
+                    </div>
+                </div>
+            `
+		};
+
+		this.renderMobilePreviewContent(errorContent);
+	}
+
+	// Helper to create correct preview HTML based on online status
+	getPreviewHTML(videoInfo, isDarkMode) {
+		return this.state.isOnline ?
+			this.getOnlinePreviewHTML(videoInfo, isDarkMode) :
+			this.getOfflinePreviewHTML(videoInfo, isDarkMode);
+	}
+
+	// Helper to create correct mobile preview HTML based on online status
+	getMobilePreviewHTML(videoInfo, isDarkMode) {
+		return this.state.isOnline ?
+			this.getOnlineMobilePreviewHTML(videoInfo, isDarkMode) :
+			this.getOfflineMobilePreviewHTML(videoInfo, isDarkMode);
+	}
+
+	renderPreviewContent(content, event) {
+		const {
+			styles,
+			html
+		} = content;
+		this.state.previewElement.style.cssText = styles;
+		this.state.previewElement.innerHTML = html;
+
+		// Force repaint for smooth animation
 		requestAnimationFrame(() => {
 			this.state.previewElement.style.display = 'block';
 			this.state.previewElement.style.opacity = '1';
 			this.state.previewElement.style.transform = 'translateY(0)';
-			this.updatePreviewPosition(event);
+			if (event) {
+				this.updatePreviewPosition(event);
+			}
 		});
-	}
-
-	showOfflinePreview(videoInfo, event) {
-		const previewContent = this.createOfflinePreviewContent(videoInfo);
-		this.renderPreview(previewContent, true);
-		this.updatePreviewPosition(event);
-	}
-
-	showMobilePreview(videoInfo) {
-		const previewContent = this.createMobilePreviewContent(videoInfo);
-		this.renderMobilePreview(previewContent, false);
-	}
-
-	showOfflineMobilePreview(videoInfo) {
-		const previewContent = this.createOfflineMobilePreviewContent(videoInfo);
-		this.renderMobilePreview(previewContent, true);
 	}
 
 	createPreviewContent(videoInfo) {
@@ -326,29 +608,15 @@ class YoutubePreview {
 		};
 	}
 
-	renderPreview(content, isOffline) {
+	renderMobilePreviewContent(content) {
 		const {
 			styles,
 			html
 		} = content;
 		this.state.previewElement.style.cssText = styles;
 		this.state.previewElement.innerHTML = html;
-		if (isOffline) this.state.previewElement.classList.add('offline');
-
-		requestAnimationFrame(() => {
-			this.state.previewElement.style.opacity = '1';
-			this.state.previewElement.style.transform = 'translateY(0)';
-		});
-	}
-
-	renderMobilePreview(content, isOffline) {
-		const {
-			styles,
-			html
-		} = content;
-		this.state.previewElement.style.cssText = styles;
-		this.state.previewElement.innerHTML = html;
-		if (isOffline) this.state.previewElement.classList.add('offline');
+		this.state.previewElement.style.pointerEvents = 'auto';
+		this.state.previewElement.style.cursor = 'pointer';
 	}
 
 	updatePreviewPosition(event) {
@@ -383,21 +651,34 @@ class YoutubePreview {
 		viewportHeight,
 		margin
 	}) {
-		const spaceAbove = cursorY;
-		const spaceBelow = viewportHeight - cursorY;
+		// Save initial preferred position
+		if (!this.state.initialPosition) {
+			const spaceAbove = cursorY;
+			const spaceBelow = viewportHeight - cursorY;
+			// Determine if we should show above or below based on initial position
+			this.state.initialPosition = spaceAbove > previewRect.height + margin ? 'above' : 'below';
+		}
+
+		// Calculate vertical position based on initial preference
+		let top;
+		if (this.state.initialPosition === 'above') {
+			top = cursorY - previewRect.height - margin;
+			// If preview would go off the top, force it below
+			if (top < margin) {
+				top = cursorY + margin;
+			}
+		} else {
+			top = cursorY + margin;
+			// If preview would go off the bottom, force it above
+			if (top + previewRect.height + margin > viewportHeight) {
+				top = cursorY - previewRect.height - margin;
+			}
+		}
+
+		// Calculate horizontal position
+		let left;
 		const spaceRight = viewportWidth - cursorX;
 		const spaceLeft = cursorX;
-
-		let top, left;
-
-		if (spaceAbove > previewRect.height + margin) {
-			top = cursorY - previewRect.height - margin;
-		} else if (spaceBelow > previewRect.height + margin) {
-			top = cursorY + margin;
-		} else {
-			top = Math.max(margin, Math.min(viewportHeight - previewRect.height - margin,
-				(viewportHeight - previewRect.height) / 2));
-		}
 
 		if (spaceRight > previewRect.width + margin) {
 			left = cursorX + margin;
@@ -406,6 +687,11 @@ class YoutubePreview {
 		} else {
 			left = Math.max(margin, Math.min(viewportWidth - previewRect.width - margin,
 				(viewportWidth - previewRect.width) / 2));
+		}
+
+		// Clear initial position when preview is hidden
+		if (!this.state.previewElement.style.display === 'none') {
+			this.state.initialPosition = null;
 		}
 
 		return {
@@ -417,22 +703,11 @@ class YoutubePreview {
 	hidePreview() {
 		this.state.previewElement.style.opacity = '0';
 		this.state.previewElement.style.transform = 'translateY(4px)';
-
-		setTimeout(() => {
-			this.state.previewElement.style.display = 'none';
-			this.state.previewElement.classList.remove('offline');
-		}, YoutubePreview.PREVIEW_FADE_DURATION);
+		this.state.previewElement.style.display = 'none';
+		this.state.previewElement.classList.remove('offline');
 	}
 
-	// Memory cleanup and state reset
-	clearTimeouts(type) {
-		if (this.state.timeouts[type]) {
-			clearTimeout(this.state.timeouts[type]);
-			this.state.timeouts[type] = null;
-		}
-	}
-
-	getPreviewStyles(isDarkMode, isOffline) {
+	getPreviewStyles(isDarkMode) {
 		return `
             position: fixed;
             background: ${isDarkMode ? 'linear-gradient(to bottom, #27292a 0%, #1f2122 100%)' : 'linear-gradient(to bottom, #ffffff 0%, #f9f9f9 100%)'};
@@ -442,7 +717,7 @@ class YoutubePreview {
                 '0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -1px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.05)' : 
                 '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.05)'};
             z-index: 1000;
-            width: ${isOffline ? '300px' : '320px'};
+            width: 320px;
             font-family: "RobotoSerif", serif;
             transition: opacity 0.15s ease, transform 0.15s ease;
             opacity: 0;
@@ -470,7 +745,8 @@ class YoutubePreview {
             transform: translate(-50%, -50%);
             font-family: "RobotoSerif", serif;
             opacity: 1;
-            ${!isOffline ? 'cursor: pointer;' : ''}
+            pointer-events: auto;
+            cursor: pointer;
         `;
 	}
 
@@ -479,8 +755,10 @@ class YoutubePreview {
 	}
 
 	getOnlinePreviewHTML(videoInfo, isDarkMode) {
-		// Get the best available thumbnail quality
-		const thumbnailUrl = videoInfo.thumbnails.maxresdefault || videoInfo.thumbnails.hqdefault;
+		const videoId = this.extractVideoId(this.state.currentLink.href);
+		const preloadedImage = this.state.preloadedImages.get(videoId);
+		const thumbnailUrl = preloadedImage ? preloadedImage.src :
+			(videoInfo.thumbnails.maxresdefault || videoInfo.thumbnails.hqdefault);
 
 		return `
             <div style="display: flex; flex-direction: column; gap: 12px;">
@@ -500,13 +778,30 @@ class YoutubePreview {
 	getOfflinePreviewHTML(videoInfo, isDarkMode) {
 		return `
             <div style="display: flex; flex-direction: column; gap: 12px;">
+                <div style="
+                    background: ${isDarkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.05)'};
+                    border-radius: 12px;
+                    padding: 16px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    min-height: 180px;
+                ">
+                    <div style="
+                        text-align: center;
+                        color: ${isDarkMode ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.6)'};
+                    ">
+						<svg height="32" viewBox="0 0 56 56" width="36" xmlns="http://www.w3.org/2000/svg"><path fill="${isDarkMode ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.6)'}" d="m47.7696 49.9727c.7032.7031 1.8514.7031 2.5546 0 .6797-.7266.7032-1.8516 0-2.5547l-42.0469-42.0469c-.7031-.7031-1.8515-.7031-2.5781 0-.6797.6797-.6797 1.875 0 2.5547zm1.3123-20.3438c.3984.3985 1.0316.3985 1.4765-.0469l3.0941-3.1171c.3749-.3985.3749-.9141.0701-1.2891-5.4139-6.4219-15.2578-11.3203-25.7109-11.3203-2.2735 0-4.5235.2343-6.7031.6797l6.1875 6.164c8.2734-.164 15.7968 3.0235 21.5858 8.9297zm-43.6171-.0469c.4454.4454 1.1016.4219 1.5234-.0234 2.8125-3 6.1173-5.25 9.75-6.75l-4.9687-4.9688c-3.7969 1.9454-7.0781 4.5-9.4688 7.336-.3281.375-.3046.8906.0704 1.2891zm9.375 9.4219c.4688.4688 1.0782.4453 1.5235-.0703 2.6953-2.9765 7.0078-5.0625 11.3906-5.1094l-5.9532-5.9297c-4.3827 1.1719-8.1327 3.5626-10.5234 6.3985-.3515.3984-.3047.8906.0703 1.2656zm28.6406-2.2968 1.1954-1.1485c.3749-.375.4218-.8672.0703-1.2656-2.25-2.6954-5.7422-4.9454-9.8203-6.1407zm-15.4453 14.6249c.4922 0 .9375-.2578 1.8047-1.1015l5.4844-5.2735c.3516-.3281.4219-.8437.1172-1.2421-1.4766-1.8985-4.2422-3.5391-7.4063-3.5391-3.2344 0-6.0469 1.7109-7.5 3.6797-.2109.3281-.1406.7734.211 1.1015l5.4843 5.2735c.8672.8437 1.3125 1.1015 1.8047 1.1015z"/></svg>
+                        <div style="font-size: 14px;">Thumbnail not available offline</div>
+                    </div>
+                </div>
                 ${this.getCommonPreviewContent(videoInfo, isDarkMode)}
                 <div class="youtube-duration">${videoInfo.duration}</div>
             </div>
         `;
 	}
 
-	getMobilePreviewHTML(videoInfo, isDarkMode) {
+	getOnlineMobilePreviewHTML(videoInfo, isDarkMode) {
 		const thumbnailUrl = videoInfo.thumbnails.maxresdefault || videoInfo.thumbnails.hqdefault;
 		const playIcon = `
             <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
@@ -515,7 +810,7 @@ class YoutubePreview {
         `;
 
 		return `
-            <div style="display: flex; flex-direction: column; gap: 12px;" onclick="window.location.href = '${this.state.currentLink?.href}">
+            <div style="display: flex; flex-direction: column; gap: 12px;">
                 <div style="position: relative;">
                     <div style="width: 100%; padding-top: 56.25%; position: relative; border-radius: 12px; overflow: hidden; background: #000;">
                         <img src="${thumbnailUrl}" 
@@ -550,6 +845,23 @@ class YoutubePreview {
 	getOfflineMobilePreviewHTML(videoInfo, isDarkMode) {
 		return `
             <div style="display: flex; flex-direction: column; gap: 12px;">
+                <div style="
+                    background: ${isDarkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.05)'};
+                    border-radius: 12px;
+                    padding: 16px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    min-height: 180px;
+                ">
+                    <div style="
+                        text-align: center;
+                        color: ${isDarkMode ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.6)'};
+                    ">
+						<svg height="32" viewBox="0 0 56 56" width="36" xmlns="http://www.w3.org/2000/svg"><path fill="${isDarkMode ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.6)'}" d="m47.7696 49.9727c.7032.7031 1.8514.7031 2.5546 0 .6797-.7266.7032-1.8516 0-2.5547l-42.0469-42.0469c-.7031-.7031-1.8515-.7031-2.5781 0-.6797.6797-.6797 1.875 0 2.5547zm1.3123-20.3438c.3984.3985 1.0316.3985 1.4765-.0469l3.0941-3.1171c.3749-.3985.3749-.9141.0701-1.2891-5.4139-6.4219-15.2578-11.3203-25.7109-11.3203-2.2735 0-4.5235.2343-6.7031.6797l6.1875 6.164c8.2734-.164 15.7968 3.0235 21.5858 8.9297zm-43.6171-.0469c.4454.4454 1.1016.4219 1.5234-.0234 2.8125-3 6.1173-5.25 9.75-6.75l-4.9687-4.9688c-3.7969 1.9454-7.0781 4.5-9.4688 7.336-.3281.375-.3046.8906.0704 1.2891zm9.375 9.4219c.4688.4688 1.0782.4453 1.5235-.0703 2.6953-2.9765 7.0078-5.0625 11.3906-5.1094l-5.9532-5.9297c-4.3827 1.1719-8.1327 3.5626-10.5234 6.3985-.3515.3984-.3047.8906.0703 1.2656zm28.6406-2.2968 1.1954-1.1485c.3749-.375.4218-.8672.0703-1.2656-2.25-2.6954-5.7422-4.9454-9.8203-6.1407zm-15.4453 14.6249c.4922 0 .9375-.2578 1.8047-1.1015l5.4844-5.2735c.3516-.3281.4219-.8437.1172-1.2421-1.4766-1.8985-4.2422-3.5391-7.4063-3.5391-3.2344 0-6.0469 1.7109-7.5 3.6797-.2109.3281-.1406.7734.211 1.1015l5.4843 5.2735c.8672.8437 1.3125 1.1015 1.8047 1.1015z"/></svg>
+                        <div style="font-size: 14px;">Thumbnail not available offline</div>
+                    </div>
+                </div>
                 ${this.getCommonPreviewContent(videoInfo, isDarkMode)}
                 <div class="youtube-duration">${videoInfo.duration}</div>
             </div>
