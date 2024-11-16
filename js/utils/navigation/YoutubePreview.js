@@ -15,7 +15,12 @@ class YoutubePreview {
             availableVideos: null,
             preloadedContent: new Map(),
             preloadedImages: new Map(),
-            isOnline: null // Will be set during initialization
+            isOnline: null, // Will be set during initialization
+			mouseTracker: {
+                isOverLink: false,
+                isOverPreview: false,
+                checkInterval: null
+            }
         };
 
         this.initializeComponents()
@@ -234,32 +239,69 @@ class YoutubePreview {
         document.addEventListener('mouseover', this.handleMouseEnter.bind(this));
         document.addEventListener('mouseout', this.handleMouseLeave.bind(this));
         document.addEventListener('mousemove', this.handleMouseMove.bind(this), { passive: true });
+        document.addEventListener('click', this.handleDesktopClick.bind(this));
+        document.addEventListener('scroll', this.handleScroll.bind(this), { passive: true });
+        
+        // Start hover state verification
+        this.startHoverCheck();
+    }
+	
+	startHoverCheck() {
+        // Clear any existing interval
+        if (this.state.mouseTracker.checkInterval) {
+            clearInterval(this.state.mouseTracker.checkInterval);
+        }
+
+        // Check hover state every 100ms
+        this.state.mouseTracker.checkInterval = setInterval(() => {
+            if (!this.state.mouseTracker.isOverLink && !this.state.mouseTracker.isOverPreview) {
+                if (this.state.previewElement.style.display === 'block') {
+                    this.hidePreview();
+                    this.state.currentLink = null;
+                }
+            }
+        }, 100);
     }
 
-	async handleMouseEnter(event) {
+	handleMouseEnter(event) {
         const link = event.target.closest('a[href*="youtube.com"]:not(.links-area a), a[href*="youtu.be"]:not(.links-area a)');
-        if (!link) return;
-
-        this.state.currentLink = link;
-
-        const videoId = this.extractVideoId(link.href);
-        if (!videoId || !this.state.availableVideos[videoId]) return;
-
-        const videoInfo = this.state.availableVideos[videoId];
-        this.showPreview(videoInfo, event);
+        const preview = event.target.closest('.youtube-preview');
+        
+		// If hovering a YouTube link
+        if (link) {
+            this.state.mouseTracker.isOverLink = true;
+            this.state.currentLink = link;
+            
+            const videoId = this.extractVideoId(link.href);
+            if (!videoId || !this.state.availableVideos[videoId]) return;
+            
+            const videoInfo = this.state.availableVideos[videoId];
+            this.showPreview(videoInfo, event);
+        }
     }
-
-    handleMouseLeave(event) {
+	
+	handleMouseLeave(event) {
 		// Check if we exit youtube link or its preview
         const link = event.target.closest('a[href*="youtube.com"]:not(.links-area a), a[href*="youtu.be"]:not(.links-area a)');
         const preview = event.target.closest('.youtube-preview');
         
-		// Check if mouse is going towards preview
-        const toElement = event.relatedTarget;
-        const isMovingToPreview = toElement && toElement.closest('.youtube-preview');
-        const isMovingFromPreview = preview && !isMovingToPreview;
+        if (link) {
+            this.state.mouseTracker.isOverLink = false;
+        }
         
-        if ((link || isMovingFromPreview) && !isMovingToPreview) {
+        if (preview) {
+            this.state.mouseTracker.isOverPreview = false;
+        }
+    }
+	
+	handleDesktopClick(event) {
+        if (this.state.isMobileDevice) return; // Only handle for desktop
+        
+        const clickedPreview = event.target.closest('.youtube-preview');
+        const clickedLink = event.target.closest('a[href*="youtube.com"]:not(.links-area a), a[href*="youtu.be"]:not(.links-area a)');
+        
+        // If click is outside preview and outside YouTube link, hide preview
+        if (!clickedPreview && !clickedLink && this.state.previewElement.style.display === 'block') {
             this.hidePreview();
             this.state.currentLink = null;
         }
@@ -278,6 +320,13 @@ class YoutubePreview {
 			this.updatePreviewPosition(event);
 		}
 	}
+	
+	handleScroll() {
+        // Force check hover state on scroll
+        if (!this.state.isMobileDevice) {
+            this.verifyHoverState();
+        }
+    }
 
 	handleMobileEvents(event) {
         if (!(event.target instanceof Element)) return;
@@ -305,6 +354,26 @@ class YoutubePreview {
         
         const videoInfo = this.state.availableVideos[videoId];
         this.showMobilePreview(videoInfo);
+    }
+	
+	verifyHoverState() {
+        const hoveredLink = document.querySelector('a[href*="youtube.com"]:hover:not(.links-area a), a[href*="youtu.be"]:hover:not(.links-area a)');
+        const hoveredPreview = document.querySelector('.youtube-preview:hover');
+        
+        this.state.mouseTracker.isOverLink = !!hoveredLink;
+        this.state.mouseTracker.isOverPreview = !!hoveredPreview;
+        
+        if (!hoveredLink && !hoveredPreview) {
+            this.hidePreview();
+            this.state.currentLink = null;
+        }
+    }
+
+    // Cleanup method to be called when needed (e.g., page unmount)
+    cleanup() {
+        if (this.state.mouseTracker.checkInterval) {
+            clearInterval(this.state.mouseTracker.checkInterval);
+        }
     }
 
 	// Extract video ID using regex pattern matching
@@ -378,7 +447,6 @@ class YoutubePreview {
             }
         });
     }
-
 
 	createPreviewContent(videoInfo) {
 		const isDarkMode = document.documentElement.classList.contains('dark');
