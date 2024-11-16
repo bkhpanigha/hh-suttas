@@ -13,10 +13,6 @@
   src: url("RobotoSerif-Bold.ttf");
 }
 
-html:not(.theme-loaded) {
-  display: none;
-}
-
 html.light,
 body.light {
   background-color: var(--light-off-white);
