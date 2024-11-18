@@ -1,4 +1,4 @@
-export function addResultToDOM(id, title, snippet, link, options = {}) {
+export function addResultToDOM(title, snippet, link, options = {}) {
     const resultsDiv = document.querySelector('.results');
     const resultDiv = document.createElement('div');
     resultDiv.classList.add('result');
@@ -12,10 +12,7 @@ export function addResultToDOM(id, title, snippet, link, options = {}) {
     }
 
     const titleElement = document.createElement('h3');
-    if (id)
-        titleElement.innerHTML = `${id} - ${title}`;
-    else
-        titleElement.innerHTML = title;
+    titleElement.innerHTML = title;
 
     const preview = document.createElement('p');
     preview.innerHTML = snippet;
@@ -31,10 +28,10 @@ export function addResultToDOM(id, title, snippet, link, options = {}) {
     resultsDiv.appendChild(resultDiv);
 }
 
-export function addResultToDOMAsync(id, title, snippet, link, options) {
+export function addResultToDOMAsync(title, snippet, link, options) {
     return new Promise((resolve) => {
         setTimeout(() => {
-            addResultToDOM(id, title, snippet, link, options);
+            addResultToDOM(title, snippet, link, options);
             resolve();
         }, 0);
     });
