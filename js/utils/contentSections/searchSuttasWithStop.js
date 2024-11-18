@@ -30,11 +30,10 @@ export async function searchSuttasWithStop(searchTerm, options) {
 
     const totalIterations = suttasEn.length * 2 + suttasPl.length;
     let currentIteration = 0;
-    let gotResults = false;
+    let hasAnyResults = false;
 
     const searchTermUrl = encodeStringForURL(searchTerm);
 
-    // Callback for results processing
     const processResult = async (result, sutta, id, displayTitle, isComment = false) => {
         if (searchState.shouldStopSearch) return;
 
@@ -43,8 +42,8 @@ export async function searchSuttasWithStop(searchTerm, options) {
             : `${window.location.origin}/?q=${sutta.id}&search=${searchTermUrl}&pali=${options['pali'] ? 'show' : 'hide'}#${result.verseRange}`;
 
         const title = isComment ? `${displayTitle} - Comments` : displayTitle;
-        await addResultToDOMAsync(id, title, result.passage, link, { target: "_blank" });
-        gotResults = true;
+        await addResultToDOMAsync(title, result.passage, link, { target: "_blank" });
+        return true;
     };
 
     const updateProgress = () => {
@@ -55,15 +54,22 @@ export async function searchSuttasWithStop(searchTerm, options) {
     const searchAndAddResults = async (suttas, lang) => {
         for (const sutta of suttas) {
             if (searchState.shouldStopSearch) {
-                await loadingBar.reset(true);  // Instant reset
+                await loadingBar.reset(true);
                 return;
             }
 
+            let currentSuttaHasResults = false;
             const { id, title, heading } = getIdAndTitle(sutta, availableSuttasJson, lang);
             let titleMatch = false;
+            let idMatch = false;
             let displayTitle = title;
+            let displayId = id;
 
-            // Check title and heading matches
+            if (checkIdMatch(id, searchTerm, options['strict'])) {
+                idMatch = true;
+                displayId = highlightSearchTerm(id, searchTerm, true);
+            }
+
             if (lang === 'en') {
                 if (checkTitleMatch(title, searchTerm, options['strict']) || 
                     checkTitleMatch(heading, searchTerm, options['strict'])) {
@@ -80,10 +86,11 @@ export async function searchSuttasWithStop(searchTerm, options) {
                 }
             }
 
-            const finalDisplayTitle = titleMatch ? displayTitle : title;
+            const finalDisplayTitle = (idMatch || titleMatch) ? 
+                `${displayId} - ${displayTitle}` : 
+                `${id} - ${title}`;
 
             if (lang === 'en') {
-                // Search in main content with progressive display
                 const mainResults = await searchSutta(
                     sutta.translation_en_anigha, 
                     searchTerm,
@@ -91,11 +98,13 @@ export async function searchSuttasWithStop(searchTerm, options) {
                     options['strict'],
                     false,
                     options['single'],
-					maxWordsEn,
-                    async (result) => processResult(result, sutta, id, finalDisplayTitle),
+                    maxWordsEn,
+                    async (result) => {
+                        const success = await processResult(result, sutta, id, finalDisplayTitle);
+                        if (success) currentSuttaHasResults = true;
+                    }
                 );
 
-                // Search in comments with progressive display
                 if (sutta.comment) {
                     const commentResults = await searchSutta(
                         sutta.comment,
@@ -104,21 +113,23 @@ export async function searchSuttasWithStop(searchTerm, options) {
                         options['strict'],
                         false,
                         options['single'],
-						maxWordsEn,
-                        async (result) => processResult(result, sutta, id, finalDisplayTitle, true),
+                        maxWordsEn,
+                        async (result) => {
+                            const success = await processResult(result, sutta, id, finalDisplayTitle, true);
+                            if (success) currentSuttaHasResults = true;
+                        }
                     );
                     updateProgress();
                 }
 
-                // Handle title match without content match
-                if (titleMatch && !gotResults && !searchState.shouldStopSearch) {
+				// If current sutta's english title/heading or sutta's id matched but current sutta's english content didn't match
+                if ((titleMatch || idMatch) && !currentSuttaHasResults && !searchState.shouldStopSearch) {
                     const firstPassage = getFirstPassage(sutta.translation_en_anigha, maxWordsEn);
                     const link = `${window.location.origin}/?q=${sutta.id}`;
-                    await addResultToDOMAsync(id, finalDisplayTitle, firstPassage, link, { target: "_blank" });
-                    gotResults = true;
+                    await addResultToDOMAsync(finalDisplayTitle, firstPassage, link, { target: "_blank" });
+                    currentSuttaHasResults = true;
                 }
             } else if (lang === 'pl') {
-                // Search in Pali content with progressive display
                 const results = await searchSutta(
                     sutta.root_pli_ms,
                     searchTerm,
@@ -126,19 +137,25 @@ export async function searchSuttasWithStop(searchTerm, options) {
                     options['strict'],
                     true,
                     options['single'],
-					maxWordsPl,
-                    async (result) => processResult(result, sutta, id, finalDisplayTitle),
+                    maxWordsPl,
+                    async (result) => {
+                        const success = await processResult(result, sutta, id, finalDisplayTitle);
+                        if (success) currentSuttaHasResults = true;
+                    }
                 );
 
-                // Handle title match without content match
-                if (titleMatch && !gotResults && !searchState.shouldStopSearch) {
+				// If current sutta's pali title or sutta's id matched but current sutta's pali content didn't match
+                if ((titleMatch || idMatch) && !currentSuttaHasResults && !searchState.shouldStopSearch) {
                     const firstPassage = getFirstPassage(sutta.root_pli_ms, maxWordsPl);
                     const link = `${window.location.origin}/?q=${sutta.id}`;
-                    await addResultToDOMAsync(id, finalDisplayTitle, firstPassage, link, { target: "_blank" });
-                    gotResults = true;
+                    await addResultToDOMAsync(finalDisplayTitle, firstPassage, link, { target: "_blank" });
+                    currentSuttaHasResults = true;
                 }
             }
             
+            if (currentSuttaHasResults) {
+                hasAnyResults = true;
+            }
             updateProgress();
         }
     };
@@ -148,17 +165,15 @@ export async function searchSuttasWithStop(searchTerm, options) {
         searchAndAddResults(suttasPl, 'pl')
     ]);
 
-    if (!gotResults && !searchState.shouldStopSearch) {
-        addResultToDOM("", "No results found", `No results were found with the expression: ${originalSearch}`, "none");
+    if (!hasAnyResults && !searchState.shouldStopSearch) {
+        addResultToDOM("No results found", `No results were found with the expression: ${originalSearch}`, "none");
     }
 
-    // Normal reset at the end if search complete
     if (!searchState.shouldStopSearch) {
         await loadingBar.reset();
     }
 }
 
-// Helper functions that are used only within searchSuttasWithStop
 function getIdAndTitle(sutta, availableSuttasJson, lang) {
     const availableSutta = availableSuttasJson[sutta.id] || {};
     return {
@@ -166,6 +181,25 @@ function getIdAndTitle(sutta, availableSuttasJson, lang) {
         title: lang === 'en' ? availableSutta.title : availableSutta.pali_title || "Unknown Title",
         heading: availableSutta.heading || ""
     };
+}
+
+function checkIdMatch(id, searchTerm, strict) {
+    if (!id) return false;
+    
+	const normalizedId = normalizeText(id);
+	const normalizedSearchTerm = normalizeText(searchTerm);
+	
+	// Standard check, if strict==true we check for perfect equality, otherwise we check if term is included
+	if ((strict && normalizedId === normalizedSearchTerm) || (!strict && normalizedId.includes(normalizedSearchTerm))){
+		return true;
+	}
+	
+	// Check without spaces in ID
+	const idWithoutSpaces = normalizedId.replace(/\s+/g, '');
+	const searchTermWithoutSpaces = normalizedSearchTerm.replace(/\s+/g, '');
+	
+	// If strict==true we check for perfect equality, otherwise we check if term is included
+	return (strict ? idWithoutSpaces === searchTermWithoutSpaces : idWithoutSpaces.includes(searchTermWithoutSpaces));
 }
 
 function checkTitleMatch(text, searchTerm, strict) {
@@ -199,44 +233,89 @@ function normalizeText(text) {
     return text.toLowerCase().trim();
 }
 
-function highlightSearchTerm(text, searchTerm) {
-    if (!text) return '';
-    
-    const normalizedSearchTerm = normalizeText(searchTerm);
-    let result = text;
-    
-    const highlightMatches = (text, pattern) => {
-        const matches = [...text.matchAll(pattern)];
-        let highlighted = text;
-        let offset = 0;
-        
-        matches.forEach(match => {
-            const startPos = match.index + offset;
-            const originalText = match[0];
-            const highlightedText = `<b>${originalText}</b>`;
-            highlighted = highlighted.slice(0, startPos) + highlightedText + highlighted.slice(startPos + originalText.length);
-            offset += highlightedText.length - originalText.length;
-        });
-        
-        return highlighted;
-    };
-    
-    const exactPattern = new RegExp(`(${escapeRegExp(normalizedSearchTerm)})`, 'gi');
-    const diacriticPattern = new RegExp(escapeRegExp(removeDiacritics(normalizedSearchTerm)), 'gi');
-    
-    result = highlightMatches(result, exactPattern);
-    
-    if (!exactPattern.test(text)) {
-        const textWithoutDiacritics = removeDiacritics(text);
-        const matches = [...textWithoutDiacritics.matchAll(diacriticPattern)];
-        
-        matches.forEach(match => {
-            const startPos = match.index;
-            const length = match[0].length;
-            const originalText = text.slice(startPos, startPos + length);
-            result = result.replace(originalText, `<b>${originalText}</b>`);
-        });
+function highlightSearchTerm(text, searchTerm, isId = false) {
+  if (!text) return '';
+
+  const normalizedSearchTerm = normalizeText(searchTerm);
+  let result = text;
+
+  const highlightMatches = (text, pattern) => {
+    const matches = [...text.matchAll(pattern)];
+    let highlighted = text;
+    let offset = 0;
+
+    matches.forEach(match => {
+      const startPos = match.index + offset;
+      const originalText = match[0];
+      const highlightedText = `<b>${originalText}</b>`;
+      highlighted = highlighted.slice(0, startPos) + highlightedText + highlighted.slice(startPos + originalText.length);
+      offset += highlightedText.length - originalText.length;
+    });
+
+    return highlighted;
+  };
+
+  if (isId) {
+    const textWithoutSpaces = text.replace(/\s+/g, '').toLowerCase();
+    const searchTermWithoutSpaces = normalizedSearchTerm.replace(/\s+/g, '');
+
+    if (textWithoutSpaces.includes(searchTermWithoutSpaces)) {
+      // Find the position of the match in the version without spaces
+      const matchStartIndex = textWithoutSpaces.indexOf(searchTermWithoutSpaces);
+
+      // Count the characters until the beginning of the match in the version with spaces
+      let spaceCount = 0;
+      let originalStartIndex = 0;
+      let currentIndexWithoutSpaces = 0;
+
+      for (let i = 0; i < text.length; i++) {
+        if (text[i] === ' ') {
+          spaceCount++;
+          continue;
+        }
+        if (currentIndexWithoutSpaces === matchStartIndex) {
+          originalStartIndex = i;
+          break;
+        }
+        currentIndexWithoutSpaces++;
+      }
+
+      // Count the length of the part to be highlighted in the original text
+      let lengthWithSpaces = 0;
+      let remainingCharsToMatch = searchTermWithoutSpaces.length;
+
+      for (let i = originalStartIndex; i < text.length && remainingCharsToMatch > 0; i++) {
+        lengthWithSpaces++;
+        if (text[i] !== ' ') {
+          remainingCharsToMatch--;
+        }
+      }
+
+      // Prepare the text with the highlighted part
+      const beforeMatch = text.slice(0, originalStartIndex);
+      const matchedPart = text.slice(originalStartIndex, originalStartIndex + lengthWithSpaces);
+      const afterMatch = text.slice(originalStartIndex + lengthWithSpaces);
+
+      return beforeMatch + `<b>${matchedPart}</b>` + afterMatch;
     }
-    
-    return result;
+  }
+
+  const exactPattern = new RegExp(`(${escapeRegExp(normalizedSearchTerm)})`, 'gi');
+  const diacriticPattern = new RegExp(escapeRegExp(removeDiacritics(normalizedSearchTerm)), 'gi');
+
+  result = highlightMatches(result, exactPattern);
+
+  if (!exactPattern.test(text)) {
+    const textWithoutDiacritics = removeDiacritics(text);
+    const matches = [...textWithoutDiacritics.matchAll(diacriticPattern)];
+
+    matches.forEach(match => {
+      const startPos = match.index;
+      const length = match[0].length;
+      const originalText = text.slice(startPos, startPos + length);
+      result = result.replace(originalText, `<b>${originalText}</b>`);
+    });
+  }
+
+  return result;
 }
