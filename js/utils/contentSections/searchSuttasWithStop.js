@@ -21,92 +21,154 @@ export async function searchSuttasWithStop(searchTerm, options) {
     
     const resultsDiv = document.querySelector('.results');
     const loadingBar = new LoadingBarManager(document.getElementById('loadingBar'));
-    resultsDiv.innerHTML = ''; 
+    resultsDiv.innerHTML = '';
     
-    const [suttasEn, suttasPl] = await Promise.all([
-        options['en'] ? getSuttas(db, options, 'en') : [],
-        options['pali'] ? getSuttas(db, options, 'pl') : []
-    ]);
+    // Get English suttas if comments or English is enabled
+    const suttasEn = (options['en'] || options['comments']) ? await getSuttas(db, options, 'en') : [];
+    const suttasPl = (!options['comments'] && options['pali']) ? await getSuttas(db, options, 'pl') : [];
+    
+    // Check if multiple languages are enabled and comments search is not active
+    const multipleLang = !options['comments'] && options['en'] && options['pali'];
+    
+    // Create a map of sutta ID to their content
+    const suttaMap = new Map();
 
-    const totalIterations = suttasEn.length * 2 + suttasPl.length;
+    if (options['comments']) {
+        // Only include suttas with comments when comments option is true
+        suttasEn.forEach(sutta => {
+            if (sutta.comment) {
+                suttaMap.set(sutta.id, {
+                    id: sutta.id,
+                    comment: sutta.comment
+                });
+            }
+        });
+    } else if (multipleLang) {
+        [...suttasEn, ...suttasPl].forEach(sutta => {
+            if (!suttaMap.has(sutta.id)) {
+                suttaMap.set(sutta.id, {
+                    id: sutta.id,
+                    translation_en_anigha: null,
+                    comment: null,
+                    root_pli_ms: null
+                });
+            }
+            const existingSutta = suttaMap.get(sutta.id);
+            if (sutta.translation_en_anigha) existingSutta.translation_en_anigha = sutta.translation_en_anigha;
+            if (sutta.comment) existingSutta.comment = sutta.comment;
+            if (sutta.root_pli_ms) existingSutta.root_pli_ms = sutta.root_pli_ms;
+        });
+    } else {
+        const suttas = options['en'] ? suttasEn : suttasPl;
+        suttas.forEach(sutta => {
+            suttaMap.set(sutta.id, sutta);
+        });
+    }
+
+    const totalIterations = suttaMap.size;
     let currentIteration = 0;
     let hasAnyResults = false;
-
     const searchTermUrl = encodeStringForURL(searchTerm);
-
-    const processResult = async (result, sutta, id, displayTitle, isComment = false) => {
-        if (searchState.shouldStopSearch) return;
-
-        const link = isComment 
-            ? `${window.location.origin}/?q=${sutta.id}&search=${searchTermUrl}#comment${result.commentNb}`
-            : `${window.location.origin}/?q=${sutta.id}&search=${searchTermUrl}&pali=${options['pali'] ? 'show' : 'hide'}#${result.verseRange}`;
-
-        const title = isComment ? `${displayTitle} - Comments` : displayTitle;
-        await addResultToDOMAsync(title, result.passage, link, { target: "_blank" });
-        return true;
-    };
 
     const updateProgress = () => {
         currentIteration++;
         loadingBar.setTargetProgress((currentIteration / totalIterations) * 100);
     };
 
-    const searchAndAddResults = async (suttas, lang) => {
-        for (const sutta of suttas) {
-            if (searchState.shouldStopSearch) {
-                await loadingBar.reset(true);
-                return;
+    for (const [suttaId, sutta] of suttaMap) {
+        if (searchState.shouldStopSearch) {
+            await loadingBar.reset(true);
+            return;
+        }
+
+        const { id, title, heading } = getIdAndTitle(sutta, availableSuttasJson, 'en');
+        let titleMatch = false;
+        let idMatch = false;
+        let displayTitle = title;
+        let displayId = id;
+
+        if (checkIdMatch(id, searchTerm, options['strict'])) {
+            idMatch = true;
+            displayId = highlightSearchTerm(id, searchTerm, true);
+        }
+
+        if (checkTitleMatch(title, searchTerm, options['strict']) || 
+            checkTitleMatch(heading, searchTerm, options['strict'])) {
+            titleMatch = true;
+            displayTitle = highlightSearchTerm(title, searchTerm);
+            if (heading) {
+                displayTitle += ` (${highlightSearchTerm(heading, searchTerm)})`;
             }
+        }
 
-            let currentSuttaHasResults = false;
-            const { id, title, heading } = getIdAndTitle(sutta, availableSuttasJson, lang);
-            let titleMatch = false;
-            let idMatch = false;
-            let displayTitle = title;
-            let displayId = id;
+        const finalDisplayTitle = (idMatch || titleMatch) ? 
+            `${displayId} - ${displayTitle}` : 
+            `${id} - ${title}`;
 
-            if (checkIdMatch(id, searchTerm, options['strict'])) {
-                idMatch = true;
-                displayId = highlightSearchTerm(id, searchTerm, true);
-            }
-
-            if (lang === 'en') {
-                if (checkTitleMatch(title, searchTerm, options['strict']) || 
-                    checkTitleMatch(heading, searchTerm, options['strict'])) {
-                    titleMatch = true;
-                    displayTitle = highlightSearchTerm(title, searchTerm);
-                    if (heading) {
-                        displayTitle += ` (${highlightSearchTerm(heading, searchTerm)})`;
-                    }
-                }
-            } else if (lang === 'pl') {
-                if (checkTitleMatch(title, searchTerm, options['strict'])) {
-                    titleMatch = true;
-                    displayTitle = highlightSearchTerm(title, searchTerm);
-                }
-            }
-
-            const finalDisplayTitle = (idMatch || titleMatch) ? 
-                `${displayId} - ${displayTitle}` : 
-                `${id} - ${title}`;
-
-            if (lang === 'en') {
-                const mainResults = await searchSutta(
-                    sutta.translation_en_anigha, 
+        if (options['comments']) {
+            // In comments-only mode
+            if (sutta.comment) {
+                await searchSutta(
+                    sutta.comment,
                     searchTerm,
-                    false,
+                    true,
                     options['strict'],
                     false,
                     options['single'],
                     maxWordsEn,
                     async (result) => {
-                        const success = await processResult(result, sutta, id, finalDisplayTitle);
-                        if (success) currentSuttaHasResults = true;
+                        await addResultToDOMAsync(
+                            `${finalDisplayTitle} [Comments]`,
+                            result.passage,
+                            `${window.location.origin}/?q=${sutta.id}&search=${searchTermUrl}#comment${result.commentNb}`,
+                            { target: "_blank" }
+                        );
+                        hasAnyResults = true;
                     }
                 );
+            }
+        } else {
+            // Normal search flow
+            if ((titleMatch || idMatch) && !searchState.shouldStopSearch) {
+                const firstPassage = getFirstPassage(
+                    sutta.translation_en_anigha || sutta.root_pli_ms,
+                    sutta.translation_en_anigha ? maxWordsEn : maxWordsPl
+                );
+                await addResultToDOMAsync(
+                    multipleLang ? `${finalDisplayTitle} [EN]` : finalDisplayTitle,
+                    firstPassage,
+                    `${window.location.origin}/?q=${sutta.id}&search=${searchTermUrl}&pali=${options['pali'] ? 'show' : 'hide'}`,
+                    { target: "_blank" }
+                );
+                hasAnyResults = true;
+            }
 
+            // Search in English content if enabled
+            if (options['en'] && !searchState.shouldStopSearch) {
+                if (sutta.translation_en_anigha) {
+                    await searchSutta(
+                        sutta.translation_en_anigha,
+                        searchTerm,
+                        false,
+                        options['strict'],
+                        false,
+                        options['single'],
+                        maxWordsEn,
+                        async (result) => {
+                            await addResultToDOMAsync(
+                                multipleLang ? `${finalDisplayTitle} [EN]` : finalDisplayTitle,
+                                result.passage,
+                                `${window.location.origin}/?q=${sutta.id}&search=${searchTermUrl}&pali=${options['pali'] ? 'show' : 'hide'}#${result.verseRange}`,
+                                { target: "_blank" }
+                            );
+                            hasAnyResults = true;
+                        }
+                    );
+                }
+
+                // Also search in comments when English is enabled
                 if (sutta.comment) {
-                    const commentResults = await searchSutta(
+                    await searchSutta(
                         sutta.comment,
                         searchTerm,
                         true,
@@ -115,22 +177,21 @@ export async function searchSuttasWithStop(searchTerm, options) {
                         options['single'],
                         maxWordsEn,
                         async (result) => {
-                            const success = await processResult(result, sutta, id, finalDisplayTitle, true);
-                            if (success) currentSuttaHasResults = true;
+                            await addResultToDOMAsync(
+                                `${finalDisplayTitle} [Comments]`,
+                                result.passage,
+                                `${window.location.origin}/?q=${sutta.id}&search=${searchTermUrl}#comment${result.commentNb}`,
+                                { target: "_blank" }
+                            );
+                            hasAnyResults = true;
                         }
                     );
-                    updateProgress();
                 }
+            }
 
-				// If current sutta's english title/heading or sutta's id matched but current sutta's english content didn't match
-                if ((titleMatch || idMatch) && !currentSuttaHasResults && !searchState.shouldStopSearch) {
-                    const firstPassage = getFirstPassage(sutta.translation_en_anigha, maxWordsEn);
-                    const link = `${window.location.origin}/?q=${sutta.id}`;
-                    await addResultToDOMAsync(finalDisplayTitle, firstPassage, link, { target: "_blank" });
-                    currentSuttaHasResults = true;
-                }
-            } else if (lang === 'pl') {
-                const results = await searchSutta(
+            // Search in Pali content if enabled
+            if (options['pali'] && sutta.root_pli_ms && !searchState.shouldStopSearch) {
+                await searchSutta(
                     sutta.root_pli_ms,
                     searchTerm,
                     false,
@@ -139,39 +200,26 @@ export async function searchSuttasWithStop(searchTerm, options) {
                     options['single'],
                     maxWordsPl,
                     async (result) => {
-                        const success = await processResult(result, sutta, id, finalDisplayTitle);
-                        if (success) currentSuttaHasResults = true;
+                        await addResultToDOMAsync(
+                            multipleLang ? `${finalDisplayTitle} [PLI]` : finalDisplayTitle,
+                            result.passage,
+                            `${window.location.origin}/?q=${sutta.id}&search=${searchTermUrl}&pali=show#${result.verseRange}`,
+                            { target: "_blank" }
+                        );
+                        hasAnyResults = true;
                     }
                 );
-
-				// If current sutta's pali title or sutta's id matched but current sutta's pali content didn't match
-                if ((titleMatch || idMatch) && !currentSuttaHasResults && !searchState.shouldStopSearch) {
-                    const firstPassage = getFirstPassage(sutta.root_pli_ms, maxWordsPl);
-                    const link = `${window.location.origin}/?q=${sutta.id}`;
-                    await addResultToDOMAsync(finalDisplayTitle, firstPassage, link, { target: "_blank" });
-                    currentSuttaHasResults = true;
-                }
             }
-            
-            if (currentSuttaHasResults) {
-                hasAnyResults = true;
-            }
-            updateProgress();
         }
-    };
 
-    await Promise.all([
-        searchAndAddResults(suttasEn, 'en'),
-        searchAndAddResults(suttasPl, 'pl')
-    ]);
+        updateProgress();
+    }
 
     if (!hasAnyResults && !searchState.shouldStopSearch) {
         addResultToDOM("No results found", `No results were found with the expression: ${originalSearch}`, "none");
     }
 
-    if (!searchState.shouldStopSearch) {
-        await loadingBar.reset();
-    }
+    await loadingBar.reset();
 }
 
 function getIdAndTitle(sutta, availableSuttasJson, lang) {
