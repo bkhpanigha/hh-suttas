@@ -31,26 +31,34 @@
 				</div>
 				
 				<div id="configuration">
-					<div id="langOption" class="options">
-						<h3>Language</h3>
-						<label><input type="checkbox" name="lang" value="en" checked> English</label>
-						<label><input type="checkbox" name="lang" value="pali"> Pali</label>
+					<div class="options-group">
+						<div id="langOption" class="options">
+							<h3>Language</h3>
+							<label><input type="checkbox" name="lang" value="en" checked> English</label>
+							<label><input type="checkbox" name="lang" value="pali"> Pali</label>
+						</div>
+						<div id="bookOption" class="options">
+							<h3>Books</h3>
+							<label><input type="checkbox" name="book" value="dn" checked> DN</label>
+							<label><input type="checkbox" name="book" value="mn" checked> MN</label>
+							<label><input type="checkbox" name="book" value="sn" checked> SN</label>
+							<label><input type="checkbox" name="book" value="an" checked> AN</label>
+							<label><input type="checkbox" name="book" value="kn" checked> KN</label>
+						</div>
 					</div>
-					<div id="bookOption" class="options">
-						<h3>Books</h3>
-						<label><input type="checkbox" name="book" value="dn" checked> DN</label>
-						<label><input type="checkbox" name="book" value="mn" checked> MN</label>
-						<label><input type="checkbox" name="book" value="sn" checked> SN</label>
-						<label><input type="checkbox" name="book" value="an" checked> AN</label>
-						<label><input type="checkbox" name="book" value="kn" checked> KN</label>
-					</div>
-					<div id="strictOption" class="options">
-						<h3>Exact Match</h3>
-						<label><input type="checkbox" name="book" value="strict"> On</label>
-					</div>
-					<div id="singleResultOption" class="options">
-						<h3>Single Result</h3>
-						<label><input type="checkbox" name="book" value="single"> On</label>
+					<div class="switch-options">
+						<div id="strictOption" class="options">
+							<h3>Exact Match</h3>
+							<label><input type="checkbox" name="book" value="strict"> On</label>
+						</div>
+						<div id="singleResultOption" class="options">
+							<h3>Single Result</h3>
+							<label><input type="checkbox" name="book" value="single"> On</label>
+						</div>
+						<div id="commentsOption" class="options">
+							<h3>Comments Only</h3>
+							<label><input type="checkbox" name="comments" value="comments"> On</label>
+						</div>
 					</div>
 				</div>
 			</div>
