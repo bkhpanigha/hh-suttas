@@ -1,7 +1,8 @@
-export function addResultToDOM(title, snippet, link, options = {}) {
+export function addResultToDOM(title, snippet, link, options = {}, dataType) {
     const resultsDiv = document.querySelector('.results');
     const resultDiv = document.createElement('div');
     resultDiv.classList.add('result');
+	resultDiv.setAttribute('data-type', dataType);
 
     let anchor;
     if (link != "none") {
@@ -28,10 +29,10 @@ export function addResultToDOM(title, snippet, link, options = {}) {
     resultsDiv.appendChild(resultDiv);
 }
 
-export function addResultToDOMAsync(title, snippet, link, options) {
+export function addResultToDOMAsync(title, snippet, link, options, dataType) {
     return new Promise((resolve) => {
         setTimeout(() => {
-            addResultToDOM(title, snippet, link, options);
+            addResultToDOM(title, snippet, link, options, dataType);
             resolve();
         }, 0);
     });
