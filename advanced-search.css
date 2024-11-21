@@ -11,44 +11,45 @@ body {
 	color: var(--charcoal);
 }
 
-p{
+p {
 	margin-bottom: initial;
 }
 
-h2, h3{
+h2,
+h3 {
 	color: var(--black);
 }
 
-.links-area{
+.links-area {
 	margin: 0 3rem;
 }
 
-#panelsContainer{
+#panelsContainer {
 	display: flex;
 	flex-direction: column;
 	min-height: 90vh;
 	padding: 0px 4px;
 }
 
-#searchContainer{
+#searchContainer {
 	display: flex;
 }
 
-.dark #optionPanel{
+.dark #optionPanel {
 	background-color: var(--dark-brown);
 }
 
-#optionPanel h2{
-    font-size: 1.1rem;
-    margin-bottom: 0.5rem;
+#optionPanel h2 {
+	font-size: 1.1rem;
+	margin-bottom: 0.5rem;
 }
 
-#optionPanel h3{
+#optionPanel h3 {
 	font-size: 0.9rem;
-    margin-bottom: 0.25rem;
+	margin-bottom: 0.25rem;
 }
 
-#configuration{
+#configuration {
 	display: flex;
 	flex-direction: column;
 	gap: 0.5rem;
@@ -59,38 +60,38 @@ h2, h3{
 	cursor: pointer;
 }
 
-.search-field{
+.search-field {
 	margin-bottom: 0.5rem;
 }
 
-.search-field input{
-	width: 100%; 
-	padding: .5rem; 
-	font-size: .9em; 
-	border: 1px solid var(--lighter-gray); 
+.search-field input {
+	width: 100%;
+	padding: .5rem;
+	font-size: .9em;
+	border: 1px solid var(--lighter-gray);
 	border-radius: 5px;
 }
 
-.options{
+.options {
 	margin-bottom: 0;
-    padding: 0.5rem;
-    border-radius: 4px;
-    background: rgba(0, 0, 0, 0.03);
+	padding: 0.5rem;
+	border-radius: 4px;
+	background: rgba(0, 0, 0, 0.05);
 }
 
 .dark .options {
-    background: rgba(255, 255, 255, 0.03);
+	background: rgba(255, 255, 255, 0.05);
 }
 
 .dark .search-field,
-.dark .options{
+.dark .options {
 	color: var(--off-white);
 }
 
 .options-group {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.5rem;
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 0.5rem;
 }
 
 .options label {
@@ -98,14 +99,14 @@ h2, h3{
 	flex-direction: row;
 	gap: .3rem;
 	font-size: 0.85rem;
-    padding: 0.25rem 0;
-    margin: 0;
+	padding: 0.25rem 0;
+	margin: 0;
 }
 
 .switch-options {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 0.5rem;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+	gap: 0.5rem;
 }
 
 .search-btn {
@@ -120,15 +121,15 @@ h2, h3{
 	border-radius: 5px;
 }
 
-.search-btn.red{
+.search-btn.red {
 	background-color: var(--red);
 }
 
-.dark .search-btn{
+.dark .search-btn {
 	border: 2px solid #BBB;
 }
 
-.search-btn:disabled{
+.search-btn:disabled {
 	background-color: #AAA;
 	cursor: not-allowed;
 }
@@ -137,7 +138,7 @@ h2, h3{
 	background-color: var(--darker-brown);
 }
 
-.search-btn.red:enabled:hover{
+.search-btn.red:enabled:hover {
 	background-color: var(--darker-red);
 }
 
@@ -159,12 +160,44 @@ h2, h3{
 	border-radius: 5px;
 	background-color: var(--white);
 	width: 100%;
+	border-left: 3px solid transparent;
+	transition: background-color 0.2s;
 }
 
-.result.placeholder{
+.result[data-type="en"] {
+	border-left-color: var(--blue);
+}
+
+.result[data-type="pli"] {
+	border-left-color: var(--orange-yellow);
+}
+
+.result[data-type="com"] {
+	border-left-color: var(--orange);
+}
+
+.result:hover {
+	background-color: #f8fafc;
+}
+
+.result h3 > span {
+	text-transform: lowercase;
+	font-size: 0.7rem;
+	letter-spacing: 0.05em;
+	color: #94a3b8;
+	margin-left: .5rem;
+	display: inline-block;
+	font-weight: normal;
+	border: 1px solid #95a3b8;
+	padding: .05rem .4rem;
+	border-radius: 1rem;
+}
+
+.result.placeholder {
 	padding: 20px;
 }
-.result.placeholder h1{
+
+.result.placeholder h1 {
 	font-size: 1.2rem;
 }
 
@@ -172,7 +205,7 @@ h2, h3{
 	background-color: var(--dark-brown);
 }
 
-.result > .link{
+.result>.link {
 	text-decoration: none;
 }
 
@@ -187,7 +220,7 @@ h2, h3{
 	line-height: 1.5;
 }
 
-.dark .result p{
+.dark .result p {
 	color: var(--off-white);
 }
 
@@ -197,11 +230,11 @@ b {
 	color: var(--light-orange);
 }
 
-b.dark{
+b.dark {
 	color: var(--dark-orange);
 }
 
-.dark b.dark{
+.dark b.dark {
 	color: var(--light-orange);
 }
 
@@ -212,7 +245,7 @@ b.dark{
 	background-color: var(--light-off-white);
 }
 
-.dark .loading-bar-container{
+.dark .loading-bar-container {
 	background-color: var(--darker-gray);
 }
 
@@ -236,9 +269,9 @@ b.dark{
 	height: fit-content;
 	transition: transform 0.3s ease;
 	padding: 1rem;
-    gap: .25rem;
-    display: flex;
-    flex-direction: column;
+	gap: .25rem;
+	display: flex;
+	flex-direction: column;
 }
 
 .mobile-menu-button {
@@ -257,7 +290,7 @@ b.dark{
 	padding: .5rem 1.2rem;
 }
 
-.dark .mobile-menu-button{
+.dark .mobile-menu-button {
 	background-color: var(--dark-brown);
 	color: var(--off-white);
 	border: .1rem solid var(--off-white);
@@ -271,145 +304,146 @@ b.dark{
 .mobile-menu-button.open::after {
 	content: "▲";
 }
+
 #optionPanel::-webkit-scrollbar {
-    width: 4px;
+	width: 4px;
 }
 
 #optionPanel::-webkit-scrollbar-track {
-    background: #f1f1f1;
-    border-radius: 4px;
+	background: #f1f1f1;
+	border-radius: 4px;
 }
 
 #optionPanel::-webkit-scrollbar-thumb {
-    background: #888;
-    border-radius: 4px;
+	background: #888;
+	border-radius: 4px;
 }
 
 #optionPanel::-webkit-scrollbar-thumb:hover {
-    background: #555;
+	background: #555;
 }
 
 @media (max-width: 768px) {
-	#panelsContainer{
+	#panelsContainer {
 		padding: 3px;
 	}
-	
-	#searchContainer{
+
+	#searchContainer {
 		flex-direction: column;
 	}
-	
+
 	#optionPanel {
 		width: 100%;
 		border-right: none;
 		border-bottom: 1px solid var(--off-white);
 		padding: 0.5rem;
 	}
-	
+
 	#optionPanel.open {
-        max-height: 85vh;
-        overflow-y: auto;
-    }
-	
-	#optionPanel > .search-field,
-	#optionPanel > .search-btn{
+		max-height: 85vh;
+		overflow-y: auto;
+	}
+
+	#optionPanel>.search-field,
+	#optionPanel>.search-btn {
 		max-width: 75%;
 	}
-	
-	#optionPanel h2{
+
+	#optionPanel h2 {
 		text-align: center;
 		margin-bottom: 0.25rem;
 	}
-	
-	.search-field{
+
+	.search-field {
 		margin: 0 auto .5rem;
 	}
-	
+
 	.search-btn {
-        margin-top: 0.25rem;
-        padding: 0.4rem;
-    }
-	
-	#configuration{
+		margin-top: 0.25rem;
+		padding: 0.4rem;
+	}
+
+	#configuration {
 		flex-direction: row;
 		justify-content: space-evenly;
 		flex-wrap: wrap;
 	}
-	
-	.options{
-        padding: 0.35rem;
-        min-width: auto;
+
+	.options {
+		padding: 0.35rem;
+		min-width: auto;
 	}
-	
-	.options h3{
+
+	.options h3 {
 		font-size: 0.8rem;
-        margin-bottom: 0.15rem;
+		margin-bottom: 0.15rem;
 	}
-	
-    .options label {
-        font-size: 0.8rem;
-        padding: 0.15rem 0;
-    }
-	
+
+	.options label {
+		font-size: 0.8rem;
+		padding: 0.15rem 0;
+	}
+
 	.options-group {
-        gap: 0.5rem;
-    }
-	
+		gap: 0.5rem;
+	}
+
 	.switch-options {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 0.5rem;
-    }
-	
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 0.5rem;
+	}
+
 	.options input[type="checkbox"] {
-        width: 14px;
-        height: 14px;
-    }
-	
+		width: 14px;
+		height: 14px;
+	}
+
 	#bookOption label {
-        padding: 0.1rem 0;
-    }
-	
+		padding: 0.1rem 0;
+	}
+
 	#langOption label,
-    #bookOption label {
-        display: inline-block;
-        margin-right: 0.5rem;
-    }
-	
+	#bookOption label {
+		display: inline-block;
+		margin-right: 0.5rem;
+	}
+
 	.options-group {
-        grid-template-columns: repeat(2, 1fr);
-    }
-	
+		grid-template-columns: repeat(2, 1fr);
+	}
+
 	.options-group .options,
-    .switch-options .options {
-        text-align: center;
-    }
-	
+	.switch-options .options {
+		text-align: center;
+	}
+
 	.options-group label,
-    .switch-options label {
-        justify-content: center;
-    }
-	
-	.content{
+	.switch-options label {
+		justify-content: center;
+	}
+
+	.content {
 		padding: 0;
 	}
-	
-	.results{
+
+	.results {
 		gap: 5px;
 	}
-	
-	.result{
+
+	.result {
 		padding: 10px;
 	}
-	
-	.result p{
+
+	.result p {
 		line-height: 1.1;
 	}
-	
-	.mobile-menu-button {
-        	display: block;
-    }
 
-   	#optionPanel {
+	.mobile-menu-button {
+		display: block;
+	}
+
+	#optionPanel {
 		position: fixed;
 		top: -100%;
 		left: 1%;
@@ -426,28 +460,28 @@ b.dark{
 }
 
 @media (max-width: 480px) {
-	.mobile-menu-button{
+	.mobile-menu-button {
 		padding: .5rem;
 	}
-	
-    .search-field input,
-    .search-btn {
-        font-size: 16px;
-    }
-    
-    .switch-options {
-        grid-template-columns: repeat(3, 1fr);
-    }
 
-    .options {
-        padding: 0.25rem;
-    }
-	
-	#optionsPanel h3{
+	.search-field input,
+	.search-btn {
+		font-size: 16px;
+	}
+
+	.switch-options {
+		grid-template-columns: repeat(3, 1fr);
+	}
+
+	.options {
+		padding: 0.25rem;
+	}
+
+	#optionsPanel h3 {
 		text-align: center;
 	}
-	
-	.options-group .options{
+
+	.options-group .options {
 		text-align: left;
 	}
 }
