@@ -1,9 +1,9 @@
 export function addResultToDOM(title, snippet, link, options = {}, dataType) {
-    const resultsDiv = document.querySelector(".results");
-    const resultDiv = document.createElement("div");
-    resultDiv.classList.add("result");
-	resultDiv.setAttribute("data-type", dataType);
-	
+    const resultsDiv = document.querySelector('.results');
+    const resultDiv = document.createElement('div');
+    resultDiv.classList.add('result');
+	resultDiv.setAttribute('data-type', dataType);
+
     let anchor;
     if (link != "none") {
         anchor = document.createElement('a');
@@ -14,23 +14,6 @@ export function addResultToDOM(title, snippet, link, options = {}, dataType) {
 
     const titleElement = document.createElement('h3');
     titleElement.innerHTML = title;
-	
-	let typeLabel = document.createElement('span');
-	switch(dataType){
-		case "en":
-			typeLabel.textContent = "english";
-			break;
-			
-		case "pli":
-			typeLabel.textContent = "pāli";
-			break;
-			
-		case "com":
-			typeLabel.textContent = "comment";
-			break;
-	}
-	
-	titleElement.appendChild(typeLabel);
 
     const preview = document.createElement('p');
     preview.innerHTML = snippet;
