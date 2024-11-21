@@ -162,6 +162,7 @@ h3 {
 	width: 100%;
 	border-left: 3px solid transparent;
 	transition: background-color 0.2s;
+	position: relative;
 }
 
 .result[data-type="en"] {
@@ -180,7 +181,7 @@ h3 {
 	background-color: #f8fafc;
 }
 
-.result h3 > span {
+.result h3::before {
 	text-transform: lowercase;
 	font-size: 0.7rem;
 	letter-spacing: 0.05em;
@@ -191,6 +192,21 @@ h3 {
 	border: 1px solid #95a3b8;
 	padding: .05rem .4rem;
 	border-radius: 1rem;
+	position: absolute;
+	top: .75rem;
+	right: .75rem;
+}
+
+.result[data-type="en"] h3::before{
+	content: "english";
+}
+
+.result[data-type="pli"] h3::before{
+	content: "pāli";
+}
+
+.result[data-type="com"] h3::before{
+	content: "comment";
 }
 
 .result.placeholder {
