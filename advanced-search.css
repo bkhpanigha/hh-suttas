@@ -372,7 +372,7 @@ h3 {
 .result[data-type="com"]::after {
 	content: "Comment";
 	background: #fff3e0;
-	color: #B94100;
+	color: var(--dark-orange) !important;
 }
 
 .result.placeholder h1 {
