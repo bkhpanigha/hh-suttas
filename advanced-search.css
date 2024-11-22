@@ -344,7 +344,7 @@ h3 {
 }
 
 .result[data-type="com"] {
-	border-left-color: #e65100 !important;
+	border-left-color: var(--dark-orange) !important;
 }
 
 .result[data-type]::after {
