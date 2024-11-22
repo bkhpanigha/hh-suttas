@@ -24,7 +24,7 @@
 	/* Status colors - Light */
 	--success: #10B981;
 	--warning: #F59E0B;
-	--error: #ff4545;
+	--error: #CC0000;
 	--darker-red: #b02a37;
 	--info: #3B82F6;
 
@@ -354,24 +354,24 @@ h3 {
 	font-size: 0.7rem;
 	padding: 2px 8px;
 	border-radius: 3px;
-	opacity: 0.8;
+	font-family: 'RobotoSerif Medium';
 }
 
 .result[data-type="en"]::after {
 	content: "English";
-	background: #e3f2fd;
+	background: #e3f2fdcc;
 	color: #1565c0;
 }
 
 .result[data-type="pli"]::after {
 	content: "Pāli";
-	background: #e8f5e9;
+	background: #e8f5e9cc;
 	color: #2e7d32;
 }
 
 .result[data-type="com"]::after {
 	content: "Comment";
-	background: #fff3e0;
+	background: #fff3e0cc;
 	color: var(--dark-orange) !important;
 }
 
@@ -404,6 +404,7 @@ h3 {
 /* Highlight */
 .result.placeholder b {
 	color: var(--accent-hover);
+	font-family: "RobotoSerif Medium";
 }
 
 .dark .result.placeholder b {
@@ -431,14 +432,39 @@ b {
 }
 
 .loading-bar {
-	height: 100%;
-	width: 0;
-	background: linear-gradient(90deg,
-			var(--accent-primary),
-			var(--accent-hover),
-			var(--accent-primary));
-	background-size: 200% 100%;
-	animation: loading-animation 2s linear infinite;
+  height: 100%;
+  width: 0;
+  background: var(--accent-primary);
+  background-size: 200% 100%;
+  animation: loading-animation 2s linear infinite;
+  position: relative;
+  overflow: hidden;
+}
+
+.loading-bar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 150%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.5),
+    transparent
+  );
+  animation: shine 3s ease-in-out infinite;
+}
+
+@keyframes loading-animation {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+@keyframes shine {
+  0% { left: -150%; }
+  100% { left: 150%; }
 }
 
 @keyframes loading-animation {
