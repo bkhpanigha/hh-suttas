@@ -405,6 +405,7 @@ b {
 }
 
 .result.placeholder b {
+	font-family: 'RobotoSerif Medium';
     color: var(--accent-hover);
 }
 
