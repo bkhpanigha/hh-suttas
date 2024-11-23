@@ -342,19 +342,19 @@ h3 {
 
 .result[data-type="en"]::after {
     content: "English";
-    background: #e3f2fdcc;
+    background: #e3f2fdee;
     color: #1565c0;
 }
 
 .result[data-type="pli"]::after {
     content: "Pāli";
-    background: #e8f5e9cc;
+    background: #e8f5e9ee;
     color: #2e7d32;
 }
 
 .result[data-type="com"]::after {
     content: "Comment";
-    background: #fff3e0cc;
+    background: #fff3e0ee;
     color: var(--dark-orange) !important;
 }
 
