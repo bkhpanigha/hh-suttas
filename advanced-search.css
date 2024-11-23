@@ -128,7 +128,7 @@ h3 {
 }
 
 #optionPanel h2 {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     margin-bottom: 0.5rem;
 }
 
@@ -359,7 +359,7 @@ h3 {
 }
 
 .result.placeholder h1 {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
 }
 
 .result a {
@@ -368,7 +368,7 @@ h3 {
 }
 
 .result h3 {
-    font-size: 1.1em;
+    font-size: 1.2em;
     margin-bottom: .5rem;
     color: var(--text-primary);
     transition: color var(--transition-normal) var(--ease-out);
