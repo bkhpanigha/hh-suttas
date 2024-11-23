@@ -48,6 +48,8 @@ b{
   --darker-brown: #201B1F;
   --red: #CC0000;
   --darker-red: #A70000;
+  --gold: #c4a853;
+  --darker-gold: #b39440;
 }
 
 body {
@@ -265,7 +267,7 @@ span.eng-lang {
 
 .eng-lang .searchTerm,
 .comment-highlight .searchTerm {
-	color: var(--dark-orange);
+	color: var(--darker-gold);
 	font-family: "RobotoSerif Bold";
 }
 
@@ -275,7 +277,7 @@ span.eng-lang {
 
 .dark .eng-lang .searchTerm,
 .dark .comment-highlight .searchTerm {
-	color: var(--light-orange);
+	color: var(--gold);
 }
 
 .pli-lang .searchTerm{
