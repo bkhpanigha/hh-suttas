@@ -121,7 +121,7 @@ class ContentProcessor {
         await addResultToDOMAsync(
             finalDisplayTitle,
             firstPassage,
-            `${window.location.origin}/?q=${sutta.id}&search=${this.resultProcessor.searchTermUrl}&pali=${isPali ? 'show' : this.resultProcessor.options.pali ? 'show' : 'hide'}`,
+            `${window.location.origin}/?q=${sutta.id}&search=${this.resultProcessor.searchTermUrl}&pali=hide`,
             { target: "_blank" },
             isPali ? "pli" : "en"
         );
@@ -163,7 +163,7 @@ class ContentProcessor {
                 await addResultToDOMAsync(
                     finalDisplayTitle,
                     result.passage,
-                    `${window.location.origin}/?q=${sutta.id}&search=${this.resultProcessor.searchTermUrl}&pali=${this.resultProcessor.options.pali ? 'show' : 'hide'}#${result.verseRange}`,
+                    `${window.location.origin}/?q=${sutta.id}&search=${this.resultProcessor.searchTermUrl}&pali=hide#${result.verseRange}`,
                     { target: "_blank" },
                     "en"
                 );
