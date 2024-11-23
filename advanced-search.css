@@ -337,6 +337,7 @@ h3 {
     padding: 2px 8px;
     border-radius: 3px;
     font-family: 'RobotoSerif Medium';
+	transition: background var(--transition-normal) var(--ease-out);
 }
 
 .result[data-type="en"]::after {
@@ -345,16 +346,28 @@ h3 {
     color: #1565c0;
 }
 
+.result[data-type="en"]:hover::after{
+	background: #e3f2fde5;
+}
+
 .result[data-type="pli"]::after {
     content: "Pāli";
     background: #e8f5e9cc;
     color: #2e7d32;
 }
 
+.result[data-type="pli"]:hover::after{
+	background: #e8f5e9e5;
+}
+
 .result[data-type="com"]::after {
     content: "Comment";
     background: #fff3e0cc;
     color: var(--dark-orange) !important;
+}
+
+.result[data-type="com"]:hover::after{
+	background: #fff3e0e5;
 }
 
 .result.placeholder h1 {
