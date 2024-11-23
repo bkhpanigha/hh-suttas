@@ -554,6 +554,10 @@ b {
     box-shadow: 0 4px 12px rgba(204, 0, 0, 0.5);
 }
 
+.dark .search-btn {
+    background-color: var(--dark-accent-primary);
+}
+
 .dark .search-btn:hover:enabled {
     background-color: var(--dark-accent-hover);
     box-shadow: 0 4px 12px rgba(179, 152, 80, 0.3);
