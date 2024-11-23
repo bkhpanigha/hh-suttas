@@ -9,8 +9,7 @@
     --panel-bg: #ffffff;
     --border-color: #e2e8f3;
     --text-primary: #1a2942;
-    --text-secondary: #455573;
-	--text-secondary-highlight: #2d3e58;
+    --text-secondary: #364b51;
     --accent-primary: #c4a853;
     --accent-hover: #b39440;
     --highlight: #d4bc6c;
@@ -29,8 +28,8 @@
     --dark-panel-bg: #1c1e24;
     --dark-border-color: #3e464d;
     --dark-border-color-lighter: #52565d;
-    --dark-text-primary: #dddddd;
-    --dark-text-secondary: #c2c5cc;
+    --dark-text-primary: #dfdfdf;
+    --dark-text-secondary: #d0d3d9;
     --dark-accent-primary: #b39440;
     --dark-accent-hover: #ceb05f;
     --dark-highlight: #e2ca8b;
@@ -386,7 +385,7 @@ h3 {
 }
 
 .result:hover p {
-    color: var(--text-secondary-highlight);
+    color: var(--text-primary);
 }
 
 .result.placeholder p {
@@ -548,6 +547,7 @@ b {
     border-color: var(--dark-accent-hover);
     box-shadow: var(--dark-focus-ring);
 }
+
 
 .dark .search-btn.red:hover:enabled {
     background-color: var(--error);
