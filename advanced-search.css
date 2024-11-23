@@ -31,7 +31,7 @@
     --dark-border-color-lighter: #52565d;
     --dark-text-primary: #ffffff;
     --dark-text-secondary: #c2c5cc;
-    --dark-accent-primary: #7f6e0a;
+    --dark-accent-primary: #b39440;
     --dark-accent-hover: #ceb05f;
     --dark-highlight: #e2ca8b;
     --dark-input-bg: #272a33;
@@ -102,7 +102,7 @@ h3 {
 #optionPanel {
     width: 250px;
     padding: 20px;
-    border-radius: 5px;
+    border-radius: 2px;
     background-color: var(--panel-bg);
     border: 1px solid var(--border-color);
     box-shadow: var(--shadow-sm);
@@ -536,11 +536,11 @@ b {
 }
 
 .dark .search-field input:hover {
-    border-color: var(--dark-accent-primary);
+    border-color: var(--dark-accent-hover);
 }
 
 .dark .search-field input:focus {
-    border-color: var(--dark-accent-primary);
+    border-color: var(--dark-accent-hover);
     box-shadow: var(--dark-focus-ring);
 }
 
@@ -625,8 +625,8 @@ b {
         padding: 0.75rem;
         position: fixed;
         top: -100%;
-        left: 1%;
-        width: 98%;
+        left: .5%;
+        width: 99%;
         z-index: 999;
         transition: top var(--transition-normal) var(--ease-out);
     }
@@ -639,7 +639,19 @@ b {
 
     .mobile-menu-button {
         display: block;
+        padding: .5rem;
+		width: 10rem;
+		font- size: .9rem;
     }
+	
+	.dark .mobile-menu-button.open{
+		background-color: var(--dark-accent-primary);
+		border-color: var(--dark-accent-primary);
+	}
+	
+	.dark .search-btn {
+		background-color: var(--dark-accent-primary);
+	}
 
     .content {
         padding: 0;
@@ -670,6 +682,10 @@ b {
         align-items: center;
 		justify-content: center;
     }
+	
+	#optionPanel{
+		border-width: 2px;
+	}
 	
 	#optionPanel h2,
 	#optionPanel h3{
@@ -728,11 +744,6 @@ b {
 }
 
 @media (max-width: 480px) {
-    .mobile-menu-button {
-        padding: .5rem;
-        font-size: 0.9em;
-    }
-
     .result h3 {
         margin-right: 65px;
     }
@@ -753,7 +764,7 @@ b {
     .options {
         padding: 0.25rem;
     }
-
+	
     #optionsPanel h3 {
         text-align: center;
     }
