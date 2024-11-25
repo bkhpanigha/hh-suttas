@@ -104,8 +104,8 @@ async function displayBookmarks() {
         let key = bookmark;
         // Check if the key is a range
         let value;
-        if (key.includes('-')) {
-          const [startKey, endKey] = key.split('-');
+        if (key.includes('_')) {
+          const [startKey, endKey] = key.split('_');
           value = getRangeAsString(data, startKey, endKey);
         } else {
           value = data[key];
