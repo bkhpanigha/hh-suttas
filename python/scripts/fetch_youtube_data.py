@@ -1,11 +1,11 @@
 import yt_dlp
 import json
 import requests
-from typing import Dict
+from typing import Dict, Tuple
 
 available_videos_path = './python/generated/available_videos.json'
+playlists_path = './python/generated/available_playlists.json'
 
-# Some old videos don't have the maxresdefault thumbnail format
 def get_thumbnail_url(video_id: str) -> dict:
     """
     Try maxresdefault first, fallback to hqdefault
@@ -46,16 +46,14 @@ def get_channel_videos(channel_url: str) -> Dict:
     
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
         try:
-            print(f"Fetching data from {channel_url}...")
+            print(f"Fetching videos from {channel_url}...")
             channel_info = ydl.extract_info(channel_url, download=False)
             
             print("Processing videos...")
             for entry in channel_info['entries']:
                 if entry is None:
                     continue
-
-                print("Processing video (" + entry['id'] + ") : " + entry['title']);
-				
+                    
                 video_id = entry['id']
                 thumbnails = get_thumbnail_url(video_id)
                 duration = entry.get('duration')
@@ -70,19 +68,78 @@ def get_channel_videos(channel_url: str) -> Dict:
             return videos
             
         except Exception as e:
-            print(f"Error during extraction: {str(e)}")
+            print(f"Error during video extraction: {str(e)}")
+            return {}
+
+def get_channel_playlists(channel_url: str) -> Dict:
+    ydl_opts = {
+        'quiet': True,
+        'no_warnings': True,
+        'ignoreerrors': True,
+        'extract_flat': True,
+        'extractor_args': {
+            'youtube': {
+                'skip': ['dash', 'hls'],
+                'extract_flat': True,
+            }
+        }
+    }
+    
+    playlists = {}
+    
+    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+        try:
+            print(f"Fetching playlists from {channel_url}/playlists...")
+            playlists_info = ydl.extract_info(f"{channel_url}/playlists", download=False)
+            
+            print("Processing playlists...")
+            for entry in playlists_info.get('entries', []):
+                if entry is None:
+                    continue
+                
+                playlist_id = entry['id']
+                
+                # Get playlist details
+                try:
+                    playlist_url = f"https://www.youtube.com/playlist?list={playlist_id}"
+                    playlist_details = ydl.extract_info(playlist_url, download=False)
+                    
+                    playlists[playlist_id] = {
+                        "name": entry['title'],
+                        "video_count": len(playlist_details.get('entries', [])),
+                    }
+                except Exception as e:
+                    print(f"Error processing playlist {playlist_id}: {str(e)}")
+                    continue
+            
+            return playlists
+            
+        except Exception as e:
+            print(f"Error during playlist extraction: {str(e)}")
             return {}
 
 def process_channels(channel_urls: list) -> None:
     all_videos = {"available_videos": {}}
+    all_playlists = {"playlists": {}}
     
     for channel_url in channel_urls:
+        # Get videos
         channel_videos = get_channel_videos(channel_url)
         all_videos["available_videos"].update(channel_videos)
+        
+        # Get playlists
+        channel_playlists = get_channel_playlists(channel_url)
+        all_playlists["playlists"].update(channel_playlists)
     
+    # Save videos
     print(f"\nSaving {len(all_videos['available_videos'])} videos to JSON file...")
     with open(available_videos_path, 'w', encoding='utf-8') as f:
         json.dump(all_videos, f, ensure_ascii=False, indent=4)
+    
+    # Save playlists
+    print(f"Saving {len(all_playlists['playlists'])} playlists to JSON file...")
+    with open(playlists_path, 'w', encoding='utf-8') as f:
+        json.dump(all_playlists, f, ensure_ascii=False, indent=4)
     
     print("Done!")
 
