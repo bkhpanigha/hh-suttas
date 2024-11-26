@@ -34,7 +34,7 @@ def format_duration(duration_seconds: float) -> str:
     else:
         return f"{int(minutes):02d}:{int(seconds):02d}"
 
-def get_channel_videos(channel_url: str) -> Dict:
+def get_channel_videos(channel_url: str, channel_name: str) -> Dict:
     ydl_opts = {
         'quiet': True,
         'no_warnings': True,
@@ -63,6 +63,7 @@ def get_channel_videos(channel_url: str) -> Dict:
                     "title": entry['title'],
                     "thumbnails": thumbnails,
                     "duration": formatted_duration,
+                    "channel": channel_name
                 }
             
             return videos
@@ -71,7 +72,7 @@ def get_channel_videos(channel_url: str) -> Dict:
             print(f"Error during video extraction: {str(e)}")
             return {}
 
-def get_channel_playlists(channel_url: str) -> Dict:
+def get_channel_playlists(channel_url: str, channel_name: str) -> Dict:
     ydl_opts = {
         'quiet': True,
         'no_warnings': True,
@@ -107,6 +108,7 @@ def get_channel_playlists(channel_url: str) -> Dict:
                     playlists[playlist_id] = {
                         "name": entry['title'],
                         "video_count": len(playlist_details.get('entries', [])),
+                        "channel": channel_name
                     }
                 except Exception as e:
                     print(f"Error processing playlist {playlist_id}: {str(e)}")
@@ -118,23 +120,28 @@ def get_channel_playlists(channel_url: str) -> Dict:
             print(f"Error during playlist extraction: {str(e)}")
             return {}
 
-def process_channels(channel_urls: list) -> None:
+def process_channels(channels_data: list[dict]) -> None:
+    """
+    Process YouTube channels to extract videos and playlists.
+    
+    Args:
+        channels_data: List of dictionaries containing channel information
+                      Each dict should have 'url' and 'name' keys
+    """
     all_videos = {"available_videos": {}}
     all_playlists = {"playlists": {}}
     
-    for channel_url in channel_urls:
+    for channel in channels_data:
+        channel_url = channel['url']
+        channel_name = channel['name']
+        
         # Get videos
-        channel_videos = get_channel_videos(channel_url)
+        channel_videos = get_channel_videos(channel_url, channel_name)
         all_videos["available_videos"].update(channel_videos)
         
         # Get playlists
-        channel_playlists = get_channel_playlists(channel_url)
+        channel_playlists = get_channel_playlists(channel_url, channel_name)
         all_playlists["playlists"].update(channel_playlists)
-    
-    # Save videos
-    print(f"\nSaving {len(all_videos['available_videos'])} videos to JSON file...")
-    with open(available_videos_path, 'w', encoding='utf-8') as f:
-        json.dump(all_videos, f, ensure_ascii=False, indent=4)
     
     # Save playlists
     print(f"Saving {len(all_playlists['playlists'])} playlists to JSON file...")
@@ -145,8 +152,14 @@ def process_channels(channel_urls: list) -> None:
 
 if __name__ == "__main__":
     channels = [
-        "https://www.youtube.com/@HillsideHermitage",
-        "https://www.youtube.com/@SamanadipaHermitage"
+        {
+            "url": "https://www.youtube.com/@HillsideHermitage",
+            "name": "Hillside Hermitage"
+        },
+        {
+            "url": "https://www.youtube.com/@SamanadipaHermitage",
+            "name": "Samanadipa Hermitage"
+        }
     ]
     
     process_channels(channels)
