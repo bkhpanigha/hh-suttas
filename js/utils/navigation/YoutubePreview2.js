@@ -1,9 +1,5 @@
-import {
-	fetchAvailableVideos
-} from '../loadContent/fetchAvailableVideos.js';
-import {
-	fetchAvailablePlaylists
-} from '../loadContent/fetchAvailablePlaylists.js';
+import { fetchAvailableVideos } from '../loadContent/fetchAvailableVideos.js';
+import { fetchAvailablePlaylists } from '../loadContent/fetchAvailablePlaylists.js';
 
 class YoutubePreview {
 	// Configuration constants
@@ -225,31 +221,19 @@ class YoutubePreview {
 	}
 
 	extractYoutubeId(url) {
-		// Check for direct playlist links
-		if (url.includes('youtube.com/playlist?')) {
-			const playlistMatch = url.match(/[?&]list=([^#&?]*)/);
-			if (playlistMatch) {
-				return {
-					type: 'playlist',
-					id: playlistMatch[1]
-				};
-			}
-		}
-		
-		// Check for playlist parameter in regular video URLs
-		const playlistParam = url.match(/[?&]list=([^#&?]*)/);
-		const videoRegExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
-		const videoMatch = url.match(videoRegExp);
+		const playlistRegExp = /[?&]list=([^#\&\?]*)/;
+		const playlistMatch = url.match(playlistRegExp);
 
-		// If it's a regular video URL with a playlist parameter, prioritize the playlist
-		if (playlistParam && !url.includes('youtube.com/playlist?')) {
+		if (playlistMatch) {
 			return {
 				type: 'playlist',
-				id: playlistParam[1]
+				id: playlistMatch[1]
 			};
 		}
 
-		// If it's a video URL
+		const videoRegExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+		const videoMatch = url.match(videoRegExp);
+
 		if (videoMatch && videoMatch[2].length === 11) {
 			return {
 				type: 'video',
@@ -259,7 +243,7 @@ class YoutubePreview {
 
 		return null;
 	}
-	
+
 	handleMouseEnter(event) {
 		const link = event.target.closest('a[href*="youtube.com"]:not(.links-area a), a[href*="youtu.be"]:not(.links-area a)');
 		const preview = event.target.closest('.youtube-preview');
@@ -269,53 +253,21 @@ class YoutubePreview {
 			this.state.currentLink = link;
 
 			const result = this.extractYoutubeId(link.href);
-			console.log('Link detected:', link.href);
-			console.log('Extraction result:', result);
-			console.log('Available playlists:', this.state.availablePlaylists);
-			
-			if (!result) {
-				console.log('No ID extracted');
-				return;
-			}
+			if (!result) return;
 
 			if (result.type === 'playlist' && this.state.availablePlaylists?.[result.id]) {
-				console.log('Playlist found:', this.state.availablePlaylists[result.id]);
 				const playlistInfo = this.state.availablePlaylists[result.id];
 				this.showPlaylistPreview(playlistInfo, result.id, event);
 			} else if (result.type === 'video' && this.state.availableVideos?.[result.id]) {
-				console.log('Video found:', this.state.availableVideos[result.id]);
 				const videoInfo = this.state.availableVideos[result.id];
 				this.showPreview(videoInfo, event);
-			} else {
-				console.log('Content not found in available data');
 			}
 		}
+
+		if (preview) {
+			this.state.mouseTracker.isOverPreview = true;
+		}
 	}
-
-	// handleMouseEnter(event) {
-		// const link = event.target.closest('a[href*="youtube.com"]:not(.links-area a), a[href*="youtu.be"]:not(.links-area a)');
-		// const preview = event.target.closest('.youtube-preview');
-
-		// if (link) {
-			// this.state.mouseTracker.isOverLink = true;
-			// this.state.currentLink = link;
-
-			// const result = this.extractYoutubeId(link.href);
-			// if (!result) return;
-
-			// if (result.type === 'playlist' && this.state.availablePlaylists?.[result.id]) {
-				// const playlistInfo = this.state.availablePlaylists[result.id];
-				// this.showPlaylistPreview(playlistInfo, result.id, event);
-			// } else if (result.type === 'video' && this.state.availableVideos?.[result.id]) {
-				// const videoInfo = this.state.availableVideos[result.id];
-				// this.showPreview(videoInfo, event);
-			// }
-		// }
-
-		// if (preview) {
-			// this.state.mouseTracker.isOverPreview = true;
-		// }
-	// }
 
 	handleMouseLeave(event) {
 		const link = event.target.closest('a[href*="youtube.com"]:not(.links-area a), a[href*="youtu.be"]:not(.links-area a)');
@@ -939,7 +891,7 @@ class YoutubePreview {
                         <span style="
                             color: ${isDarkMode ? 'var(--off-white)' : 'black'};
                             font-size: 13px;
-                        ">Hillside Hermitage</span>
+                        ">${playlistInfo.channel}</span>
                     </div>
                 </div>
                 <div class="youtube-duration">${playlistInfo.video_count} videos</div>
@@ -955,7 +907,8 @@ class YoutubePreview {
 		// Note: 'info' can be either videoInfo or playlistInfo
 		const title = 'title' in info ? info.title : info.name;
 		const duration = 'duration' in info ? info.duration : `${info.video_count} videos`;
-
+		const channel = 'channel' in info ? info.channel : "";
+		
 		return `
             <div style="padding: 0 4px;">
                 <div style="
@@ -985,7 +938,7 @@ class YoutubePreview {
                     <span style="
                         color: ${isDarkMode ? 'var(--off-white)' : 'black'};
                         font-size: 13px;
-                    ">Hillside Hermitage</span>
+                    ">${channel}</span>
                 </div>
             </div>
             <div class="youtube-duration">${duration}</div>
