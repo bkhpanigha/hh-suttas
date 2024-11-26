@@ -129,7 +129,7 @@ def process_channels(channels_data: list[dict]) -> None:
                       Each dict should have 'url' and 'name' keys
     """
     all_videos = {"available_videos": {}}
-    all_playlists = {"playlists": {}}
+    all_playlists = {"available_playlists": {}}
     
     for channel in channels_data:
         channel_url = channel['url']
