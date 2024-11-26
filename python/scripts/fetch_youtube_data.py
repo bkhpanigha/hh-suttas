@@ -58,7 +58,7 @@ def get_channel_videos(channel_url: str, channel_name: str) -> Dict:
                 thumbnails = get_thumbnail_url(video_id)
                 duration = entry.get('duration')
                 formatted_duration = format_duration(duration) if duration else None
-                
+
                 videos[video_id] = {
                     "title": entry['title'],
                     "thumbnails": thumbnails,
@@ -143,6 +143,11 @@ def process_channels(channels_data: list[dict]) -> None:
         channel_playlists = get_channel_playlists(channel_url, channel_name)
         all_playlists["playlists"].update(channel_playlists)
     
+    # Save videos
+    print(f"Saving {len(all_videos['available_videos'])} videos to JSON file...")
+    with open(available_videos_path, 'w', encoding='utf-8') as f:
+        json.dump(all_videos, f, ensure_ascii=False, indent=4)
+        
     # Save playlists
     print(f"Saving {len(all_playlists['playlists'])} playlists to JSON file...")
     with open(playlists_path, 'w', encoding='utf-8') as f:
