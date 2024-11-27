@@ -1,6 +1,8 @@
 import { fetchAvailableVideos } from '../loadContent/fetchAvailableVideos.js';
 import { fetchAvailablePlaylists } from '../loadContent/fetchAvailablePlaylists.js';
 
+//Check and modify if preloadedimages are used, looks like they are fetched online everytime
+
 class YoutubePreview {
 	// Configuration constants
 	static MOBILE_BREAKPOINT = 768;
@@ -11,13 +13,15 @@ class YoutubePreview {
 			previewElement: null,
 			currentLink: null,
 			isMobileDevice: this.checkIfMobile(),
-			availableVideos: null, // Will only be fully populated on desktop
-			availablePlaylists: null, // Will only be fully populated on desktop
-			videoCache: new Map(), // For storing individual video data on mobile
-			playlistCache: new Map(), // For storing individual playlist data on mobile
+			availableVideos: null,
+			availablePlaylists: null,
+			videoCache: new Map(),
+			playlistCache: new Map(),
+			videoIndex: new Map(), // videoId -> {channelName, info}
+            playlistIndex: new Map(), // playlistId -> {channelName, info}
 			preloadedContent: new Map(),
 			preloadedImages: new Map(),
-			isOnline: null, // Will be set during initialization
+			isOnline: null,
 			mouseTracker: {
 				isOverLink: false,
 				isOverPreview: false,
@@ -29,27 +33,29 @@ class YoutubePreview {
 			.catch(error => console.error('Initialization failed:', error));
 	}
 
-	// Initialize components based on device type
 	async initializeComponents() {
 		try {
-			// Check connectivity first
 			this.state.isOnline = await this.checkConnectivity();
 
 			if (this.state.isMobileDevice) {
-				// On mobile, only initialize basic components
 				await Promise.all([
 					this.initPreview(),
 					this.addYouTubeStyles()
 				]);
 			} else {
-				// On desktop, load everything
 				await Promise.all([
 					this.initPreview(),
-					this.addYouTubeStyles(),
-					this.loadAvailableVideos(),
-					this.loadAvailablePlaylists(),
-					this.preloadAllPreviews()
+					this.addYouTubeStyles()
 				]);
+				
+				// Load data first
+				await Promise.all([
+					this.loadAvailableVideos(),
+					this.loadAvailablePlaylists()
+				]);
+				
+				// Then preload previews
+				await this.preloadAllPreviews();
 			}
 
 			this.initEventListeners();
@@ -59,27 +65,62 @@ class YoutubePreview {
 		}
 	}
 
-	// Fetch available playlists with error handling
-	async loadAvailablePlaylists() {
-		try {
-			this.state.availablePlaylists = await fetchAvailablePlaylists();
-		} catch (error) {
-			console.error('Failed to load available playlists:', error);
-			this.state.availablePlaylists = {};
-		}
-	}
+    findVideoInfo(videoId) {
+        const indexed = this.state.videoIndex.get(videoId);
+        return indexed ? { ...indexed.info, channel: indexed.channelName } : null;
+    }
 
-	// Fetch available videos with error handling
+    findPlaylistInfo(playlistId) {
+        const indexed = this.state.playlistIndex.get(playlistId);
+        return indexed ? { ...indexed.info, channel: indexed.channelName } : null;
+    }
+	
 	async loadAvailableVideos() {
-		try {
-			this.state.availableVideos = await fetchAvailableVideos();
-		} catch (error) {
-			console.error('Failed to load available videos:', error);
-			this.state.availableVideos = {};
-		}
-	}
+        try {
+            const response = await fetchAvailableVideos();
+            this.state.availableVideos = response;
+            
+            if (!response) return;
 
-	// Check internet connectivity with timeout using AbortController
+            // Index for videos
+            for (const [channelName, videos] of Object.entries(response)) {
+                for (const [videoId, info] of Object.entries(videos)) {
+                    this.state.videoIndex.set(videoId, {
+                        channelName,
+                        info
+                    });
+                }
+            }
+        } catch (error) {
+            console.error('Failed to load available videos:', error);
+            this.state.availableVideos = {};
+            this.state.videoIndex.clear();
+        }
+    }
+
+    async loadAvailablePlaylists() {
+        try {
+            const response = await fetchAvailablePlaylists();
+            this.state.availablePlaylists = response;
+            
+            if (!response) return;
+
+            // Index for playlists
+            for (const [channelName, playlists] of Object.entries(response)) {
+                for (const [playlistId, info] of Object.entries(playlists)) {
+                    this.state.playlistIndex.set(playlistId, {
+                        channelName,
+                        info
+                    });
+                }
+            }
+        } catch (error) {
+            console.error('Failed to load available playlists:', error);
+            this.state.availablePlaylists = {};
+            this.state.playlistIndex.clear();
+        }
+    }
+
 	async checkConnectivity() {
 		try {
 			if (!navigator.onLine) {
@@ -186,7 +227,6 @@ class YoutubePreview {
         `;
 	}
 
-	// Event handlers for desktop and mobile
 	initEventListeners() {
 		if (this.state.isMobileDevice) {
 			this.initMobileEventListeners();
@@ -210,17 +250,14 @@ class YoutubePreview {
 			passive: true
 		});
 
-		// Start hover state verification
 		this.startHoverCheck();
 	}
 
 	startHoverCheck() {
-		// Clear any existing interval
 		if (this.state.mouseTracker.checkInterval) {
 			clearInterval(this.state.mouseTracker.checkInterval);
 		}
 
-		// Check hover state every 100ms
 		this.state.mouseTracker.checkInterval = setInterval(() => {
 			if (!this.state.mouseTracker.isOverLink && !this.state.mouseTracker.isOverPreview) {
 				if (this.state.previewElement.style.display === 'block') {
@@ -231,7 +268,6 @@ class YoutubePreview {
 		}, 100);
 	}
 
-	// Extract playlist or video ID using regex pattern matching
 	extractYoutubeId(url) {
 		const playlistRegExp = /[?&]list=([^#\&\?]*)/;
 		const playlistMatch = url.match(playlistRegExp);
@@ -257,35 +293,35 @@ class YoutubePreview {
 	}
 
 	handleMouseEnter(event) {
-		const link = event.target.closest('a[href*="youtube.com"]:not(.links-area a), a[href*="youtu.be"]:not(.links-area a)');
-		const preview = event.target.closest('.youtube-preview');
+        const link = event.target.closest('a[href*="youtube.com"]:not(.links-area a), a[href*="youtu.be"]:not(.links-area a)');
+        const preview = event.target.closest('.youtube-preview');
 
-		// If hovering a YouTube link
-		if (link) {
-			this.state.mouseTracker.isOverLink = true;
-			this.state.currentLink = link;
+        if (link) {
+            this.state.mouseTracker.isOverLink = true;
+            this.state.currentLink = link;
 
-			const result = this.extractYoutubeId(link.href);
-			if (!result) return;
+            const result = this.extractYoutubeId(link.href);
+            if (!result) return;
 
-			if (result.type === 'playlist' && this.state.availablePlaylists?.[result.id]) {
-				// If link to playlist
-				const playlistInfo = this.state.availablePlaylists[result.id];
-				this.showPlaylistPreview(playlistInfo, result.id, event);
-			} else if (result.type === 'video' && this.state.availableVideos?.[result.id]) {
-				// If link to video
-				const videoInfo = this.state.availableVideos[result.id];
-				this.showPreview(videoInfo, event);
-			}
-		}
+            if (result.type === 'playlist') {
+                const playlistInfo = this.findPlaylistInfo(result.id);
+                if (playlistInfo) {
+                    this.showPlaylistPreview(playlistInfo, result.id, event);
+                }
+            } else if (result.type === 'video') {
+                const videoInfo = this.findVideoInfo(result.id);
+                if (videoInfo) {
+                    this.showPreview(videoInfo, event);
+                }
+            }
+        }
 
-		if (preview) {
-			this.state.mouseTracker.isOverPreview = true;
-		}
-	}
-
+        if (preview) {
+            this.state.mouseTracker.isOverPreview = true;
+        }
+    }
+	
 	handleMouseLeave(event) {
-		// Check if we exit youtube link or its preview
 		const link = event.target.closest('a[href*="youtube.com"]:not(.links-area a), a[href*="youtu.be"]:not(.links-area a)');
 		const preview = event.target.closest('.youtube-preview');
 
@@ -299,19 +335,17 @@ class YoutubePreview {
 	}
 
 	handleDesktopClick(event) {
-		if (this.state.isMobileDevice) return; // Only handle for desktop
+		if (this.state.isMobileDevice) return;
 
 		const clickedPreview = event.target.closest('.youtube-preview');
 		const clickedLink = event.target.closest('a[href*="youtube.com"]:not(.links-area a), a[href*="youtu.be"]:not(.links-area a)');
 
-		// If click is outside preview and outside YouTube link, hide preview
 		if (!clickedPreview && !clickedLink && this.state.previewElement.style.display === 'block') {
 			this.hidePreview();
 			this.state.currentLink = null;
 		}
 	}
 
-	// Throttled mousemove handler for performance optimization
 	handleMouseMove(event) {
 		const now = Date.now();
 		if (now - this.state.lastMoveTime < YoutubePreview.THROTTLE_DELAY) return;
@@ -326,7 +360,6 @@ class YoutubePreview {
 	}
 
 	handleScroll() {
-		// Force check hover state on scroll
 		if (!this.state.isMobileDevice) {
 			this.verifyHoverState();
 		}
@@ -357,11 +390,9 @@ class YoutubePreview {
 		const result = this.extractYoutubeId(link.href);
 		if (!result) return;
 
-		// Show loading state
 		this.showLoadingPreview();
 
 		try {
-			// Load data if not cached
 			const contentData = await this.loadContentData(result.id);
 
 			if (!contentData) {
@@ -399,14 +430,14 @@ class YoutubePreview {
 		const links = document.querySelectorAll('a[href*="youtube.com"]:not(.links-area a), a[href*="youtu.be"]:not(.links-area a)');
 		const isDarkMode = document.documentElement.classList.contains('dark');
 
-		// If online, preload images for videos first
+		// Preload pictures for videos if online
 		if (this.state.isOnline) {
 			const imagePromises = Array.from(links).map(async (link) => {
 				const result = this.extractYoutubeId(link.href);
-				if (!result || result.type !== 'video' || !this.state.availableVideos[result.id]) return;
+				if (!result || result.type !== 'video') return;
 
-				const videoInfo = this.state.availableVideos[result.id];
-				if (!videoInfo.thumbnails) return;
+				const videoInfo = this.findVideoInfo(result.id);
+				if (!videoInfo?.thumbnails) return;
 
 				const thumbnail = videoInfo.thumbnails.maxresdefault || videoInfo.thumbnails.hqdefault;
 
@@ -427,37 +458,49 @@ class YoutubePreview {
 			await Promise.allSettled(imagePromises);
 		}
 
-		// Prepare preview content for both videos and playlists
+		// Preload data
 		links.forEach((link) => {
 			const result = this.extractYoutubeId(link.href);
 			if (!result) return;
 
-			if (result.type === 'video' && this.state.availableVideos[result.id]) {
-				const videoInfo = this.state.availableVideos[result.id];
-				const preloadedContent = {
-					desktop: this.state.isOnline ?
-						this.createPreviewContent(videoInfo, isDarkMode) :
-						this.createOfflinePreviewContent(videoInfo, isDarkMode),
-					mobile: this.state.isOnline ?
-						this.createMobilePreviewContent(videoInfo, isDarkMode) :
-						this.createOfflineMobilePreviewContent(videoInfo, isDarkMode)
-				};
-				this.state.preloadedContent.set(result.id, preloadedContent);
-			} else if (result.type === 'playlist' && this.state.availablePlaylists[result.id]) {
-				const playlistInfo = this.state.availablePlaylists[result.id];
-				const preloadedContent = {
-					desktop: this.createPlaylistPreviewContent(playlistInfo, isDarkMode),
-					mobile: this.createMobilePlaylistPreviewContent(playlistInfo, isDarkMode)
-				};
-				this.state.preloadedContent.set(result.id, preloadedContent);
+			const tempCurrentLink = this.state.currentLink;
+			this.state.currentLink = link;
+
+			try {
+				if (result.type === 'video') {
+					const videoInfo = this.findVideoInfo(result.id);
+					if (videoInfo) {
+						const preloadedContent = {
+							desktop: this.state.isOnline ?
+								this.createPreviewContent(videoInfo, isDarkMode) :
+								this.createOfflinePreviewContent(videoInfo, isDarkMode),
+							mobile: this.state.isOnline ?
+								this.createMobilePreviewContent(videoInfo, isDarkMode) :
+								this.createOfflineMobilePreviewContent(videoInfo, isDarkMode)
+						};
+						this.state.preloadedContent.set(result.id, preloadedContent);
+					}
+				} else if (result.type === 'playlist') {
+					const playlistInfo = this.findPlaylistInfo(result.id);
+					if (playlistInfo) {
+						const preloadedContent = {
+							desktop: this.createPlaylistPreviewContent(playlistInfo, isDarkMode),
+							mobile: this.createMobilePlaylistPreviewContent(playlistInfo, isDarkMode)
+						};
+						this.state.preloadedContent.set(result.id, preloadedContent);
+					}
+				}
+			} finally {
+				this.state.currentLink = tempCurrentLink;
 			}
 		});
 	}
 
 	async loadContentData(id) {
+		// First try caches
 		if (this.state.playlistCache.has(id)) {
 			return {
-				type: 'playlist',
+				type: 'playlist', 
 				data: this.state.playlistCache.get(id)
 			};
 		}
@@ -470,32 +513,38 @@ class YoutubePreview {
 		}
 
 		try {
-			const videos = await fetchAvailableVideos();
-			if (videos[id]) {
-				this.state.videoCache.set(id, videos[id]);
+			// Load all data 
+			await Promise.all([
+				this.loadAvailableVideos(),
+				this.loadAvailablePlaylists()
+			]);
+
+			// check with fresh data
+			const videoInfo = this.findVideoInfo(id);
+			if (videoInfo) {
+				this.state.videoCache.set(id, videoInfo);
 				return {
 					type: 'video',
-					data: videos[id]
+					data: videoInfo
 				};
 			}
 
-			const playlists = await fetchAvailablePlaylists();
-			if (playlists[id]) {
-				this.state.playlistCache.set(id, playlists[id]);
+			const playlistInfo = this.findPlaylistInfo(id);
+			if (playlistInfo) {
+				this.state.playlistCache.set(id, playlistInfo);
 				return {
 					type: 'playlist',
-					data: playlists[id]
+					data: playlistInfo
 				};
 			}
 
 			return null;
 		} catch (error) {
 			console.error('Failed to load content data:', error);
-			return null;
+			return null; 
 		}
 	}
 
-	// Force browser repaint for smooth animations using requestAnimationFrame
 	showPreview(videoInfo, event) {
 		const result = this.extractYoutubeId(this.state.currentLink.href);
 		if (!result) return;
@@ -666,7 +715,6 @@ class YoutubePreview {
 		this.state.previewElement.style.cssText = styles;
 		this.state.previewElement.innerHTML = html;
 
-		// Force repaint for smooth animation
 		requestAnimationFrame(() => {
 			this.state.previewElement.style.display = 'block';
 			this.state.previewElement.style.opacity = '1';
@@ -711,7 +759,6 @@ class YoutubePreview {
 		Object.assign(preview.style, position);
 	}
 
-	// Calculate preview position based on viewport constraints
 	calculatePreviewPosition({
 		previewRect,
 		cursorX,
@@ -720,31 +767,25 @@ class YoutubePreview {
 		viewportHeight,
 		margin
 	}) {
-		// Save initial preferred position
 		if (!this.state.initialPosition) {
 			const spaceAbove = cursorY;
 			const spaceBelow = viewportHeight - cursorY;
-			// Determine if we should show above or below based on initial position
 			this.state.initialPosition = spaceAbove > previewRect.height + margin ? 'above' : 'below';
 		}
 
-		// Calculate vertical position based on initial preference
 		let top;
 		if (this.state.initialPosition === 'above') {
 			top = cursorY - previewRect.height - margin;
-			// If preview would go off the top, force it below
 			if (top < margin) {
 				top = cursorY + margin;
 			}
 		} else {
 			top = cursorY + margin;
-			// If preview would go off the bottom, force it above
 			if (top + previewRect.height + margin > viewportHeight) {
 				top = cursorY - previewRect.height - margin;
 			}
 		}
 
-		// Calculate horizontal position
 		let left;
 		const spaceRight = viewportWidth - cursorX;
 		const spaceLeft = cursorX;
@@ -758,7 +799,6 @@ class YoutubePreview {
 				(viewportWidth - previewRect.width) / 2));
 		}
 
-		// Clear initial position when preview is hidden
 		if (!this.state.previewElement.style.display === 'none') {
 			this.state.initialPosition = null;
 		}
@@ -819,12 +859,10 @@ class YoutubePreview {
         `;
 	}
 
-	// Helper to create correct preview HTML based on online status
 	getPreviewHTML(videoInfo, isDarkMode) {
 		return this.state.isOnline ? this.getOnlinePreviewHTML(videoInfo, isDarkMode) : this.getOfflinePreviewHTML(videoInfo, isDarkMode);
 	}
 
-	// Helper to create correct mobile preview HTML based on online status
 	getOnlinePreviewHTML(videoInfo, isDarkMode) {
 		const result = this.extractYoutubeId(this.state.currentLink.href);
 		if (!result) return '';
@@ -874,6 +912,80 @@ class YoutubePreview {
         `;
 	}
 
+	// Helper to create correct mobile preview HTML based on online status
+	getMobilePreviewHTML(videoInfo, isDarkMode) {
+		return this.state.isOnline ?
+			this.getOnlineMobilePreviewHTML(videoInfo, isDarkMode) :
+			this.getOfflineMobilePreviewHTML(videoInfo, isDarkMode);
+	}
+	
+	getOnlineMobilePreviewHTML(videoInfo, isDarkMode) {
+		const thumbnailUrl = videoInfo.thumbnails.maxresdefault || videoInfo.thumbnails.hqdefault;
+		const playIcon = `
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+                <path d="M8 5v14l11-7z"/>
+            </svg>
+        `;
+
+		return `
+            <div style="display: flex; flex-direction: column; gap: 12px;">
+                <div style="position: relative;">
+                    <div style="width: 100%; padding-top: 56.25%; position: relative; border-radius: 12px; overflow: hidden; background: #000;">
+                        <img src="${thumbnailUrl}" 
+                            alt="Thumbnail" 
+                            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;">
+                        <div style="
+                            position: absolute;
+                            top: 50%;
+                            left: 50%;
+                            transform: translate(-50%, -50%);
+                            width: 40px;
+                            height: 40px;
+                            background: rgba(0, 0, 0, 0.7);
+                            border: 2px solid rgba(255, 255, 255);
+                            border-radius: 50%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            color: white;
+                            backdrop-filter: blur(1px);
+                        ">
+                            ${playIcon}
+                        </div>
+                    </div>
+                </div>
+                ${this.getCommonPreviewContent(videoInfo, isDarkMode)}
+                <div class="youtube-duration">${videoInfo.duration}</div>
+            </div>
+        `;
+	}
+
+	getOfflineMobilePreviewHTML(videoInfo, isDarkMode) {
+		return `
+            <div style="display: flex; flex-direction: column; gap: 12px;">
+                <div style="
+                    background: ${isDarkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.05)'};
+                    border-radius: 12px;
+                    padding: 16px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    min-height: 180px;
+                ">
+                    <div style="
+                        text-align: center;
+                        color: ${isDarkMode ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.6)'};
+                    ">
+						<svg height="32" viewBox="0 0 56 56" width="36" xmlns="http://www.w3.org/2000/svg"><path fill="${isDarkMode ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.6)'}" d="m47.7696 49.9727c.7032.7031 1.8514.7031 2.5546 0 .6797-.7266.7032-1.8516 0-2.5547l-42.0469-42.0469c-.7031-.7031-1.8515-.7031-2.5781 0-.6797.6797-.6797 1.875 0 2.5547zm1.3123-20.3438c.3984.3985 1.0316.3985 1.4765-.0469l3.0941-3.1171c.3749-.3985.3749-.9141.0701-1.2891-5.4139-6.4219-15.2578-11.3203-25.7109-11.3203-2.2735 0-4.5235.2343-6.7031.6797l6.1875 6.164c8.2734-.164 15.7968 3.0235 21.5858 8.9297zm-43.6171-.0469c.4454.4454 1.1016.4219 1.5234-.0234 2.8125-3 6.1173-5.25 9.75-6.75l-4.9687-4.9688c-3.7969 1.9454-7.0781 4.5-9.4688 7.336-.3281.375-.3046.8906.0704 1.2891zm9.375 9.4219c.4688.4688 1.0782.4453 1.5235-.0703 2.6953-2.9765 7.0078-5.0625 11.3906-5.1094l-5.9532-5.9297c-4.3827 1.1719-8.1327 3.5626-10.5234 6.3985-.3515.3984-.3047.8906.0703 1.2656zm28.6406-2.2968 1.1954-1.1485c.3749-.375.4218-.8672.0703-1.2656-2.25-2.6954-5.7422-4.9454-9.8203-6.1407zm-15.4453 14.6249c.4922 0 .9375-.2578 1.8047-1.1015l5.4844-5.2735c.3516-.3281.4219-.8437.1172-1.2421-1.4766-1.8985-4.2422-3.5391-7.4063-3.5391-3.2344 0-6.0469 1.7109-7.5 3.6797-.2109.3281-.1406.7734.211 1.1015l5.4843 5.2735c.8672.8437 1.3125 1.1015 1.8047 1.1015z"/></svg>
+                        <div style="font-size: 14px;">Thumbnail not available offline</div>
+                    </div>
+                </div>
+                ${this.getCommonPreviewContent(videoInfo, isDarkMode)}
+                <div class="youtube-duration">${videoInfo.duration}</div>
+            </div>
+        `;
+	}
+	
 	getPlaylistPreviewHTML(playlistInfo, isDarkMode) {
 		return `
             <div style="display: flex; flex-direction: column; gap: 12px;">
@@ -890,11 +1002,8 @@ class YoutubePreview {
                         text-align: center;
                         color: ${isDarkMode ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.6)'};
                     ">
-                        <svg height="64" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 90 64">
-							<rect x="0" y="0" width="80" height="45" rx="4" fill="#d0d0d0"/>
-							<rect x="5" y="5" width="80" height="45" rx="4" fill="#b0b0b0"/>
-							<rect x="10" y="10" width="80" height="45" rx="4" fill="#ff0000"/>
-							<path d="M40 25 L60 32.5 L40 40 Z" fill="white"/>
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="${isDarkMode ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.6)'}">
+                            <path d="M3.5 6.5h17a1.5 1.5 0 0 1 0 3h-17a1.5 1.5 0 0 1 0-3zm0 6h17a1.5 1.5 0 0 1 0 3h-17a1.5 1.5 0 0 1 0-3zm0 6h17a1.5 1.5 0 0 1 0 3h-17a1.5 1.5 0 0 1 0-3z"/>
                         </svg>
                         <div style="font-size: 14px; margin-top: 8px;">Playlist</div>
                     </div>
@@ -939,7 +1048,6 @@ class YoutubePreview {
 		return this.getPlaylistPreviewHTML(playlistInfo, isDarkMode);
 	}
 
-	// Shared template for preview content to maintain consistency
 	getCommonPreviewContent(info, isDarkMode) {
 		// Note: 'info' can be either videoInfo or playlistInfo
 		const title = 'title' in info ? info.title : info.name;
