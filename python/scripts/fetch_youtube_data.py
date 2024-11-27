@@ -116,7 +116,7 @@ def get_channel_playlists(channel_url: str, channel_name: str) -> Dict:
 
 def process_channels(channels_data: list[dict]) -> None:
     all_videos = {"available_videos": {}}
-    all_playlists = {"playlists": {}}
+    all_playlists = {"available_playlists": {}}
     
     for channel in channels_data:
         channel_url = channel['url']
