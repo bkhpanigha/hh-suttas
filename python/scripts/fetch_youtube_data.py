@@ -7,9 +7,6 @@ available_videos_path = './python/generated/available_videos.json'
 playlists_path = './python/generated/available_playlists.json'
 
 def get_thumbnail_url(video_id: str) -> dict:
-    """
-    Try maxresdefault first, fallback to hqdefault
-    """
     maxres_url = f"https://i.ytimg.com/vi/{video_id}/maxresdefault.jpg"
     try:
         response = requests.head(maxres_url, allow_redirects=True)
@@ -62,8 +59,7 @@ def get_channel_videos(channel_url: str, channel_name: str) -> Dict:
                 videos[video_id] = {
                     "title": entry['title'],
                     "thumbnails": thumbnails,
-                    "duration": formatted_duration,
-                    "channel": channel_name
+                    "duration": formatted_duration
                 }
             
             return videos
@@ -100,15 +96,13 @@ def get_channel_playlists(channel_url: str, channel_name: str) -> Dict:
                 
                 playlist_id = entry['id']
                 
-                # Get playlist details
                 try:
                     playlist_url = f"https://www.youtube.com/playlist?list={playlist_id}"
                     playlist_details = ydl.extract_info(playlist_url, download=False)
                     
                     playlists[playlist_id] = {
                         "name": entry['title'],
-                        "video_count": len(playlist_details.get('entries', [])),
-                        "channel": channel_name
+                        "video_count": len(playlist_details.get('entries', []))
                     }
                 except Exception as e:
                     print(f"Error processing playlist {playlist_id}: {str(e)}")
@@ -121,15 +115,8 @@ def get_channel_playlists(channel_url: str, channel_name: str) -> Dict:
             return {}
 
 def process_channels(channels_data: list[dict]) -> None:
-    """
-    Process YouTube channels to extract videos and playlists.
-    
-    Args:
-        channels_data: List of dictionaries containing channel information
-                      Each dict should have 'url' and 'name' keys
-    """
     all_videos = {"available_videos": {}}
-    all_playlists = {"available_playlists": {}}
+    all_playlists = {"playlists": {}}
     
     for channel in channels_data:
         channel_url = channel['url']
@@ -137,19 +124,19 @@ def process_channels(channels_data: list[dict]) -> None:
         
         # Get videos
         channel_videos = get_channel_videos(channel_url, channel_name)
-        all_videos["available_videos"].update(channel_videos)
+        all_videos["available_videos"][channel_name] = channel_videos
         
         # Get playlists
         channel_playlists = get_channel_playlists(channel_url, channel_name)
-        all_playlists["available_playlists"].update(channel_playlists)
+        all_playlists["playlists"][channel_name] = channel_playlists
     
     # Save videos
-    print(f"Saving {len(all_videos['available_videos'])} videos to JSON file...")
+    print(f"Saving videos to JSON file...")
     with open(available_videos_path, 'w', encoding='utf-8') as f:
         json.dump(all_videos, f, ensure_ascii=False, indent=4)
         
     # Save playlists
-    print(f"Saving {len(all_playlists['playlists'])} playlists to JSON file...")
+    print(f"Saving playlists to JSON file...")
     with open(playlists_path, 'w', encoding='utf-8') as f:
         json.dump(all_playlists, f, ensure_ascii=False, indent=4)
     
