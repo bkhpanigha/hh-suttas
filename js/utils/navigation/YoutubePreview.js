@@ -1,8 +1,6 @@
 import { fetchAvailableVideos } from '../loadContent/fetchAvailableVideos.js';
 import { fetchAvailablePlaylists } from '../loadContent/fetchAvailablePlaylists.js';
 
-//Check and modify if preloadedimages are used, looks like they are fetched online everytime
-
 class YoutubePreview {
 	// Configuration constants
 	static MOBILE_BREAKPOINT = 768;
