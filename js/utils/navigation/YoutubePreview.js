@@ -1000,8 +1000,11 @@ class YoutubePreview {
                         text-align: center;
                         color: ${isDarkMode ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.6)'};
                     ">
-                        <svg width="48" height="48" viewBox="0 0 24 24" fill="${isDarkMode ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.6)'}">
-                            <path d="M3.5 6.5h17a1.5 1.5 0 0 1 0 3h-17a1.5 1.5 0 0 1 0-3zm0 6h17a1.5 1.5 0 0 1 0 3h-17a1.5 1.5 0 0 1 0-3zm0 6h17a1.5 1.5 0 0 1 0 3h-17a1.5 1.5 0 0 1 0-3z"/>
+                        <svg height="64" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 90 64">
+				<rect x="0" y="0" width="80" height="45" rx="4" fill="#d0d0d0"/>
+				<rect x="5" y="5" width="80" height="45" rx="4" fill="#b0b0b0"/>
+				<rect x="10" y="10" width="80" height="45" rx="4" fill="#ff0000"/>
+				<path d="M40 25 L60 32.5 L40 40 Z" fill="white"/>
                         </svg>
                         <div style="font-size: 14px; margin-top: 8px;">Playlist</div>
                     </div>
