@@ -16,7 +16,7 @@ class YoutubePreview {
 			videoCache: new Map(),
 			playlistCache: new Map(),
 			videoIndex: new Map(), // videoId -> {channelName, info}
-            playlistIndex: new Map(), // playlistId -> {channelName, info}
+			playlistIndex: new Map(), // playlistId -> {channelName, info}
 			preloadedContent: new Map(),
 			preloadedImages: new Map(),
 			isOnline: null,
