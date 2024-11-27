@@ -128,7 +128,7 @@ def process_channels(channels_data: list[dict]) -> None:
         
         # Get playlists
         channel_playlists = get_channel_playlists(channel_url, channel_name)
-        all_playlists["playlists"][channel_name] = channel_playlists
+        all_playlists["available_playlists"][channel_name] = channel_playlists
     
     # Save videos
     print(f"Saving videos to JSON file...")
