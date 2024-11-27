@@ -177,8 +177,8 @@ class YoutubePreview {
                 align-items: center;
                 gap: 6px;
                 text-decoration: none !important;
-                padding: 2px 8px 2px 8px;
-                border-radius: 6px;
+                padding: 1px 8px 1px 8px;
+                border-radius: 2px;
                 transition: background-color 0.2s ease, box-shadow 0.2s ease;
                 position: relative;
                 background: rgba(255, 0, 0, 0.1);
