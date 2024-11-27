@@ -11,13 +11,13 @@ class YoutubePreview {
 			previewElement: null,
 			currentLink: null,
 			isMobileDevice: this.checkIfMobile(),
-			availableVideos: null,
-			availablePlaylists: null,
-			videoCache: new Map(),
-			playlistCache: new Map(),
+			availableVideos: null, // Will only be fully populated on desktop
+			availablePlaylists: null, // Will only be fully populated on desktop
+			videoCache: new Map(), // For storing individual video data on mobile
+			playlistCache: new Map(), // For storing individual playlist data on mobile
 			preloadedContent: new Map(),
 			preloadedImages: new Map(),
-			isOnline: null,
+			isOnline: null, // Will be set during initialization
 			mouseTracker: {
 				isOverLink: false,
 				isOverPreview: false,
@@ -29,16 +29,20 @@ class YoutubePreview {
 			.catch(error => console.error('Initialization failed:', error));
 	}
 
+	// Initialize components based on device type
 	async initializeComponents() {
 		try {
+			// Check connectivity first
 			this.state.isOnline = await this.checkConnectivity();
 
 			if (this.state.isMobileDevice) {
+				// On mobile, only initialize basic components
 				await Promise.all([
 					this.initPreview(),
 					this.addYouTubeStyles()
 				]);
 			} else {
+				// On desktop, load everything
 				await Promise.all([
 					this.initPreview(),
 					this.addYouTubeStyles(),
@@ -55,6 +59,7 @@ class YoutubePreview {
 		}
 	}
 
+	// Fetch available playlists with error handling
 	async loadAvailablePlaylists() {
 		try {
 			this.state.availablePlaylists = await fetchAvailablePlaylists();
@@ -64,6 +69,7 @@ class YoutubePreview {
 		}
 	}
 
+	// Fetch available videos with error handling
 	async loadAvailableVideos() {
 		try {
 			this.state.availableVideos = await fetchAvailableVideos();
@@ -73,6 +79,7 @@ class YoutubePreview {
 		}
 	}
 
+	// Check internet connectivity with timeout using AbortController
 	async checkConnectivity() {
 		try {
 			if (!navigator.onLine) {
@@ -179,6 +186,7 @@ class YoutubePreview {
         `;
 	}
 
+	// Event handlers for desktop and mobile
 	initEventListeners() {
 		if (this.state.isMobileDevice) {
 			this.initMobileEventListeners();
@@ -202,14 +210,17 @@ class YoutubePreview {
 			passive: true
 		});
 
+		// Start hover state verification
 		this.startHoverCheck();
 	}
 
 	startHoverCheck() {
+		// Clear any existing interval
 		if (this.state.mouseTracker.checkInterval) {
 			clearInterval(this.state.mouseTracker.checkInterval);
 		}
 
+		// Check hover state every 100ms
 		this.state.mouseTracker.checkInterval = setInterval(() => {
 			if (!this.state.mouseTracker.isOverLink && !this.state.mouseTracker.isOverPreview) {
 				if (this.state.previewElement.style.display === 'block') {
@@ -220,6 +231,7 @@ class YoutubePreview {
 		}, 100);
 	}
 
+	// Extract playlist or video ID using regex pattern matching
 	extractYoutubeId(url) {
 		const playlistRegExp = /[?&]list=([^#\&\?]*)/;
 		const playlistMatch = url.match(playlistRegExp);
@@ -248,6 +260,7 @@ class YoutubePreview {
 		const link = event.target.closest('a[href*="youtube.com"]:not(.links-area a), a[href*="youtu.be"]:not(.links-area a)');
 		const preview = event.target.closest('.youtube-preview');
 
+		// If hovering a YouTube link
 		if (link) {
 			this.state.mouseTracker.isOverLink = true;
 			this.state.currentLink = link;
@@ -256,9 +269,11 @@ class YoutubePreview {
 			if (!result) return;
 
 			if (result.type === 'playlist' && this.state.availablePlaylists?.[result.id]) {
+				// If link to playlist
 				const playlistInfo = this.state.availablePlaylists[result.id];
 				this.showPlaylistPreview(playlistInfo, result.id, event);
 			} else if (result.type === 'video' && this.state.availableVideos?.[result.id]) {
+				// If link to video
 				const videoInfo = this.state.availableVideos[result.id];
 				this.showPreview(videoInfo, event);
 			}
@@ -270,6 +285,7 @@ class YoutubePreview {
 	}
 
 	handleMouseLeave(event) {
+		// Check if we exit youtube link or its preview
 		const link = event.target.closest('a[href*="youtube.com"]:not(.links-area a), a[href*="youtu.be"]:not(.links-area a)');
 		const preview = event.target.closest('.youtube-preview');
 
@@ -283,17 +299,19 @@ class YoutubePreview {
 	}
 
 	handleDesktopClick(event) {
-		if (this.state.isMobileDevice) return;
+		if (this.state.isMobileDevice) return; // Only handle for desktop
 
 		const clickedPreview = event.target.closest('.youtube-preview');
 		const clickedLink = event.target.closest('a[href*="youtube.com"]:not(.links-area a), a[href*="youtu.be"]:not(.links-area a)');
 
+		// If click is outside preview and outside YouTube link, hide preview
 		if (!clickedPreview && !clickedLink && this.state.previewElement.style.display === 'block') {
 			this.hidePreview();
 			this.state.currentLink = null;
 		}
 	}
 
+	// Throttled mousemove handler for performance optimization
 	handleMouseMove(event) {
 		const now = Date.now();
 		if (now - this.state.lastMoveTime < YoutubePreview.THROTTLE_DELAY) return;
@@ -308,6 +326,7 @@ class YoutubePreview {
 	}
 
 	handleScroll() {
+		// Force check hover state on scroll
 		if (!this.state.isMobileDevice) {
 			this.verifyHoverState();
 		}
@@ -338,9 +357,11 @@ class YoutubePreview {
 		const result = this.extractYoutubeId(link.href);
 		if (!result) return;
 
+		// Show loading state
 		this.showLoadingPreview();
 
 		try {
+			// Load data if not cached
 			const contentData = await this.loadContentData(result.id);
 
 			if (!contentData) {
@@ -474,6 +495,7 @@ class YoutubePreview {
 		}
 	}
 
+	// Force browser repaint for smooth animations using requestAnimationFrame
 	showPreview(videoInfo, event) {
 		const result = this.extractYoutubeId(this.state.currentLink.href);
 		if (!result) return;
@@ -644,6 +666,7 @@ class YoutubePreview {
 		this.state.previewElement.style.cssText = styles;
 		this.state.previewElement.innerHTML = html;
 
+		// Force repaint for smooth animation
 		requestAnimationFrame(() => {
 			this.state.previewElement.style.display = 'block';
 			this.state.previewElement.style.opacity = '1';
@@ -688,6 +711,7 @@ class YoutubePreview {
 		Object.assign(preview.style, position);
 	}
 
+	// Calculate preview position based on viewport constraints
 	calculatePreviewPosition({
 		previewRect,
 		cursorX,
@@ -696,25 +720,31 @@ class YoutubePreview {
 		viewportHeight,
 		margin
 	}) {
+		// Save initial preferred position
 		if (!this.state.initialPosition) {
 			const spaceAbove = cursorY;
 			const spaceBelow = viewportHeight - cursorY;
+			// Determine if we should show above or below based on initial position
 			this.state.initialPosition = spaceAbove > previewRect.height + margin ? 'above' : 'below';
 		}
 
+		// Calculate vertical position based on initial preference
 		let top;
 		if (this.state.initialPosition === 'above') {
 			top = cursorY - previewRect.height - margin;
+			// If preview would go off the top, force it below
 			if (top < margin) {
 				top = cursorY + margin;
 			}
 		} else {
 			top = cursorY + margin;
+			// If preview would go off the bottom, force it above
 			if (top + previewRect.height + margin > viewportHeight) {
 				top = cursorY - previewRect.height - margin;
 			}
 		}
 
+		// Calculate horizontal position
 		let left;
 		const spaceRight = viewportWidth - cursorX;
 		const spaceLeft = cursorX;
@@ -728,6 +758,7 @@ class YoutubePreview {
 				(viewportWidth - previewRect.width) / 2));
 		}
 
+		// Clear initial position when preview is hidden
 		if (!this.state.previewElement.style.display === 'none') {
 			this.state.initialPosition = null;
 		}
@@ -788,10 +819,12 @@ class YoutubePreview {
         `;
 	}
 
+	// Helper to create correct preview HTML based on online status
 	getPreviewHTML(videoInfo, isDarkMode) {
 		return this.state.isOnline ? this.getOnlinePreviewHTML(videoInfo, isDarkMode) : this.getOfflinePreviewHTML(videoInfo, isDarkMode);
 	}
 
+	// Helper to create correct mobile preview HTML based on online status
 	getOnlinePreviewHTML(videoInfo, isDarkMode) {
 		const result = this.extractYoutubeId(this.state.currentLink.href);
 		if (!result) return '';
@@ -906,6 +939,7 @@ class YoutubePreview {
 		return this.getPlaylistPreviewHTML(playlistInfo, isDarkMode);
 	}
 
+	// Shared template for preview content to maintain consistency
 	getCommonPreviewContent(info, isDarkMode) {
 		// Note: 'info' can be either videoInfo or playlistInfo
 		const title = 'title' in info ? info.title : info.name;
