@@ -994,7 +994,6 @@ class YoutubePreview {
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    min-height: 180px;
                 ">
                     <div style="
                         text-align: center;
@@ -1006,7 +1005,7 @@ class YoutubePreview {
 				<rect x="10" y="10" width="80" height="45" rx="4" fill="#ff0000"/>
 				<path d="M40 25 L60 32.5 L40 40 Z" fill="white"/>
                         </svg>
-                        <div style="font-size: 14px; margin-top: 8px;">Playlist</div>
+                        <div style="font-size: 14px;">Playlist</div>
                     </div>
                 </div>
                 <div style="padding: 0 4px;">
