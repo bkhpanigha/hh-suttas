@@ -21,19 +21,31 @@ jobs:
     - name: Install Python dependencies
       run: |
         python -m pip install --upgrade pip
-        python -m pip install yt-dlp
+        python -m pip install -U --pre "yt-dlp[default]"
         python -m pip install requests
 
-    - name: Run fetchAvailableVideos.py script
-      run: python python/scripts/fetch_videos_data.py
+    - name: Run fetch_youtube_data.py script
+      run: python python/scripts/fetch_youtube_data.py
 
-    - name: Commit and push changes if markdown files were created
+    - name: Commit and push changes if files were modified
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
+        
+        changed=false
+        
         if ! git diff --exit-code python/generated/available_videos.json; then
           git add python/generated/available_videos.json
-          git commit -m "Update Available Videos Data"
+          changed=true
+        fi
+        
+        if ! git diff --exit-code python/generated/available_playlists.json; then
+          git add python/generated/available_playlists.json
+          changed=true
+        fi
+        
+        if [ "$changed" = true ]; then
+          git commit -m "Update Available Videos and Playlists Data"
           git push
         else
           echo "No changes to commit."
