@@ -65,6 +65,7 @@
     "js/utils/loadContent/activateEventListeners.js",
     "js/utils/loadContent/addNavbar.js",
     "js/utils/loadContent/buildSutta.js",
+    "js/utils/loadContent/fetchAvailablePlaylists.js",
     "js/utils/loadContent/fetchAvailableSuttas.js",
     "js/utils/loadContent/fetchAvailableVideos.js",
     "js/utils/loadContent/getSuttas.js",
