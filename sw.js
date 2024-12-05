@@ -1,4 +1,4 @@
-const version = 'v7'; // Update this version manually when filesToCache changes
+const version = 'v8'; // Update this version manually when filesToCache changes
 
 // static files to cache
 const filesToCache = [
@@ -6,6 +6,7 @@ const filesToCache = [
   "RobotoSerif-Regular.ttf",
   "../../python/generated/available_suttas.json",
   "../../python/generated/available_videos.json",
+  "../../python/generated/available_playlists.json",
   "index.css",
   "index.html",
   "index.js",
