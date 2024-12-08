@@ -72,7 +72,12 @@ jobs:
         run: |
           git add -A
           git commit -m "Auto-commit changes from GitHub Actions"
-          git push
+          
+          # Pull the latest changes from the remote main branch to avoid non-fast-forward push
+          git pull --rebase origin main
+
+          # Push the changes to the remote repository
+          git push origin main
 
   test-and-merge:
     needs: update-suttas-list
