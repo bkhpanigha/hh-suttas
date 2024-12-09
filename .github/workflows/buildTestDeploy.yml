@@ -100,3 +100,29 @@ jobs:
           git pull origin main
           git checkout -b gh-pages
           git push -f origin gh-pages
+          
+  test-and-merge-prod:
+    if: github.repository == 'bkhpanigha/hh-suttas-live'
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18.x'
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run Tests
+        run: npm test
+
+      - name: Merge to gh-pages
+        if: success() && github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          git checkout main
+          git pull origin main
+          git checkout -b gh-pages
+          git push -f origin gh-pages
