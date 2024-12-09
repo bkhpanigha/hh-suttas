@@ -10,6 +10,7 @@ on:
 
 jobs:
   update-suttas-list:
+    if: github.repository == 'bkhpanigha/hh-suttas'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
