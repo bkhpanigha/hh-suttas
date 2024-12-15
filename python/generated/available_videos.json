@@ -1,6 +1,13 @@
 {
     "available_videos": {
         "Hillside Hermitage": {
+            "0V7SRhxBeEo": {
+                "title": "Purpose of Anapanasati",
+                "thumbnails": {
+                    "maxresdefault": "https://i.ytimg.com/vi/0V7SRhxBeEo/maxresdefault.jpg"
+                },
+                "duration": "44:03"
+            },
             "XbWQVjxYkaY": {
                 "title": "Demystifying Anapanasati",
                 "thumbnails": {
@@ -3013,6 +3020,13 @@
             }
         },
         "Samanadipa Hermitage": {
+            "cqW9ti9somc": {
+                "title": "The Buddha's Instructions on Samatha and Vipassana [incl. Q&A]",
+                "thumbnails": {
+                    "maxresdefault": "https://i.ytimg.com/vi/cqW9ti9somc/maxresdefault.jpg"
+                },
+                "duration": "01:06:02"
+            },
             "d_SAfXSTpZk": {
                 "title": "Why the Four Noble Truths are One Insight (and Why That Matters)",
                 "thumbnails": {
