@@ -914,6 +914,7 @@ bookmarkButton{
 .suttaNavigation {
   display: flex;
   justify-content: space-between;
+  gap: 0.5em;
 
   a {
     display: flex;
@@ -922,7 +923,7 @@ bookmarkButton{
     cursor: pointer;
     border-radius: 48px;
     padding: 15px;
-    width: max-content;
+    width: 50%;
     background-color: var(--orange-yellow);
     text-decoration: none;
     color: white;
@@ -934,5 +935,10 @@ bookmarkButton{
     &:hover {
       filter: brightness(85%);
     }
+  }
+
+  .rightAlign {
+    align-items: flex-end;
+    text-align: right;
   }
 }
