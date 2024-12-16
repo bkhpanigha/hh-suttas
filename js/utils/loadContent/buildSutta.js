@@ -13,11 +13,11 @@ const getSuttaNavigation = (slug, availableSuttasJson) => {
     if (!sutta) return "<div></div>";
 
     const id = sutta.id.replace(/\s+/g, '').toLowerCase();
-    return `<a href="/?q=${id}" style="${linkStyle}"><span>${text}</span><span>${sutta.id}: ${sutta.title}</span></a>`
+    return `<a href="/?q=${id}" class="${linkStyle}"><span>${text}</span><span>${sutta.id}: ${sutta.title}</span></a>`
   }
 
   const previousSuttaButton = createSuttaNavigationButton("← Previous", slugIndex - 1);
-  const nextSuttaButton = createSuttaNavigationButton("Next →", slugIndex + 1, "align-items: flex-end");
+  const nextSuttaButton = createSuttaNavigationButton("Next →", slugIndex + 1, "rightAlign");
 
   return `<div class="suttaNavigation">${previousSuttaButton}${nextSuttaButton}</div>`
 }
