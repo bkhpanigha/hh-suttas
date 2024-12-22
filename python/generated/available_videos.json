@@ -1,6 +1,13 @@
 {
     "available_videos": {
         "Hillside Hermitage": {
+            "KFjC1yG1N5Q": {
+                "title": "Buddhism vs. The World",
+                "thumbnails": {
+                    "maxresdefault": "https://i.ytimg.com/vi/KFjC1yG1N5Q/maxresdefault.jpg"
+                },
+                "duration": "18:32"
+            },
             "0V7SRhxBeEo": {
                 "title": "Purpose of Anapanasati",
                 "thumbnails": {
@@ -3035,7 +3042,7 @@
                 "duration": "50:01"
             },
             "WHe_SUs2K5s": {
-                "title": "Abandon These Five Qualities to End Suffering | Early Buddhism",
+                "title": "Abandon These Five Qualities to End Suffering",
                 "thumbnails": {
                     "maxresdefault": "https://i.ytimg.com/vi/WHe_SUs2K5s/maxresdefault.jpg"
                 },
