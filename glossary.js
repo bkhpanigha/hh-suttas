@@ -17,7 +17,7 @@ function loadGlossary() {
         var output = '';
   
         // Get the glossary terms and sort them alphabetically
-          var terms = Object.keys(glossary).sort();
+          var terms = Object.keys(glossary);
     
           // Iterate over the sorted terms
           for (var i = 0; i < terms.length; i++) {
