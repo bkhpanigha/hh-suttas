@@ -1,6 +1,13 @@
 {
     "available_videos": {
         "Hillside Hermitage": {
+            "qtyfhvGb5gw": {
+                "title": "Dispassion or Depression",
+                "thumbnails": {
+                    "maxresdefault": "https://i.ytimg.com/vi/qtyfhvGb5gw/maxresdefault.jpg"
+                },
+                "duration": "05:30"
+            },
             "KFjC1yG1N5Q": {
                 "title": "Buddhism vs. The World",
                 "thumbnails": {
@@ -3027,6 +3034,13 @@
             }
         },
         "Samanadipa Hermitage": {
+            "rYvOuqZK63g": {
+                "title": "How the Buddha Gained Unshakeable Faith in Awakening",
+                "thumbnails": {
+                    "maxresdefault": "https://i.ytimg.com/vi/rYvOuqZK63g/maxresdefault.jpg"
+                },
+                "duration": "46:27"
+            },
             "cqW9ti9somc": {
                 "title": "The Buddha's Instructions on Samatha and Vipassana [incl. Q&A]",
                 "thumbnails": {
