@@ -306,7 +306,8 @@ h5 {
 .dark h2,
 .dark h3,
 .dark h4,
-.dark h5 {
+.dark h5,
+.definition{
   color: var(--off-white);
 }
 
