@@ -1,7 +1,5 @@
 import { preventFlashing } from './js/utils/navigation/preventFlashing.js';
 
-var converter = new showdown.Converter();
-
 function loadGlossary() {
     fetch('glossary.json')
       .then(response => {
@@ -11,7 +9,6 @@ function loadGlossary() {
         return response.json();
       })
       .then(data => {
-        var converter = new showdown.Converter();
         var glossaryDiv = document.getElementById('glossaryArea');
         var glossary = data.glossary;
         var output = '';
@@ -22,8 +19,7 @@ function loadGlossary() {
           // Iterate over the sorted terms
           for (var i = 0; i < terms.length; i++) {
             var term = terms[i];
-            var definitionMarkdown = glossary[term];
-            var definitionHtml = converter.makeHtml(definitionMarkdown);
+            var definitionHtml = glossary[term];
     
             // Build the HTML output
             output += '<div class="glossary-item">';
