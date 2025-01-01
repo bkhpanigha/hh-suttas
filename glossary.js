@@ -9,17 +9,19 @@ function loadGlossary() {
         return response.json();
       })
       .then(data => {
+        var converter = new showdown.Converter();
         var glossaryDiv = document.getElementById('glossaryArea');
         var glossary = data.glossary;
         var output = '';
   
         // Get the glossary terms and sort them alphabetically
-          var terms = Object.keys(glossary);
+          var terms = Object.keys(glossary).sort();
     
           // Iterate over the sorted terms
           for (var i = 0; i < terms.length; i++) {
             var term = terms[i];
-            var definitionHtml = glossary[term];
+            var definitionMarkdown = glossary[term];
+            var definitionHtml = converter.makeHtml(definitionMarkdown);
     
             // Build the HTML output
             output += '<div class="glossary-item">';
