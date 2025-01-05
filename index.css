@@ -497,20 +497,29 @@ br {
   filter: invert(100%);
 }
 
+#buttonsContainer,
+#epubButtonsContainer{
+  display: flex;
+}
+
+#epubButtonsContainer{
+  margin-top: .2rem;
+}
+
 #infoButton,
 #epubInfoButton{
   border: none;
-  margin-left: -.3em;
   cursor: pointer;
   outline: none;
   background-color: transparent;
-  margin: .1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #infoButton img,
 #epubInfoButton img{
   width: 14px;
-  height: auto;
   filter: opacity(60%);
 }
 
@@ -574,7 +583,6 @@ a:hover {
   color: var(--off-white);
 }
 
-
 .side-by-side .segment {
   display: flex;
   flex-direction: row;
@@ -589,7 +597,6 @@ a:hover {
 .segment {
   word-break: break-word
 }
-
 
 .comment-text {
   position: absolute;
@@ -643,24 +650,19 @@ a:hover {
 
 #cacheButton,
 #downloadEpubButton{
-  position:relative;
-  /* Example padding, adjust as needed */
+  position: relative;
   background-color: var(--light-gray);
-  /* Example background color, adjust as needed */
   color: var(--black);
-  /* Text color */
-  /* border: 0.1px solid var(--dark-gray); */
-  /* Example border, adjust as needed */
   cursor: pointer;
-  /* Changes cursor to pointer on hover */
   top: -10%;
   margin-left: auto;
   margin-right: 0em;
+  padding: .1rem 0;
   font-size: 12px;
   font-family: "RobotoSerif", serif;
   background-color: transparent;
   border: 1px solid gray;
-  /* Optional: adds a border */
+  border-radius: 3px;
   color: black;
   filter: opacity(65%);
   width: 82px;
@@ -674,7 +676,6 @@ a:hover {
   justify-content: space-around;
   align-items: center;
   max-width: 150px;
-
 }
 
 .info-notification-box {
@@ -695,8 +696,6 @@ a:hover {
   /* min-width: 200px; */
   max-width: 400px;
   /* Adjust as needed */
- 
-
 }
 
 .dark #cacheButton,
@@ -876,6 +875,9 @@ bookmarkButton{
   }
   .links-area {
       margin: 1rem;
+  }
+  .tooltip{
+	  display: none;
   }
 }
 @media only screen and (max-width: 600px) {
