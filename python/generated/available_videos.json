@@ -1,6 +1,13 @@
 {
     "available_videos": {
         "Hillside Hermitage": {
+            "C2Uh_DC-8B4": {
+                "title": "When Repression is Good",
+                "thumbnails": {
+                    "maxresdefault": "https://i.ytimg.com/vi/C2Uh_DC-8B4/maxresdefault.jpg"
+                },
+                "duration": "06:45"
+            },
             "qtyfhvGb5gw": {
                 "title": "Dispassion or Depression",
                 "thumbnails": {
