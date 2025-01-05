@@ -23,7 +23,7 @@ export function showCopyButton(x, y, ids) {
       if (ids.length > 1) {
         const firstId = ids[0];
         const lastId = ids[ids.length - 1];
-        link = generateLink([firstId, lastId].join('-'));
+        link = generateLink([firstId, lastId].join('_'));
       } else if (ids.length === 1) {
         link = generateLink(ids[0]);
       }

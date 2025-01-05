@@ -16,7 +16,7 @@ export function generateLink(idOrRange) {
     if (typeof idOrRange === "string") {
       hash += idOrRange;
     } else if (Array.isArray(idOrRange) && idOrRange.length === 2) {
-      hash += `${idOrRange[0]}-${idOrRange[1]}`;
+      hash += `${idOrRange[0]}_${idOrRange[1]}`;
     } else {
       console.error("Invalid ID or Range format");
       return "";

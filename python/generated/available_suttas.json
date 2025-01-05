@@ -828,7 +828,7 @@
         },
         "sn45.55": {
             "id": "SN 45.55",
-            "title": "Accomplishment in through-the-origin attention (1st)",
+            "title": "Accomplishment in attention in light of the origin (1st)",
             "pali_title": "Yonisomanasikarasampadasutta",
             "html_path": "suttas/html/sn/sn45/sn45.55_html.json",
             "root_path": "suttas/root/sn/sn45/sn45.55_root-pli-ms.json",
@@ -948,6 +948,16 @@
             "translation_path": "suttas/translation_en/an/an3/an3.109_translation-en-anigha.json",
             "comment_path": "suttas/comment/an/an3/an3.109_comment-en-anigha.json",
             "date_added": "2024-10-01T17:31:01+02:00"
+        },
+        "an3.110": {
+            "id": "AN 3.110",
+            "title": "Amiss",
+            "pali_title": "Byapannasutta",
+            "html_path": "suttas/html/an/an3/an3.110_html.json",
+            "root_path": "suttas/root/an/an3/an3.110_root-pli-ms.json",
+            "translation_path": "suttas/translation_en/an/an3/an3.110_translation-en-anigha.json",
+            "comment_path": "suttas/comment/an/an3/an3.110_comment-en-anigha.json",
+            "date_added": "2024-11-13T20:01:23+01:00"
         },
         "an3.121": {
             "id": "AN 3.121",
@@ -1199,6 +1209,16 @@
             "date_added": "2024-05-15T18:43:56+02:00",
             "heading": "Wrong Meditation"
         },
+        "ud1.8": {
+            "id": "Ud 1.8",
+            "title": "With Saṅgāmaji",
+            "pali_title": "Sangamajisutta",
+            "html_path": "suttas/html/kn/ud/vagga1/ud1.8_html.json",
+            "root_path": "suttas/root/kn/ud/vagga1/ud1.8_root-pli-ms.json",
+            "translation_path": "suttas/translation_en/kn/ud/vagga1/ud1.8_translation-en-anigha.json",
+            "comment_path": "suttas/comment/kn/ud/vagga1/ud1.8_comment-en-anigha.json",
+            "date_added": "2024-11-13T20:01:36+01:00"
+        },
         "thag1.21": {
             "id": "Thag 1.21",
             "title": "Nigrodha",
@@ -1297,6 +1317,17 @@
             "comment_path": "suttas/comment/kn/snp/vagga5/snp5.9_comment-en-anigha.json",
             "date_added": "2024-09-13T09:37:58+02:00",
             "author": "Sister Medhini"
+        },
+        "iti80": {
+            "id": "Iti 80",
+            "title": "Thoughts",
+            "pali_title": "Vitakkasutta",
+            "html_path": "suttas/html/kn/iti/vagga9/iti80_html.json",
+            "root_path": "suttas/root/kn/iti/vagga9/iti80_root-pli-ms.json",
+            "translation_path": "suttas/translation_en/kn/iti/vagga9/iti80_translation-en-anigha.json",
+            "comment_path": "suttas/comment/kn/iti/vagga9/iti80_comment-en-anigha.json",
+            "date_added": "2024-11-05T17:48:40+01:00",
+            "heading": "Unwholesome Sympathy"
         }
     }
 }

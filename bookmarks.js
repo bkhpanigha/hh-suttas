@@ -1,5 +1,6 @@
 import { DEFAULT_BOOKMARK_DICT } from "./js/utils/misc/default_bookmark_dict.js";
 import { showNotification } from './js/utils/userActions/showNotification.js';
+import { preventFlashing } from './js/utils/navigation/preventFlashing.js';
 
 // TODO check if this is needed or move to utils
 const response = await fetch('python/generated/available_suttas.json');
@@ -103,8 +104,8 @@ async function displayBookmarks() {
         let key = bookmark;
         // Check if the key is a range
         let value;
-        if (key.includes('-')) {
-          const [startKey, endKey] = key.split('-');
+        if (key.includes('_')) {
+          const [startKey, endKey] = key.split('_');
           value = getRangeAsString(data, startKey, endKey);
         } else {
           value = data[key];
@@ -315,4 +316,12 @@ function displayPage() {
   displayBookmarks();
 }
 
-displayPage();
+try{
+  displayPage();
+} catch (error) {
+    console.error('[ERROR] Something went wrong:', error);
+}
+finally
+{
+  preventFlashing();
+}

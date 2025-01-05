@@ -1,4 +1,18 @@
-var converter = new showdown.Converter();
+import { preventFlashing } from './js/utils/navigation/preventFlashing.js';
+
+showdown.extension('palign', function() {
+  return [{
+    type: 'listener',
+    listeners: {
+      'blockGamut.before': function (event, text, converter, options, globals) {
+        text = text.replace(/^-:-([\s\S]+?)-:-$/gm, function (wm, txt) {
+          return '<div style="text-align: center;">' + converter.makeHtml(txt) + '</div>';
+        });
+        return text;
+      }
+    }
+  }];
+});
 
 function loadGlossary() {
     fetch('glossary.json')
@@ -9,13 +23,14 @@ function loadGlossary() {
         return response.json();
       })
       .then(data => {
-        var converter = new showdown.Converter();
+        var converter = new showdown.Converter({
+		  extensions: ['palign']
+		});
         var glossaryDiv = document.getElementById('glossaryArea');
         var glossary = data.glossary;
         var output = '';
   
-        // Get the glossary terms and sort them alphabetically
-          var terms = Object.keys(glossary).sort();
+          var terms = Object.keys(glossary);
     
           // Iterate over the sorted terms
           for (var i = 0; i < terms.length; i++) {
@@ -39,4 +54,12 @@ function loadGlossary() {
       });
   }
 
-  loadGlossary();
+try{
+    loadGlossary();
+} catch (error) {
+    console.error('[ERROR] Something went wrong:', error);
+}
+finally
+{
+    preventFlashing();
+}

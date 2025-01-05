@@ -8,6 +8,21 @@
   src: url("RobotoSerif-Medium.ttf");
 }
 
+@font-face {
+  font-family: "RobotoSerif Bold";
+  src: url("RobotoSerif-Bold.ttf");
+}
+
+html.light,
+body.light {
+  background-color: var(--light-off-white);
+}
+
+html.dark,
+body.dark {
+  background-color: var(--darker-gray);
+}
+
 b{
   font-family: "RobotoSerif Medium";
   font-weight: normal;
@@ -20,21 +35,26 @@ b{
   --black: rgb(0, 0, 0);
   --dark-gray: #5a5a5a;
   --darker-gray: #181a1b;
+  --charcoal: #333;
   --dark-orange: #8B4000;
+  --orange: #D55600;
   --light-orange: #FFAC1C;
+  --orange-yellow: #BD970D;
   --light-gray: #8f8f8f;
+  --lighter-gray: #ccc;
   --dark-blue: #42426a;
   --blue: #3434be;
+  --dark-brown: #3F3234;
+  --darker-brown: #201B1F;
+  --red: #CC0000;
+  --darker-red: #A70000;
+  --gold: #c4a853;
+  --darker-gold: #b39440;
 }
 
 body {
-  margin: 1rem 3rem;
-  background-color: var(--light-off-white);
+  margin: 0 3rem;
   font-family: "RobotoSerif", serif;
-}
-
-body.dark {
-  background-color: var(--darker-gray);
 }
 
 #form {
@@ -81,17 +101,21 @@ body.dark {
 .dark .comment-highlight{
   font-family: "RobotoSerif Medium";
   color: var(--white); /* White text for dark background */
+  box-shadow: 0px 2px 3px rgba(255, 255, 255, 0.2);
   font-size: 1.1rem;
 }
 
 .light .highlight {
   font-family: "RobotoSerif Medium";
   box-shadow: 0px 2px 3px rgba(0, 0, 0, .2);
+  font-size: 1.1rem;
 }
 
-.light .comment-highlight{
+.light .comment-highlight {
   font-family: "RobotoSerif Medium";
+  font-size: 1.1rem;
 }
+
 
 .light .comment-highlight > span{
   display: inline;
@@ -121,18 +145,23 @@ body.dark {
   align-items: center;
   flex-wrap: wrap;
   gap: .3rem;
-  margin-top: -40px;
+  margin-bottom: 5px;
+  margin-top: -37px;
 }
 
 .icon-button {
-  color: gray;
+  color: #3F3234;
   border: none;
   background: none;
   cursor: pointer;
 }
 
+.dark .icon-button{
+  color: #AAA;
+}
+
 .icon-button:hover {
-  color: black;
+  color: #201B1F;
 }
 
 .dark .icon-button:hover {
@@ -149,6 +178,14 @@ body.dark {
   margin-top: 2px;
   color: gray;
   pointer-events: none;
+}
+
+.advanced-icon{
+	right: 28px;
+	position: relative;
+	margin-top: 3px;
+	color: gray;
+	cursor: pointer;
 }
 
 p {
@@ -226,6 +263,27 @@ span.eng-lang {
 
 .highlight > span.pli-lang {
   margin-top: .4rem;
+}
+
+.eng-lang .searchTerm,
+.comment-highlight .searchTerm {
+	color: var(--darker-gold);
+	font-family: "RobotoSerif Bold";
+}
+
+.comment-highlight a .searchTerm{
+	text-decoration: underline;
+}
+
+.dark .eng-lang .searchTerm,
+.dark .comment-highlight .searchTerm {
+	color: var(--gold);
+}
+
+.pli-lang .searchTerm{
+	color: var(--orange);
+	font-weight: bold;
+	font-size: 1.1rem;
 }
 
 p,
@@ -389,12 +447,11 @@ br {
   gap: 1rem;
   justify-content: left;
   align-items: center;
-  margin-top: 2rem;
+  min-height: 45px;
 }
 
 .links-area a {
-  position: relative;
-  top: 0;
+  display: flex;
   transition: all ease 0.5s;
   filter: opacity(40%);
 }
@@ -423,6 +480,7 @@ br {
   cursor: pointer;
   outline: none;
   background-color: transparent;
+  margin: .1rem;
 }
 
 #infoButton img,
@@ -461,7 +519,7 @@ a:hover {
 }
 
 .foreword-link {
-  color: rgb(189, 151, 13); /* Set the text color to blue */
+  color: var(--orange-yellow);
   text-decoration: none; /* Remove any default underline */
   text-align:center;
   font-size:30px;
@@ -587,11 +645,9 @@ a:hover {
 #container {
   position: relative;
   margin-left:auto;
-  margin-bottom: 10px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
- 
   align-items: center;
   max-width: 150px;
 
@@ -740,7 +796,7 @@ a:hover {
 .sutta-box {
   flex: 0 0 auto;
   width: 180px; /* Reduced width for compactness */
-  border: 1px solid #ccc;
+  border: 1px solid var(--lighter-gray);
   padding: 8px; /* Reduced padding for compactness */
   text-align: center;
 }
@@ -853,4 +909,36 @@ bookmarkButton{
 }
 .hidden{
   display: none;
+}
+
+.suttaNavigation {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5em;
+
+  a {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.9rem;
+    cursor: pointer;
+    border-radius: 48px;
+    padding: 15px;
+    width: 50%;
+    background-color: var(--orange-yellow);
+    text-decoration: none;
+    color: white;
+
+    span:nth-child(2) {
+      font-size: 1rem;
+    }
+
+    &:hover {
+      filter: brightness(85%);
+    }
+  }
+
+  .rightAlign {
+    align-items: flex-end;
+    text-align: right;
+  }
 }

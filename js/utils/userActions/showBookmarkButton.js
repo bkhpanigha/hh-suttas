@@ -27,7 +27,7 @@ export function showBookmarkButton(x, y, ids) {
       if (ids.length > 1) {
         const firstId = ids[0];
         const lastId = ids[ids.length - 1];
-        hash = `${firstId}-${lastId}`;
+        hash = `${firstId}_${lastId}`;
       } else if (ids.length === 1) {
         hash = ids[0];
       }

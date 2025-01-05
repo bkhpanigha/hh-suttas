@@ -20,10 +20,10 @@ import activateDownloadEPUBButton from "../eventListeners/activateDownloadEPUBBu
 import activateMessageListener from "../eventListeners/activateMessageListener.js";
 import activateHashChangeListener from "../eventListeners/activateHashChangeListener.js";
 import activateHandleTextSelection from "../eventListeners/activateHandleTextSelection.js";
+import activateYoutubePreview from '../eventListeners/activateYoutubePreview.js';
 
 export function activateEventListeners(availableSuttasJson)
 {
-    activateSideBySideEventListenerKeyUp();
     activateHomeButton();
     activateThemeButton();
     activateRefreshButton();
@@ -35,11 +35,16 @@ export function activateEventListeners(availableSuttasJson)
     activateDownloadEPUBButton();
     activateMessageListener();
     
-    if (!window.location.href.endsWith("/bookmarks.html") && !window.location.href.endsWith("/glossary.html") && !window.location.href.endsWith("/comments.html")){
+    if (!window.location.href.endsWith("/bookmarks.html") 
+    && !window.location.href.endsWith("/glossary.html") 
+    && !window.location.href.endsWith("/comments.html") 
+    && !window.location.href.endsWith("/advanced-search.html")){
+	activateSideBySideEventListenerKeyUp();
         activateSearchBar(availableSuttasJson);
         activateViewForewordAndGoBackButtons(availableSuttasJson);
         activateHashChangeListener();
         activateForm();
         activateHandleTextSelection();
+	activateYoutubePreview();
     }
 }
