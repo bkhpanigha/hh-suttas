@@ -547,7 +547,7 @@ a:hover {
 .hide-button {
   color: var(--black);
   border: solid 2px gray;
-  padding: .3rem;
+  padding: .2rem .3rem;
   border-radius: 3px;
 }
 
@@ -873,8 +873,7 @@ bookmarkButton{
   #top-buttons.button-container{
     margin-top: initial;
   }
-  .links-area,
-  .button-area  {
+  .links-area{
       margin: 1rem;
   }
   .tooltip{
