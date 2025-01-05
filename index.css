@@ -154,6 +154,7 @@ body {
   border: none;
   background: none;
   cursor: pointer;
+  position: relative;
 }
 
 .dark .icon-button{
@@ -168,8 +169,33 @@ body {
   color: white;
 }
 
-.icon-button svg {
-  margin-top: 3px;
+.tooltip {
+    visibility: hidden;
+    position: absolute;
+    top: 120%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--light-off-white);
+    color: var(--darker-gray);
+	border: 1px solid gray;
+    text-align: center;
+    border-radius: 3px;
+    padding: 5px;
+    font-size: 12px;
+    white-space: nowrap;
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.dark .tooltip{
+	background-color: var(--dark-gray);
+    color: var(--off-white);
+}
+
+.icon-button:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
 }
 
 .search-icon {
@@ -453,26 +479,24 @@ br {
 .links-area a {
   display: flex;
   transition: all ease 0.5s;
-  filter: opacity(40%);
 }
 
-.links-area a:hover {
-  top: -3px;
+.links-area a img {
+  filter: opacity(60%);
+}
+
+.links-area a:hover img {
   filter: opacity(100%);
 }
 
-.dark .links-area a {
-  filter: invert(90%);
-}
-
-.dark .links-area a:hover {
-  filter: invert(200%);
+.dark .links-area a img {
+  filter: invert(90%) opacity(100%);
 }
 
 .dark .info-btn {
-
   filter: invert(100%);
 }
+
 #infoButton,
 #epubInfoButton{
   border: none;
