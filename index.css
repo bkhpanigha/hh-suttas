@@ -197,11 +197,14 @@ body {
 }
 
 .advanced-icon{
-	right: 28px;
-	position: relative;
-	margin-top: 3px;
-	color: gray;
-	cursor: pointer;
+  right: 28px;
+  position: relative;
+  color: gray;
+  cursor: pointer;
+}
+
+.advanced-icon .icon-button{
+  padding: 0;
 }
 
 p {
