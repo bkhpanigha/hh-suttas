@@ -984,14 +984,14 @@ bookmarkButton{
   flex-direction: column;
   align-items: center;
   padding: 0.4rem 0.8rem;
-  color: var(--dark-brown);
+  color: gray;
   font-family: "RobotoSerif Medium", serif;
   transition: background-color 0.3s ease, color 0.3s ease;
+  border-radius: 5px;
 }
 
 #top-buttons .icon-button:hover {
   background-color: var(--lighter-gray);
-  border-radius: 5px;
   color: var(--darker-brown);
 }
 
