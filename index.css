@@ -984,7 +984,7 @@ bookmarkButton{
   flex-direction: column;
   align-items: center;
   padding: 0.4rem 0.8rem;
-  color: gray;
+  color: var(--dark-brown);
   font-family: "RobotoSerif Medium", serif;
   transition: background-color 0.3s ease, color 0.3s ease;
   border-radius: 5px;
@@ -992,6 +992,14 @@ bookmarkButton{
 
 #top-buttons .icon-button:hover {
   background-color: var(--lighter-gray);
+  color: var(--darker-brown);
+}
+
+.dark #top-buttons .icon-button{
+  color: gray;
+}
+
+.dark #top-buttons .icon-button:hover{
   color: var(--darker-brown);
 }
 
