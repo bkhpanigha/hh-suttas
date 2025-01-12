@@ -7,7 +7,7 @@
             },
             "PLUPMn2PfEqIznTtHJRMLWYnHm8n2Zx1RU": {
                 "name": "Useful Recaps",
-                "video_count": 9
+                "video_count": 10
             },
             "PLUPMn2PfEqIz0IkSCaxmvaU-0LVuYf6s0": {
                 "name": "Majjhima Nikaya Sutta Study",
@@ -111,13 +111,17 @@
             }
         },
         "Samanadipa Hermitage": {
+            "PLC5srPqW-H2M9E9uw0xQxZzbx0NGFc48i": {
+                "name": "The Four Noble Truths",
+                "video_count": 3
+            },
             "PLC5srPqW-H2PS6zgb9TWLWHgFdkAjMzdO": {
                 "name": "Right Recollection",
                 "video_count": 6
             },
             "PLC5srPqW-H2PAHf1B_KE4ZrfUWXAGKqIS": {
                 "name": "Samanadipa Hermitage Dhamma discussions",
-                "video_count": 26
+                "video_count": 27
             }
         }
     }
