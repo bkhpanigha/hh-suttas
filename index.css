@@ -69,7 +69,7 @@ body {
 }
 
 #search-bar {
-  border: 2px solid gray;
+  border: 1px solid gray;
   border-radius: 20px;
   background-color: transparent;
   color: black;
@@ -114,7 +114,7 @@ search-button:focus {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
   padding: 0 1rem;
-  border: 2px solid gray;
+  border: 1px solid gray;
 }
 
 .dark .highlight,
