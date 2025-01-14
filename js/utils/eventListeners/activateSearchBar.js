@@ -7,7 +7,7 @@ export default function activateSearchBar() {
 	// form's onsubmit
 	if (searchForm) {
 		searchForm.onsubmit = (event) => {
-			event.preventDefault(); // Empêcher le comportement par défaut du formulaire
+			event.preventDefault(); // Prevents default form behavior
 			performStandardSearch();
 		};
 	}
