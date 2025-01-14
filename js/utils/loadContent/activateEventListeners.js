@@ -39,12 +39,11 @@ export function activateEventListeners(availableSuttasJson)
     && !window.location.href.endsWith("/glossary.html") 
     && !window.location.href.endsWith("/comments.html") 
     && !window.location.href.endsWith("/advanced-search.html")){
-	activateSideBySideEventListenerKeyUp();
-        activateSearchBar(availableSuttasJson);
+        activateSideBySideEventListenerKeyUp();
         activateViewForewordAndGoBackButtons(availableSuttasJson);
         activateHashChangeListener();
         activateForm();
         activateHandleTextSelection();
-	activateYoutubePreview();
+        activateYoutubePreview();
     }
 }
