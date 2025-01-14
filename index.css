@@ -218,9 +218,9 @@ search-button:focus {
 }
 
 .advanced-icon {
-  right: 28px;
+  right: 55px;
   position: relative;
-  margin-top: 3px;
+  margin-top: 4px;
   color: gray;
   cursor: pointer;
 }
