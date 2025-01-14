@@ -117,6 +117,10 @@ search-button:focus {
   border: 1px solid gray;
 }
 
+.dark #search-button{
+  background-color: var(--darker-gray);
+}
+
 .dark .highlight,
 .dark .comment-highlight {
   font-family: "RobotoSerif Medium";
