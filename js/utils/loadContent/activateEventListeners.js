@@ -40,9 +40,9 @@ export function activateEventListeners(availableSuttasJson)
     && !window.location.href.endsWith("/comments.html") 
     && !window.location.href.endsWith("/advanced-search.html")){
         activateSideBySideEventListenerKeyUp();
+        activateSearchBar();		
         activateViewForewordAndGoBackButtons(availableSuttasJson);
         activateHashChangeListener();
-        activateForm();
         activateHandleTextSelection();
         activateYoutubePreview();
     }
