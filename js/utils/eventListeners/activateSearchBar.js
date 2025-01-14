@@ -1,8 +1,10 @@
 import { performStandardSearch } from "../userActions/performStandardSearch.js";
+import getDocumentAreas from "../getDocumentAreas.js";
 
 export default function activateSearchBar() {
+	const {searchForm, searchButton} = getDocumentAreas();
+	
 	// form's onsubmit
-	const searchForm = document.querySelector("#search-form");
 	if (searchForm) {
 		searchForm.onsubmit = (event) => {
 			event.preventDefault(); // Empêcher le comportement par défaut du formulaire
@@ -11,7 +13,6 @@ export default function activateSearchBar() {
 	}
 
 	// Button's onclick
-	const searchButton = document.querySelector("#search-button");
 	if (searchButton) {
 		searchButton.onclick = () => {
 			performStandardSearch();
