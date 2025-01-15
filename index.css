@@ -23,7 +23,7 @@ body.dark {
   background-color: var(--darker-gray);
 }
 
-b{
+b {
   font-family: "RobotoSerif Medium";
   font-weight: normal;
 }
@@ -57,36 +57,44 @@ body {
   font-family: "RobotoSerif", serif;
 }
 
-#form {
+#search-form {
   text-align: center;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  width: 375px;
+  position: relative;
+  margin: 0 auto;
 }
 
 #search-bar {
-  border: 2px solid gray;
+  border: 1px solid gray;
   border-radius: 20px;
   background-color: transparent;
   color: black;
   width: 375px;
   height: 30px;
   font-size: 16px;
-  text-indent: 27.5px;
+  text-indent: 12px;
+  padding-right: 4.5rem;
 }
 
 .dark #search-bar {
   color: white;
 }
 
-#search-bar:hover, #search-bar:focus {
+#search-bar:hover,
+#search-bar:focus,
+#search-button:hover,
+search-button:focus {
   background: #eae7e7;
   box-shadow: 0 1px 5px 0 #898787;
   border-color: transparent;
 }
 
-.dark #search-bar:hover, .dark #search-bar:focus {
+.dark #search-bar:hover,
+.dark #search-bar:focus {
   background: #2b2e34;
   box-shadow: 0 1px 6px 0 #575353;
   border-color: transparent;
@@ -97,10 +105,27 @@ body {
   outline: none;
 }
 
+#search-button {
+  position: absolute;
+  right: 15px;
+  height: 100%;
+  background-color: var(--off-white);
+  border-radius: 20px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  padding: 0 1rem;
+  border: 1px solid gray;
+}
+
+.dark #search-button{
+  background-color: var(--darker-gray);
+}
+
 .dark .highlight,
-.dark .comment-highlight{
+.dark .comment-highlight {
   font-family: "RobotoSerif Medium";
-  color: var(--white); /* White text for dark background */
+  color: var(--white);
+  /* White text for dark background */
   box-shadow: 0px 2px 3px rgba(255, 255, 255, 0.2);
   font-size: 1.1rem;
 }
@@ -117,7 +142,7 @@ body {
 }
 
 
-.light .comment-highlight > span{
+.light .comment-highlight>span {
   display: inline;
   box-shadow: 0px 2px 3px rgba(0, 0, 0, .2);
 }
@@ -147,7 +172,7 @@ body {
   position: relative;
 }
 
-.dark .icon-button{
+.dark .icon-button {
   color: #AAA;
 }
 
@@ -160,32 +185,32 @@ body {
 }
 
 .tooltip {
-    visibility: hidden;
-    position: absolute;
-    top: 120%;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: var(--light-off-white);
-    color: var(--darker-gray);
-	border: 1px solid gray;
-    text-align: center;
-    border-radius: 3px;
-    padding: 5px;
-    font-size: 12px;
-    white-space: nowrap;
-    z-index: 1000;
-    opacity: 0;
-    transition: opacity 0.3s;
+  visibility: hidden;
+  position: absolute;
+  top: 120%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--light-off-white);
+  color: var(--darker-gray);
+  border: 1px solid gray;
+  text-align: center;
+  border-radius: 3px;
+  padding: 5px;
+  font-size: 12px;
+  white-space: nowrap;
+  z-index: 1000;
+  opacity: 0;
+  transition: opacity 0.3s;
 }
 
-.dark .tooltip{
-	background-color: var(--dark-gray);
-    color: var(--off-white);
+.dark .tooltip {
+  background-color: var(--dark-gray);
+  color: var(--off-white);
 }
 
 .icon-button:hover .tooltip {
-    visibility: visible;
-    opacity: 1;
+  visibility: visible;
+  opacity: 1;
 }
 
 .search-icon {
@@ -196,15 +221,15 @@ body {
   pointer-events: none;
 }
 
-.advanced-icon{
-  right: 28px;
+.advanced-icon {
+  right: 70px;
   position: relative;
-  margin-top: 3px;
+  margin-top: 4px;
   color: gray;
   cursor: pointer;
 }
 
-.advanced-icon .icon-button{
+.advanced-icon .icon-button {
   padding: 0;
 }
 
@@ -277,33 +302,33 @@ span.eng-lang {
   display: block;
 }
 
-.highlight > span.eng-lang{
+.highlight>span.eng-lang {
   display: inline;
 }
 
-.highlight > span.pli-lang {
+.highlight>span.pli-lang {
   margin-top: .4rem;
 }
 
 .eng-lang .searchTerm,
 .comment-highlight .searchTerm {
-	color: var(--darker-gold);
-	font-family: "RobotoSerif Bold";
+  color: var(--darker-gold);
+  font-family: "RobotoSerif Bold";
 }
 
-.comment-highlight a .searchTerm{
-	text-decoration: underline;
+.comment-highlight a .searchTerm {
+  text-decoration: underline;
 }
 
 .dark .eng-lang .searchTerm,
 .dark .comment-highlight .searchTerm {
-	color: var(--gold);
+  color: var(--gold);
 }
 
-.pli-lang .searchTerm{
-	color: var(--orange);
-	font-weight: bold;
-	font-size: 1.1rem;
+.pli-lang .searchTerm {
+  color: var(--orange);
+  font-weight: bold;
+  font-size: 1.1rem;
 }
 
 p,
@@ -404,8 +429,10 @@ dt {
 
 #footer .container {
   display: flex;
-  flex-direction: column; /* Stack the elements vertically */
-  align-items: center; /* Center them horizontally */
+  flex-direction: column;
+  /* Stack the elements vertically */
+  align-items: center;
+  /* Center them horizontally */
 }
 
 .left-align {
@@ -492,16 +519,16 @@ br {
 }
 
 #buttonsContainer,
-#epubButtonsContainer{
+#epubButtonsContainer {
   display: flex;
 }
 
-#epubButtonsContainer{
+#epubButtonsContainer {
   margin-top: .2rem;
 }
 
 #infoButton,
-#epubInfoButton{
+#epubInfoButton {
   border: none;
   cursor: pointer;
   outline: none;
@@ -512,7 +539,7 @@ br {
 }
 
 #infoButton img,
-#epubInfoButton img{
+#epubInfoButton img {
   width: 14px;
   filter: opacity(60%);
 }
@@ -547,19 +574,23 @@ a:hover {
 
 .foreword-link {
   color: var(--orange-yellow);
-  text-decoration: none; /* Remove any default underline */
-  text-align:center;
-  font-size:30px;
-  
+  text-decoration: none;
+  /* Remove any default underline */
+  text-align: center;
+  font-size: 30px;
+
 }
 
 .foreword-link:hover {
-  text-decoration: underline; /* Add underline when hovered over */
-  cursor: pointer; /* Change cursor to pointer on hover */
+  text-decoration: underline;
+  /* Add underline when hovered over */
+  cursor: pointer;
+  /* Change cursor to pointer on hover */
 }
 
 .button-container {
-  text-align: center; /* Center the contents horizontally */
+  text-align: center;
+  /* Center the contents horizontally */
 }
 
 .hide-button:hover {
@@ -643,7 +674,7 @@ a:hover {
 }
 
 #cacheButton,
-#downloadEpubButton{
+#downloadEpubButton {
   position: relative;
   background-color: var(--light-gray);
   color: var(--black);
@@ -664,7 +695,7 @@ a:hover {
 
 #container {
   position: relative;
-  margin-left:auto;
+  margin-left: auto;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -686,14 +717,14 @@ a:hover {
   /* Initially hidden */
   z-index: 1000;
   /* Ensure it appears above other content */
-  white-space:pre-line;
+  white-space: pre-line;
   /* min-width: 200px; */
   max-width: 400px;
   /* Adjust as needed */
 }
 
 .dark #cacheButton,
-.dark #downloadEpubButton{
+.dark #downloadEpubButton {
   background-color: var(--dark-blue);
   color: var(--off-white);
   border-color: var(--off-white);
@@ -702,36 +733,45 @@ a:hover {
 .comment {
   display: inline-block;
   margin-right: 4px;
-  color: #007bff; /* Link color */
-  cursor: pointer; /* Indicates it's clickable */
-  vertical-align: super; /* Makes the number a superscript */
-  font-size: 0.75em; /* Adjusts the font size to match superscript style */
+  color: #007bff;
+  /* Link color */
+  cursor: pointer;
+  /* Indicates it's clickable */
+  vertical-align: super;
+  /* Makes the number a superscript */
+  font-size: 0.75em;
+  /* Adjusts the font size to match superscript style */
 }
 
 #suttanav {
   position: fixed;
   top: -50px;
   width: 100%;
-  max-width: 45rem; /* Match the max-width of #sutta */
+  max-width: 45rem;
+  /* Match the max-width of #sutta */
   background: #333;
   color: white;
   text-align: center;
   padding: 10px;
   transition: top 0.3s;
-  box-sizing: border-box; /* Include padding and border in the element's width */
-  left: 50%; /* Center the element */
-  transform: translateX(-50%); /* Center the element */
+  box-sizing: border-box;
+  /* Include padding and border in the element's width */
+  left: 50%;
+  /* Center the element */
+  transform: translateX(-50%);
+  /* Center the element */
 }
-.no-results{
+
+.no-results {
   text-align: center;
   margin: 1rem 0 1rem 0;
 }
 
-#bookmarks > details > :not(:last-child) {
-    margin-bottom: .5rem;
+#bookmarks>details> :not(:last-child) {
+  margin-bottom: .5rem;
 }
 
-#bookmarks > *{
+#bookmarks>* {
   margin: .5rem 0;
 }
 
@@ -751,7 +791,7 @@ a:hover {
   max-width: 70%;
 }
 
-.bookmark-buttons{
+.bookmark-buttons {
   display: flex;
   justify-content: right;
   align-items: center;
@@ -759,11 +799,11 @@ a:hover {
   gap: 1rem;
 }
 
-.bookmark-buttons > * {
-    max-width: 60%;
+.bookmark-buttons>* {
+  max-width: 60%;
 }
 
-.bookmark-buttons > a{
+.bookmark-buttons>a {
   text-wrap: nowrap;
 }
 
@@ -771,7 +811,8 @@ a:hover {
   display: flex;
   flex-direction: column;
   margin-top: 5px;
-  gap: .3rem; /* Add some space between each checkbox-label pair */
+  gap: .3rem;
+  /* Add some space between each checkbox-label pair */
 }
 
 .label-checkbox-container div {
@@ -781,22 +822,26 @@ a:hover {
 }
 
 .label-checkbox-container input[type="checkbox"] {
-  margin-right: 5px; /* Add some space between the checkbox and the label */
+  margin-right: 5px;
+  /* Add some space between the checkbox and the label */
 }
 
 .label-checkbox-container label {
-  margin-left: 0; /* Remove any left margin */
+  margin-left: 0;
+  /* Remove any left margin */
 }
 
 .dark .bookmark-text {
   color: var(--off-white);
 }
+
 #commentsArea summary {
   font-size: 1.1em;
   font-weight: bold;
   padding: 4px;
 
 }
+
 .dark #commentsArea summary {
   color: var(--off-white);
 }
@@ -812,9 +857,11 @@ a:hover {
 /* Individual sutta box */
 .sutta-box {
   flex: 0 0 auto;
-  width: 180px; /* Reduced width for compactness */
+  width: 180px;
+  /* Reduced width for compactness */
   border: 1px solid var(--lighter-gray);
-  padding: 8px; /* Reduced padding for compactness */
+  padding: 8px;
+  /* Reduced padding for compactness */
   text-align: center;
 }
 
@@ -840,65 +887,81 @@ a:hover {
 }
 
 /* Additional tweaks for spacing and compactness */
-.sutta-box h3, .sutta-pali-title, .sutta-date-added {
-  margin-bottom: 5px; /* Reduced margin between elements */
+.sutta-box h3,
+.sutta-pali-title,
+.sutta-date-added {
+  margin-bottom: 5px;
+  /* Reduced margin between elements */
 }
 
 #back-arrow {
-  margin-left: 8px; /* Adjust as needed */
+  margin-left: 8px;
+  /* Adjust as needed */
   cursor: pointer;
   font-size: 14px;
 }
 
-#copyButton, 
-bookmarkButton{
+#copyButton,
+bookmarkButton {
   width: 76px;
 }
 
 @media only screen and (max-width: 768px) {
+
   /* CSS rules for screens smaller than 768px */
   .comment-text {
     width: 300px;
     text-align: center;
   }
-  .bookmark-container p{
+
+  .bookmark-container p {
     max-width: 60%;
   }
-  #top-buttons.button-container{
+
+  #top-buttons.button-container {
     margin-top: initial;
   }
-  .links-area{
-      margin: 1rem;
+
+  .links-area {
+    margin: 1rem;
   }
-  .tooltip{
-	  display: none;
+
+  .tooltip {
+    display: none;
   }
 }
+
 @media only screen and (max-width: 600px) {
   #suttanav {
-    padding: 5px; /* Reduced padding on smaller screens */
-    font-size: 14px; /* Adjusted font size for smaller screens */
+    padding: 5px;
+    /* Reduced padding on smaller screens */
+    font-size: 14px;
+    /* Adjusted font size for smaller screens */
   }
+
   .bookmark-container {
     flex-wrap: wrap;
     flex-direction: column-reverse;
   }
-  .bookmark-container p{
+
+  .bookmark-container p {
     max-width: initial;
   }
-  .bookmark-buttons{
+
+  .bookmark-buttons {
     justify-content: space-evenly;
     width: 100%;
   }
-  .bookmark-buttons > *{
-      max-width: 30%;
+
+  .bookmark-buttons>* {
+    max-width: 30%;
   }
 }
 
 .box-button {
   display: block;
   margin: 5px;
-  text-align:center;
+  text-align: center;
   color: white;
   padding: 10px 20px;
   border-radius: 5px;
@@ -907,7 +970,7 @@ bookmarkButton{
   cursor: pointer;
 }
 
-.box-button:hover{
+.box-button:hover {
   background-image: linear-gradient(rgb(0 0 0/20%) 0 0);
 }
 
@@ -918,16 +981,20 @@ bookmarkButton{
 .orange {
   background-color: orange;
 }
+
 .glossary-item {
   margin-bottom: 20px;
 }
+
 .glossary-item h2 {
   margin-bottom: 10px;
 }
+
 .definition {
   padding-left: 20px;
 }
-.hidden{
+
+.hidden {
   display: none;
 }
 
@@ -976,7 +1043,8 @@ bookmarkButton{
   margin-top: -37px;
   gap: 1rem;
   justify-content: center;
-  align-items: flex-end; /* Visually aligns icons with text */
+  align-items: flex-end;
+  /* Visually aligns icons with text */
 }
 
 #top-buttons .icon-button {
@@ -995,11 +1063,11 @@ bookmarkButton{
   color: var(--darker-brown);
 }
 
-.dark #top-buttons .icon-button{
+.dark #top-buttons .icon-button {
   color: var(--off-white);
 }
 
-.dark #top-buttons .icon-button:hover{
+.dark #top-buttons .icon-button:hover {
   color: var(--darker-brown);
 }
 
