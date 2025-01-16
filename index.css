@@ -398,14 +398,12 @@ dt {
   overflow: hidden;
 }
 
-#footer {
-  text-align: center;
-}
-
-#footer .container {
-  display: flex;
-  flex-direction: column; /* Stack the elements vertically */
-  align-items: center; /* Center them horizontally */
+#footer {  
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 }
 
 .left-align {
