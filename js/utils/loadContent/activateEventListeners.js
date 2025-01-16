@@ -1,9 +1,3 @@
-import getDocumentAreas from "../getDocumentAreas.js";
-import { toggleTheme } from "../misc/toggleTheme.js";
-import db from "../../dexie/dexie.js";
-import { displaySuttas } from "../contentSections/displaySuttas.js";
-import { removeDiacritics } from "../misc/removeDiacritics.js";
-import { getSuttasByIds } from "../getSuttasByIds.js";
 import activateSideBySideEventListenerKeyUp from "../eventListeners/activateSideBySideEventListenerKeyUp.js";
 import { activateHomeButton } from "../eventListeners/activateHomeButton.js";
 import { activateThemeButton } from "../eventListeners/activateThemeButton.js";
