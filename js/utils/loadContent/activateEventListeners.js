@@ -7,7 +7,7 @@ import { getSuttasByIds } from "../getSuttasByIds.js";
 import activateSideBySideEventListenerKeyUp from "../eventListeners/activateSideBySideEventListenerKeyUp.js";
 import { activateHomeButton } from "../eventListeners/activateHomeButton.js";
 import { activateThemeButton } from "../eventListeners/activateThemeButton.js";
-import activateSearchBar from "../eventListeners/activateSearchBar.js";
+import activateFilterBar from "../eventListeners/activateFilterBar.js";
 import activateForm from "../eventListeners/activateForm.js";
 import activateViewForewordAndGoBackButtons from "../eventListeners/activateViewForewordAndGoBackButtons.js";
 import activateRefreshButton from "../eventListeners/activateRefreshButton.js";
@@ -21,6 +21,7 @@ import activateMessageListener from "../eventListeners/activateMessageListener.j
 import activateHashChangeListener from "../eventListeners/activateHashChangeListener.js";
 import activateHandleTextSelection from "../eventListeners/activateHandleTextSelection.js";
 import activateYoutubePreview from '../eventListeners/activateYoutubePreview.js';
+import initializeFuse from '../eventListeners/initializeFuse.js';
 
 export function activateEventListeners(availableSuttasJson)
 {
@@ -39,12 +40,13 @@ export function activateEventListeners(availableSuttasJson)
     && !window.location.href.endsWith("/glossary.html") 
     && !window.location.href.endsWith("/comments.html") 
     && !window.location.href.endsWith("/advanced-search.html")){
-	activateSideBySideEventListenerKeyUp();
-        activateSearchBar(availableSuttasJson);
+        activateSideBySideEventListenerKeyUp();
+        initializeFuse(availableSuttasJson);
+        activateFilterBar(availableSuttasJson);
         activateViewForewordAndGoBackButtons(availableSuttasJson);
         activateHashChangeListener();
         activateForm();
         activateHandleTextSelection();
-	activateYoutubePreview();
+        activateYoutubePreview();
     }
 }
