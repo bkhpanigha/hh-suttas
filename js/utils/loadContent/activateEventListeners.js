@@ -45,7 +45,7 @@ export function activateEventListeners(availableSuttasJson)
         activateFilterBar(availableSuttasJson);
         activateViewForewordAndGoBackButtons(availableSuttasJson);
         activateHashChangeListener();
-        activateForm();
+        activateFilterForm();
         activateHandleTextSelection();
         activateYoutubePreview();
     }
