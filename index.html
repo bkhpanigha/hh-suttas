@@ -51,20 +51,15 @@
 <body id='appbody' class="hidden">
     <div id="header-placeholder"></div>
     <form id="form">
-        <div class="search-icon">
-            <svg width="13" height="13" viewBox="3 3 18 18">
-                <path 
-                    d="m19.6 21l-6.3-6.3q-.75.6-1.725.95T9.5 16q-2.725 0-4.612-1.888T3 9.5t1.888-4.612T9.5 3t4.613 1.888T16 9.5q0 1.1-.35 2.075T14.7 13.3l6.3 6.3zM9.5 14q1.875 0 3.188-1.312T14 9.5t-1.312-3.187T9.5 5T6.313 6.313T5 9.5t1.313 3.188T9.5 14"
-                    fill="currentColor" />
-            </svg>
+        <div class="filter-icon">
+			<svg width="13" height="13" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<path d="M0 3H16V1H0V3Z" fill="#808080"/>
+				<path d="M2 7H14V5H2V7Z" fill="#808080"/>
+				<path d="M4 11H12V9H4V11Z" fill="#808080"/>
+				<path d="M10 15H6V13H10V15Z" fill="#808080"/>
+			</svg>
         </div>
-        <input id="search-bar" type="text" placeholder="Search by citation, title or content">
-		<div class="advanced-icon">
-			<a href="advanced-search.html" class="icon-button">
-				<svg width="15" height="15" viewBox="0 0 512 512"><path fill="#808080" d="M0 416c0 17.7 14.3 32 32 32l54.7 0c12.3 28.3 40.5 48 73.3 48s61-19.7 73.3-48L480 448c17.7 0 32-14.3 32-32s-14.3-32-32-32l-246.7 0c-12.3-28.3-40.5-48-73.3-48s-61 19.7-73.3 48L32 384c-17.7 0-32 14.3-32 32zm128 0a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zM320 256a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zm32-80c-32.8 0-61 19.7-73.3 48L32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l246.7 0c12.3 28.3 40.5 48 73.3 48s61-19.7 73.3-48l54.7 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-54.7 0c-12.3-28.3-40.5-48-73.3-48zM192 128a32 32 0 1 1 0-64 32 32 0 1 1 0 64zm73.3-64C253 35.7 224.8 16 192 16s-61 19.7-73.3 48L32 64C14.3 64 0 78.3 0 96s14.3 32 32 32l86.7 0c12.3 28.3 40.5 48 73.3 48s61-19.7 73.3-48L480 128c17.7 0 32-14.3 32-32s-14.3-32-32-32L265.3 64z"/></svg>
-				<span class="tooltip">Advanced Search Panel</span>
-			</a>
-		</div>
+        <input id="filter-bar" type="text" placeholder="Filter by citation or title">
     </form>
     <div id="app-content">
       <div id="whats-new"></div>
