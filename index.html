@@ -50,17 +50,19 @@
 
 <body id='appbody' class="hidden">
     <div id="header-placeholder"></div>
-    <form id="form">
-        <div class="filter-icon">
-			<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-				<path d="M0 3H16V1H0V3Z" fill="#808080"/>
-				<path d="M2 7H14V5H2V7Z" fill="#808080"/>
-				<path d="M4 11H12V9H4V11Z" fill="#808080"/>
-				<path d="M10 15H6V13H10V15Z" fill="#808080"/>
-			</svg>
-        </div>
-        <input id="filter-bar" type="text" placeholder="Filter by citation or title...">
-    </form>
+	<div class="form-container">
+		<form id="filter-form">
+			<div class="filter-icon">
+				<svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+					<path d="M0 3H16V1H0V3Z" />
+					<path d="M2 7H14V5H2V7Z" />
+					<path d="M4 11H12V9H4V11Z" />
+					<path d="M10 15H6V13H10V15Z" />
+				</svg>
+			</div>
+			<input id="filter-bar" type="text" placeholder="Filter by citation or title...">
+		</form>
+	</div>
     <div id="app-content">
       <div id="whats-new"></div>
       <div id="sutta">
