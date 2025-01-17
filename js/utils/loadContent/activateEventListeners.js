@@ -8,7 +8,7 @@ import activateSideBySideEventListenerKeyUp from "../eventListeners/activateSide
 import { activateHomeButton } from "../eventListeners/activateHomeButton.js";
 import { activateThemeButton } from "../eventListeners/activateThemeButton.js";
 import activateFilterBar from "../eventListeners/activateFilterBar.js";
-import activateForm from "../eventListeners/activateForm.js";
+import activateFilterForm from "../eventListeners/activateFilterForm.js";
 import activateViewForewordAndGoBackButtons from "../eventListeners/activateViewForewordAndGoBackButtons.js";
 import activateRefreshButton from "../eventListeners/activateRefreshButton.js";
 import activateErrorButton from "../eventListeners/activateErrorButton.js";
