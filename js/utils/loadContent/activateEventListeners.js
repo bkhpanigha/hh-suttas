@@ -8,6 +8,7 @@ import activateSideBySideEventListenerKeyUp from "../eventListeners/activateSide
 import { activateHomeButton } from "../eventListeners/activateHomeButton.js";
 import { activateThemeButton } from "../eventListeners/activateThemeButton.js";
 import activateSearchBar from "../eventListeners/activateSearchBar.js";
+import activateForm from "../eventListeners/activateForm.js";
 import activateViewForewordAndGoBackButtons from "../eventListeners/activateViewForewordAndGoBackButtons.js";
 import activateRefreshButton from "../eventListeners/activateRefreshButton.js";
 import activateErrorButton from "../eventListeners/activateErrorButton.js";
@@ -38,11 +39,12 @@ export function activateEventListeners(availableSuttasJson)
     && !window.location.href.endsWith("/glossary.html") 
     && !window.location.href.endsWith("/comments.html") 
     && !window.location.href.endsWith("/advanced-search.html")){
-        activateSideBySideEventListenerKeyUp();
-        activateSearchBar();		
+	activateSideBySideEventListenerKeyUp();
+        activateSearchBar(availableSuttasJson);
         activateViewForewordAndGoBackButtons(availableSuttasJson);
         activateHashChangeListener();
+        activateForm();
         activateHandleTextSelection();
-        activateYoutubePreview();
+	activateYoutubePreview();
     }
 }
