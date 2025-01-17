@@ -192,6 +192,7 @@ body {
   left: 25px;
   position: relative;
   pointer-events: none;
+  top: 2px;
 }
 
 p {
