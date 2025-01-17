@@ -67,7 +67,7 @@ body {
   display: flex;
   align-items: center;
   background-color: transparent;
-  border: 2px solid #ddd;
+  border: 2px solid #ccc;
   border-radius: 25px;
   padding: 0.5em 1em;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
