@@ -19,3 +19,10 @@ export async function createFuseSearch(availableSuttasJson) {
 	fuse = new Fuse(searchDict, fuseOptions);
 	return fuse
 }
+
+let fuseOptions = {
+  includeScore: true,
+  useExtendedSearch: true,
+  shouldSort: false,
+  keys: ['combination'],
+};
