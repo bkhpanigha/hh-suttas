@@ -18,7 +18,7 @@ export default function getDocumentAreas()
     const bodyTag = document.querySelector("body");
     const previous = document.getElementById("previous");
     const next = document.getElementById("next");
-    const searchBar = document.getElementById("search-bar");
+    const filterBar = document.getElementById("filter-bar");
     const infoButton = document.getElementById('infoButton');
 
     return {
@@ -29,7 +29,7 @@ export default function getDocumentAreas()
         bodyTag, 
         previous, 
         next, 
-        searchBar,
+        filterBar,
         form,
         infoButton,
     };
