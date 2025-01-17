@@ -69,11 +69,11 @@ body {
   border: 2px solid gray;
   border-radius: 20px;
   background-color: transparent;
-  color: black;
+  color: var(--dark-gray);
   width: 375px;
   height: 30px;
   font-size: 16px;
-  text-indent: 27.5px;
+  text-indent: 30px;
 }
 
 .dark #filter-bar {
@@ -189,10 +189,10 @@ body {
 }
 
 .filter-icon {
-  left: 25px;
+  left: 30px;
   position: relative;
   pointer-events: none;
-  top: 2px;
+  top: 1px;
 }
 
 p {
