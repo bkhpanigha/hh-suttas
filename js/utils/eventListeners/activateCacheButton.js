@@ -3,7 +3,7 @@ import { showNotification } from "../userActions/showNotification.js";
 
 export default function activateCacheButton()
 {
-    document.getElementById('cacheButton').addEventListener('click', () => 
+    document.getElementById('cacheButton')?.addEventListener('click', () => 
     {
         // Check if service worker is supported by the browser
         if ('serviceWorker' in navigator) 

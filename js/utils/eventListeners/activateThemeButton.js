@@ -5,7 +5,7 @@ export function activateThemeButton()
 {
     const {themeButton} = getDocumentAreas();
 
-    themeButton.addEventListener("click", () => 
+    themeButton?.addEventListener("click", () => 
     {
         const currentThemeIsDark = localStorage.theme === "dark";
         toggleTheme(!currentThemeIsDark);

@@ -2,7 +2,7 @@ export default function activateEPUBInfoButton()
 {
     const epubInfoButton = document.getElementById('epubInfoButton');
 
-    epubInfoButton.addEventListener("click", function (event) 
+    epubInfoButton?.addEventListener("click", function (event) 
     {
         event.stopPropagation();
         let notificationBox = document.querySelector('.info-notification-box')

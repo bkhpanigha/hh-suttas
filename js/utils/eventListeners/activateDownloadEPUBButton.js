@@ -2,7 +2,7 @@
 
 export default function activateDownloadEPUBButton()
 {
-    document.getElementById('downloadEpubButton').addEventListener('click', function() 
+    document.getElementById('downloadEpubButton')?.addEventListener('click', function() 
     {
         const link = document.createElement('a');
         link.href = 'python/generated/suttas_epub/Sutta_Translations.epub';  // Path to EPUB file

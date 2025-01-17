@@ -5,7 +5,7 @@ export default function activateInfoButton()
 {
     const {infoButton} = getDocumentAreas();
 
-    infoButton.addEventListener("click", function (event) 
+    infoButton?.addEventListener("click", function (event) 
     {
         event.stopPropagation(); // Prevent click from immediately propagating to document
         let notificationBox = document.querySelector('.info-notification-box')
