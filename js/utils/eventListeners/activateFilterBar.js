@@ -1,7 +1,8 @@
 import getDocumentAreas from "../getDocumentAreas.js";
 import { filterSuttas } from "../userActions/filterSuttas.js";
+import { displaySuttas } from "../contentSections/displaySuttas.js";
 
-export default function activateFilterBar() {
+export default function activateFilterBar(availableSuttasJson) {
   const { filterBar, suttaArea } = getDocumentAreas();
   filterBar.focus();
 
