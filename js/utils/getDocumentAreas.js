@@ -8,7 +8,7 @@ export default function getDocumentAreas()
     if (!window.location.href.endsWith("/bookmarks.html") 
 	&& !window.location.href.endsWith("/glossary.html") 
 	&& !window.location.href.endsWith("/comments.html")
-	&& !window.location.href.endsWith("/advanced-search.html")){
+	&& !window.location.href.endsWith("/search-panel.html")){
         suttaArea = document.getElementById("sutta");
         whatsNewArea = document.getElementById('whats-new');
         filterForm = document.getElementById('filter-form');
