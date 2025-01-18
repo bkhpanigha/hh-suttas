@@ -217,6 +217,10 @@ body {
   transition: opacity 0.3s;
 }
 
+#filter-form:hover .tooltip{
+  transition: none;
+}
+
 .dark .tooltip {
   background-color: var(--dark-gray);
   color: var(--off-white);
