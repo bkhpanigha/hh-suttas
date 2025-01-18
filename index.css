@@ -1061,6 +1061,16 @@ bookmarkButton {
   color: var(--darker-brown);
 }
 
+#home-button svg, 
+#search-button svg,
+#bookmarks-button svg,
+#comments-button svg,
+#glossary-button svg,
+#theme-button svg{
+  width: 1.4rem;
+  height: 1.4rem;
+}
+
 .icon-title {
   font-size: 0.9rem;
   margin-top: 4px;
