@@ -82,13 +82,13 @@ body {
 }
 
 .filter-icon svg {
-  width: 1.3rem;
-  height: 1.3rem;
+  width: 1.4rem;
+  height: 1.4rem;
   fill: #808080;
 }
 
 .dark .filter-icon svg {
-  fill: var(--off-white);
+  fill: var(--light-gray);
 }
 
 #filter-bar {
@@ -101,7 +101,7 @@ body {
 }
 
 #filter-bar::placeholder {
-  color: gray;
+  color: #808080;
 }
 
 #filter-form:hover {
@@ -110,13 +110,16 @@ body {
   border-color: transparent;
 }
 
-.dark #filter-bar::placeholder,
+.dark #filter-bar::placeholder{
+  color: var(--light-gray);
+}
+
 .dark #filter-bar {
-  color: var(--off-white);
+  color: var(--lighter-gray);
 }
 
 .dark #filter-form {
-  border-color: var(--dark-gray);
+  border-color: var(--lighter-gray);
   box-shadow: 0 4px 6px rgba(255, 255, 255, 0.1);
 }
 
