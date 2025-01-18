@@ -67,7 +67,7 @@ body {
   display: flex;
   align-items: center;
   background-color: transparent;
-  border: 2px solid #ccc;
+  border: 2px solid var(--dark-gray);
   border-radius: 25px;
   padding: 0.5em 1em;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -84,11 +84,11 @@ body {
 .filter-icon svg {
   width: 1.4rem;
   height: 1.4rem;
-  fill: #808080;
+  fill: var(--dark-gray);
 }
 
 .dark .filter-icon svg {
-  fill: var(--light-gray);
+  fill: var(--lighter-gray);
 }
 
 #filter-bar {
@@ -111,7 +111,7 @@ body {
 }
 
 .dark #filter-bar::placeholder{
-  color: var(--light-gray);
+  color: var(--lighter-gray);
 }
 
 .dark #filter-bar {
