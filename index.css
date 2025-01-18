@@ -67,10 +67,10 @@ body {
   display: flex;
   align-items: center;
   background-color: transparent;
-  border: 1px solid var(--light-gray);
+  border: 1px solid var(--lighter-gray);
   border-radius: 25px;
   padding: 0.5em 1em;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
   width: 350px;
 }
 
@@ -120,7 +120,7 @@ body {
 
 .dark #filter-form {
   border-color: var(--lighter-gray);
-  box-shadow: 0 4px 6px rgba(255, 255, 255, 0.1);
+  box-shadow: 0 2px 3px rgba(255, 255, 255, 0.1);
 }
 
 .dark #filter-form:hover {
@@ -841,21 +841,44 @@ a:hover {
 
 /* Flexbox container for the recent suttas */
 .whats-new-container {
-  display: flex;
-  gap: 15px;
-  overflow-x: auto;
-  padding: 10px;
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding: 10px 0;
+}
+
+.whats-new-container::-webkit-scrollbar {
+    width: 4px;
+	height: 10px;
+	border-radius: 4px;
+}
+
+.whats-new-container::-webkit-scrollbar-track {
+    background: #ddd;
+    border-radius: 4px;
+	height: 10px;
+}
+
+.whats-new-container::-webkit-scrollbar-thumb {
+    background: #bbb;
+    border-radius: 4px;
+	height: 10px;
+}
+
+.whats-new-container::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-hover);
+	background: #aaa;
 }
 
 /* Individual sutta box */
 .sutta-box {
-  flex: 0 0 auto;
-  width: 180px;
-  /* Reduced width for compactness */
-  border: 1px solid var(--lighter-gray);
-  padding: 8px;
-  /* Reduced padding for compactness */
-  text-align: center;
+    flex: 0 0 auto;
+    width: 180px;
+    border: 1px solid var(--lighter-gray);
+    padding: 8px;
+    text-align: center;
+    border-radius: 5px;
+	box-shadow: 1px 1px 3px rgba(23, 43, 77, 0.1);
 }
 
 /* Sutta title style */
