@@ -98,6 +98,7 @@ body {
   font-size: 1em;
   color: var(--dark-gray);
   background-color: transparent;
+  cursor: pointer;
 }
 
 #filter-bar::placeholder {
@@ -221,7 +222,8 @@ body {
   color: var(--off-white);
 }
 
-.icon-button:hover .tooltip {
+.icon-button:hover .tooltip,
+#filter-form:hover .tooltip {
   visibility: visible;
   opacity: 1;
 }
