@@ -14,7 +14,7 @@ export default function activateFilterForm(){
         }
     });
 	
-	filterForm.addEventListener('click', function () {
-		filterBar.focus();
-	});
+    filterForm.addEventListener('click', function () {
+        filterBar.focus();
+    });
 }
