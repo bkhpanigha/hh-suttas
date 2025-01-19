@@ -4,7 +4,6 @@ import { displaySuttas } from "../contentSections/displaySuttas.js";
 
 export default function activateFilterBar(availableSuttasJson) {
   const { filterBar, suttaArea } = getDocumentAreas();
-  filterBar.focus();
 
   filterBar.addEventListener("input", async (e) => {
     const filterQuery = e.target.value.trim().toLowerCase();
