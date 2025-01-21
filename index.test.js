@@ -25,7 +25,9 @@ const retry = async (fn, retries = 3, delay = 1000) => {
   app.use(express.static('.')); // Serve files from a directory
   const server = app.listen(port);
 
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({
+    args: ['--no-sandbox'],
+  });
   const page = await browser.newPage();
 
   // Helper functions for different tests

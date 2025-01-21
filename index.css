@@ -996,7 +996,7 @@ bookmarkButton{
 }
 
 .dark #top-buttons .icon-button{
-  color: gray;
+  color: var(--off-white);
 }
 
 .dark #top-buttons .icon-button:hover{
