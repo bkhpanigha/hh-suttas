@@ -1,7 +1,6 @@
-import { displaySuttas } from "../contentSections/displaySuttas.js";
 import { goBack } from "../navigation/goBack.js";
 
-export default function activateViewForewordAndGoBackButtons(availableSuttasJson)
+export default function activateGoBackButtons()
 {
     document.addEventListener('click', function (event) 
     {
