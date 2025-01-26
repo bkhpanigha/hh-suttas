@@ -53,7 +53,7 @@ b {
   --light-orange: #FFAC1C;
   --orange-yellow: #BD970D;
   --light-gray: #8f8f8f;
-  --lighter-gray: #ccc;
+  --lighter-gray: #ababab;
   --dark-blue: #42426a;
   --blue: #3434be;
   --dark-brown: #3F3234;
@@ -61,8 +61,9 @@ b {
   --red: #CC0000;
   --darker-red: #A70000;
   --gold: #c4a853;
-  --darker-gold: #b39440;
-  --aged-gold: #7f6e0a;
+  --darker-gold: #947a35;
+  --deep-bronze: #7a622b;
+  --gunmetal-silver: #8e8e8e;
 }
 
 body {
@@ -81,10 +82,10 @@ body {
   display: flex;
   align-items: center;
   background-color: var(--light-off-white);
-  border: 1px solid var(--lighter-gray);
+  border: 1px solid var(--light-gray);
   border-radius: 5px;
   padding: 0.5em;
-  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   width: 350px;
   cursor: pointer;
 }
@@ -103,7 +104,7 @@ body {
 }
 
 .dark .filter-icon svg {
-  fill: var(--lighter-gray);
+  fill: var(--off-white);
 }
 
 #filter-bar {
@@ -127,7 +128,7 @@ body {
 }
 
 .dark #filter-bar::placeholder{
-  color: var(--lighter-gray);
+	color: var(--off-white);
 }
 
 .dark #filter-bar {
@@ -135,7 +136,7 @@ body {
 }
 
 .dark #filter-form {
-  border-color: var(--lighter-gray);
+  border-color: var(--gunmetal-silver);
   box-shadow: 0 2px 3px rgba(255, 255, 255, 0.1);
   background-color: var(--dark-card-bg);
 }
@@ -233,7 +234,7 @@ body {
   transition: opacity 0.3s;
 }
 
-#filter-form:hover .tooltip{
+#filter-form:hover .tooltip {
   transition: none;
 }
 
@@ -450,10 +451,10 @@ dt {
 }
 
 #sutta h2,
-#whats-new h2{
-	font-size: 1.5rem;
-	line-height: 1;
-	margin: 1.5rem 0;
+#whats-new h2 {
+  font-size: 1.5rem;
+  line-height: 1;
+  margin: 1.5rem 0;
 }
 
 #sutta.hide-pali p span.eng-lang {
@@ -687,8 +688,8 @@ a:hover {
 }
 
 #cacheButton:hover,
-#downloadEpubButton:hover{
-	background-color: var(--off-white);
+#downloadEpubButton:hover {
+  background-color: var(--off-white);
 }
 
 .dark #cacheButton,
@@ -700,13 +701,13 @@ a:hover {
 }
 
 .dark #cacheButton:hover,
-.dark #downloadEpubButton:hover{
+.dark #downloadEpubButton:hover {
   background-color: var(--light-off-white);
   color: var(--darker-brown);
 }
 
-.hide-button{
-	padding: .2rem;
+.hide-button {
+  padding: .2rem;
 }
 
 .hide-button:hover {
@@ -870,74 +871,74 @@ a:hover {
 }
 
 .whats-new-container {
-    display: flex;
-    gap: 8px;
-    overflow-x: visible;
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 3px;
 }
 
 .whats-new-container::-webkit-scrollbar {
-	height: 10px;
-	border-radius: 4px;
+  height: 10px;
+  border-radius: 4px;
 }
 
 .whats-new-container::-webkit-scrollbar-track {
-    background: #ddd;
-    border-radius: 4px;
-	height: 10px;
+  background: #ddd;
+  border-radius: 4px;
+  height: 10px;
 }
 
 .whats-new-container::-webkit-scrollbar-thumb {
-    background: #bbb;
-    border-radius: 4px;
-	height: 10px;
+  background: #bbb;
+  border-radius: 4px;
+  height: 10px;
 }
 
 .whats-new-container::-webkit-scrollbar-thumb:hover {
-	background: #aaa;
+  background: #aaa;
 }
 
 /* Individual sutta box */
 .sutta-box {
-    flex: 1 0 auto;
-    width: 180px;
-    border: 1px solid var(--lighter-gray);
-    padding: 8px;
-    text-align: center;
-    border-radius: 5px;
-	box-shadow: 1px 1px 3px rgba(23, 43, 77, 0.1);
-	transition: background-color 0.3s ease, color 0.3s ease;
-	min-height: 130px;
-	display: flex;
-    flex-direction: column;
-    justify-content: center;
-	border: 1px solid #ddd;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    background-color: var(--light-off-white);
+  flex: 1 0 auto;
+  width: 180px;
+  padding: 8px;
+  text-align: center;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  min-height: 130px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 1px solid var(--lighter-gray);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  background-color: var(--light-off-white);
 }
 
-.sutta-box:hover{
-	text-decoration: none;
-	background-color: var(--off-white);
+.sutta-box:hover {
+  text-decoration: none;
+  background-color: var(--off-white);
 }
 
-.dark .sutta-box{
-	background-color: var(--dark-card-bg);
+.dark .sutta-box {
+  background-color: var(--dark-card-bg);
+  border-color: var(--gunmetal-silver);
 }
 
-.dark .sutta-box:hover{
-	background-color: var(--light-off-white);
+.dark .sutta-box:hover {
+  background-color: var(--light-off-white);
 }
 
-.dark .sutta-box:hover .sutta-card-title{
-	color: var(--darker-brown);
+.dark .sutta-box:hover .sutta-card-title {
+  color: var(--darker-brown);
 }
 
-.dark .sutta-box .sutta-pali-title{
-	color: var(--orange-yellow);
+.dark .sutta-box .sutta-pali-title {
+  color: var(--orange-yellow);
 }
 
-.dark .sutta-box:hover .sutta-pali-title{
-	color: var(--aged-gold);
+.dark .sutta-box:hover .sutta-pali-title {
+  color: var(--deep-bronze);
 }
 
 .sutta-card-title {
@@ -950,9 +951,10 @@ a:hover {
 .sutta-pali-title {
   margin-top: 5px;
   font-size: 0.9em;
-  color: var(--aged-gold);
+  color: var(--darker-gold);
   font-weight: 500;
   transition: color 0.3s ease;
+  font-family: "RobotoSerif Medium";
 }
 
 .sutta-date-added {
@@ -962,12 +964,12 @@ a:hover {
   transition: color 0.3s ease;
 }
 
-.dark .sutta-date-added{
-	color: var(--off-white);
+.dark .sutta-date-added {
+  color: var(--off-white);
 }
 
-.dark .sutta-box:hover .sutta-date-added{
-	color: var(--darker-brown);
+.dark .sutta-box:hover .sutta-date-added {
+  color: var(--darker-brown);
 }
 
 /* Additional tweaks for spacing and compactness */
@@ -979,28 +981,29 @@ a:hover {
 
 .sutta-card {
   background-color: var(--light-off-white);
-  border: 1px solid #ddd;
+  border: 1px solid var(--lighter-gray);
   border-radius: 5px;
   padding: 8px;
   margin-bottom: 8px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
   transition: background-color 0.3s ease;
 }
 
-.sutta-card:hover{
-	background-color: var(--off-white);
+.sutta-card:hover {
+  background-color: var(--off-white);
 }
 
-.dark .sutta-card{
-	background-color: var(--dark-card-bg);
+.dark .sutta-card {
+  background-color: var(--dark-card-bg);
+  border-color: var(--gunmetal-silver);
 }
 
-.dark .sutta-card:hover{
-	background-color: var(--off-white);
+.dark .sutta-card:hover {
+  background-color: var(--off-white);
 }
 
-.sutta-card > a{
-	text-decoration: none;
+.sutta-card>a {
+  text-decoration: none;
 }
 
 .sutta-card-content {
@@ -1011,7 +1014,7 @@ a:hover {
 }
 
 .sutta-card-top,
-.sutta-card-bottom{
+.sutta-card-bottom {
   flex: 1;
   display: flex;
   gap: 10px;
@@ -1019,64 +1022,71 @@ a:hover {
 }
 
 .sutta-card-description {
-    color: black;
-    font-size: .9rem;
-    line-height: .9rem;
-	transition: color 0.3s ease;
+  color: black;
+  font-size: .85rem;
+  line-height: 1;
+  transition: color 0.3s ease;
+  font-family: 'RobotoSerif Medium';
 }
 
-.dark .sutta-card-description{
-	color: var(--off-white);
+.dark .sutta-card-description {
+  color: var(--off-white);
 }
 
-.dark .sutta-card:hover .sutta-card-description{
-	color: var(--darker-brown);
+.dark .sutta-card:hover .sutta-card-description {
+  color: var(--darker-brown);
 }
 
 .sutta-card-divider {
-    border: none;
-    border-top: 1px solid #ccc;
-    margin: 4px 0;
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-	transition: border 0.3s ease;
+  border: none;
+  border-top: 1px solid #ccc;
+  margin: 4px 0;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  transition: border 0.3s ease;
 }
 
-.dark .sutta-card-divider{
-	border-top: 1px solid #ddd;
+.dark .sutta-card-divider {
+  border-color: var(--gunmetal-silver);
 }
-.dark .sutta-card:hover .sutta-card-divider{
-	border-top: 1px solid var(--dark-brown);
+
+.dark .sutta-card:hover .sutta-card-divider {
+  border-top: 1px solid var(--dark-brown);
 }
 
 .sutta-card .sutta-pali-title {
-    font-size: .9rem;
-    line-height: .9rem;
-    color: var(--darker-gold);
-    margin: 0;
-	transition: color 0.3s ease;
+  font-size: .9rem;
+  line-height: .9rem;
+  color: var(--darker-gold);
+  margin: 0;
+  transition: color 0.3s ease;
+  font-family: "RobotoSerif Medium";
 }
 
-.dark .sutta-card:hover .sutta-pali-title{
-	color: var(--aged-gold);
+.dark .sutta-pali-title {
+  color: var(--orange-yellow);
+}
+
+.dark .sutta-card:hover .sutta-pali-title {
+  color: var(--deep-bronze);
 }
 
 .sutta-box .sutta-title,
 .sutta-card .sutta-title {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: #1a0dab;
-	transition: color 0.3s ease;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1a0dab;
+  transition: color 0.3s ease;
 }
 
 .dark .sutta-box .sutta-title,
-.dark .sutta-card .sutta-title{
-	color: var(--off-white);
+.dark .sutta-card .sutta-title {
+  color: var(--off-white);
 }
 
-.dark .sutta-card:hover .sutta-title{
-	color: var(--darker-brown);
+.dark .sutta-card:hover .sutta-title {
+  color: var(--darker-brown);
 }
 
 #back-arrow {
@@ -1089,58 +1099,6 @@ a:hover {
 #copyButton,
 bookmarkButton {
   width: 76px;
-}
-
-@media only screen and (max-width: 768px) {
-
-  /* CSS rules for screens smaller than 768px */
-  .comment-text {
-    width: 300px;
-    text-align: center;
-  }
-
-  .bookmark-container p {
-    max-width: 60%;
-  }
-
-  #top-buttons.button-container {
-    margin-top: initial;
-  }
-
-  .links-area {
-    margin: 1rem;
-  }
-
-  .tooltip {
-    display: none;
-  }
-}
-
-@media only screen and (max-width: 600px) {
-  #suttanav {
-    padding: 5px;
-    /* Reduced padding on smaller screens */
-    font-size: 14px;
-    /* Adjusted font size for smaller screens */
-  }
-
-  .bookmark-container {
-    flex-wrap: wrap;
-    flex-direction: column-reverse;
-  }
-
-  .bookmark-container p {
-    max-width: initial;
-  }
-
-  .bookmark-buttons {
-    justify-content: space-evenly;
-    width: 100%;
-  }
-
-  .bookmark-buttons>* {
-    max-width: 30%;
-  }
 }
 
 .box-button {
@@ -1237,7 +1195,7 @@ bookmarkButton {
   flex-direction: column;
   align-items: center;
   padding: 0.4rem 0.8rem;
-  color: var(--dark-brown);
+  color: var(--black);
   font-family: "RobotoSerif Medium", serif;
   transition: background-color 0.3s ease, color 0.3s ease;
   border-radius: 5px;
@@ -1257,12 +1215,12 @@ bookmarkButton {
   color: var(--darker-brown);
 }
 
-#home-button svg, 
+#home-button svg,
 #search-button svg,
 #bookmarks-button svg,
 #comments-button svg,
 #glossary-button svg,
-#theme-button svg{
+#theme-button svg {
   width: 1.4rem;
   height: 1.4rem;
 }
@@ -1275,7 +1233,30 @@ bookmarkButton {
   font-family: "Roboto Medium";
 }
 
-@media only screen and (max-width: 750px) {
+@media only screen and (max-width: 768px) {
+
+  /* CSS rules for screens smaller than 768px */
+  .comment-text {
+    width: 300px;
+    text-align: center;
+  }
+
+  .bookmark-container p {
+    max-width: 60%;
+  }
+
+  #top-buttons.button-container {
+    margin-top: initial;
+  }
+
+  .links-area {
+    margin: 1rem;
+  }
+
+  .tooltip {
+    display: none;
+  }
+
   #top-buttons.button-container {
     flex-wrap: wrap;
     gap: 0.5rem;
@@ -1293,7 +1274,7 @@ bookmarkButton {
   }
 
   #top-buttons.button-container .icon-title {
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     margin-top: 2px;
   }
 
@@ -1306,5 +1287,55 @@ bookmarkButton {
     margin: 0.2rem;
     padding: 0.2rem 0.4rem;
     font-size: 10px;
+  }
+
+  #filter-bar {
+    font-size: .85rem;
+  }
+
+  #sutta h2,
+  #whats-new h2 {
+    font-size: 1.2rem;
+  }
+
+  .sutta-box .sutta-card-title,
+  .sutta-card .sutta-title {
+    font-size: .9rem;
+  }
+
+  .sutta-box .sutta-pali-title,
+  .sutta-card .sutta-pali-title {
+    font-size: .85rem;
+  }
+
+  .sutta-card-description {
+    font-size: .8rem;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  #suttanav {
+    padding: 5px;
+    /* Reduced padding on smaller screens */
+    font-size: 14px;
+    /* Adjusted font size for smaller screens */
+  }
+
+  .bookmark-container {
+    flex-wrap: wrap;
+    flex-direction: column-reverse;
+  }
+
+  .bookmark-container p {
+    max-width: initial;
+  }
+
+  .bookmark-buttons {
+    justify-content: space-evenly;
+    width: 100%;
+  }
+
+  .bookmark-buttons>* {
+    max-width: 30%;
   }
 }
