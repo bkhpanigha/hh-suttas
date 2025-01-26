@@ -885,8 +885,8 @@ a:hover {
 .whats-new-container {
   display: flex;
   gap: 8px;
-  padding: 8px;
-  margin: -8px;
+  padding: 8px; /* css hack to not hide .sutta-box's box-shadow because of hidden overflow */
+  margin: -8px; /* css hack to not hide .sutta-box's box-shadow because of hidden overflow */
   overflow-x: auto;
 }
 
