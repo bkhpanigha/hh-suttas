@@ -50,21 +50,19 @@
 
 <body id='appbody' class="hidden">
     <div id="header-placeholder"></div>
-	<div class="form-container">
+    <div id="app-content">
+      <div id="filter-form-container">
 		<form id="filter-form">
 			<div class="filter-icon">
 				<svg xmlns="http://www.w3.org/2000/svg" viewBox="-2 -2 24 24">
 					<path fill="" d="m2.08 2l6.482 8.101A2 2 0 0 1 9 11.351V18l2-1.5v-5.15a2 2 0 0 1 .438-1.249L17.92 2zm0-2h15.84a2 2 0 0 1 1.561 3.25L13 11.35v5.15a2 2 0 0 1-.8 1.6l-2 1.5A2 2 0 0 1 7 18v-6.65L.519 3.25A2 2 0 0 1 2.08 0"></path>
 				</svg>
 			</div>
-			<input id="filter-bar" type="text" placeholder="Filter suttas...">
-			<span class="tooltip">Filter by citation, title, pāli title or heading</span>
+			<input id="filter-bar" type="text" placeholder="Filter by citation or title (English or Pāli)">
 		</form>
-	</div>
-    <div id="app-content">
+      </div>
       <div id="whats-new"></div>
       <div id="sutta">
-          <div style="display: flex; justify-content: center;"><span id="foreword-button" class="foreword-link">Foreword</span></div>
       </div>
     </div>
     <hr />
