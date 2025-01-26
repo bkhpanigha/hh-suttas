@@ -64,6 +64,7 @@ b {
   --darker-gold: #947a35;
   --deep-bronze: #7a622b;
   --gunmetal-silver: #8e8e8e;
+  --card-bg: #f8f9fa;
 }
 
 body {
@@ -81,13 +82,25 @@ body {
 #filter-form {
   display: flex;
   align-items: center;
-  background-color: var(--light-off-white);
+  background-color: var(--card-bg);
   border: 1px solid var(--light-gray);
   border-radius: 5px;
   padding: 0.5em;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   width: 350px;
   cursor: pointer;
+  transition: border 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+#filter-form:hover {
+  background: #ffffff;
+  box-shadow: 0 1px 5px 0 #898787;
+  border-color: transparent;
+}
+
+.dark #filter-form:hover {
+  background: var(--off-white);
+  border-color: transparent;
 }
 
 .filter-icon {
@@ -105,6 +118,11 @@ body {
 
 .dark .filter-icon svg {
   fill: var(--off-white);
+  transition: fill 0.2 ease;
+}
+
+.dark #filter-form:hover svg{
+	fill: var(--darker-brown);
 }
 
 #filter-bar {
@@ -119,33 +137,29 @@ body {
 
 #filter-bar::placeholder {
   color: var(--dark-brown);
-}
-
-#filter-form:hover {
-  background: #eae7e7;
-  box-shadow: 0 1px 5px 0 #898787;
-  border-color: transparent;
+  transition: color 0.2 ease;
 }
 
 .dark #filter-bar::placeholder{
 	color: var(--off-white);
 }
 
+.dark #filter-form:hover #filter-bar::placeholder{
+	color: var(--darker-brown);
+}
+
 .dark #filter-bar {
-  color: var(--lighter-gray);
+  color: var(--light-off-white);
+}
+
+.dark #filter-form:hover #filter-bar{
+	color: var(--darker-brown);
 }
 
 .dark #filter-form {
   border-color: var(--gunmetal-silver);
   box-shadow: 0 2px 3px rgba(255, 255, 255, 0.1);
   background-color: var(--dark-card-bg);
-}
-
-.dark #filter-form:hover {
-  background: #2b2e34;
-  box-shadow: 0 1px 6px 0 #575353;
-  border-color: transparent;
-  caret-color: white;
 }
 
 #filter-bar:focus-visible {
@@ -425,7 +439,7 @@ dt {
 }
 
 .pli-lang {
-  transition: opacity 0.3s ease, height 0.3s ease;
+  transition: opacity 0.2s ease, height 0.2s ease;
 }
 
 .hide-pali .pli-lang {
@@ -684,12 +698,12 @@ a:hover {
   border-radius: 3px;
   color: black;
   width: 82px;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 #cacheButton:hover,
 #downloadEpubButton:hover {
-  background-color: var(--off-white);
+  background-color: #fff;
 }
 
 .dark #cacheButton,
@@ -697,7 +711,7 @@ a:hover {
   background-color: var(--dark-card-bg);
   color: var(--off-white);
   border-color: var(--off-white);
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .dark #cacheButton:hover,
@@ -873,8 +887,9 @@ a:hover {
 .whats-new-container {
   display: flex;
   gap: 8px;
+  padding: 8px;
+  margin: -8px;
   overflow-x: auto;
-  padding-bottom: 3px;
 }
 
 .whats-new-container::-webkit-scrollbar {
@@ -898,26 +913,28 @@ a:hover {
   background: #aaa;
 }
 
-/* Individual sutta box */
 .sutta-box {
   flex: 1 0 auto;
   width: 180px;
   padding: 8px;
   text-align: center;
   border-radius: 4px;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: background-color 0.2s ease, color 0.2s ease;
   min-height: 130px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  border: 1px solid var(--lighter-gray);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-  background-color: var(--light-off-white);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  background-color: var(--card-bg);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, color 0.2s ease, background-color 0.2s ease;
+  text-decoration: none !important;
 }
 
 .sutta-box:hover {
-  text-decoration: none;
-  background-color: var(--off-white);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+    background-color: #ffffff;
 }
 
 .dark .sutta-box {
@@ -927,6 +944,7 @@ a:hover {
 
 .dark .sutta-box:hover {
   background-color: var(--light-off-white);
+  transform: initial;
 }
 
 .dark .sutta-box:hover .sutta-card-title {
@@ -945,7 +963,7 @@ a:hover {
   margin: 0;
   font-size: 1.1em;
   color: #1a0dab;
-  transition: color 0.3s ease;
+  transition: color 0.2s ease;
 }
 
 .sutta-pali-title {
@@ -953,7 +971,7 @@ a:hover {
   font-size: 0.9em;
   color: var(--darker-gold);
   font-weight: 500;
-  transition: color 0.3s ease;
+  transition: color 0.2s ease;
   font-family: "RobotoSerif Medium";
 }
 
@@ -961,7 +979,7 @@ a:hover {
   margin-top: 8px;
   font-size: 0.8em;
   color: #888;
-  transition: color 0.3s ease;
+  transition: color 0.2s ease;
 }
 
 .dark .sutta-date-added {
@@ -979,17 +997,19 @@ a:hover {
 }
 
 .sutta-card {
-  background-color: var(--light-off-white);
-  border: 1px solid var(--lighter-gray);
-  border-radius: 4px;
-  padding: 8px;
-  margin-bottom: 8px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-  transition: background-color 0.3s ease;
+    background-color: var(--card-bg);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 4px;
+    padding: 8px;
+    margin-bottom: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, color 0.2s ease, background-color 0.2s ease;
 }
 
 .sutta-card:hover {
-  background-color: var(--off-white);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+    background-color: #ffffff;
 }
 
 .dark .sutta-card {
@@ -999,6 +1019,8 @@ a:hover {
 
 .dark .sutta-card:hover {
   background-color: var(--off-white);
+  transform: initial;
+  box-shadow: initial;
 }
 
 .sutta-card>a {
@@ -1024,7 +1046,7 @@ a:hover {
   color: black;
   font-size: .85rem;
   line-height: 1;
-  transition: color 0.3s ease;
+  transition: color 0.2s ease;
   font-family: 'RobotoSerif Medium';
 }
 
@@ -1038,12 +1060,12 @@ a:hover {
 
 .sutta-card-divider {
   border: none;
-  border-top: 1px solid #ccc;
+  border-top: 1px solid var(--lighter-gray);
   margin: 4px 0;
   width: 100%;
   margin-left: auto;
   margin-right: auto;
-  transition: border 0.3s ease;
+  transition: border 0.2s ease;
 }
 
 .dark .sutta-card-divider {
@@ -1059,7 +1081,7 @@ a:hover {
   line-height: .9rem;
   color: var(--darker-gold);
   margin: 0;
-  transition: color 0.3s ease;
+  transition: color 0.2s ease;
   font-family: "RobotoSerif Medium";
 }
 
@@ -1076,7 +1098,7 @@ a:hover {
   font-size: 1.1rem;
   font-weight: 600;
   color: #1a0dab;
-  transition: color 0.3s ease;
+  transition: color 0.2s ease;
 }
 
 .dark .sutta-box .sutta-title,
@@ -1196,7 +1218,7 @@ bookmarkButton {
   padding: 0.4rem 0.8rem;
   color: var(--black);
   font-family: "RobotoSerif Medium", serif;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: background-color 0.2s ease, color 0.2s ease;
   border-radius: 5px;
   text-decoration: none;
 }
