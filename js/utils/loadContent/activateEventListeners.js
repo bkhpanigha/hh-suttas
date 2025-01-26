@@ -43,7 +43,7 @@ export function activateEventListeners(availableSuttasJson)
         activateSideBySideEventListenerKeyUp();
         initializeFuse(availableSuttasJson);
         activateFilterBar(availableSuttasJson);
-        activateGoBackButtons(availableSuttasJson);
+        activateGoBackButtons();
         activateHashChangeListener();
         activateFilterForm();
         activateHandleTextSelection();
