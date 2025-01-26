@@ -14,13 +14,6 @@ export function displaySuttas(suttas, isSearch = false)
     let currentGroup = -1;
 
     const {suttaArea, whatsNewArea} = getDocumentAreas();
-    const forewordViewed = localStorage.getItem('forewordViewed', false);
-    const forewordButton = document.getElementById('foreword-button');
-  
-    if (forewordViewed == 'true' && forewordButton) 
-    {
-      forewordButton.style.display = 'none';
-    }
   
     if (isSearch) 
     {
