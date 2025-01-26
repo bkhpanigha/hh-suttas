@@ -9,7 +9,7 @@ import { activateHomeButton } from "../eventListeners/activateHomeButton.js";
 import { activateThemeButton } from "../eventListeners/activateThemeButton.js";
 import activateFilterBar from "../eventListeners/activateFilterBar.js";
 import activateFilterForm from "../eventListeners/activateFilterForm.js";
-import activateViewForewordAndGoBackButtons from "../eventListeners/activateViewForewordAndGoBackButtons.js";
+import activateGoBackButtons from "../eventListeners/activateGoBackButtons.js";
 import activateRefreshButton from "../eventListeners/activateRefreshButton.js";
 import activateErrorButton from "../eventListeners/activateErrorButton.js";
 import activateCacheButton from "../eventListeners/activateCacheButton.js";
@@ -43,7 +43,7 @@ export function activateEventListeners(availableSuttasJson)
         activateSideBySideEventListenerKeyUp();
         initializeFuse(availableSuttasJson);
         activateFilterBar(availableSuttasJson);
-        activateViewForewordAndGoBackButtons(availableSuttasJson);
+        activateGoBackButtons(availableSuttasJson);
         activateHashChangeListener();
         activateFilterForm();
         activateHandleTextSelection();
