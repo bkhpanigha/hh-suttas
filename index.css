@@ -1,4 +1,9 @@
 @font-face {
+  font-family: "Roboto";
+  src: url("Roboto-Regular.ttf");
+}
+
+@font-face {
   font-family: "RobotoSerif";
   src: url("roboto-lightest.woff");
 }
@@ -13,6 +18,11 @@
   src: url("RobotoSerif-Bold.ttf");
 }
 
+@font-face {
+  font-family: "Roboto Medium";
+  src: url("Roboto-Medium.ttf");
+}
+
 html.light,
 body.light {
   background-color: var(--light-off-white);
@@ -20,7 +30,7 @@ body.light {
 
 html.dark,
 body.dark {
-  background-color: var(--darker-gray);
+  background-color: var(--deep-anthracite);
 }
 
 b {
@@ -36,6 +46,8 @@ b {
   --dark-gray: #5a5a5a;
   --darker-gray: #181a1b;
   --charcoal: #333;
+  --deep-anthracite: #131415;
+  --dark-card-bg: #1c1e24;
   --dark-orange: #8B4000;
   --orange: #D55600;
   --light-orange: #FFAC1C;
@@ -50,6 +62,7 @@ b {
   --darker-red: #A70000;
   --gold: #c4a853;
   --darker-gold: #b39440;
+  --aged-gold: #7f6e0a;
 }
 
 body {
@@ -57,16 +70,17 @@ body {
   font-family: "RobotoSerif", serif;
 }
 
-.form-container {
+#filter-form-container {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 1rem;
 }
 
 #filter-form {
   display: flex;
   align-items: center;
-  background-color: transparent;
+  background-color: var(--light-off-white);
   border: 1px solid var(--lighter-gray);
   border-radius: 5px;
   padding: 0.5em;
@@ -85,7 +99,7 @@ body {
 .filter-icon svg {
   width: 1.4rem;
   height: 1.4rem;
-  fill: var(--dark-gray);
+  fill: var(--black);
 }
 
 .dark .filter-icon svg {
@@ -97,13 +111,13 @@ body {
   border: none;
   outline: none;
   font-size: 1em;
-  color: var(--dark-gray);
+  color: var(--black);
   background-color: transparent;
   cursor: pointer;
 }
 
 #filter-bar::placeholder {
-  color: #808080;
+  color: var(--dark-brown);
 }
 
 #filter-form:hover {
@@ -123,6 +137,7 @@ body {
 .dark #filter-form {
   border-color: var(--lighter-gray);
   box-shadow: 0 2px 3px rgba(255, 255, 255, 0.1);
+  background-color: var(--dark-card-bg);
 }
 
 .dark #filter-form:hover {
@@ -235,11 +250,6 @@ body {
 
 p {
   margin-bottom: 1.5rem;
-}
-
-#app-content {
-  padding-top: 1.2em;
-
 }
 
 #app-content ul {
@@ -439,6 +449,13 @@ dt {
   text-align: left;
 }
 
+#sutta h2,
+#whats-new h2{
+	font-size: 1.5rem;
+	line-height: 1;
+	margin: 1.5rem 0;
+}
+
 #sutta.hide-pali p span.eng-lang {
   display: inline !important;
 }
@@ -541,7 +558,6 @@ br {
 #infoButton img,
 #epubInfoButton img {
   width: 14px;
-  filter: opacity(60%);
 }
 
 .navigation {
@@ -565,13 +581,6 @@ a:hover {
   }
 }
 
-.hide-button {
-  color: var(--black);
-  border: solid 2px gray;
-  padding: .2rem .3rem;
-  border-radius: 3px;
-}
-
 .foreword-link {
   color: var(--orange-yellow);
   text-decoration: none;
@@ -591,21 +600,6 @@ a:hover {
 .button-container {
   text-align: center;
   /* Center the contents horizontally */
-}
-
-.hide-button:hover {
-  background-color: var(--dark-blue);
-  color: var(--off-white);
-}
-
-.dark .hide-button {
-  background-color: var(--dark-blue);
-  color: var(--off-white);
-}
-
-.dark .hide-button:hover {
-  background-color: var(--blue);
-  color: var(--off-white);
 }
 
 .side-by-side .segment {
@@ -674,24 +668,61 @@ a:hover {
 }
 
 #cacheButton,
-#downloadEpubButton {
+#downloadEpubButton,
+.hide-button {
   position: relative;
-  background-color: var(--light-gray);
   color: var(--black);
   cursor: pointer;
   top: -10%;
   margin-left: auto;
   margin-right: 0em;
   padding: .1rem 0;
-  font-size: 12px;
-  font-family: "RobotoSerif", serif;
-  background-color: transparent;
+  font-size: .8rem;
+  font-family: "Roboto";
   border: 1px solid gray;
   border-radius: 3px;
   color: black;
-  filter: opacity(65%);
   width: 82px;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
+
+#cacheButton:hover,
+#downloadEpubButton:hover{
+	background-color: var(--off-white);
+}
+
+.dark #cacheButton,
+.dark #downloadEpubButton {
+  background-color: var(--dark-card-bg);
+  color: var(--off-white);
+  border-color: var(--off-white);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.dark #cacheButton:hover,
+.dark #downloadEpubButton:hover{
+  background-color: var(--light-off-white);
+  color: var(--darker-brown);
+}
+
+.hide-button{
+	padding: .2rem;
+}
+
+.hide-button:hover {
+  background-color: var(--off-white);
+}
+
+.dark .hide-button {
+  background-color: var(--dark-card-bg);
+  color: var(--off-white);
+}
+
+.dark .hide-button:hover {
+  background-color: var(--light-off-white);
+  color: var(--darker-brown);
+}
+
 
 #container {
   position: relative;
@@ -721,13 +752,6 @@ a:hover {
   /* min-width: 200px; */
   max-width: 400px;
   /* Adjust as needed */
-}
-
-.dark #cacheButton,
-.dark #downloadEpubButton {
-  background-color: var(--dark-blue);
-  color: var(--off-white);
-  border-color: var(--off-white);
 }
 
 .comment {
@@ -839,23 +863,19 @@ a:hover {
   font-size: 1.1em;
   font-weight: bold;
   padding: 4px;
-
 }
 
 .dark #commentsArea summary {
   color: var(--off-white);
 }
 
-/* Flexbox container for the recent suttas */
 .whats-new-container {
     display: flex;
     gap: 8px;
-    overflow-x: auto;
-    padding: 10px 0;
+    overflow-x: visible;
 }
 
 .whats-new-container::-webkit-scrollbar {
-    width: 4px;
 	height: 10px;
 	border-radius: 4px;
 }
@@ -873,48 +893,190 @@ a:hover {
 }
 
 .whats-new-container::-webkit-scrollbar-thumb:hover {
-    background: var(--accent-hover);
 	background: #aaa;
 }
 
 /* Individual sutta box */
 .sutta-box {
-    flex: 0 0 auto;
+    flex: 1 0 auto;
     width: 180px;
     border: 1px solid var(--lighter-gray);
     padding: 8px;
     text-align: center;
     border-radius: 5px;
 	box-shadow: 1px 1px 3px rgba(23, 43, 77, 0.1);
+	transition: background-color 0.3s ease, color 0.3s ease;
+	min-height: 130px;
+	display: flex;
+    flex-direction: column;
+    justify-content: center;
+	border: 1px solid #ddd;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    background-color: var(--light-off-white);
 }
 
-/* Sutta title style */
+.sutta-box:hover{
+	text-decoration: none;
+	background-color: var(--off-white);
+}
+
+.dark .sutta-box{
+	background-color: var(--dark-card-bg);
+}
+
+.dark .sutta-box:hover{
+	background-color: var(--light-off-white);
+}
+
+.dark .sutta-box:hover .sutta-card-title{
+	color: var(--darker-brown);
+}
+
+.dark .sutta-box .sutta-pali-title{
+	color: var(--orange-yellow);
+}
+
+.dark .sutta-box:hover .sutta-pali-title{
+	color: var(--aged-gold);
+}
+
 .sutta-card-title {
   margin: 0;
   font-size: 1.1em;
   color: #1a0dab;
+  transition: color 0.3s ease;
 }
 
-/* Pali title styling */
 .sutta-pali-title {
   margin-top: 5px;
   font-size: 0.9em;
-  color: #7f6e0a;
+  color: var(--aged-gold);
+  font-weight: 500;
+  transition: color 0.3s ease;
 }
 
-/* Date added style */
 .sutta-date-added {
   margin-top: 8px;
   font-size: 0.8em;
   color: #888;
+  transition: color 0.3s ease;
+}
+
+.dark .sutta-date-added{
+	color: var(--off-white);
+}
+
+.dark .sutta-box:hover .sutta-date-added{
+	color: var(--darker-brown);
 }
 
 /* Additional tweaks for spacing and compactness */
 .sutta-box h3,
-.sutta-pali-title,
-.sutta-date-added {
+.sutta-pali-title {
   margin-bottom: 5px;
   /* Reduced margin between elements */
+}
+
+.sutta-card {
+  background-color: var(--light-off-white);
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 8px;
+  margin-bottom: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+}
+
+.sutta-card:hover{
+	background-color: var(--off-white);
+}
+
+.dark .sutta-card{
+	background-color: var(--dark-card-bg);
+}
+
+.dark .sutta-card:hover{
+	background-color: var(--off-white);
+}
+
+.sutta-card > a{
+	text-decoration: none;
+}
+
+.sutta-card-content {
+  display: flex;
+  justify-content: space-between;
+  gap: 2px;
+  flex-direction: column;
+}
+
+.sutta-card-top,
+.sutta-card-bottom{
+  flex: 1;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.sutta-card-description {
+    color: black;
+    font-size: .9rem;
+    line-height: .9rem;
+	transition: color 0.3s ease;
+}
+
+.dark .sutta-card-description{
+	color: var(--off-white);
+}
+
+.dark .sutta-card:hover .sutta-card-description{
+	color: var(--darker-brown);
+}
+
+.sutta-card-divider {
+    border: none;
+    border-top: 1px solid #ccc;
+    margin: 4px 0;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+	transition: border 0.3s ease;
+}
+
+.dark .sutta-card-divider{
+	border-top: 1px solid #ddd;
+}
+.dark .sutta-card:hover .sutta-card-divider{
+	border-top: 1px solid var(--dark-brown);
+}
+
+.sutta-card .sutta-pali-title {
+    font-size: .9rem;
+    line-height: .9rem;
+    color: var(--darker-gold);
+    margin: 0;
+	transition: color 0.3s ease;
+}
+
+.dark .sutta-card:hover .sutta-pali-title{
+	color: var(--aged-gold);
+}
+
+.sutta-box .sutta-title,
+.sutta-card .sutta-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1a0dab;
+	transition: color 0.3s ease;
+}
+
+.dark .sutta-box .sutta-title,
+.dark .sutta-card .sutta-title{
+	color: var(--off-white);
+}
+
+.dark .sutta-card:hover .sutta-title{
+	color: var(--darker-brown);
 }
 
 #back-arrow {
@@ -1083,7 +1245,7 @@ bookmarkButton {
 }
 
 #top-buttons .icon-button:hover {
-  background-color: var(--lighter-gray);
+  background-color: var(--off-white);
   color: var(--darker-brown);
 }
 
@@ -1106,11 +1268,11 @@ bookmarkButton {
 }
 
 .icon-title {
-  font-size: 0.9rem;
+  font-size: 1rem;
   margin-top: 4px;
   line-height: 1.2;
   white-space: nowrap;
-  font-family: "RobotoSerif Medium", serif;
+  font-family: "Roboto Medium";
 }
 
 @media only screen and (max-width: 750px) {
