@@ -702,7 +702,8 @@ a:hover {
 }
 
 #cacheButton:hover,
-#downloadEpubButton:hover {
+#downloadEpubButton:hover,
+.hide-button:hover {
   background-color: #fff;
 }
 
@@ -722,10 +723,6 @@ a:hover {
 
 .hide-button {
   padding: .2rem;
-}
-
-.hide-button:hover {
-  background-color: var(--off-white);
 }
 
 .dark .hide-button {
