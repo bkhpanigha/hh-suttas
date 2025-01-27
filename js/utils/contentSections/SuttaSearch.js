@@ -120,129 +120,94 @@ class SuttaSearch {
         
         return `${startVerse}_${endVerse}`;
     }
-
-	findWordBoundary(text, position, direction = 'forward') {
-		const wordBoundaryRegex = /[\s.,!?;"')\]}\-:/]+/;
-
-		if (direction === 'forward') {
-			// Find the next word boundary
-			let pos = position;
-			while (pos < text.length && !wordBoundaryRegex.test(text[pos])) {
-				pos++;
-			}
-			return pos;
-		} else {
-			// Find the previous word boundary
-			let pos = position - 1;
-			while (pos >= 0 && !wordBoundaryRegex.test(text[pos])) {
-				pos--;
-			}
-			return pos + 1;
-		}
-	}
 	
     getPassage(startPos, endPos, matchStart, matchEnd, isComment = false) {
-	    // Find initial word boundaries
-	    let passageStart = this.findWordBoundary(this.fullText, startPos, 'backward');
-	    let passageEnd = this.findWordBoundary(this.fullText, endPos, 'forward');
-	
-	    // For comments, ensure we stay within verse boundaries
-	    if (isComment) {
-	        // Find the verse that contains the start position
-	        let currentVerseStart = 0;
-	        let currentVerseKey = '';
-	
-	        for (const [pos, key] of this.versePositions.entries()) {
-	            if (pos <= startPos) {
-	                currentVerseStart = pos;
-	                currentVerseKey = key;
-	            } else {
-	                break;
-	            }
-	        }
-	
-	        const currentVerseEnd = currentVerseStart + this.cleanedVerses.get(currentVerseKey).length;
-	
-	        // If the match crosses verse boundaries, adjust to stay within current verse
-	        if (endPos > currentVerseEnd) {
-	            passageEnd = currentVerseEnd;
-	        }
-	
-	        // Ensure we include the full match
-	        passageStart = Math.min(passageStart, matchStart);
-	        passageEnd = Math.max(passageEnd, matchEnd);
-	
-	        // Then adjust to word boundaries within the verse
-	        if (passageStart < currentVerseStart) {
-	            passageStart = currentVerseStart;
-	        }
-	        if (passageEnd > currentVerseEnd) {
-	            passageEnd = currentVerseEnd;
-	        }
-	    }
-	
-	    // Ensure we have valid passage boundaries
-	    if (passageEnd <= passageStart) {
-	        passageEnd = matchEnd + 1;  // Ensure we at least include the match
-	    }
-	
-	    let passage = this.fullText.substring(passageStart, passageEnd);
-	
-	    // If passage is empty or only whitespace, expand it
-	    if (!passage.trim()) {
-	        passageStart = Math.max(0, matchStart - 50);  // Take 50 chars before match
-	        passageEnd = Math.min(this.fullText.length, matchEnd + 50);  // and 50 after
-	        passage = this.fullText.substring(passageStart, passageEnd);
-	    }
-	
-	    // Handle ellipses
-	    let prefix = '';
-	    let suffix = '';
-	
-	    if (isComment) {
-	        // Find verse boundaries for ellipsis determination
-	        let currentVerseStart = 0;
-	        let currentVerseKey = '';
-	        
-	        for (const [pos, key] of this.versePositions.entries()) {
-	            if (pos <= passageStart) {
-	                currentVerseStart = pos;
-	                currentVerseKey = key;
-	            } else {
-	                break;
-	            }
-	        }
-	        
-	        const currentVerseEnd = currentVerseStart + this.cleanedVerses.get(currentVerseKey).length;
-	
-	        // Only add ellipses if there's actually text before/after in the verse
-	        const textBefore = this.fullText.substring(currentVerseStart, passageStart).trim();
-	        const textAfter = this.fullText.substring(passageEnd, currentVerseEnd).trim();
-	        
-	        prefix = passageStart > currentVerseStart && textBefore !== '' ? '[...] ' : '';
-	        suffix = passageEnd < currentVerseEnd && textAfter !== '' ? ' [...]' : '';
-	    } else {
-	        prefix = passageStart > 0 ? '[...] ' : '';
-	        suffix = passageEnd < this.fullText.length ? ' [...]' : '';
-	    }
-	
-	    // Adjust match positions relative to passage
-	    const relativeMatchStart = matchStart - passageStart;
-	    const relativeMatchEnd = matchEnd - passageStart;
-	
-	    // Split passage into three parts and add highlighting
-	    const beforeMatch = passage.substring(0, relativeMatchStart);
-	    const match = passage.substring(relativeMatchStart, relativeMatchEnd);
-	    const afterMatch = passage.substring(relativeMatchEnd);
-	
-	    passage = prefix + beforeMatch + '<b>' + match + '</b>' + afterMatch + suffix;
-	
-	    // Clean verse if in comment mode
-	    if (isComment) {
-	        passage = cleanVerse(passage);
-	    }
-	
-	    return passage;
+		// Ensure passage includes the entire match
+		startPos = Math.min(startPos, matchStart);
+		endPos = Math.max(endPos, matchEnd);
+
+		// Adjust to text boundaries
+		startPos = Math.max(0, startPos);
+		endPos = Math.min(this.fullText.length, endPos);
+
+		// Find initial word boundaries
+		let passageStart = this.findWordBoundary(this.fullText, startPos, 'backward');
+		let passageEnd = this.findWordBoundary(this.fullText, endPos, 'forward');
+
+		// Determine if this passage covers the start or end of the full text
+		const isStartOfText = passageStart === 0;
+		const isEndOfText = passageEnd >= this.fullText.length - 1; // Allow for minor whitespace discrepancies
+
+		// For comments, ensure we stay within verse boundaries
+		if (isComment) {
+			// Find the verse that contains the start position
+			let currentVerseStart = 0;
+			let currentVerseKey = '';
+
+			for (const [pos, key] of this.versePositions.entries()) {
+				if (pos <= startPos) {
+					currentVerseStart = pos;
+					currentVerseKey = key;
+				} else {
+					break;
+				}
+			}
+
+			const currentVerseEnd = currentVerseStart + this.cleanedVerses.get(currentVerseKey).length;
+
+			// If the match crosses verse boundaries, adjust to stay within current verse
+			if (endPos > currentVerseEnd) {
+				passageEnd = currentVerseEnd;
+			}
+
+			// Ensure we include the full match
+			passageStart = Math.min(passageStart, matchStart);
+			passageEnd = Math.max(passageEnd, matchEnd);
+
+			// Then adjust to word boundaries within the verse
+			if (passageStart < currentVerseStart) {
+				passageStart = currentVerseStart;
+			}
+			if (passageEnd > currentVerseEnd) {
+				passageEnd = currentVerseEnd;
+			}
+		}
+
+		// Ensure we have valid passage boundaries
+		if (passageEnd <= passageStart) {
+			passageEnd = matchEnd + 1;  // Ensure we at least include the match
+		}
+
+		let passage = this.fullText.substring(passageStart, passageEnd);
+
+		// If passage is empty or only whitespace, expand it
+		if (!passage.trim()) {
+			passageStart = Math.max(0, matchStart - 50);  // Take 50 chars before match
+			passageEnd = Math.min(this.fullText.length, matchEnd + 50);  // and 50 after
+			passage = this.fullText.substring(passageStart, passageEnd);
+		}
+
+		// Handle ellipses
+		const prefix = isStartOfText ? '' : '[...] ';
+		const suffix = isEndOfText ? '' : ' [...]';
+
+		// Adjust match positions relative to passage
+		const relativeMatchStart = matchStart - passageStart;
+		const relativeMatchEnd = matchEnd - passageStart;
+
+		// Split passage into three parts and add highlighting
+		const beforeMatch = passage.substring(0, relativeMatchStart);
+		const match = passage.substring(relativeMatchStart, relativeMatchEnd);
+		const afterMatch = passage.substring(relativeMatchEnd);
+
+		passage = prefix + beforeMatch + '<b>' + match + '</b>' + afterMatch + suffix;
+
+		// Clean verse if in comment mode
+		if (isComment) {
+			passage = cleanVerse(passage);
+		}
+
+		return passage;
 	}
 
     findWordBoundary(text, position, direction = 'forward') {
@@ -251,7 +216,6 @@ class SuttaSearch {
 		const wordBoundaryRegex = /\s/;
 
 		if (direction === 'forward') {
-			// First, find the end of the word, including attached punctuation
 			let pos = position;
 			// Move forward until we find a whitespace
 			while (pos < text.length && !wordBoundaryRegex.test(text[pos])) {
@@ -272,7 +236,7 @@ class SuttaSearch {
 			return pos;
 		}
 	}
-
+	
 	async findMatches(searchTerm, strict = false, isComment = false, singleResult = false, maxWords, resultCallback) {
 		// Create search term variations
 		let searchTerms = new Set();
@@ -306,7 +270,6 @@ class SuttaSearch {
 			}
 		}
 
-		// Rest of the findMatches code...
 		const results = [];
 		const seenResults = new Set();
 		
@@ -321,124 +284,148 @@ class SuttaSearch {
 				searchPattern = escapeRegExp(normalizedSearchTerm.trim());
 			}
 
-            const regex = new RegExp(searchPattern, 'gi');
-            let match;
+			const regex = new RegExp(searchPattern, 'gi');
+			let match;
 
-            while ((match = regex.exec(this.processedText)) !== null) {
-                const matchStart = match.index;
-                const matchEnd = matchStart + match[0].length;
+			while ((match = regex.exec(this.processedText)) !== null) {
+				const matchStart = match.index;
+				const matchEnd = matchStart + match[0].length;
 
-                const originalMatch = this.findOriginalTextMatch(matchStart, matchEnd);
-                if (!originalMatch) continue;
+				const originalMatch = this.findOriginalTextMatch(matchStart, matchEnd);
+				if (!originalMatch) continue;
 
-                let result;
-                if (isComment) {
-                    let verseKey = '';
-                    let verseStart = 0;
+				let result;
+				const searchTermWords = normalizedSearchTerm.trim().split(/\s+/);
+				const searchTermLength = searchTermWords.length;
 
-                    for (const [pos, key] of this.versePositions.entries()) {
-                        if (pos <= originalMatch.start) {
-                            verseKey = key;
-                            verseStart = pos;
-                        }
-                    }
+				// Check if match is near the end of the text
+				const isNearEnd = this.fullText.length - originalMatch.end < Math.max(100, this.fullText.length * 0.05);
+				
+				if (isComment) {
+					let verseKey = '';
+					let verseStart = 0;
 
-                    const verseText = this.cleanedVerses.get(verseKey);
-                    const verseEnd = verseStart + verseText.length;
+					for (const [pos, key] of this.versePositions.entries()) {
+						if (pos <= originalMatch.start) {
+							verseKey = key;
+							verseStart = pos;
+						}
+					}
 
-                    if (verseText.split(/\s+/).length > maxWords) {
-                        const verseOffset = originalMatch.start - verseStart;
-                        const words = verseText.split(/\s+/);
-                        const matchWordIndex = verseText.substring(0, verseOffset).split(/\s+/).length;
+					const verseText = this.cleanedVerses.get(verseKey);
+					const verseEnd = verseStart + verseText.length;
 
-                        const targetWordsBeforeMatch = Math.floor((maxWords - term.split(/\s+/).length) / 2);
-                        let startWord = Math.max(0, matchWordIndex - targetWordsBeforeMatch);
-                        let endWord = Math.min(words.length, startWord + maxWords);
+					if (isNearEnd) {
+						// Return entire end of text if near the end
+						const startWord = Math.max(0, verseText.split(/\s+/).length - maxWords);
+						const passageStart = verseStart + verseText.split(/\s+/).slice(0, startWord).join(' ').length + (startWord > 0 ? 1 : 0);
+						const passageEnd = verseStart + verseText.length;
 
-                        if (startWord + maxWords > words.length) {
-                            startWord = Math.max(0, words.length - maxWords);
-                            endWord = words.length;
-                        }
+						result = {
+							passage: this.getPassage(passageStart, passageEnd, originalMatch.start, originalMatch.end, true),
+							commentNb: this.getCommentNumber(verseKey)
+						};
+					} else if (verseText.split(/\s+/).length > maxWords) {
+						const verseOffset = originalMatch.start - verseStart;
+						const words = verseText.split(/\s+/);
+						const matchWordIndex = verseText.substring(0, verseOffset).split(/\s+/).length;
 
-                        const passageStart = verseStart + words.slice(0, startWord).join(' ').length + (startWord > 0 ? 1 : 0);
-                        const passageEnd = verseStart + words.slice(0, endWord).join(' ').length;
+						const targetWordsBeforeMatch = Math.floor((maxWords - searchTermWords.length) / 2);
+						let startWord = Math.max(0, matchWordIndex - targetWordsBeforeMatch);
+						let endWord = Math.min(words.length, startWord + maxWords);
 
-                        result = {
-                            passage: this.getPassage(passageStart, passageEnd, originalMatch.start, originalMatch.end, true),
-                            commentNb: this.getCommentNumber(verseKey)
-                        };
-                    } else {
-                        result = {
-                            passage: this.getPassage(verseStart, verseEnd, originalMatch.start, originalMatch.end, true),
-                            commentNb: this.getCommentNumber(verseKey)
-                        };
-                    }
-                } else {
-                    const searchTermWords = normalizedSearchTerm.trim().split(/\s+/);
-                    const searchTermLength = searchTermWords.length;
+						if (startWord + maxWords > words.length) {
+							startWord = Math.max(0, words.length - maxWords);
+							endWord = words.length;
+						}
 
-                    if (searchTermLength > maxWords) {
-                        const passageStart = this.findWordBoundary(this.fullText, originalMatch.start, 'backward');
-                        const passageEnd = this.findWordBoundary(this.fullText, originalMatch.end, 'forward');
+						const passageStart = verseStart + words.slice(0, startWord).join(' ').length + (startWord > 0 ? 1 : 0);
+						const passageEnd = verseStart + words.slice(0, endWord).join(' ').length;
 
-                        result = {
-                            passage: this.getPassage(passageStart, passageEnd, originalMatch.start, originalMatch.end),
-                            verseRange: this.findVerseRange(passageStart, passageEnd)
-                        };
-                    } else {
-                        const words = this.fullText.split(/\s+/);
-                        const totalWords = words.length;
-                        const matchWordPosition = this.fullText.substring(0, originalMatch.start).split(/\s+/).length;
-                        const matchLength = searchTermWords.length;
+						result = {
+							passage: this.getPassage(passageStart, passageEnd, originalMatch.start, originalMatch.end, true),
+							commentNb: this.getCommentNumber(verseKey)
+						};
+					} else {
+						result = {
+							passage: this.getPassage(verseStart, verseEnd, originalMatch.start, originalMatch.end, true),
+							commentNb: this.getCommentNumber(verseKey)
+						};
+					}
+				} else {
+					const words = this.fullText.split(/\s+/);
+					const totalWords = words.length;
 
-                        const targetWordsBeforeMatch = Math.floor((maxWords - matchLength) / 2);
-                        let startWord = Math.max(0, matchWordPosition - targetWordsBeforeMatch);
-                        let endWord = Math.min(totalWords, startWord + maxWords);
+					if (isNearEnd) {
+						// Return entire end of text if near the end
+						const startWord = Math.max(0, totalWords - maxWords);
+						const passageStart = words.slice(0, startWord).join(' ').length;
+						const passageEnd = this.fullText.length;
 
-                        if (startWord + maxWords > totalWords) {
-                            startWord = Math.max(0, totalWords - maxWords);
-                            endWord = totalWords;
-                        }
-                        if (startWord < 0) {
-                            startWord = 0;
-                            endWord = Math.min(totalWords, maxWords);
-                        }
+						result = {
+							passage: this.getPassage(passageStart, passageEnd, originalMatch.start, originalMatch.end),
+							verseRange: this.findVerseRange(passageStart, passageEnd)
+						};
+					} else if (searchTermLength > maxWords) {
+						const passageStart = this.findWordBoundary(this.fullText, originalMatch.start, 'backward');
+						const passageEnd = this.findWordBoundary(this.fullText, originalMatch.end, 'forward');
 
-                        const passageStart = words.slice(0, startWord).join(' ').length;
-                        const passageEnd = words.slice(0, endWord).join(' ').length + 1;
+						result = {
+							passage: this.getPassage(passageStart, passageEnd, originalMatch.start, originalMatch.end),
+							verseRange: this.findVerseRange(passageStart, passageEnd)
+						};
+					} else {
+						const matchWordPosition = this.fullText.substring(0, originalMatch.start).split(/\s+/).length;
+						const matchLength = searchTermWords.length;
 
-                        result = {
-                            passage: this.getPassage(passageStart, passageEnd, originalMatch.start, originalMatch.end),
-                            verseRange: this.findVerseRange(passageStart, passageEnd)
-                        };
-                    }
-                }
+						const targetWordsBeforeMatch = Math.floor((maxWords - matchLength) / 2);
+						let startWord = Math.max(0, matchWordPosition - targetWordsBeforeMatch);
+						let endWord = Math.min(totalWords, startWord + maxWords);
 
-                // Create a unique key for the result to avoid duplicates
-                const resultKey = isComment ? 
-                    `${result.commentNb}-${result.passage}` :
-                    `${result.verseRange}-${result.passage}`;
+						if (startWord + maxWords > totalWords) {
+							startWord = Math.max(0, totalWords - maxWords);
+							endWord = totalWords;
+						}
+						if (startWord < 0) {
+							startWord = 0;
+							endWord = Math.min(totalWords, maxWords);
+						}
 
-                if (!seenResults.has(resultKey)) {
-                    seenResults.add(resultKey);
-                    
-                    // Call the callback with the individual result
-                    if (resultCallback) {
-                        await resultCallback(result);
-                    }
-                    
-                    results.push(result);
+						const passageStart = words.slice(0, startWord).join(' ').length;
+						const passageEnd = words.slice(0, endWord).join(' ').length + 1;
 
-                    if (singleResult) break;
-                }
-            }
+						result = {
+							passage: this.getPassage(passageStart, passageEnd, originalMatch.start, originalMatch.end),
+							verseRange: this.findVerseRange(passageStart, passageEnd)
+						};
+					}
+				}
 
-            // If we have enough results, break out of the outer loop
-            if (singleResult && results.length >= 1) break;
-        }
+				// Create a unique key for the result to avoid duplicates
+				const resultKey = isComment ? 
+					`${result.commentNb}-${result.passage}` :
+					`${result.verseRange}-${result.passage}`;
 
-        return results;
-    }
+				if (!seenResults.has(resultKey)) {
+					seenResults.add(resultKey);
+					
+					// Call the callback with the individual result
+					if (resultCallback) {
+						await resultCallback(result);
+					}
+					
+					results.push(result);
+
+					if (singleResult) break;
+				}
+			}
+
+			// If we have enough results, break out of the outer loop
+			if (singleResult && results.length >= 1) break;
+		}
+
+		return results;
+	}
 
     findOriginalTextMatch(processedMatchStart, processedMatchEnd) {
 		// Use the position map to find the original positions
