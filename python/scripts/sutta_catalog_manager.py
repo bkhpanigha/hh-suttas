@@ -43,9 +43,12 @@ def add_sutta(available_suttas, match, data, key):
     """Extract sutta title from data and add it to the list if present."""
     sutta_title = data.get(key).rstrip()
     if sutta_title:
-        with open("authors.json", "r", encoding='utf-8') as authors, open("suttas/translation_en/headings.json", "r", encoding='utf-8') as headings:
+        with (open("authors.json", "r", encoding='utf-8') as authors, 
+        open("suttas/translation_en/headings.json", "r", encoding='utf-8') as headings,
+        open("suttas/translation_en/descriptions.json", "r", encoding='utf-8') as descriptions):
             author = json.load(authors).get(f"{match.group(1)}{match.group(2)}")
             heading = json.load(headings).get(f"{match.group(1)}{match.group(2)}")
+            description = json.load(descriptions).get(f"{match.group(1)}{match.group(2)}")
             first_group = match.group(1)
             
             html_path, root_path, translation_path, comment_path, date_added = generate_paths_for_sutta(f"{match.group(1)}{match.group(2)}", "./suttas").values()
@@ -84,6 +87,8 @@ def add_sutta(available_suttas, match, data, key):
             sutta_info["author"] = author
         if heading:
             sutta_info["heading"] = heading
+        if description:
+            sutta_info["description"] = description
         available_suttas[citation_key] = sutta_info
 
 def load_available_suttas(suttas_base_dir):

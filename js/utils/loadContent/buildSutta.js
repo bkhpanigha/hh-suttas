@@ -31,9 +31,7 @@ export async function buildSutta(slug, availableSuttasJson) {
         // Hide footer during loading
         footer.style.display = 'none';
 
-        // Handle simple cases
         if (!slug) {
-            suttaArea.innerHTML = '<div style="display: flex; justify-content: center;"><span id="foreword-button" class="foreword-link">Foreword</span></div>';
             return;
         }
 
