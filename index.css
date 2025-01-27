@@ -54,16 +54,17 @@ b {
   --orange-yellow: #BD970D;
   --light-gray: #8f8f8f;
   --lighter-gray: #ababab;
-  --dark-blue: #42426a;
-  --blue: #3434be;
+  --dark-blue: #3344C3;
+  --darker-blue: #1427B3;
   --dark-brown: #3F3234;
   --darker-brown: #201B1F;
   --red: #CC0000;
   --darker-red: #A70000;
   --gold: #c4a853;
+  --dark-gold: #B49B56;
   --darker-gold: #947a35;
   --deep-bronze: #7a622b;
-  --gunmetal-silver: #8e8e8e;
+  --slate-gray: #444444;
   --card-bg: #fafbfc;
 }
 
@@ -82,23 +83,25 @@ body {
 #filter-form {
   display: flex;
   align-items: center;
+  border: 2px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
   background-color: var(--card-bg);
-  border: 1px solid var(--light-gray);
   border-radius: 5px;
   padding: 0.5em;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   width: 350px;
   cursor: pointer;
-  transition: border 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  transition: border 250ms ease, box-shadow 250ms ease, background-color 250ms ease;
 }
 
-#filter-form:hover {
+#filter-form:hover,
+#filter-form:focus-within{
   background: #ffffff;
   box-shadow: 0 1px 5px 0 #898787;
   border-color: transparent;
 }
 
-.dark #filter-form:hover {
+.dark #filter-form:hover,
+.dark #filter-form:focus-within {
   background-color: var(--off-white);
   border-color: transparent;
 }
@@ -114,14 +117,15 @@ body {
   width: 1.4rem;
   height: 1.4rem;
   fill: var(--black);
-  transition: fill 0.2s ease;
+  transition: fill 250ms ease;
 }
 
 .dark .filter-icon svg {
   fill: var(--off-white);
 }
 
-.dark #filter-form:hover svg{
+.dark #filter-form:hover svg,
+.dark #filter-form:focus-within svg{
 	fill: var(--darker-brown);
 }
 
@@ -133,19 +137,20 @@ body {
   color: var(--black);
   background-color: transparent;
   cursor: pointer;
-  transition: color 0.2s ease;
+  transition: color 250ms ease;
 }
 
 #filter-bar::placeholder {
   color: var(--dark-brown);
-  transition: color 0.2s ease;
+  transition: color 250ms ease;
 }
 
 .dark #filter-bar::placeholder{
 	color: var(--off-white);
 }
 
-.dark #filter-form:hover #filter-bar::placeholder{
+.dark #filter-form:hover #filter-bar::placeholder,
+.dark #filter-form:focus-within #filter-bar::placeholder{
 	color: var(--darker-brown);
 }
 
@@ -153,12 +158,13 @@ body {
   color: var(--light-off-white);
 }
 
-.dark #filter-form:hover #filter-bar{
+.dark #filter-form:hover #filter-bar,
+.dark #filter-form:focus-within #filter-bar{
 	color: var(--darker-brown);
 }
 
 .dark #filter-form {
-  border-color: var(--gunmetal-silver);
+  border-color: var(--slate-gray);
   box-shadow: 0 2px 3px rgba(255, 255, 255, 0.1);
   background-color: var(--dark-card-bg);
 }
@@ -407,7 +413,7 @@ h5 .pli-lang {
 }
 
 a {
-  color: var(--blue);
+  color: var(--dark-blue);
 }
 
 .dark a {
@@ -440,7 +446,7 @@ dt {
 }
 
 .pli-lang {
-  transition: opacity 0.2s ease, height 0.2s ease;
+  transition: opacity 250ms ease, height 250ms ease;
 }
 
 .hide-pali .pli-lang {
@@ -687,7 +693,7 @@ a:hover {
 #downloadEpubButton,
 .hide-button {
   position: relative;
-  color: var(--black);
+  color: var(--charcoal);
   cursor: pointer;
   top: -10%;
   margin-left: auto;
@@ -697,9 +703,8 @@ a:hover {
   font-family: "Roboto";
   border: 1px solid gray;
   border-radius: 3px;
-  color: black;
   width: 82px;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  transition: background-color 250ms ease, color 250ms ease;
 }
 
 #cacheButton:hover,
@@ -713,7 +718,7 @@ a:hover {
   background-color: var(--dark-card-bg);
   color: var(--off-white);
   border-color: var(--off-white);
-  transition: background-color 0.2s ease, color 0.2s ease;
+  transition: background-color 250ms ease, color 250ms ease;
 }
 
 .dark #cacheButton:hover,
@@ -917,7 +922,7 @@ a:hover {
   padding: 8px;
   text-align: center;
   border-radius: 4px;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  transition: background-color 250ms ease, color 250ms ease;
   min-height: 130px;
   display: flex;
   flex-direction: column;
@@ -925,19 +930,18 @@ a:hover {
   border: 1px solid rgba(0, 0, 0, 0.08);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   background-color: var(--card-bg);
-  transition: transform 0.2s ease, box-shadow 0.2s ease, color 0.2s ease, background-color 0.2s ease;
+  transition: box-shadow 250ms ease, color 250ms ease, background-color 250ms ease;
   text-decoration: none !important;
 }
 
 .sutta-box:hover {
-    transform: translateY(-1px);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
     background-color: #ffffff;
 }
 
 .dark .sutta-box {
   background-color: var(--dark-card-bg);
-  border-color: var(--gunmetal-silver);
+  border-color: var(--slate-gray);
 }
 
 .dark .sutta-box:hover {
@@ -960,8 +964,8 @@ a:hover {
 .sutta-card-title {
   margin: 0;
   font-size: 1.1em;
-  color: #1a0dab;
-  transition: color 0.2s ease;
+  color: var(--darker-blue);
+  transition: color 250ms ease;
 }
 
 .sutta-pali-title {
@@ -969,7 +973,7 @@ a:hover {
   font-size: 0.9em;
   color: var(--darker-gold);
   font-weight: 500;
-  transition: color 0.2s ease;
+  transition: color 250ms ease;
   font-family: "RobotoSerif Medium";
 }
 
@@ -977,7 +981,7 @@ a:hover {
   margin-top: 8px;
   font-size: 0.8em;
   color: #888;
-  transition: color 0.2s ease;
+  transition: color 250ms ease;
 }
 
 .dark .sutta-date-added {
@@ -998,21 +1002,19 @@ a:hover {
     background-color: var(--card-bg);
     border: 1px solid rgba(0, 0, 0, 0.08);
     border-radius: 4px;
-    padding: 8px;
     margin-bottom: 12px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    transition: transform 0.2s ease, box-shadow 0.2s ease, color 0.2s ease, background-color 0.2s ease;
+    transition: box-shadow 250ms ease, color 250ms ease, background-color 250ms ease;
 }
 
 .sutta-card:hover {
-    transform: translateY(-1px);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
     background-color: #ffffff;
 }
 
 .dark .sutta-card {
   background-color: var(--dark-card-bg);
-  border-color: var(--gunmetal-silver);
+  border-color: var(--slate-gray);
 }
 
 .dark .sutta-card:hover {
@@ -1021,8 +1023,10 @@ a:hover {
   box-shadow: initial;
 }
 
-.sutta-card>a {
+.sutta-card > a {
   text-decoration: none;
+  display: block;
+  padding: 8px;
 }
 
 .sutta-card-content {
@@ -1044,7 +1048,7 @@ a:hover {
   color: black;
   font-size: .85rem;
   line-height: 1;
-  transition: color 0.2s ease;
+  transition: color 250ms ease;
   font-family: 'RobotoSerif Medium';
 }
 
@@ -1058,16 +1062,16 @@ a:hover {
 
 .sutta-card-divider {
   border: none;
-  border-top: 1px solid var(--lighter-gray);
+  border-top: 1px solid #d8d8d8;
   margin: 4px 0;
   width: 100%;
   margin-left: auto;
   margin-right: auto;
-  transition: border 0.2s ease;
+  transition: border 250ms ease;
 }
 
 .dark .sutta-card-divider {
-  border-color: var(--gunmetal-silver);
+  border-color: var(--slate-gray);
 }
 
 .dark .sutta-card:hover .sutta-card-divider {
@@ -1079,7 +1083,7 @@ a:hover {
   line-height: .9rem;
   color: var(--darker-gold);
   margin: 0;
-  transition: color 0.2s ease;
+  transition: color 250ms ease;
   font-family: "RobotoSerif Medium";
 }
 
@@ -1091,15 +1095,13 @@ a:hover {
   color: var(--deep-bronze);
 }
 
-.sutta-box .sutta-title,
 .sutta-card .sutta-title {
   font-size: 1.1rem;
   font-weight: 600;
-  color: #1a0dab;
-  transition: color 0.2s ease;
+  color: var(--darker-blue);
+  transition: color 250ms ease;
 }
 
-.dark .sutta-box .sutta-title,
 .dark .sutta-card .sutta-title {
   color: var(--off-white);
 }
@@ -1216,7 +1218,7 @@ bookmarkButton {
   padding: 0.4rem 0.8rem;
   color: var(--black);
   font-family: "RobotoSerif Medium", serif;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  transition: background-color 250ms ease, color 250ms ease;
   border-radius: 5px;
   text-decoration: none;
 }
