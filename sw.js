@@ -1,4 +1,4 @@
-const version = 'v8'; // Update this version manually when filesToCache changes
+const version = 'v8';
 
 // static files to cache
 const filesToCache = [
@@ -11,6 +11,7 @@ const filesToCache = [
   "index.html",
   "index.js",
 ];
+
 // Load additional files from files_to_cache.json and add them to filesToCache
 fetch('../../python/generated/files_to_cache.json')
   .then(response => response.json())
