@@ -59,14 +59,21 @@ async function cacheFilesInBatches(files) {
   notifyClients('cachingSuccess');
 }
 
-function cacheBatchWithTimeout(cache, batch) {
+async function cacheBatchWithTimeout(cache, batch) {
   return new Promise((resolve, reject) => {
     let timeoutId = setTimeout(() => reject(new Error('Timeout')), TIMEOUT);
 
-    Promise.all(batch.map(file => cache.add(file).catch(() => {
-      console.error('Caching failed for resource:', file);
-      throw new Error('Fetch failed');
-    })))
+    Promise.all(batch.map(async file => {
+      // Delete file if it already exists within the cache
+      const request = new Request(file);
+      await cache.delete(request);
+
+      // Then, add new version of the file within the cache
+      return cache.add(file).catch(() => {
+        console.error('Caching failed for resource:', file);
+        throw new Error('Fetch failed');
+      });
+    }))
       .then(() => {
         clearTimeout(timeoutId);
         resolve();
