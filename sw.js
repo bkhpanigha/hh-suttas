@@ -37,7 +37,26 @@ self.addEventListener('message', event => {
 });
 
 async function cacheFilesInBatches(files) {
+  // Check if the user is online
+  if (!navigator.onLine) {
+    // If the user is offline, notify and exit
+    notifyClients('cachingError');
+    return;
+  }
+
+  // If the user is online, continue with caching
+  // Delete the old cache if it exists
+  const cacheNames = await caches.keys();
+  for (const oldCacheName of cacheNames) {
+    if (oldCacheName !== cacheName) {
+      await caches.delete(oldCacheName); // Delete obsolete caches
+    }
+  }
+
+  // Open or create the cache with the new name
   const cache = await caches.open(cacheName);
+  
+  // Add the files in batches to the cache
   for (let i = 0; i < files.length; i += BATCH_SIZE) {
     const batch = files.slice(i, i + BATCH_SIZE);
     let retries = 0;
@@ -45,17 +64,19 @@ async function cacheFilesInBatches(files) {
 
     while (retries < MAX_RETRIES && !success) {
       try {
-        await cacheBatchWithTimeout(cache, batch);
+        await cacheBatchWithTimeout(cache, batch); // Add the batch to the cache
         success = true;
       } catch (error) {
         retries++;
         if (retries === MAX_RETRIES) {
           notifyClients('cachingError');
+          caches.delete(cacheName);
           return;
         }
       }
     }
   }
+
   notifyClients('cachingSuccess');
 }
 
@@ -64,11 +85,7 @@ async function cacheBatchWithTimeout(cache, batch) {
     let timeoutId = setTimeout(() => reject(new Error('Timeout')), TIMEOUT);
 
     Promise.all(batch.map(async file => {
-      // Delete file if it already exists within the cache
-      const request = new Request(file);
-      await cache.delete(request);
-
-      // Then, add new version of the file within the cache
+      // Caches file
       return cache.add(file).catch(() => {
         console.error('Caching failed for resource:', file);
         throw new Error('Fetch failed');
