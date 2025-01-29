@@ -21,8 +21,8 @@ export default function activateCacheButton()
             showNotification("An error occurred while attempting to download. Please check your internet connection, refresh the page, wait a few seconds, and retry");
           }
         }
-		else{
-			showNotification("Your browser does not support offline functionality.<br/>Please update your browser or use another one.");
-		}
+        else{
+            showNotification("Your browser does not support offline functionality.<br/>Please update your browser or use another one.");
+        }
       });
 }
