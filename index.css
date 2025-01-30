@@ -1194,8 +1194,6 @@ bookmarkButton {
   }
 }
 
-/* Additional enhancements for elegance and readability */
-
 #top-buttons.button-container {
   display: flex;
   flex-direction: row;
@@ -1223,8 +1221,8 @@ bookmarkButton {
   text-decoration: none;
 }
 
-#top-buttons .icon-button:hover {
-  background-color: var(--off-white);
+#top-buttons .icon-button.active {
+  background-color: var(--off-white); 
   color: var(--darker-brown);
 }
 
@@ -1232,8 +1230,15 @@ bookmarkButton {
   color: var(--off-white);
 }
 
-.dark #top-buttons .icon-button:hover {
-  color: var(--darker-brown);
+@media (hover: hover) { /* Only on screen supporting hover */
+  #top-buttons .icon-button:hover {
+    background-color: var(--off-white);
+    color: var(--darker-brown);
+  }
+  
+  .dark #top-buttons .icon-button:hover {
+    color: var(--darker-brown);
+  }
 }
 
 #home-button svg,
