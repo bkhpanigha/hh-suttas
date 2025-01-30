@@ -22,6 +22,7 @@ import activateHashChangeListener from "../eventListeners/activateHashChangeList
 import activateHandleTextSelection from "../eventListeners/activateHandleTextSelection.js";
 import activateYoutubePreview from '../eventListeners/activateYoutubePreview.js';
 import initializeFuse from '../eventListeners/initializeFuse.js';
+import activateTopButtonsTouchAnimation from '../eventListeners/activateTopButtonsTouchAnimation.js';
 
 export function activateEventListeners(availableSuttasJson)
 {
@@ -35,7 +36,8 @@ export function activateEventListeners(availableSuttasJson)
     activateEPUBInfoButton();
     activateDownloadEPUBButton();
     activateMessageListener();
-    
+    activateTopButtonsTouchAnimation();
+	
     if (!window.location.href.endsWith("/bookmarks.html") 
     && !window.location.href.endsWith("/glossary.html") 
     && !window.location.href.endsWith("/comments.html") 
