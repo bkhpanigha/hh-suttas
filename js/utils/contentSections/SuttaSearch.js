@@ -1,3 +1,4 @@
+
 import { removeDiacritics } from '../misc/removeDiacritics.js';
 import { cleanVerse } from '../misc/cleanVerse.js';
 import { escapeRegExp } from '../misc/escapeRegExp.js';
@@ -153,12 +154,13 @@ class SuttaSearch {
 				}
 			}
 
-			const currentVerseEnd = currentVerseStart + this.cleanedVerses.get(currentVerseKey).length;
+			const currentVerseText = this.cleanedVerses.get(currentVerseKey);
+			const currentVerseEnd = currentVerseStart + currentVerseText.length;
 
-			// If the match crosses verse boundaries, adjust to stay within current verse
-			if (endPos > currentVerseEnd) {
-				passageEnd = currentVerseEnd;
-			}
+			// Check if the entire verse content is being displayed
+			const isEntireVerseDisplayed = 
+				passageStart <= currentVerseStart && 
+				passageEnd >= currentVerseEnd;
 
 			// Ensure we include the full match
 			passageStart = Math.min(passageStart, matchStart);
@@ -187,9 +189,35 @@ class SuttaSearch {
 			passage = this.fullText.substring(passageStart, passageEnd);
 		}
 
-		// Handle ellipses
-		const prefix = isStartOfText ? '' : '[...] ';
-		const suffix = isEndOfText ? '' : ' [...]';
+		// Handle ellipses for comments
+		let prefix = '';
+		let suffix = '';
+		if (isComment) {
+			let currentVerseStart = 0;
+			let currentVerseKey = '';
+
+			for (const [pos, key] of this.versePositions.entries()) {
+				if (pos <= startPos) {
+					currentVerseStart = pos;
+					currentVerseKey = key;
+				} else {
+					break;
+				}
+			}
+
+			const currentVerseText = this.cleanedVerses.get(currentVerseKey);
+			const currentVerseEnd = currentVerseStart + currentVerseText.length;
+
+			// Precise checks for additional text
+			const hasTextBefore = currentVerseStart < passageStart;
+			const hasTextAfter = currentVerseEnd > passageEnd;
+
+			prefix = hasTextBefore ? '[...] ' : '';
+			suffix = hasTextAfter ? ' [...]' : '';
+		} else {
+			prefix = isStartOfText ? '' : '[...] ';
+			suffix = isEndOfText ? '' : ' [...]';
+		}
 
 		// Adjust match positions relative to passage
 		const relativeMatchStart = matchStart - passageStart;
