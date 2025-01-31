@@ -1,129 +1,127 @@
-
 import { removeDiacritics } from '../misc/removeDiacritics.js';
 import { cleanVerse } from '../misc/cleanVerse.js';
-import { escapeRegExp } from '../misc/escapeRegExp.js';
+import { escapeRegExp} from '../misc/escapeRegExp.js';
 import { normalizeSpaces } from '../misc/normalizeSpaces.js';
 
 // Main search class for better data organization and caching
 class SuttaSearch {
-    constructor(textData, pali = false) {
-        this.originalText = textData;
-        this.pali = pali;
-        this.verseKeys = Object.keys(textData);
-        this.fullText = '';
-        this.processedText = '';
-        this.versePositions = new Map();
-        this.commentNumbers = new Map();
-        this.positionMap = new Map();
-        this.cleanedVerses = new Map();
-        this.initialize();
-    }
+	constructor(textData, pali = false) {
+		this.originalText = textData;
+		this.pali = pali;
+		this.verseKeys = Object.keys(textData);
+		this.fullText = '';
+		this.processedText = '';
+		this.versePositions = new Map();
+		this.commentNumbers = new Map();
+		this.positionMap = new Map();
+		this.cleanedVerses = new Map();
+		this.initialize();
+	}
 
-    initialize() {
-        let currentPosition = 0;
-        this.fullText = '';
-        let commentCount = 0;
-        let lastCommentNumber = 0;
-		
-        // Pre-clean and store verses
-        for (const key of this.verseKeys) {
-            const verse = this.originalText[key];
-            // Remove markdown formatting but keep original text with diacritics
-            const cleanedVerse = this.cleanMarkdownOnly(verse);
-            this.cleanedVerses.set(key, cleanedVerse);
+	initialize() {
+		let currentPosition = 0;
+		this.fullText = '';
+		let commentCount = 0;
+		let lastCommentNumber = 0;
 
-            if (verse.trim() !== '') {
-                commentCount++;
-                lastCommentNumber = commentCount;
-            }
-            this.versePositions.set(currentPosition, key);
-            this.commentNumbers.set(key, lastCommentNumber);
-            this.fullText += this.cleanedVerses.get(key);
-            currentPosition += this.cleanedVerses.get(key).length;
-        }
+		// Pre-clean and store verses
+		for (const key of this.verseKeys) {
+			const verse = this.originalText[key];
+			// Remove markdown formatting but keep original text with diacritics
+			const cleanedVerse = this.cleanMarkdownOnly(verse);
+			this.cleanedVerses.set(key, cleanedVerse);
 
-        // Create normalized version of full text for searching
-        this.processedText = this.normalizeText(this.fullText);
-        
-        // Map positions between original and normalized text
-        let originalIndex = 0;
-        let normalizedIndex = 0;
-        const normalizedFullText = this.processedText;
-        
-        while (normalizedIndex < normalizedFullText.length) {
-            while (originalIndex < this.fullText.length) {
-                const originalChar = this.fullText[originalIndex];
-                const normalizedChar = normalizedFullText[normalizedIndex];
-                
-                if (this.compareChars(originalChar, normalizedChar)) {
-                    this.positionMap.set(normalizedIndex, originalIndex);
-                    normalizedIndex++;
-                    originalIndex++;
-                    break;
-                }
-                originalIndex++;
-            }
-        }
-    }
+			if (verse.trim() !== '') {
+				commentCount++;
+				lastCommentNumber = commentCount;
+			}
+			this.versePositions.set(currentPosition, key);
+			this.commentNumbers.set(key, lastCommentNumber);
+			this.fullText += this.cleanedVerses.get(key);
+			currentPosition += this.cleanedVerses.get(key).length;
+		}
 
-    // Compare characters accounting for diacritics
-    compareChars(original, normalized) {
-        return original === normalized || 
-               removeDiacritics(original) === normalized ||
-               normalized === ' ' && /[\s\u00A0]|&nbsp;/.test(original);
-    }
+		// Create normalized version of full text for searching
+		this.processedText = this.normalizeText(this.fullText);
 
-    // Clean markdown formatting but preserve diacritics
-    cleanMarkdownOnly(text) {
-        // Remove markdown formatting and em tags
-        text = text
-            .replace(/[_*]([^_*]+)[_*]/g, '$1')  // Remove _text_ and *text*
-            .replace(/<em>([^<]+)<\/em>/g, '$1')  // Remove <em>text</em>
-            // Clean markdown links
-            .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1');
-        return text;
-    }
+		// Map positions between original and normalized text
+		let originalIndex = 0;
+		let normalizedIndex = 0;
+		const normalizedFullText = this.processedText;
 
-    // Normalize text for searching (remove diacritics and clean spacing)
-    normalizeText(text) {
-        text = removeDiacritics(text);
-        return text.replace(/\u00A0/g, ' ')
-                  .replace(/&nbsp;/g, ' ')
-                  .replace(/\s+/g, ' ')
-                  .trim();
-    }
-	
+		while (normalizedIndex < normalizedFullText.length) {
+			while (originalIndex < this.fullText.length) {
+				const originalChar = this.fullText[originalIndex];
+				const normalizedChar = normalizedFullText[normalizedIndex];
+
+				if (this.compareChars(originalChar, normalizedChar)) {
+					this.positionMap.set(normalizedIndex, originalIndex);
+					normalizedIndex++;
+					originalIndex++;
+					break;
+				}
+				originalIndex++;
+			}
+		}
+	}
+
+	// Compare characters accounting for diacritics
+	compareChars(original, normalized) {
+		return original === normalized ||
+			removeDiacritics(original) === normalized ||
+			normalized === ' ' && /[\s\u00A0]|&nbsp;/.test(original);
+	}
+
+	// Clean markdown formatting but preserve diacritics
+	cleanMarkdownOnly(text) {
+		// Remove markdown formatting and em tags
+		text = text
+			.replace(/[_*]([^_*]+)[_*]/g, '$1') // Remove _text_ and *text*
+			.replace(/<em>([^<]+)<\/em>/g, '$1') // Remove <em>text</em>
+			// Clean markdown links
+			.replace(/\[([^\]]+)\]\([^)]+\)/g, '$1');
+		return text;
+	}
+
+	// Normalize text for searching (remove diacritics and clean spacing)
+	normalizeText(text) {
+		text = removeDiacritics(text);
+		return text.replace(/\u00A0/g, ' ')
+			.replace(/&nbsp;/g, ' ')
+			.replace(/\s+/g, ' ')
+			.trim();
+	}
+
 	getCommentNumber(verse) {
-        return this.commentNumbers.get(verse) || 0;
-    }
+		return this.commentNumbers.get(verse) || 0;
+	}
 
-    findVerseRange(startPos, endPos) {
-        let startVerse = null;
-        let endVerse = null;
-        let lastPosition = -1;
-        
-        for (const [pos, key] of this.versePositions.entries()) {
-            if (pos <= startPos) {
-                startVerse = key;
-            }
-            if (pos <= endPos) {
-                endVerse = key;
-                lastPosition = pos;
-            } else {
-                break;
-            }
-        }
-        
-        // If endPos extends into the next verse after lastPosition
-        if (lastPosition >= 0 && lastPosition + this.originalText[endVerse].length > endPos) {
-            endVerse = this.verseKeys[this.verseKeys.indexOf(endVerse)];
-        }
-        
-        return `${startVerse}_${endVerse}`;
-    }
-	
-    getPassage(startPos, endPos, matchStart, matchEnd, isComment = false) {
-console.log(this.originalText);
+	findVerseRange(startPos, endPos) {
+		let startVerse = null;
+		let endVerse = null;
+		let lastPosition = -1;
+
+		for (const [pos, key] of this.versePositions.entries()) {
+			if (pos <= startPos) {
+				startVerse = key;
+			}
+			if (pos <= endPos) {
+				endVerse = key;
+				lastPosition = pos;
+			} else {
+				break;
+			}
+		}
+
+		// If endPos extends into the next verse after lastPosition
+		if (lastPosition >= 0 && lastPosition + this.originalText[endVerse].length > endPos) {
+			endVerse = this.verseKeys[this.verseKeys.indexOf(endVerse)];
+		}
+
+		return `${startVerse}_${endVerse}`;
+	}
+
+	getPassage(startPos, endPos, matchStart, matchEnd, isComment = false) {
 		// Ensure passage includes the entire match
 		startPos = Math.min(startPos, matchStart);
 		endPos = Math.max(endPos, matchEnd);
@@ -159,8 +157,8 @@ console.log(this.originalText);
 			const currentVerseEnd = currentVerseStart + currentVerseText.length;
 
 			// Check if the entire verse content is being displayed
-			const isEntireVerseDisplayed = 
-				passageStart <= currentVerseStart && 
+			const isEntireVerseDisplayed =
+				passageStart <= currentVerseStart &&
 				passageEnd >= currentVerseEnd;
 
 			// Ensure we include the full match
@@ -178,15 +176,15 @@ console.log(this.originalText);
 
 		// Ensure we have valid passage boundaries
 		if (passageEnd <= passageStart) {
-			passageEnd = matchEnd + 1;  // Ensure we at least include the match
+			passageEnd = matchEnd + 1; // Ensure we at least include the match
 		}
 
 		let passage = this.fullText.substring(passageStart, passageEnd);
 
 		// If passage is empty or only whitespace, expand it
 		if (!passage.trim()) {
-			passageStart = Math.max(0, matchStart - 50);  // Take 50 chars before match
-			passageEnd = Math.min(this.fullText.length, matchEnd + 50);  // and 50 after
+			passageStart = Math.max(0, matchStart - 50); // Take 50 chars before match
+			passageEnd = Math.min(this.fullText.length, matchEnd + 50); // and 50 after
 			passage = this.fullText.substring(passageStart, passageEnd);
 		}
 
@@ -210,9 +208,9 @@ console.log(this.originalText);
 			const currentVerseEnd = currentVerseStart + currentVerseText.length;
 
 			// More precise checks for additional meaningful text
-			const hasTextBefore = currentVerseStart < passageStart && 
+			const hasTextBefore = currentVerseStart < passageStart &&
 				currentVerseText.substring(0, passageStart - currentVerseStart).trim() !== '';
-			const hasTextAfter = currentVerseEnd > passageEnd && 
+			const hasTextAfter = currentVerseEnd > passageEnd &&
 				currentVerseText.substring(passageEnd - currentVerseStart).trim() !== '';
 
 			prefix = hasTextBefore ? '[...] ' : '';
@@ -241,7 +239,7 @@ console.log(this.originalText);
 		return passage;
 	}
 
-    findWordBoundary(text, position, direction = 'forward') {
+	findWordBoundary(text, position, direction = 'forward') {
 		// Define characters that can be attached to a word
 		const attachedPunctuation = /[.,!?;"“”'`)\]}\-—_:/]/;
 		const wordBoundaryRegex = /\s/;
@@ -267,26 +265,26 @@ console.log(this.originalText);
 			return pos;
 		}
 	}
-	
+
 	async findMatches(searchTerm, strict = false, isComment = false, singleResult = false, maxWords, resultCallback) {
 		// Create search term variations
 		let searchTerms = new Set();
-		
+
 		// Initial cleanup of the search term
 		searchTerm = searchTerm.trim();
-		
+
 		// Add the original term
 		searchTerms.add(searchTerm);
-		
+
 		// Handle apostrophes
 		if (searchTerm.includes('’') || searchTerm.includes('\'')) {
 			searchTerms.add(searchTerm.replace(/'/g, '’'));
 			searchTerms.add(searchTerm.replace(/'/g, '\''));
 		}
-		
+
 		// Handle ellipses - different possible variants
 		const ellipsisVariants = ['...', '…', ' ...', ' …', '... ', '… '];
-		
+
 		// For each existing term, create variants with different types of ellipses
 		let currentTerms = Array.from(searchTerms);
 		for (let term of currentTerms) {
@@ -303,7 +301,7 @@ console.log(this.originalText);
 
 		const results = [];
 		const seenResults = new Set();
-		
+
 		for (let term of searchTerms) {
 			// Normalize the search term
 			const normalizedSearchTerm = this.normalizeText(term);
@@ -331,7 +329,7 @@ console.log(this.originalText);
 
 				// Check if match is near the end of the text
 				const isNearEnd = this.fullText.length - originalMatch.end < Math.max(100, this.fullText.length * 0.05);
-				
+
 				if (isComment) {
 					let verseKey = '';
 					let verseStart = 0;
@@ -433,18 +431,18 @@ console.log(this.originalText);
 				}
 
 				// Create a unique key for the result to avoid duplicates
-				const resultKey = isComment ? 
+				const resultKey = isComment ?
 					`${result.commentNb}-${result.passage}` :
 					`${result.verseRange}-${result.passage}`;
 
 				if (!seenResults.has(resultKey)) {
 					seenResults.add(resultKey);
-					
+
 					// Call the callback with the individual result
 					if (resultCallback) {
 						await resultCallback(result);
 					}
-					
+
 					results.push(result);
 
 					if (singleResult) break;
@@ -458,7 +456,7 @@ console.log(this.originalText);
 		return results;
 	}
 
-    findOriginalTextMatch(processedMatchStart, processedMatchEnd) {
+	findOriginalTextMatch(processedMatchStart, processedMatchEnd) {
 		// Use the position map to find the original positions
 		const originalStart = this.positionMap.get(processedMatchStart);
 		let originalEnd = this.positionMap.get(processedMatchEnd);
@@ -472,7 +470,7 @@ console.log(this.originalText);
 			}
 			// Adjust to the end of the word if necessary
 			while (originalEnd < this.fullText.length &&
-				   !/[\s\u00A0]|&nbsp;/.test(this.fullText[originalEnd])) {
+				!/[\s\u00A0]|&nbsp;/.test(this.fullText[originalEnd])) {
 				originalEnd++;
 			}
 		}
@@ -486,12 +484,12 @@ console.log(this.originalText);
 
 // Main search function
 export const searchSutta = async (textData, searchTerm, isComment = false, strict = false, pali = false, singleResult = false, maxWords, resultCallback) => {
-    if (!textData || !searchTerm || typeof searchTerm !== 'string') {
-        return [];
-    }
-    
-    const searcher = new SuttaSearch(textData, pali);
-    return await searcher.findMatches(searchTerm, strict, isComment, singleResult, maxWords, resultCallback);
+	if (!textData || !searchTerm || typeof searchTerm !== 'string') {
+		return [];
+	}
+
+	const searcher = new SuttaSearch(textData, pali);
+	return await searcher.findMatches(searchTerm, strict, isComment, singleResult, maxWords, resultCallback);
 };
 
 export default searchSutta;
