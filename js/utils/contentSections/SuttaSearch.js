@@ -123,6 +123,7 @@ class SuttaSearch {
     }
 	
     getPassage(startPos, endPos, matchStart, matchEnd, isComment = false) {
+console.log(this.originalText);
 		// Ensure passage includes the entire match
 		startPos = Math.min(startPos, matchStart);
 		endPos = Math.max(endPos, matchEnd);
@@ -208,9 +209,11 @@ class SuttaSearch {
 			const currentVerseText = this.cleanedVerses.get(currentVerseKey);
 			const currentVerseEnd = currentVerseStart + currentVerseText.length;
 
-			// Precise checks for additional text
-			const hasTextBefore = currentVerseStart < passageStart;
-			const hasTextAfter = currentVerseEnd > passageEnd;
+			// More precise checks for additional meaningful text
+			const hasTextBefore = currentVerseStart < passageStart && 
+				currentVerseText.substring(0, passageStart - currentVerseStart).trim() !== '';
+			const hasTextAfter = currentVerseEnd > passageEnd && 
+				currentVerseText.substring(passageEnd - currentVerseStart).trim() !== '';
 
 			prefix = hasTextBefore ? '[...] ' : '';
 			suffix = hasTextAfter ? ' [...]' : '';
