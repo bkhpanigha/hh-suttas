@@ -7,7 +7,6 @@ export default function activateTopButtonsTouchAnimation()
         buttons.forEach(button => {
             button.addEventListener("touchstart", function (e) {
                 button.classList.add("active");
-                e.preventDefault();
             });
 
             button.addEventListener("touchend", function () {
