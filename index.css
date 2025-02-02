@@ -924,7 +924,7 @@ a:hover {
   width: 180px;
   padding: 8px;
   text-align: center;
-  border-radius: 4px;
+  border-radius: 8px;
   transition: background-color 250ms ease, color 250ms ease;
   min-height: 130px;
   display: flex;
