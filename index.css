@@ -972,6 +972,7 @@ a:hover {
   color: var(--darker-blue);
   transition: color 250ms ease;
   font-family: "RobotoSerif Medium";
+  font-weight: 500;
 }
 
 .sutta-pali-title {
