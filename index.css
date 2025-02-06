@@ -1061,7 +1061,7 @@ a:hover {
   color: var(--deep-bronze);
   background: rgba(var(--darker-gold-rgb), 0.10);
   border-radius: 3px;
-  padding: 3px 6px 3px 7px;
+  padding: 4px 6px 4px 7px;
   margin-top: 2px;
   transition: background 250ms ease, color 250ms ease;
   max-width: 50%;
@@ -1075,12 +1075,12 @@ a:hover {
 }
 
 .dark .sutta-card-heading {
-  background: rgba(var(--orange-yellow-rgb), 0.15);
-  color: var(--orange-yellow);
+  background: rgba(var(--orange-yellow-rgb), 0.50);
+  color: var(--off-white);
 }
 
 .dark .sutta-card:hover .sutta-card-heading {
-  background: rgba(var(--darker-gold-rgb), 0.80);
+  background: rgba(var(--darker-gold-rgb), 1);
   color: white;
 }
 
@@ -1294,7 +1294,6 @@ bookmarkButton {
 }
 
 @media only screen and (max-width: 768px) {
-
   /* CSS rules for screens smaller than 768px */
   .comment-text {
     width: 300px;
@@ -1381,9 +1380,15 @@ bookmarkButton {
   }
   
   .sutta-card-heading {
-	margin-top: 0px;
+    margin-top: 0px;
     font-size: 0.85rem;
-	white-space: normal;
+    white-space: normal;
+    padding: 3px 6px 3px 7px
+  }
+	
+  .dark .sutta-card .sutta-card-heading {
+    background: rgba(var(--darker-gold-rgb), .80);
+    color: white;
   }
   
   .sutta-card-top {
