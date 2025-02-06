@@ -63,6 +63,7 @@ b {
   --darker-red: #A70000;
   --gold: #c4a853;
   --dark-gold: #B49B56;
+  --dark-gold-rgb: 180, 155, 86;
   --darker-gold: #947a35;
   --darker-gold-rgb: 148, 122, 53;
   --deep-bronze: #7a622b;
@@ -1061,7 +1062,7 @@ a:hover {
   line-height: 1;
   font-weight: 500;
   color: var(--deep-bronze);
-  background: rgba(var(--darker-gold-rgb), 0.10);
+  background: rgba(var(--orange-yellow-rgb), 0.12);
   border-radius: 3px;
   padding: 4px 6px 4px 7px;
   margin-top: 2px;
@@ -1073,7 +1074,7 @@ a:hover {
 }
 
 .sutta-card:hover .sutta-card-heading {
-  background: rgba(var(--darker-gold-rgb), 0.20);
+  background: rgba(var(--orange-yellow-rgb), 0.20);
 }
 
 .dark .sutta-card-heading {
