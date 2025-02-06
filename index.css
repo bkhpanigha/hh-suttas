@@ -1133,6 +1133,7 @@ a:hover {
   transition: color 250ms ease;
   margin-right: auto;
   font-family: "RobotoSerif Medium";
+  font-weight: 500;
 }
 
 .dark .sutta-card .sutta-title {
