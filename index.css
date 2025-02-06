@@ -1062,7 +1062,7 @@ a:hover {
   line-height: 1;
   font-weight: 500;
   color: var(--deep-bronze);
-  background: rgba(var(--orange-yellow-rgb), 0.12);
+  background: rgba(var(--orange-yellow-rgb), 0.15);
   border-radius: 3px;
   padding: 4px 6px 4px 7px;
   margin-top: 2px;
@@ -1074,7 +1074,7 @@ a:hover {
 }
 
 .sutta-card:hover .sutta-card-heading {
-  background: rgba(var(--orange-yellow-rgb), 0.20);
+  background: rgba(var(--orange-yellow-rgb), 0.25);
 }
 
 .dark .sutta-card-heading {
