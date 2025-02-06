@@ -968,15 +968,16 @@ a:hover {
   font-size: 1.1em;
   color: var(--darker-blue);
   transition: color 250ms ease;
+  font-family: "RobotoSerif Medium";
 }
 
 .sutta-pali-title {
   margin-top: 5px;
   font-size: 0.9em;
   color: var(--darker-gold);
-  font-weight: 500;
   transition: color 250ms ease;
   font-family: "RobotoSerif Medium";
+  font-weight: 500;
 }
 
 .sutta-date-added {
@@ -1128,10 +1129,10 @@ a:hover {
 
 .sutta-card .sutta-title {
   font-size: 1.1rem;
-  font-weight: 600;
   color: var(--darker-blue);
   transition: color 250ms ease;
   margin-right: auto;
+  font-family: "RobotoSerif Medium";
 }
 
 .dark .sutta-card .sutta-title {
