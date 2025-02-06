@@ -1057,7 +1057,7 @@ a:hover {
   font-size: 0.9rem;
   line-height: 1;
   font-weight: 500;
-  color: var(--darker-gold);
+  color: var(--deep-bronze);
   background: rgba(var(--darker-gold-rgb), 0.10);
   border-radius: 3px;
   padding: 3px 6px 3px 7px;
