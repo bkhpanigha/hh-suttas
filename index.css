@@ -1079,7 +1079,7 @@ a:hover {
 
 .dark .sutta-card-heading {
   background: rgba(var(--orange-yellow-rgb), 0.50);
-  color: var(--off-white);
+  color: rgb(240, 240, 240);
 }
 
 .dark .sutta-card:hover .sutta-card-heading {
