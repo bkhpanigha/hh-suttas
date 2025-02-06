@@ -1063,7 +1063,7 @@ a:hover {
   border-radius: 3px;
   padding: 3px 6px 3px 7px;
   margin-top: 2px;
-  transition: background 250ms ease;
+  transition: background 250ms ease, color 250ms ease;
   max-width: 50%;
   text-align: center;
   white-space: nowrap;
