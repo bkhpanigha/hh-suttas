@@ -96,7 +96,7 @@ body {
 }
 
 #filter-form:hover,
-#filter-form:focus-within{
+#filter-form:focus-within {
   background: #ffffff;
   box-shadow: 0 1px 5px 0 #898787;
   border-color: transparent;
@@ -127,8 +127,8 @@ body {
 }
 
 .dark #filter-form:hover svg,
-.dark #filter-form:focus-within svg{
-	fill: var(--darker-brown);
+.dark #filter-form:focus-within svg {
+  fill: var(--darker-brown);
 }
 
 #filter-bar {
@@ -147,13 +147,13 @@ body {
   transition: color 250ms ease;
 }
 
-.dark #filter-bar::placeholder{
-	color: var(--off-white);
+.dark #filter-bar::placeholder {
+  color: var(--off-white);
 }
 
 .dark #filter-form:hover #filter-bar::placeholder,
-.dark #filter-form:focus-within #filter-bar::placeholder{
-	color: var(--darker-brown);
+.dark #filter-form:focus-within #filter-bar::placeholder {
+  color: var(--darker-brown);
 }
 
 .dark #filter-bar {
@@ -161,8 +161,8 @@ body {
 }
 
 .dark #filter-form:hover #filter-bar,
-.dark #filter-form:focus-within #filter-bar{
-	color: var(--darker-brown);
+.dark #filter-form:focus-within #filter-bar {
+  color: var(--darker-brown);
 }
 
 .dark #filter-form {
@@ -892,8 +892,10 @@ a:hover {
 .whats-new-container {
   display: flex;
   gap: 8px;
-  padding: 8px; /* css hack to not hide .sutta-box's box-shadow because of hidden overflow */
-  margin: -8px; /* css hack to not hide .sutta-box's box-shadow because of hidden overflow */
+  padding: 8px;
+  /* css hack to not hide .sutta-box's box-shadow because of hidden overflow */
+  margin: -8px;
+  /* css hack to not hide .sutta-box's box-shadow because of hidden overflow */
   overflow-x: auto;
 }
 
@@ -937,8 +939,8 @@ a:hover {
 }
 
 .sutta-box:hover {
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
-    background-color: #ffffff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+  background-color: #ffffff;
 }
 
 .dark .sutta-box {
@@ -1002,17 +1004,17 @@ a:hover {
 }
 
 .sutta-card {
-    background-color: var(--card-bg);
-    border: 1px solid rgba(0, 0, 0, 0.08);
-    border-radius: 8px;
-    margin-bottom: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    transition: box-shadow 250ms ease, color 250ms ease, background-color 250ms ease;
+  background-color: var(--card-bg);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 250ms ease, color 250ms ease, background-color 250ms ease;
 }
 
 .sutta-card:hover {
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-    background-color: #ffffff;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
 }
 
 .dark .sutta-card {
@@ -1026,7 +1028,7 @@ a:hover {
   box-shadow: initial;
 }
 
-.sutta-card > a {
+.sutta-card>a {
   text-decoration: none;
   display: block;
   padding: 10px;
@@ -1256,7 +1258,7 @@ bookmarkButton {
 }
 
 #top-buttons .icon-button.active {
-  background-color: var(--off-white); 
+  background-color: var(--off-white);
   color: var(--darker-brown);
 }
 
@@ -1264,12 +1266,14 @@ bookmarkButton {
   color: var(--off-white);
 }
 
-@media (hover: hover) { /* Only on screen supporting hover */
+@media (hover: hover) {
+
+  /* Only on screen supporting hover */
   #top-buttons .icon-button:hover {
     background-color: var(--off-white);
     color: var(--darker-brown);
   }
-  
+
   .dark #top-buttons .icon-button:hover {
     color: var(--darker-brown);
   }
@@ -1294,6 +1298,7 @@ bookmarkButton {
 }
 
 @media only screen and (max-width: 768px) {
+
   /* CSS rules for screens smaller than 768px */
   .comment-text {
     width: 300px;
@@ -1370,31 +1375,31 @@ bookmarkButton {
   .sutta-card-description {
     font-size: .8rem;
   }
-  
-  .sutta-card > a {
+
+  .sutta-card>a {
     padding: 12px;
   }
-  
+
   .sutta-title {
     font-size: 1.1rem;
   }
-  
+
   .sutta-card-heading {
     margin-top: 0px;
     font-size: 0.85rem;
     white-space: normal;
     padding: 3px 6px 3px 7px
   }
-	
+
   .dark .sutta-card .sutta-card-heading {
     background: rgba(var(--darker-gold-rgb), .80);
     color: white;
   }
-  
+
   .sutta-card-top {
     gap: 8px;
   }
-  
+
   .sutta-card-bottom {
     padding-top: 2px;
     border-top: 1px solid rgba(0, 0, 0, 0.08);
@@ -1428,13 +1433,18 @@ bookmarkButton {
   }
 }
 
-@media (max-width: 400px){
-  .sutta-card-top{
-	  flex-wrap: wrap;
-	  gap: 0;
+@media (max-width: 400px) {
+  .sutta-card-top {
+    flex-wrap: wrap;
+    gap: 0;
   }
-  .sutta-card-heading{
-	  max-width: 100%;
-	  padding: 2px;
+
+  .sutta-card-heading {
+    max-width: 100%;
+    padding: 2px;
+  }
+
+  .dark .sutta-card-heading {
+    padding: 2px 4px;
   }
 }
