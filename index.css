@@ -52,6 +52,7 @@ b {
   --orange: #D55600;
   --light-orange: #FFAC1C;
   --orange-yellow: #BD970D;
+  --orange-yellow-rgb: 189, 151, 13;
   --light-gray: #8f8f8f;
   --lighter-gray: #ababab;
   --dark-blue: #3344C3;
@@ -62,7 +63,9 @@ b {
   --darker-red: #A70000;
   --gold: #c4a853;
   --dark-gold: #B49B56;
+  --dark-gold-rgb: 180, 155, 86;
   --darker-gold: #947a35;
+  --darker-gold-rgb: 148, 122, 53;
   --deep-bronze: #7a622b;
   --slate-gray: #444444;
   --card-bg: #fafbfc;
@@ -94,7 +97,7 @@ body {
 }
 
 #filter-form:hover,
-#filter-form:focus-within{
+#filter-form:focus-within {
   background: #ffffff;
   box-shadow: 0 1px 5px 0 #898787;
   border-color: transparent;
@@ -125,8 +128,8 @@ body {
 }
 
 .dark #filter-form:hover svg,
-.dark #filter-form:focus-within svg{
-	fill: var(--darker-brown);
+.dark #filter-form:focus-within svg {
+  fill: var(--darker-brown);
 }
 
 #filter-bar {
@@ -145,13 +148,13 @@ body {
   transition: color 250ms ease;
 }
 
-.dark #filter-bar::placeholder{
-	color: var(--off-white);
+.dark #filter-bar::placeholder {
+  color: var(--off-white);
 }
 
 .dark #filter-form:hover #filter-bar::placeholder,
-.dark #filter-form:focus-within #filter-bar::placeholder{
-	color: var(--darker-brown);
+.dark #filter-form:focus-within #filter-bar::placeholder {
+  color: var(--darker-brown);
 }
 
 .dark #filter-bar {
@@ -159,8 +162,8 @@ body {
 }
 
 .dark #filter-form:hover #filter-bar,
-.dark #filter-form:focus-within #filter-bar{
-	color: var(--darker-brown);
+.dark #filter-form:focus-within #filter-bar {
+  color: var(--darker-brown);
 }
 
 .dark #filter-form {
@@ -890,8 +893,10 @@ a:hover {
 .whats-new-container {
   display: flex;
   gap: 8px;
-  padding: 8px; /* css hack to not hide .sutta-box's box-shadow because of hidden overflow */
-  margin: -8px; /* css hack to not hide .sutta-box's box-shadow because of hidden overflow */
+  padding: 8px;
+  /* css hack to not hide .sutta-box's box-shadow because of hidden overflow */
+  margin: -8px;
+  /* css hack to not hide .sutta-box's box-shadow because of hidden overflow */
   overflow-x: auto;
 }
 
@@ -921,7 +926,7 @@ a:hover {
   width: 180px;
   padding: 8px;
   text-align: center;
-  border-radius: 4px;
+  border-radius: 8px;
   transition: background-color 250ms ease, color 250ms ease;
   min-height: 130px;
   display: flex;
@@ -935,8 +940,8 @@ a:hover {
 }
 
 .sutta-box:hover {
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
-    background-color: #ffffff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+  background-color: #ffffff;
 }
 
 .dark .sutta-box {
@@ -966,15 +971,17 @@ a:hover {
   font-size: 1.1em;
   color: var(--darker-blue);
   transition: color 250ms ease;
+  font-family: "RobotoSerif Medium";
+  font-weight: 500;
 }
 
 .sutta-pali-title {
   margin-top: 5px;
   font-size: 0.9em;
   color: var(--darker-gold);
-  font-weight: 500;
   transition: color 250ms ease;
   font-family: "RobotoSerif Medium";
+  font-weight: 500;
 }
 
 .sutta-date-added {
@@ -999,17 +1006,17 @@ a:hover {
 }
 
 .sutta-card {
-    background-color: var(--card-bg);
-    border: 1px solid rgba(0, 0, 0, 0.08);
-    border-radius: 4px;
-    margin-bottom: 12px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    transition: box-shadow 250ms ease, color 250ms ease, background-color 250ms ease;
+  background-color: var(--card-bg);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 250ms ease, color 250ms ease, background-color 250ms ease;
 }
 
 .sutta-card:hover {
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
-    background-color: #ffffff;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
 }
 
 .dark .sutta-card {
@@ -1023,10 +1030,10 @@ a:hover {
   box-shadow: initial;
 }
 
-.sutta-card > a {
+.sutta-card>a {
   text-decoration: none;
   display: block;
-  padding: 8px;
+  padding: 10px;
 }
 
 .sutta-card-content {
@@ -1041,15 +1048,44 @@ a:hover {
   flex: 1;
   display: flex;
   gap: 10px;
-  align-items: center;
+  align-items: start;
 }
 
 .sutta-card-description {
   color: black;
   font-size: .85rem;
-  line-height: 1;
   transition: color 250ms ease;
-  font-family: 'RobotoSerif Medium';
+  line-height: 1.2;
+}
+
+.sutta-card-heading {
+  font-size: 0.9rem;
+  line-height: 1;
+  font-weight: 500;
+  color: var(--deep-bronze);
+  background: rgba(var(--orange-yellow-rgb), 0.15);
+  border-radius: 3px;
+  padding: 4px 6px 4px 7px;
+  margin-top: 2px;
+  transition: background 250ms ease, color 250ms ease;
+  max-width: 50%;
+  text-align: center;
+  white-space: nowrap;
+  font-style: italic;
+}
+
+.sutta-card:hover .sutta-card-heading {
+  background: rgba(var(--orange-yellow-rgb), 0.25);
+}
+
+.dark .sutta-card-heading {
+  background: rgba(var(--orange-yellow-rgb), 0.50);
+  color: rgb(240, 240, 240);
+}
+
+.dark .sutta-card:hover .sutta-card-heading {
+  background: rgba(var(--darker-gold-rgb), 1);
+  color: white;
 }
 
 .dark .sutta-card-description {
@@ -1097,9 +1133,11 @@ a:hover {
 
 .sutta-card .sutta-title {
   font-size: 1.1rem;
-  font-weight: 600;
   color: var(--darker-blue);
   transition: color 250ms ease;
+  margin-right: auto;
+  font-family: "RobotoSerif Medium";
+  font-weight: 500;
 }
 
 .dark .sutta-card .sutta-title {
@@ -1222,7 +1260,7 @@ bookmarkButton {
 }
 
 #top-buttons .icon-button.active {
-  background-color: var(--off-white); 
+  background-color: var(--off-white);
   color: var(--darker-brown);
 }
 
@@ -1230,12 +1268,14 @@ bookmarkButton {
   color: var(--off-white);
 }
 
-@media (hover: hover) { /* Only on screen supporting hover */
+@media (hover: hover) {
+
+  /* Only on screen supporting hover */
   #top-buttons .icon-button:hover {
     background-color: var(--off-white);
     color: var(--darker-brown);
   }
-  
+
   .dark #top-buttons .icon-button:hover {
     color: var(--darker-brown);
   }
@@ -1337,6 +1377,35 @@ bookmarkButton {
   .sutta-card-description {
     font-size: .8rem;
   }
+
+  .sutta-card>a {
+    padding: 12px;
+  }
+
+  .sutta-title {
+    font-size: 1.1rem;
+  }
+
+  .sutta-card-heading {
+    margin-top: 0px;
+    font-size: 0.85rem;
+    white-space: normal;
+    padding: 3px 6px 3px 7px
+  }
+
+  .dark .sutta-card .sutta-card-heading {
+    background: rgba(var(--darker-gold-rgb), .80);
+    color: white;
+  }
+
+  .sutta-card-top {
+    gap: 8px;
+  }
+
+  .sutta-card-bottom {
+    padding-top: 2px;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+  }
 }
 
 @media only screen and (max-width: 600px) {
@@ -1363,5 +1432,21 @@ bookmarkButton {
 
   .bookmark-buttons>* {
     max-width: 30%;
+  }
+}
+
+@media (max-width: 400px) {
+  .sutta-card-top {
+    flex-wrap: wrap;
+    gap: 0;
+  }
+
+  .sutta-card-heading {
+    max-width: 100%;
+    padding: 2px;
+  }
+
+  .dark .sutta-card-heading {
+    padding: 2px 4px;
   }
 }
