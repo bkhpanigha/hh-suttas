@@ -1065,7 +1065,7 @@ a:hover {
   color: var(--deep-bronze);
   background: rgba(var(--orange-yellow-rgb), 0.15);
   border-radius: 3px;
-  padding: 4px 6px 4px 7px;
+  padding: 4px 7px 4px 6px;
   margin-top: 2px;
   transition: background 250ms ease, color 250ms ease;
   max-width: 50%;
