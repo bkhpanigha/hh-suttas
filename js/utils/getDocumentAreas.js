@@ -4,14 +4,14 @@ export default function getDocumentAreas()
 {
     let suttaArea = null;
     let whatsNewArea = null;
-    let form = null;
+    let filterForm = null;
     if (!window.location.href.endsWith("/bookmarks.html") 
 	&& !window.location.href.endsWith("/glossary.html") 
 	&& !window.location.href.endsWith("/comments.html")
-	&& !window.location.href.endsWith("/advanced-search.html")){
+	&& !window.location.href.endsWith("/search-panel.html")){
         suttaArea = document.getElementById("sutta");
         whatsNewArea = document.getElementById('whats-new');
-        form = document.getElementById('form');
+        filterForm = document.getElementById('filter-form');
     }
 
     const documentAreas = {
@@ -21,6 +21,7 @@ export default function getDocumentAreas()
         bodyTag: document.querySelector("body"),
         previous: document.getElementById("previous"),
         next: document.getElementById("next"),
+        filterBar: document.getElementById("filter-bar"),
         searchBar: document.getElementById("search-bar"),
         infoButton: document.getElementById('infoButton'),
         hamburgerMenuOpenButton: document.getElementById('hamburger-menu-open-button'),
@@ -37,7 +38,7 @@ export default function getDocumentAreas()
     return {
         suttaArea,
         whatsNewArea,
-        form,
+        filterForm,
         ...documentAreas,
-    };
+    }
 }

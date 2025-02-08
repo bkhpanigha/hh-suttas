@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', async function() {
       } else if (!window.location.href.endsWith("/bookmarks.html") 
         && !window.location.href.endsWith("/glossary.html") 
         && !window.location.href.endsWith("/comments.html")
-        && !window.location.href.endsWith("/advanced-search.html")) {
+        && !window.location.href.endsWith("/search-panel.html")) {
           await buildSutta(null, null); // Wait here too
           displaySuttas(availableSuttasJson);
           loadWhatsNewArea(availableSuttasJson);

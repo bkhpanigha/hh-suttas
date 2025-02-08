@@ -1,4 +1,9 @@
 @font-face {
+  font-family: "Roboto";
+  src: url("Roboto-Regular.ttf");
+}
+
+@font-face {
   font-family: "RobotoSerif";
   src: url("roboto-lightest.woff");
 }
@@ -13,6 +18,11 @@
   src: url("RobotoSerif-Bold.ttf");
 }
 
+@font-face {
+  font-family: "Roboto Medium";
+  src: url("Roboto-Medium.ttf");
+}
+
 html.light,
 body.light {
   background-color: var(--light-off-white);
@@ -20,10 +30,10 @@ body.light {
 
 html.dark,
 body.dark {
-  background-color: var(--darker-gray);
+  background-color: var(--deep-anthracite);
 }
 
-b{
+b {
   font-family: "RobotoSerif Medium";
   font-weight: normal;
 }
@@ -36,20 +46,29 @@ b{
   --dark-gray: #5a5a5a;
   --darker-gray: #181a1b;
   --charcoal: #333;
+  --deep-anthracite: #131415;
+  --dark-card-bg: #1c1e24;
   --dark-orange: #8B4000;
   --orange: #D55600;
   --light-orange: #FFAC1C;
   --orange-yellow: #BD970D;
+  --orange-yellow-rgb: 189, 151, 13;
   --light-gray: #8f8f8f;
-  --lighter-gray: #ccc;
-  --dark-blue: #42426a;
-  --blue: #3434be;
+  --lighter-gray: #ababab;
+  --dark-blue: #3344C3;
+  --darker-blue: #1427B3;
   --dark-brown: #3F3234;
   --darker-brown: #201B1F;
   --red: #CC0000;
   --darker-red: #A70000;
   --gold: #c4a853;
-  --darker-gold: #b39440;
+  --dark-gold: #B49B56;
+  --dark-gold-rgb: 180, 155, 86;
+  --darker-gold: #947a35;
+  --darker-gold-rgb: 148, 122, 53;
+  --deep-bronze: #7a622b;
+  --slate-gray: #444444;
+  --card-bg: #fafbfc;
 }
 
 body {
@@ -58,50 +77,111 @@ body {
   /* padding-top: 40px; */
 }
 
-#form {
-  text-align: center;
+#filter-form-container {
   display: flex;
-  flex-direction: row;
   justify-content: center;
   align-items: center;
+  margin-top: 1rem;
 }
 
-#search-bar {
-  border: 2px solid gray;
-  border-radius: 20px;
-  background-color: transparent;
-  color: black;
-  width: 375px;
-  height: 30px;
-  font-size: 16px;
-  text-indent: 27.5px;
+#filter-form {
+  display: flex;
+  align-items: center;
+  border: 2px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  background-color: var(--card-bg);
+  border-radius: 5px;
+  padding: 0.5em;
+  width: 350px;
+  cursor: pointer;
+  transition: border 250ms ease, box-shadow 250ms ease, background-color 250ms ease;
 }
 
-.dark #search-bar {
-  color: white;
-}
-
-#search-bar:hover, #search-bar:focus {
-  background: #eae7e7;
+#filter-form:hover,
+#filter-form:focus-within {
+  background: #ffffff;
   box-shadow: 0 1px 5px 0 #898787;
   border-color: transparent;
 }
 
-.dark #search-bar:hover, .dark #search-bar:focus {
-  background: #2b2e34;
-  box-shadow: 0 1px 6px 0 #575353;
+.dark #filter-form:hover,
+.dark #filter-form:focus-within {
+  background-color: var(--off-white);
   border-color: transparent;
-  caret-color: white;
 }
 
-#search-bar:focus-visible {
+.filter-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0.5em;
+}
+
+.filter-icon svg {
+  width: 1.4rem;
+  height: 1.4rem;
+  fill: var(--black);
+  transition: fill 250ms ease;
+}
+
+.dark .filter-icon svg {
+  fill: var(--off-white);
+}
+
+.dark #filter-form:hover svg,
+.dark #filter-form:focus-within svg {
+  fill: var(--darker-brown);
+}
+
+#filter-bar {
+  flex-grow: 1;
+  border: none;
+  outline: none;
+  font-size: 1em;
+  color: var(--black);
+  background-color: transparent;
+  cursor: pointer;
+  transition: color 250ms ease;
+}
+
+#filter-bar::placeholder {
+  color: var(--dark-brown);
+  transition: color 250ms ease;
+}
+
+.dark #filter-bar::placeholder {
+  color: var(--off-white);
+}
+
+.dark #filter-form:hover #filter-bar::placeholder,
+.dark #filter-form:focus-within #filter-bar::placeholder {
+  color: var(--darker-brown);
+}
+
+.dark #filter-bar {
+  color: var(--light-off-white);
+}
+
+.dark #filter-form:hover #filter-bar,
+.dark #filter-form:focus-within #filter-bar {
+  color: var(--darker-brown);
+}
+
+.dark #filter-form {
+  border-color: var(--slate-gray);
+  box-shadow: 0 2px 3px rgba(255, 255, 255, 0.1);
+  background-color: var(--dark-card-bg);
+}
+
+#filter-bar:focus-visible {
   outline: none;
 }
 
 .dark .highlight,
-.dark .comment-highlight{
+.dark .comment-highlight {
   font-family: "RobotoSerif Medium";
-  color: var(--white); /* White text for dark background */
+  color: var(--white);
+  /* White text for dark background */
   box-shadow: 0px 2px 3px rgba(255, 255, 255, 0.2);
   font-size: 1.1rem;
 }
@@ -118,7 +198,7 @@ body {
 }
 
 
-.light .comment-highlight > span{
+.light .comment-highlight>span {
   display: inline;
   box-shadow: 0px 2px 3px rgba(0, 0, 0, .2);
 }
@@ -148,7 +228,7 @@ body {
   position: relative;
 }
 
-.dark .icon-button{
+.dark .icon-button {
   color: #AAA;
 }
 
@@ -161,61 +241,41 @@ body {
 }
 
 .tooltip {
-    visibility: hidden;
-    position: absolute;
-    top: 120%;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: var(--light-off-white);
-    color: var(--darker-gray);
-	border: 1px solid gray;
-    text-align: center;
-    border-radius: 3px;
-    padding: 5px;
-    font-size: 12px;
-    white-space: nowrap;
-    z-index: 1000;
-    opacity: 0;
-    transition: opacity 0.3s;
+  visibility: hidden;
+  position: absolute;
+  top: 120%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--light-off-white);
+  color: var(--darker-gray);
+  border: 1px solid gray;
+  text-align: center;
+  border-radius: 3px;
+  padding: 5px;
+  font-size: 12px;
+  white-space: nowrap;
+  z-index: 1000;
+  opacity: 0;
+  transition: opacity 0.3s;
 }
 
-.dark .tooltip{
-	background-color: var(--dark-gray);
-    color: var(--off-white);
+#filter-form:hover .tooltip {
+  transition: none;
 }
 
-.icon-button:hover .tooltip {
-    visibility: visible;
-    opacity: 1;
+.dark .tooltip {
+  background-color: var(--dark-gray);
+  color: var(--off-white);
 }
 
-.search-icon {
-  left: 25px;
-  position: relative;
-  margin-top: 2px;
-  color: gray;
-  pointer-events: none;
-}
-
-.advanced-icon{
-  right: 28px;
-  position: relative;
-  margin-top: 3px;
-  color: gray;
-  cursor: pointer;
-}
-
-.advanced-icon .icon-button{
-  padding: 0;
+.icon-button:hover .tooltip,
+#filter-form:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
 }
 
 p {
   margin-bottom: 1.5rem;
-}
-
-#app-content {
-  padding-top: 1.2em;
-
 }
 
 #app-content ul {
@@ -278,33 +338,33 @@ span.eng-lang {
   display: block;
 }
 
-.highlight > span.eng-lang{
+.highlight>span.eng-lang {
   display: inline;
 }
 
-.highlight > span.pli-lang {
+.highlight>span.pli-lang {
   margin-top: .4rem;
 }
 
 .eng-lang .searchTerm,
 .comment-highlight .searchTerm {
-	color: var(--darker-gold);
-	font-family: "RobotoSerif Bold";
+  color: var(--darker-gold);
+  font-family: "RobotoSerif Bold";
 }
 
-.comment-highlight a .searchTerm{
-	text-decoration: underline;
+.comment-highlight a .searchTerm {
+  text-decoration: underline;
 }
 
 .dark .eng-lang .searchTerm,
 .dark .comment-highlight .searchTerm {
-	color: var(--gold);
+  color: var(--gold);
 }
 
-.pli-lang .searchTerm{
-	color: var(--orange);
-	font-weight: bold;
-	font-size: 1.1rem;
+.pli-lang .searchTerm {
+  color: var(--orange);
+  font-weight: bold;
+  font-size: 1.1rem;
 }
 
 p,
@@ -357,7 +417,7 @@ h5 .pli-lang {
 }
 
 a {
-  color: var(--blue);
+  color: var(--dark-blue);
 }
 
 .dark a {
@@ -390,7 +450,7 @@ dt {
 }
 
 .pli-lang {
-  transition: opacity 0.3s ease, height 0.3s ease;
+  transition: opacity 250ms ease, height 250ms ease;
 }
 
 .hide-pali .pli-lang {
@@ -400,6 +460,8 @@ dt {
 }
 
 #footer {  
+  text-align: center;
+
   .container {
     display: flex;
     flex-direction: column;
@@ -409,6 +471,13 @@ dt {
 
 .left-align {
   text-align: left;
+}
+
+#sutta h2,
+#whats-new h2 {
+  font-size: 1.5rem;
+  line-height: 1;
+  margin: 1.5rem 0;
 }
 
 #sutta.hide-pali p span.eng-lang {
@@ -491,16 +560,16 @@ br {
 }
 
 #buttonsContainer,
-#epubButtonsContainer{
+#epubButtonsContainer {
   display: flex;
 }
 
-#epubButtonsContainer{
+#epubButtonsContainer {
   margin-top: .2rem;
 }
 
 #infoButton,
-#epubInfoButton{
+#epubInfoButton {
   border: none;
   cursor: pointer;
   outline: none;
@@ -511,9 +580,8 @@ br {
 }
 
 #infoButton img,
-#epubInfoButton img{
+#epubInfoButton img {
   width: 14px;
-  filter: opacity(60%);
 }
 
 .navigation {
@@ -537,43 +605,25 @@ a:hover {
   }
 }
 
-.hide-button {
-  color: var(--black);
-  border: solid 2px gray;
-  padding: .2rem .3rem;
-  border-radius: 3px;
-}
-
 .foreword-link {
   color: var(--orange-yellow);
-  text-decoration: none; /* Remove any default underline */
-  text-align:center;
-  font-size:30px;
-  
+  text-decoration: none;
+  /* Remove any default underline */
+  text-align: center;
+  font-size: 30px;
+
 }
 
 .foreword-link:hover {
-  text-decoration: underline; /* Add underline when hovered over */
-  cursor: pointer; /* Change cursor to pointer on hover */
+  text-decoration: underline;
+  /* Add underline when hovered over */
+  cursor: pointer;
+  /* Change cursor to pointer on hover */
 }
 
 .button-container {
-  text-align: center; /* Center the contents horizontally */
-}
-
-.hide-button:hover {
-  background-color: var(--dark-blue);
-  color: var(--off-white);
-}
-
-.dark .hide-button {
-  background-color: var(--dark-blue);
-  color: var(--off-white);
-}
-
-.dark .hide-button:hover {
-  background-color: var(--blue);
-  color: var(--off-white);
+  text-align: center;
+  /* Center the contents horizontally */
 }
 
 .side-by-side .segment {
@@ -641,29 +691,61 @@ a:hover {
   /* Smooth transition for the opacity */
 }
 
-#cacheButton,
-#downloadEpubButton, #downloadEpubButtonMobile {
+#cacheButton, #downloadEpubButton, 
+#downloadEpubButtonMobile, .hide-button {
   position: relative;
-  background-color: var(--light-gray);
-  color: var(--black);
+  color: var(--charcoal);
   cursor: pointer;
   top: -10%;
   margin-left: auto;
   margin-right: 0em;
   padding: .1rem 0;
-  font-size: 12px;
-  font-family: "RobotoSerif", serif;
-  background-color: transparent;
+  font-size: .8rem;
+  font-family: "Roboto";
   border: 1px solid gray;
   border-radius: 3px;
-  color: black;
-  filter: opacity(65%);
   width: 82px;
+  transition: background-color 250ms ease, color 250ms ease;
 }
+
+#cacheButton:hover,
+#downloadEpubButton:hover,
+.hide-button:hover {
+  background-color: #fff;
+}
+
+.dark #cacheButton,
+.dark #downloadEpubButton {
+  background-color: var(--dark-card-bg);
+  color: var(--off-white);
+  border-color: var(--off-white);
+  transition: background-color 250ms ease, color 250ms ease;
+}
+
+.dark #cacheButton:hover,
+.dark #downloadEpubButton:hover {
+  background-color: var(--light-off-white);
+  color: var(--darker-brown);
+}
+
+.hide-button {
+  padding: .2rem;
+}
+
+.dark .hide-button {
+  background-color: var(--dark-card-bg);
+  color: var(--off-white);
+}
+
+.dark .hide-button:hover {
+  background-color: var(--light-off-white);
+  color: var(--darker-brown);
+}
+
 
 #container {
   position: relative;
-  margin-left:auto;
+  margin-left: auto;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -685,7 +767,7 @@ a:hover {
   /* Initially hidden */
   z-index: 1000;
   /* Ensure it appears above other content */
-  white-space:pre-line;
+  white-space: pre-line;
   /* min-width: 200px; */
   max-width: 400px;
   /* Adjust as needed */
@@ -701,36 +783,45 @@ a:hover {
 .comment {
   display: inline-block;
   margin-right: 4px;
-  color: #007bff; /* Link color */
-  cursor: pointer; /* Indicates it's clickable */
-  vertical-align: super; /* Makes the number a superscript */
-  font-size: 0.75em; /* Adjusts the font size to match superscript style */
+  color: #007bff;
+  /* Link color */
+  cursor: pointer;
+  /* Indicates it's clickable */
+  vertical-align: super;
+  /* Makes the number a superscript */
+  font-size: 0.75em;
+  /* Adjusts the font size to match superscript style */
 }
 
 #suttanav {
   position: fixed;
   top: -50px;
   width: 100%;
-  max-width: 45rem; /* Match the max-width of #sutta */
+  max-width: 45rem;
+  /* Match the max-width of #sutta */
   background: #333;
   color: white;
   text-align: center;
   padding: 10px;
   transition: top 0.3s;
-  box-sizing: border-box; /* Include padding and border in the element's width */
-  left: 50%; /* Center the element */
-  transform: translateX(-50%); /* Center the element */
+  box-sizing: border-box;
+  /* Include padding and border in the element's width */
+  left: 50%;
+  /* Center the element */
+  transform: translateX(-50%);
+  /* Center the element */
 }
-.no-results{
+
+.no-results {
   text-align: center;
   margin: 1rem 0 1rem 0;
 }
 
-#bookmarks > details > :not(:last-child) {
-    margin-bottom: .5rem;
+#bookmarks>details> :not(:last-child) {
+  margin-bottom: .5rem;
 }
 
-#bookmarks > *{
+#bookmarks>* {
   margin: .5rem 0;
 }
 
@@ -750,7 +841,7 @@ a:hover {
   max-width: 70%;
 }
 
-.bookmark-buttons{
+.bookmark-buttons {
   display: flex;
   justify-content: right;
   align-items: center;
@@ -758,11 +849,11 @@ a:hover {
   gap: 1rem;
 }
 
-.bookmark-buttons > * {
-    max-width: 60%;
+.bookmark-buttons>* {
+  max-width: 60%;
 }
 
-.bookmark-buttons > a{
+.bookmark-buttons>a {
   text-wrap: nowrap;
 }
 
@@ -770,7 +861,8 @@ a:hover {
   display: flex;
   flex-direction: column;
   margin-top: 5px;
-  gap: .3rem; /* Add some space between each checkbox-label pair */
+  gap: .3rem;
+  /* Add some space between each checkbox-label pair */
 }
 
 .label-checkbox-container div {
@@ -780,124 +872,303 @@ a:hover {
 }
 
 .label-checkbox-container input[type="checkbox"] {
-  margin-right: 5px; /* Add some space between the checkbox and the label */
+  margin-right: 5px;
+  /* Add some space between the checkbox and the label */
 }
 
 .label-checkbox-container label {
-  margin-left: 0; /* Remove any left margin */
+  margin-left: 0;
+  /* Remove any left margin */
 }
 
 .dark .bookmark-text {
   color: var(--off-white);
 }
+
 #commentsArea summary {
   font-size: 1.1em;
   font-weight: bold;
   padding: 4px;
-
 }
+
 .dark #commentsArea summary {
   color: var(--off-white);
 }
 
-/* Flexbox container for the recent suttas */
 .whats-new-container {
   display: flex;
-  gap: 15px;
+  gap: 8px;
+  padding: 8px;
+  /* css hack to not hide .sutta-box's box-shadow because of hidden overflow */
+  margin: -8px;
+  /* css hack to not hide .sutta-box's box-shadow because of hidden overflow */
   overflow-x: auto;
-  padding: 10px;
 }
 
-/* Individual sutta box */
+.whats-new-container::-webkit-scrollbar {
+  height: 10px;
+  border-radius: 4px;
+}
+
+.whats-new-container::-webkit-scrollbar-track {
+  background: #ddd;
+  border-radius: 4px;
+  height: 10px;
+}
+
+.whats-new-container::-webkit-scrollbar-thumb {
+  background: #bbb;
+  border-radius: 4px;
+  height: 10px;
+}
+
+.whats-new-container::-webkit-scrollbar-thumb:hover {
+  background: #aaa;
+}
+
 .sutta-box {
-  flex: 0 0 auto;
-  width: 180px; /* Reduced width for compactness */
-  border: 1px solid var(--lighter-gray);
-  padding: 8px; /* Reduced padding for compactness */
+  flex: 1 0 auto;
+  width: 180px;
+  padding: 8px;
   text-align: center;
+  border-radius: 8px;
+  transition: background-color 250ms ease, color 250ms ease;
+  min-height: 130px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  background-color: var(--card-bg);
+  transition: box-shadow 250ms ease, color 250ms ease, background-color 250ms ease;
+  text-decoration: none !important;
 }
 
-/* Sutta title style */
+.sutta-box:hover {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+  background-color: #ffffff;
+}
+
+.dark .sutta-box {
+  background-color: var(--dark-card-bg);
+  border-color: var(--slate-gray);
+}
+
+.dark .sutta-box:hover {
+  background-color: var(--light-off-white);
+  transform: initial;
+}
+
+.dark .sutta-box:hover .sutta-card-title {
+  color: var(--darker-brown);
+}
+
+.dark .sutta-box .sutta-pali-title {
+  color: var(--orange-yellow);
+}
+
+.dark .sutta-box:hover .sutta-pali-title {
+  color: var(--deep-bronze);
+}
+
 .sutta-card-title {
   margin: 0;
   font-size: 1.1em;
-  color: #1a0dab;
+  color: var(--darker-blue);
+  transition: color 250ms ease;
+  font-family: "RobotoSerif Medium";
+  font-weight: 500;
 }
 
-/* Pali title styling */
 .sutta-pali-title {
   margin-top: 5px;
   font-size: 0.9em;
-  color: #7f6e0a;
+  color: var(--darker-gold);
+  transition: color 250ms ease;
+  font-family: "RobotoSerif Medium";
+  font-weight: 500;
 }
 
-/* Date added style */
 .sutta-date-added {
   margin-top: 8px;
   font-size: 0.8em;
   color: #888;
+  transition: color 250ms ease;
+}
+
+.dark .sutta-date-added {
+  color: var(--off-white);
+}
+
+.dark .sutta-box:hover .sutta-date-added {
+  color: var(--darker-brown);
 }
 
 /* Additional tweaks for spacing and compactness */
-.sutta-box h3, .sutta-pali-title, .sutta-date-added {
-  margin-bottom: 5px; /* Reduced margin between elements */
+.sutta-box h3,
+.sutta-pali-title {
+  margin-bottom: 5px;
+}
+
+.sutta-card {
+  background-color: var(--card-bg);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 250ms ease, color 250ms ease, background-color 250ms ease;
+}
+
+.sutta-card:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+}
+
+.dark .sutta-card {
+  background-color: var(--dark-card-bg);
+  border-color: var(--slate-gray);
+}
+
+.dark .sutta-card:hover {
+  background-color: var(--off-white);
+  transform: initial;
+  box-shadow: initial;
+}
+
+.sutta-card>a {
+  text-decoration: none;
+  display: block;
+  padding: 10px;
+}
+
+.sutta-card-content {
+  display: flex;
+  justify-content: space-between;
+  gap: 2px;
+  flex-direction: column;
+}
+
+.sutta-card-top,
+.sutta-card-bottom {
+  flex: 1;
+  display: flex;
+  gap: 10px;
+  align-items: start;
+}
+
+.sutta-card-description {
+  color: black;
+  font-size: .85rem;
+  transition: color 250ms ease;
+  line-height: 1.2;
+}
+
+.sutta-card-heading {
+  font-size: 0.9rem;
+  line-height: 1;
+  font-weight: 500;
+  color: var(--deep-bronze);
+  background: rgba(var(--orange-yellow-rgb), 0.15);
+  border-radius: 3px;
+  padding: 4px 7px 4px 6px;
+  margin-top: 2px;
+  transition: background 250ms ease, color 250ms ease;
+  max-width: 50%;
+  text-align: center;
+  white-space: nowrap;
+  font-style: italic;
+}
+
+.sutta-card:hover .sutta-card-heading {
+  background: rgba(var(--orange-yellow-rgb), 0.25);
+}
+
+.dark .sutta-card-heading {
+  background: rgba(var(--orange-yellow-rgb), 0.50);
+  color: rgb(240, 240, 240);
+}
+
+.dark .sutta-card:hover .sutta-card-heading {
+  background: rgba(var(--darker-gold-rgb), 1);
+  color: white;
+}
+
+.dark .sutta-card-description {
+  color: var(--off-white);
+}
+
+.dark .sutta-card:hover .sutta-card-description {
+  color: var(--darker-brown);
+}
+
+.sutta-card-divider {
+  border: none;
+  border-top: 1px solid #d8d8d8;
+  margin: 4px 0;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  transition: border 250ms ease;
+}
+
+.dark .sutta-card-divider {
+  border-color: var(--slate-gray);
+}
+
+.dark .sutta-card:hover .sutta-card-divider {
+  border-top: 1px solid var(--dark-brown);
+}
+
+.sutta-card .sutta-pali-title {
+  font-size: .9rem;
+  line-height: .9rem;
+  color: var(--darker-gold);
+  margin: 0;
+  transition: color 250ms ease;
+  font-family: "RobotoSerif Medium";
+}
+
+.dark .sutta-pali-title {
+  color: var(--orange-yellow);
+}
+
+.dark .sutta-card:hover .sutta-pali-title {
+  color: var(--deep-bronze);
+}
+
+.sutta-card .sutta-title {
+  font-size: 1.1rem;
+  color: var(--darker-blue);
+  transition: color 250ms ease;
+  margin-right: auto;
+  font-family: "RobotoSerif Medium";
+  font-weight: 500;
+}
+
+.dark .sutta-card .sutta-title {
+  color: var(--off-white);
+}
+
+.dark .sutta-card:hover .sutta-title {
+  color: var(--darker-brown);
 }
 
 #back-arrow {
-  margin-left: 8px; /* Adjust as needed */
+  margin-left: 8px;
+  /* Adjust as needed */
   cursor: pointer;
   font-size: 14px;
 }
 
-#copyButton, 
-bookmarkButton{
+#copyButton,
+bookmarkButton {
   width: 76px;
-}
-
-@media only screen and (max-width: 768px) {
-  /* CSS rules for screens smaller than 768px */
-  .comment-text {
-    width: 300px;
-    text-align: center;
-  }
-  .bookmark-container p{
-    max-width: 60%;
-  }
-  #top-buttons.button-container{
-    margin-top: initial;
-  }
-  .links-area{
-      margin: 1rem;
-  }
-  .tooltip{
-	  display: none;
-  }
-}
-@media only screen and (max-width: 600px) {
-  #suttanav {
-    padding: 5px; /* Reduced padding on smaller screens */
-    font-size: 14px; /* Adjusted font size for smaller screens */
-  }
-  .bookmark-container {
-    flex-wrap: wrap;
-    flex-direction: column-reverse;
-  }
-  .bookmark-container p{
-    max-width: initial;
-  }
-  .bookmark-buttons{
-    justify-content: space-evenly;
-    width: 100%;
-  }
-  .bookmark-buttons > *{
-      max-width: 30%;
-  }
 }
 
 .box-button {
   display: block;
   margin: 5px;
-  text-align:center;
+  text-align: center;
   color: white;
   padding: 10px 20px;
   border-radius: 5px;
@@ -905,7 +1176,7 @@ bookmarkButton{
   cursor: pointer;
 }
 
-.box-button:hover{
+.box-button:hover {
   background-image: linear-gradient(rgb(0 0 0/20%) 0 0);
 }
 
@@ -916,16 +1187,20 @@ bookmarkButton{
 .orange {
   background-color: orange;
 }
+
 .glossary-item {
   margin-bottom: 20px;
 }
+
 .glossary-item h2 {
   margin-bottom: 10px;
 }
+
 .definition {
   padding-left: 20px;
 }
-.hidden{
+
+.hidden {
   display: none;
 }
 
@@ -961,8 +1236,6 @@ bookmarkButton{
   }
 }
 
-/* Additional enhancements for elegance and readability */
-
 #top-buttons.button-container {
   display: flex;
   flex-direction: row;
@@ -974,7 +1247,8 @@ bookmarkButton{
   margin-top: -37px;
   gap: 1rem;
   justify-content: center;
-  align-items: flex-end; /* Visually aligns icons with text */
+  align-items: flex-end;
+  /* Visually aligns icons with text */
 }
 
 #top-buttons .icon-button {
@@ -982,34 +1256,77 @@ bookmarkButton{
   flex-direction: column;
   align-items: center;
   padding: 0.4rem 0.8rem;
-  color: var(--dark-brown);
+  color: var(--black);
   font-family: "RobotoSerif Medium", serif;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: background-color 250ms ease, color 250ms ease;
   border-radius: 5px;
+  text-decoration: none;
 }
 
-#top-buttons .icon-button:hover {
-  background-color: var(--lighter-gray);
+#top-buttons .icon-button.active {
+  background-color: var(--off-white);
   color: var(--darker-brown);
 }
 
-.dark #top-buttons .icon-button{
+.dark #top-buttons .icon-button {
   color: var(--off-white);
 }
 
-.dark #top-buttons .icon-button:hover{
-  color: var(--darker-brown);
+@media (hover: hover) {
+
+  /* Only on screen supporting hover */
+  #top-buttons .icon-button:hover {
+    background-color: var(--off-white);
+    color: var(--darker-brown);
+  }
+
+  .dark #top-buttons .icon-button:hover {
+    color: var(--darker-brown);
+  }
+}
+
+#home-button svg,
+#search-button svg,
+#bookmarks-button svg,
+#comments-button svg,
+#glossary-button svg,
+#theme-button svg {
+  width: 1.4rem;
+  height: 1.4rem;
 }
 
 .icon-title {
-  font-size: 0.9rem;
+  font-size: 1rem;
   margin-top: 4px;
   line-height: 1.2;
   white-space: nowrap;
-  font-family: "RobotoSerif Medium", serif;
+  font-family: "Roboto Medium";
 }
 
-@media only screen and (max-width: 750px) {
+@media only screen and (max-width: 768px) {
+
+  /* CSS rules for screens smaller than 768px */
+  .comment-text {
+    width: 300px;
+    text-align: center;
+  }
+
+  .bookmark-container p {
+    max-width: 60%;
+  }
+
+  #top-buttons.button-container {
+    margin-top: initial;
+  }
+
+  .links-area {
+    margin: 1rem;
+  }
+
+  .tooltip {
+    display: none;
+  }
+
   #top-buttons.button-container {
     flex-wrap: wrap;
     gap: 0.5rem;
@@ -1017,7 +1334,7 @@ bookmarkButton{
   }
 
   #top-buttons.button-container .icon-title {
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     margin-top: 2px;
   }
 
@@ -1030,6 +1347,101 @@ bookmarkButton{
     margin: 0.2rem;
     padding: 0.2rem 0.4rem;
     font-size: 10px;
+  }
+
+  #filter-bar {
+    font-size: .85rem;
+  }
+
+  #sutta h2,
+  #whats-new h2 {
+    font-size: 1.2rem;
+  }
+
+  .sutta-box .sutta-card-title,
+  .sutta-card .sutta-title {
+    font-size: .9rem;
+  }
+
+  .sutta-box .sutta-pali-title,
+  .sutta-card .sutta-pali-title {
+    font-size: .85rem;
+  }
+
+  .sutta-card-description {
+    font-size: .8rem;
+  }
+
+  .sutta-card>a {
+    padding: 12px;
+  }
+
+  .sutta-title {
+    font-size: 1.1rem;
+  }
+
+  .sutta-card-heading {
+    margin-top: 0px;
+    font-size: 0.85rem;
+    white-space: normal;
+    padding: 3px 6px 3px 7px
+  }
+
+  .dark .sutta-card .sutta-card-heading {
+    background: rgba(var(--darker-gold-rgb), .80);
+    color: white;
+  }
+
+  .sutta-card-top {
+    gap: 8px;
+  }
+
+  .sutta-card-bottom {
+    padding-top: 2px;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  #suttanav {
+    padding: 5px;
+    /* Reduced padding on smaller screens */
+    font-size: 14px;
+    /* Adjusted font size for smaller screens */
+  }
+
+  .bookmark-container {
+    flex-wrap: wrap;
+    flex-direction: column-reverse;
+  }
+
+  .bookmark-container p {
+    max-width: initial;
+  }
+
+  .bookmark-buttons {
+    justify-content: space-evenly;
+    width: 100%;
+  }
+
+  .bookmark-buttons>* {
+    max-width: 30%;
+  }
+}
+
+@media (max-width: 400px) {
+  .sutta-card-top {
+    flex-wrap: wrap;
+    gap: 0;
+  }
+
+  .sutta-card-heading {
+    max-width: 100%;
+    padding: 2px;
+  }
+
+  .dark .sutta-card-heading {
+    padding: 2px 4px;
   }
 }
 
@@ -1173,6 +1585,8 @@ bookmarkButton{
         height: 100% !important;
         border: none !important;
         filter: none !important;
+        font-family: "RobotoSerif", serif !important;
+        background-color: transparent !important;
       }
     }
   }

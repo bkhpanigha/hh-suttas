@@ -141,7 +141,8 @@ url_replacements = {
     "https://www.hillsidehermitage.org/straightening-of-crookendness/":"Essay “Straightening of Crookedness”",
     "https://www.hillsidehermitage.org/new-book-jhana/": "Book “The Only Way to Jhana”",
     "https://www.hillsidehermitage.org/meanings/": "Book “Meanings”",
-    "https://www.hillsidehermitage.org/dwr/": "Book “Dhamma Within Reach”"
+    "https://www.hillsidehermitage.org/dwr/": "Book “Dhamma Within Reach”",
+    "https://www.hillsidehermitage.org/homelessness-is-nibbana/": "Essay “Homelessness is Nibbana”"
 }
 
 # Function to load a JSON file

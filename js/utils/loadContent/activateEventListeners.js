@@ -1,9 +1,9 @@
 import activateSideBySideEventListenerKeyUp from "../eventListeners/activateSideBySideEventListenerKeyUp.js";
 import { activateHomeButton } from "../eventListeners/activateHomeButton.js";
 import { activateThemeButton } from "../eventListeners/activateThemeButton.js";
-import activateSearchBar from "../eventListeners/activateSearchBar.js";
-import activateForm from "../eventListeners/activateForm.js";
-import activateViewForewordAndGoBackButtons from "../eventListeners/activateViewForewordAndGoBackButtons.js";
+import activateFilterBar from "../eventListeners/activateFilterBar.js";
+import activateFilterForm from "../eventListeners/activateFilterForm.js";
+import activateGoBackButtons from "../eventListeners/activateGoBackButtons.js";
 import activateRefreshButton from "../eventListeners/activateRefreshButton.js";
 import activateErrorButton from "../eventListeners/activateErrorButton.js";
 import activateCacheButton from "../eventListeners/activateCacheButton.js";
@@ -18,6 +18,8 @@ import activateYoutubePreview from '../eventListeners/activateYoutubePreview.js'
 import activateWindowEventListeners from "../eventListeners/activateWindowEventListeners.js";
 import activateHamburgerMenuButtons from "../eventListeners/activateHamburgerMenuButtons.js";
 import activateSettingsButtons from "../eventListeners/activateSettingsButtons.js";
+import initializeFuse from '../eventListeners/initializeFuse.js';
+import activateTopButtonsTouchAnimation from '../eventListeners/activateTopButtonsTouchAnimation.js';
 
 export function activateEventListeners(availableSuttasJson)
 {
@@ -35,16 +37,19 @@ export function activateEventListeners(availableSuttasJson)
     activateHamburgerMenuButtons();
     activateSettingsButtons();
     
+    activateTopButtonsTouchAnimation();
+	
     if (!window.location.href.endsWith("/bookmarks.html") 
     && !window.location.href.endsWith("/glossary.html") 
     && !window.location.href.endsWith("/comments.html") 
-    && !window.location.href.endsWith("/advanced-search.html")){
-	activateSideBySideEventListenerKeyUp();
-        activateSearchBar(availableSuttasJson);
-        activateViewForewordAndGoBackButtons(availableSuttasJson);
+    && !window.location.href.endsWith("/search-panel.html")){
+        activateSideBySideEventListenerKeyUp();
+        initializeFuse(availableSuttasJson);
+        activateFilterBar(availableSuttasJson);
+        activateGoBackButtons();
         activateHashChangeListener();
-        activateForm();
+        activateFilterForm();
         activateHandleTextSelection();
-	activateYoutubePreview();
+        activateYoutubePreview();
     }
 }

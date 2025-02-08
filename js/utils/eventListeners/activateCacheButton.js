@@ -18,8 +18,11 @@ export default function activateCacheButton()
           {
             console.log(error);
             // TODO maybe a red colour box here?
-            showNotification("An error occurred while attempting to download. Please refresh the page, wait a few seconds, and retry");
+            showNotification("An error occurred while attempting to download. Please check your internet connection, refresh the page, wait a few seconds, and retry");
           }
+        }
+        else{
+            showNotification("Your browser does not support offline functionality.<br/>Please update your browser or use another one.");
         }
       });
 }
