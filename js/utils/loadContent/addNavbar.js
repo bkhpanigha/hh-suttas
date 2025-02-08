@@ -1,38 +1,38 @@
+import { isHashScrolling } from './../navigation/scrollToHash.js';
+
 export function addNavbar() {
     const navbar = document.createElement('div');
     navbar.id = 'suttanav';
     navbar.innerHTML = document.title;
     document.body.appendChild(navbar);
-  
+
     let lastScrollTop = 0;
     let isVisible = false;
     let scrollTimer = null;
-    
+
     window.addEventListener('scroll', () => {
+        if (isHashScrolling) return; // Ignore navbar visibility updates during hash-based scrolling
+
         if (scrollTimer !== null) {
             clearTimeout(scrollTimer);
         }
 
         const currentScrollTop = window.scrollY || document.documentElement.scrollTop;
-        
-        // Show navbar when scrolling up beyond threshold
+
         if (currentScrollTop < lastScrollTop && currentScrollTop > 170) {
             if (!isVisible) {
                 navbar.style.top = '0';
                 isVisible = true;
             }
-        } 
-        // Hide navbar when at top or scrolling down
-        else if (currentScrollTop <= 170 || currentScrollTop > lastScrollTop) {
+        } else if (currentScrollTop <= 170 || currentScrollTop > lastScrollTop) {
             if (isVisible) {
                 navbar.style.top = '-50px';
                 isVisible = false;
             }
         }
-        
+
         lastScrollTop = currentScrollTop;
-        
-        // Reset scroll state after scrolling stops
+
         scrollTimer = setTimeout(() => {
             scrollTimer = null;
         }, 150);
