@@ -18,7 +18,7 @@ export function addNavbar() {
         // Show navbar when scrolling up beyond threshold
         if (currentScrollTop < lastScrollTop && currentScrollTop > 170) {
             if (!isVisible) {
-                navbar.style.top = '0';
+                navbar.style.top = window.innerWidth < 1000 ? '47px' : '0px';
                 isVisible = true;
             }
         } 

@@ -20,32 +20,31 @@
     <script defer src="js/showdown.min.js"></script>
 	<script defer src="js/utils/navigation/redirectSuttaUrl.js"></script>
 	<script>
-        (function() {
-	    // While waiting body to be displayed we apply .dark on html to prevent flashing
-	    document.documentElement.classList.add(localStorage.theme);
-        })();
-    </script>
-    <script>
-       if ('serviceWorker' in navigator) {
-		  window.addEventListener('load', () => {
-			navigator.serviceWorker.getRegistrations().then(registrations => {
-			  if (registrations.length === 0) {
-				// Service worker is not yet registered, so register it
-				navigator.serviceWorker.register('sw.js')
-				  .then(registration => {
-					console.log('[SUCCESS] Service Worker registered with scope:', registration.scope);
-				  })
-				  .catch(error => {
-					console.error('[ERROR] Service Worker registration failed:', error);
-				  });
-			  } else {
-				console.log('[INFO] Service Worker is already registered');
-			  }
-			});
-            
-		  });
-}
-    </script>
+    (function() {
+    // While waiting body to be displayed we apply .dark on html to prevent flashing
+      document.documentElement.classList.add(localStorage.theme);
+    })();
+  </script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.getRegistrations().then(registrations => {
+          if (registrations.length === 0) {
+          // Service worker is not yet registered, so register it
+          navigator.serviceWorker.register('sw.js')
+            .then(registration => {
+            console.log('[SUCCESS] Service Worker registered with scope:', registration.scope);
+            })
+            .catch(error => {
+            console.error('[ERROR] Service Worker registration failed:', error);
+            });
+          } else {
+          console.log('[INFO] Service Worker is already registered');
+          }
+        });
+      });
+    }
+  </script>
 </head>
 
 <body id='appbody' class="hidden">
@@ -57,8 +56,8 @@
       </div>
     </div>
     <div id="footer"></div>
-    <script src="js/utils/contentSections/loadHeader.js"></script>
-    <script src="js/utils/contentSections/loadFooter.js"></script>
+    <script type="module" src="js/utils/contentSections/loadHeader.js"></script>
+    <script type="module" src="js/utils/contentSections/loadFooter.js"></script>
     <script type="module" src="index.js"></script>
 </body>
 </html>

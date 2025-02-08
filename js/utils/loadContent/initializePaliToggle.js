@@ -2,20 +2,20 @@ import getDocumentAreas from "../getDocumentAreas.js";
 
 export function initializePaliToggle() 
 {
-    const {suttaArea} = getDocumentAreas();
+    const { suttaArea, hidePaliButton, paliToggle } = getDocumentAreas();
 
-    const hideButton = document.getElementById("hide-pali");
     if (localStorage.paliToggle !== "show") {
       localStorage.paliToggle = "hide";
       suttaArea.classList.add("hide-pali");
     }
-    hideButton.addEventListener("click", () => 
-    {
+
+    const updatePaliSetting = () => {
       const englishElements = Array.from(suttaArea.querySelectorAll(".eng-lang"));
       const firstVisibleEnglishElement = englishElements.find(el => {
         const rect = el.getBoundingClientRect();
         return rect.bottom >= 0 && rect.top <= window.innerHeight;
       });
+
       const togglePali = () => {
         if (localStorage.paliToggle === "show") {
           suttaArea.classList.add("hide-pali");
@@ -27,6 +27,7 @@ export function initializePaliToggle()
           localStorage.paliToggle = "show";
         }
       };
+
       if (firstVisibleEnglishElement) {
         const prevOffset = firstVisibleEnglishElement.getBoundingClientRect().top;
         togglePali();
@@ -34,5 +35,9 @@ export function initializePaliToggle()
         window.scrollBy(0, newOffset - prevOffset);
       } else {
         togglePali();
-    }});
+      }
+    }
+
+    hidePaliButton?.addEventListener("click", updatePaliSetting);
+    paliToggle?.addEventListener("click", updatePaliSetting);
 }

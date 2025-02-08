@@ -6,7 +6,7 @@ export default function activateForm()
 {
     const {form} = getDocumentAreas();
 
-    form.addEventListener("submit", e => 
+    form?.addEventListener("submit", e => 
     {
         e.preventDefault();
         const searchValue = searchBar.value.trim().replace(/\s/g, "");

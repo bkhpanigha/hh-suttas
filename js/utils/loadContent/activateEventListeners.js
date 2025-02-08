@@ -15,7 +15,9 @@ import activateMessageListener from "../eventListeners/activateMessageListener.j
 import activateHashChangeListener from "../eventListeners/activateHashChangeListener.js";
 import activateHandleTextSelection from "../eventListeners/activateHandleTextSelection.js";
 import activateYoutubePreview from '../eventListeners/activateYoutubePreview.js';
-import activateOnWindowWidthChanged from "../eventListeners/activateOnWindowWidthChanged.js";
+import activateWindowEventListeners from "../eventListeners/activateWindowEventListeners.js";
+import activateHamburgerMenuButtons from "../eventListeners/activateHamburgerMenuButtons.js";
+import activateSettingsButtons from "../eventListeners/activateSettingsButtons.js";
 
 export function activateEventListeners(availableSuttasJson)
 {
@@ -29,7 +31,9 @@ export function activateEventListeners(availableSuttasJson)
     activateEPUBInfoButton();
     activateDownloadEPUBButton();
     activateMessageListener();
-    activateOnWindowWidthChanged();
+    activateWindowEventListeners();
+    activateHamburgerMenuButtons();
+    activateSettingsButtons();
     
     if (!window.location.href.endsWith("/bookmarks.html") 
     && !window.location.href.endsWith("/glossary.html") 

@@ -58,6 +58,21 @@ document.addEventListener('DOMContentLoaded', async function() {
       const initialThemeSetting = localStorage.theme === "dark";
       const availableSuttasJson = await fetchAvailableSuttas();
 
+      // Add changes to document to improve experience for mobile
+      if (window.innerWidth < 1000) {
+        document.body.style.paddingTop = "50px";
+        const appContent = document.getElementById("app-content");
+        if (appContent) {
+          appContent.style.paddingTop = 0;
+        }
+      }
+      
+      // Load settings state
+      document.querySelectorAll("input[type='checkbox']").forEach(checkbox => {
+        const settingKey = checkbox.id;
+        checkbox.checked = localStorage.getItem(settingKey)?.match(/show|dark|true/);
+      });
+
       // Initialize based on URL or default content
       if (document.location.search) {
           const slug = document.location.search.replace("?q=", "").split("&")[0].replace(/\s/g, "").replace(/%20/g, "");
