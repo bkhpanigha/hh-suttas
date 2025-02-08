@@ -10,11 +10,15 @@ export function scrollToHash() {
     const isQuickHighlight = options && options.includes('quick-highlight');
     const isNoHighlight = options && options.includes('no-highlight');
   
+    // Remove existing highlights from all comment elements
+    document.querySelectorAll(".comment-highlight").forEach(el => el.classList.remove("comment-highlight"));
+  
     if (hash.startsWith('comment')) {
         const commentElement = document.getElementById(hash);
         if (commentElement) {
             commentElement.classList.add("comment-highlight");
-            commentElement.scrollIntoView();
+            commentElement.scrollIntoView({ block: "start" });
+            window.scrollBy(0, -60); // Adjusts scroll to be a few lines below
         }
     } else if (hash) {
         // Check if it's a range (contains underscore)
@@ -29,7 +33,8 @@ export function scrollToHash() {
                 if (!isNoHighlight) {
                     highlightSegments(startElement, endElement, isQuickHighlight);
                 }
-                startElement.scrollIntoView();
+                startElement.scrollIntoView({ block: "start" });
+                window.scrollBy(0, -60);
             }
         } else {
             // Handle single element case
@@ -38,10 +43,9 @@ export function scrollToHash() {
                 if (!isNoHighlight) {
                     highlightSegments(targetElement, null, isQuickHighlight);
                 }
-                targetElement.scrollIntoView();
+                targetElement.scrollIntoView({ block: "start" });
+                window.scrollBy(0, -60);
             }
         }
     }
-
 }
-
