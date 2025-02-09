@@ -58,6 +58,7 @@
     "js/utils/eventListeners/activateRefreshButton.js",
     "js/utils/eventListeners/activateSideBySideEventListenerKeyUp.js",
     "js/utils/eventListeners/activateThemeButton.js",
+    "js/utils/eventListeners/activateTopButtonsTouchAnimation.js",
     "js/utils/eventListeners/activateYoutubePreview.js",
     "js/utils/eventListeners/initializeFuse.js",
     "js/utils/eventListeners/initializeSearchEvents.js",
