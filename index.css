@@ -1470,6 +1470,7 @@ bookmarkButton {
   width: 100%;
   height: 100%;
   background-color: var(--light-off-white);
+  overflow-y: auto;
 
   div {
     padding: 20px;
