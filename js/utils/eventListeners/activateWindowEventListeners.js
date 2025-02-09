@@ -16,12 +16,15 @@ export default function activateWindowEventListeners() {
     fetchHeader("/header.html");
   });
 
-  window.addEventListener("scroll", () => {
+  //Prevents js errors on desktop
+  if(header){
+    window.addEventListener("scroll", () => {
       if (window.scrollY > lastScrollY) {
           header.classList.add("hidden");
       } else {
           header.classList.remove("hidden");
       }
       lastScrollY = window.scrollY;
-  });
+    });
+  }
 }
