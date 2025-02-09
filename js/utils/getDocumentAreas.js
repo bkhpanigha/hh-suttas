@@ -22,7 +22,6 @@ export default function getDocumentAreas()
         previous: document.getElementById("previous"),
         next: document.getElementById("next"),
         filterBar: document.getElementById("filter-bar"),
-        searchBar: document.getElementById("search-bar"),
         infoButton: document.getElementById('infoButton'),
         hamburgerMenuOpenButton: document.getElementById('hamburger-menu-open-button'),
         hamburgerMenuCloseButton: document.getElementById('hamburger-menu-close-button'),
