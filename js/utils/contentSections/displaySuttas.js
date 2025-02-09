@@ -25,7 +25,7 @@ export function displaySuttas(suttas, isSearch = false)
     }
   
     suttaArea.innerHTML += `<ul>${Object.entries(suttas).map(([sutta_id, sutta_details]) => {
-		const id = sutta_details['id'].replace(/\s+/g, '');
+		const id = sutta_details['id'];
 		const title = sutta_details['title'];
 		const pali_title = sutta_details['pali_title'];
 		const hasDescription = sutta_details['description'];
@@ -45,7 +45,7 @@ export function displaySuttas(suttas, isSearch = false)
 			: '';
 
 		const card = `<li class="sutta-card">
-			<a href="/?q=${id.toLowerCase()}">
+			<a href="/?q=${id.toLowerCase().replace(/\s+/g, '')}">
 				<div class="sutta-card-content">
 					<div class="sutta-card-top">
 						<div class="sutta-title">${id} — ${title}</div>

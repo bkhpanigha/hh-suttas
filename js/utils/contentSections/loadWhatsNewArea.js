@@ -35,11 +35,11 @@ export function loadWhatsNewArea(availableSuttasJson) {
         whatsNewArea.innerHTML = `<h2>What's New</h2>` +
             `<div class="whats-new-container">
                 ${recentSuttas.map(sutta => {
-                    const id = sutta.id.replace(/\s+/g, '');
+                    const id = sutta.id;
                     const title = sutta.title;
                     const daysAgoAdded = daysAgo(sutta.date_added); // Calculer combien de jours depuis l'ajout
                     return `
-                        <a class="sutta-box" href="/?q=${id.toLowerCase()}">
+                        <a class="sutta-box" href="/?q=${id.toLowerCase().replace(/\s+/g, '')}">
                             <h3 class="sutta-card-title">${title}</h3>
                             <div class="sutta-pali-title">${id} — ${sutta.pali_title}</div>
                             <div class="sutta-date-added"><small>Added ${daysAgoAdded}</small></div>
