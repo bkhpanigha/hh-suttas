@@ -186,6 +186,13 @@ body {
   display: inline;
 }
 
+/* Add margin-bottom to '.dark .comment-highlight' lost because of 'display: inline' above */
+.dark .comment-highlight:after{
+  content: '';
+  margin-bottom: 1rem;
+  display: block;
+}
+
 .light .highlight {
   font-family: "RobotoSerif Medium";
   box-shadow: 0px 2px 3px rgba(0, 0, 0, .2);
