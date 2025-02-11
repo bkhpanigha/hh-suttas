@@ -1452,13 +1452,17 @@ bookmarkButton {
   left: 0;
   width: 100%;
   padding: 2.5px 0px;
-  background: #f3d7d7;
+  background-color: #f3d7d7;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease-in-out;
 }
 
 .mobile-header.hidden {
   transform: translateY(-100%);
+}
+
+.dark .mobile-header {
+  background-color: var(--dark-brown);
 }
 
 .popup-menu {
@@ -1504,9 +1508,10 @@ bookmarkButton {
 
     button {
       position: absolute;
-      right: 20px;
-      top: 20px;
+      right: 15px;
+      top: 18px;
       border: none;
+      background-color: transparent;
     }
   }
 
@@ -1597,6 +1602,23 @@ bookmarkButton {
     margin: 20px auto;
     font-size: 16px;
     font-family: "RobotoSerif", serif;
+  }
+}
+
+.dark .popup-menu {
+  background-color: var(--deep-anthracite);
+  color: var(--off-white);
+
+  .header button {
+    color: var(--off-white);
+  }
+
+  .links-area a {
+    color: var(--off-white);
+
+    img {
+      filter: invert(90%);
+    }
   }
 }
 
