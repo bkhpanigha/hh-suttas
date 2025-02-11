@@ -2,14 +2,20 @@ export let isHashScrolling = false;
 
 import { highlightSegments } from './highlightSegments.js';
 
-function scrollWithOffset() {
+function scrollWithOffset(element) {
     // Check the available space below the current scroll position
     const spaceBelow = document.documentElement.scrollHeight - window.scrollY - window.innerHeight;
-    if (spaceBelow > 60) {
-        window.scrollBy(0, -60); // Scroll up by 60px
-    } else {
-        window.scrollBy(0, -spaceBelow); // Scroll just enough to avoid hiding
-    }
+	
+	//setTimeout to scroll after youtube links are loaded so the position isn't shifted because of it
+	setTimeout(() => {
+		element.scrollIntoView({ block: "start" });
+		/* If there isn't 60px below the current scroll position,
+		element.scrollIntoView() above has put the element at the bottom of the page,
+		therefore scrolling up would result in hiding it or part of it */
+		if (spaceBelow > 60) {
+			window.scrollBy(0, -60); // Scroll up by 60px
+		} 
+	}, 100);
 }
 
 export function scrollToHash() {
@@ -26,8 +32,7 @@ export function scrollToHash() {
         if (commentElement) {
             isHashScrolling = true;
             commentElement.classList.add("comment-highlight");
-            commentElement.scrollIntoView({ block: "start" });
-            scrollWithOffset();
+            scrollWithOffset(commentElement);
             setTimeout(() => { isHashScrolling = false; }, 500);
         }
     } else if (hash) {
@@ -43,8 +48,7 @@ export function scrollToHash() {
                 if (!isNoHighlight) {
                     highlightSegments(startElement, endElement, isQuickHighlight);
                 }
-                startElement.scrollIntoView({ block: "start" });
-                scrollWithOffset();
+                scrollWithOffset(startElement);
                 setTimeout(() => { isHashScrolling = false; }, 500);
             }
         } else {
@@ -54,8 +58,7 @@ export function scrollToHash() {
                 if (!isNoHighlight) {
                     highlightSegments(targetElement, null, isQuickHighlight);
                 }
-                targetElement.scrollIntoView({ block: "start" });
-                scrollWithOffset();
+                scrollWithOffset(targetElement);
                 setTimeout(() => { isHashScrolling = false; }, 500);
             }
         }
