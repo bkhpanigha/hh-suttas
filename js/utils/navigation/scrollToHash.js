@@ -2,6 +2,16 @@ export let isHashScrolling = false;
 
 import { highlightSegments } from './highlightSegments.js';
 
+function scrollWithOffset() {
+    // Check the available space below the current scroll position
+    const spaceBelow = document.documentElement.scrollHeight - window.scrollY - window.innerHeight;
+    if (spaceBelow > 60) {
+        window.scrollBy(0, -60); // Scroll up by 60px
+    } else {
+        window.scrollBy(0, -spaceBelow); // Scroll just enough to avoid hiding
+    }
+}
+
 export function scrollToHash() {
     const fullHash = window.location.hash.substring(1);
     const [hash, options] = fullHash.split('~');
@@ -17,7 +27,7 @@ export function scrollToHash() {
             isHashScrolling = true;
             commentElement.classList.add("comment-highlight");
             commentElement.scrollIntoView({ block: "start" });
-            window.scrollBy(0, -60);
+            scrollWithOffset();
             setTimeout(() => { isHashScrolling = false; }, 500);
         }
     } else if (hash) {
@@ -34,7 +44,7 @@ export function scrollToHash() {
                     highlightSegments(startElement, endElement, isQuickHighlight);
                 }
                 startElement.scrollIntoView({ block: "start" });
-                window.scrollBy(0, -60);
+                scrollWithOffset();
                 setTimeout(() => { isHashScrolling = false; }, 500);
             }
         } else {
@@ -45,7 +55,7 @@ export function scrollToHash() {
                     highlightSegments(targetElement, null, isQuickHighlight);
                 }
                 targetElement.scrollIntoView({ block: "start" });
-                window.scrollBy(0, -60);
+                scrollWithOffset();
                 setTimeout(() => { isHashScrolling = false; }, 500);
             }
         }
