@@ -15,7 +15,7 @@ export default function getDocumentAreas()
     }
 
     const documentAreas = {
-        homeButton: document.getElementById("home-button"),
+        homeButton: document.getElementById("home-button") || document.getElementById("home-button-mobile"),
         themeButton: document.getElementById("theme-button"),
         hidePaliButton: document.getElementById("hide-pali"),
         bodyTag: document.querySelector("body"),

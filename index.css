@@ -1295,6 +1295,13 @@ bookmarkButton {
   height: 1.4rem;
 }
 
+#home-button-mobile svg,
+#settings-open-button svg,
+#hamburger-menu-open-button svg {
+  width: 1.8rem;
+  height: 1.8rem;
+}
+
 .icon-title {
   font-size: 1rem;
   margin-top: 4px;
@@ -1453,7 +1460,7 @@ bookmarkButton {
   width: 100%;
   padding: 2.5px 0px;
   background-color: #f3d7d7;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 2px -2px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease-in-out;
 }
 
@@ -1570,7 +1577,6 @@ bookmarkButton {
     display: flex;
     flex-direction: column;
     align-items: center;
-    border-top: 1px solid #ddd;
     border-bottom: 1px solid #ddd;
 
     span {
