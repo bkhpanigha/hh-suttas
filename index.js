@@ -70,7 +70,10 @@ document.addEventListener('DOMContentLoaded', async function() {
       // Load settings state
       document.querySelectorAll("input[type='checkbox']").forEach(checkbox => {
         const settingKey = checkbox.id;
-        checkbox.checked = localStorage.getItem(settingKey)?.match(/show|dark|true/);
+        const storedValue = localStorage.getItem(settingKey);
+	      if (storedValue?.match(/show|dark|true/)) {
+		      checkbox.checked = true;
+	      }
       });
 
       // Initialize based on URL or default content
