@@ -106,7 +106,6 @@ export async function buildSutta(slug, availableSuttasJson) {
         document.title = `${acronym} ${sutta_title}`;
 
         // Initialize features
-        initializePaliToggle();
         addNavbar();
 
         // Handle buttons

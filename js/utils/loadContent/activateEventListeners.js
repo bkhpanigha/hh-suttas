@@ -20,6 +20,7 @@ import activateHamburgerMenuButtons from "../eventListeners/activateHamburgerMen
 import activateSettingsButtons from "../eventListeners/activateSettingsButtons.js";
 import initializeFuse from '../eventListeners/initializeFuse.js';
 import activateTopButtonsTouchAnimation from '../eventListeners/activateTopButtonsTouchAnimation.js';
+import { initializePaliToggle } from "./initializePaliToggle.js";
 
 export function activateEventListeners(availableSuttasJson)
 {
@@ -36,6 +37,7 @@ export function activateEventListeners(availableSuttasJson)
     activateWindowEventListeners();
     activateHamburgerMenuButtons();
     activateSettingsButtons();
+    initializePaliToggle();
     
     activateTopButtonsTouchAnimation();
 	
