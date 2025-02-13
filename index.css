@@ -1541,7 +1541,7 @@ bookmarkButton {
     align-items: center;
     gap: 10px;
     border-bottom: 1px solid #ddd;
-    padding: 20px;
+    padding: 15px;
 
     :first-child {
       margin-top: 0px !important;
@@ -1590,8 +1590,8 @@ bookmarkButton {
 
     span {
       display: block;
-      font-style: italic;
-      font-size: 20px;
+      font-size: 22px;
+      font-weight: bold;
       margin-top: 20px;
     }
   }
