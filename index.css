@@ -1485,16 +1485,6 @@ bookmarkButton {
   height: 100%;
   background-color: var(--light-off-white);
   overflow-y: auto;
-
-  .header {
-    padding: 20px;
-
-    ul li {
-      padding: 10px 20px;
-      margin-bottom: 5px;
-      border-radius: 5px;
-    }
-  }
   
   ul {
     display: flex;
@@ -1509,10 +1499,18 @@ bookmarkButton {
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid #ddd;
+    padding: 20px;
+
+    ul li {
+      padding: 10px 20px;
+      margin-bottom: 5px;
+      border-radius: 5px;
+    }
 
     span {
       margin: 0 auto;
-      font-size: 20px;
+      font-size: 22px;
+      font-weight: bold;
     }
 
     button {
@@ -1543,6 +1541,7 @@ bookmarkButton {
     align-items: center;
     gap: 10px;
     border-bottom: 1px solid #ddd;
+    padding: 20px;
 
     :first-child {
       margin-top: 0px !important;
