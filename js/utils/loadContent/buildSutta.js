@@ -1,6 +1,5 @@
 import getDocumentAreas from "../getDocumentAreas.js";
 import { addNavbar } from "./addNavbar.js";
-import { initializePaliToggle } from "./initializePaliToggle.js";
 import { checkSearchUrlParam } from '../navigation/checkSearchUrlParam.js';
 
 const getSuttaNavigation = (slug, availableSuttasJson) => {
