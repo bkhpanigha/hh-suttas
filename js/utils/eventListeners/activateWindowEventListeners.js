@@ -1,5 +1,6 @@
 import fetchFooter from "../contentSections/loadFooter.js";
 import fetchHeader from "../contentSections/loadHeader.js";
+import { isTogglingPali } from "./initializePaliToggle.js";
 
 export default function activateWindowEventListeners() {
   const header = document.querySelector(".mobile-header");
@@ -16,13 +17,14 @@ export default function activateWindowEventListeners() {
     fetchHeader("/header.html");
   });
 
-  //Prevents js errors on desktop
-  if(header){
+  if (header) {
     window.addEventListener("scroll", () => {
+      if (isTogglingPali) return; // Prevents the scroll event while toggling Pali
+
       if (window.scrollY > lastScrollY) {
-          header.classList.add("hidden");
+        header.classList.add("hidden");
       } else {
-          header.classList.remove("hidden");
+        header.classList.remove("hidden");
       }
       lastScrollY = window.scrollY;
     });
