@@ -45,7 +45,7 @@
     "js/utils/eventListeners/activateCacheButton.js",
     "js/utils/eventListeners/activateDownloadEPUBButton.js",
     "js/utils/eventListeners/activateEPUBInfoButton.js",
-    "js/utils/eventListeners/activateErrorButton.js",
+    "js/utils/eventListeners/activateGeneralActionButtons.js",
     "js/utils/eventListeners/activateFilterBar.js",
     "js/utils/eventListeners/activateFilterForm.js",
     "js/utils/eventListeners/activateGoBackButtons.js",

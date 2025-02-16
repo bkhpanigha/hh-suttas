@@ -1195,6 +1195,18 @@ bookmarkButton {
   background-color: orange;
 }
 
+.green {
+  background-color: #348e40;
+}
+
+.blue {
+  background-color: var(--dark-blue);
+}
+
+.dark-blue {
+  background-color: #093461;
+}
+
 .gold {
   background-color: var(--gold);
 }
@@ -1610,6 +1622,10 @@ bookmarkButton {
     font-size: 16px;
     font-family: "RobotoSerif", serif;
   }
+
+  .a {
+    width: 350px;
+  }
 }
 
 .dark .popup-menu {
@@ -1622,10 +1638,6 @@ bookmarkButton {
 
   .links-area a {
     color: var(--off-white);
-
-    img {
-      filter: invert(90%);
-    }
   }
 }
 
