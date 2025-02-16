@@ -43,7 +43,6 @@ import { loadWhatsNewArea } from "./js/utils/contentSections/loadWhatsNewArea.js
 import { displaySuttas } from "./js/utils/contentSections/displaySuttas.js";
 import { activateEventListeners } from "./js/utils/loadContent/activateEventListeners.js";
 import { fetchAvailableSuttas } from "./js/utils/loadContent/fetchAvailableSuttas.js";
-import initializeSideBySide from "./js/utils/loadContent/initializeSideBySide.js";
 import { toggleTheme } from "./js/utils/misc/toggleTheme.js";
 import { buildSutta } from "./js/utils/loadContent/buildSutta.js";
 import updateSuttaDatabase from './js/database/updateSuttaDatabase.js';
@@ -57,6 +56,24 @@ document.addEventListener('DOMContentLoaded', async function() {
       //Set up data
       const initialThemeSetting = localStorage.theme === "dark";
       const availableSuttasJson = await fetchAvailableSuttas();
+
+      // Add changes to document to improve experience for mobile
+      if (window.innerWidth < 1000) {
+        document.body.style.paddingTop = "50px";
+        const appContent = document.getElementById("app-content");
+        if (appContent) {
+          appContent.style.paddingTop = 0;
+        }
+      }
+      
+      // Load settings state
+      document.querySelectorAll("input[type='checkbox']").forEach(checkbox => {
+        const settingKey = checkbox.id;
+        const storedValue = localStorage.getItem(settingKey);
+	      if (storedValue?.match(/show|dark|true/)) {
+		      checkbox.checked = true;
+	      }
+      });
 
       // Initialize based on URL or default content
       if (document.location.search) {
@@ -75,7 +92,6 @@ document.addEventListener('DOMContentLoaded', async function() {
       // Additional setup steps
       updateSuttaDatabase();
       activateEventListeners(availableSuttasJson);
-      initializeSideBySide();
       toggleTheme(initialThemeSetting);
       
       // Now we can reveal the content

@@ -21,7 +21,7 @@ export function addNavbar() {
 
         if (currentScrollTop < lastScrollTop && currentScrollTop > 170) {
             if (!isVisible) {
-                navbar.style.top = '0';
+                navbar.style.top = window.innerWidth < 1000 ? '47px' : '0px';
                 isVisible = true;
             }
         } else if (currentScrollTop <= 170 || currentScrollTop > lastScrollTop) {

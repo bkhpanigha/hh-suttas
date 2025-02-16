@@ -10,6 +10,7 @@ export function showNotification(message, duration = 5000) {
   
     // Show the notification with fade-in effect
     notificationBox.style.display = 'block';
+    notificationBox.style.zIndex = 99999; // NOTE: Should have the highest z-index
     setTimeout(() => notificationBox.style.opacity = 1, 10); // Slight delay to ensure the element is visible before starting the transition
   
     // Hide the notification with fade-out effect after 'duration' milliseconds

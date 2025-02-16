@@ -3,12 +3,13 @@ import { toggleTheme } from "../misc/toggleTheme.js";
 
 export function activateThemeButton()
 {
-    const {themeButton} = getDocumentAreas();
+    const { themeButton, darkModeToggle } = getDocumentAreas();
 
-    themeButton.addEventListener("click", () => 
-    {
+    const updateTheme = () => {
         const currentThemeIsDark = localStorage.theme === "dark";
         toggleTheme(!currentThemeIsDark);
-    });
-    
+    };
+
+    themeButton?.addEventListener("click", updateTheme);
+    darkModeToggle?.addEventListener("click", updateTheme);
 }

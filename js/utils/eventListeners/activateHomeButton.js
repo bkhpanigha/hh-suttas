@@ -4,7 +4,7 @@ export function activateHomeButton()
 {
     const {homeButton} = getDocumentAreas();
 
-    homeButton.addEventListener("click", () => 
+    homeButton?.addEventListener("click", () => 
     {
         window.location.href = '/';
     });

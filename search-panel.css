@@ -476,7 +476,8 @@ b {
     background: var(--accent-hover);
 }
 
-.mobile-menu-button {
+.mobile-search-panel-button {
+    top: 55px !important;
     display: none;
     position: fixed;
     top: .4rem;
@@ -494,30 +495,30 @@ b {
     box-shadow: var(--shadow-sm);
 }
 
-.dark .mobile-menu-button {
+.dark .mobile-search-panel-button {
     background-color: var(--dark-panel-bg);
     border: 2px solid var(--dark-border-color-lighter);
     color: var(--dark-text-primary);
 }
 
-.mobile-menu-button:hover {
+.mobile-search-panel-button:hover {
     border-color: var(--accent-primary);
     color: var(--accent-primary);
     box-shadow: var(--shadow-md);
 }
 
-.mobile-menu-button::after {
+.mobile-search-panel-button::after {
     content: "▼";
     margin-left: 8px;
 }
 
-.mobile-menu-button.open {
+.mobile-search-panel-button.open {
     background-color: var(--accent-primary);
     border-color: var(--accent-primary);
     color: white;
 }
 
-.mobile-menu-button.open::after {
+.mobile-search-panel-button.open::after {
     content: "▲";
 }
 
@@ -646,6 +647,8 @@ b {
 
     #panelsContainer {
         padding: 3px;
+        top: 55px;
+        position: relative;
     }
 
     #searchContainer {
@@ -669,14 +672,14 @@ b {
         overflow-y: auto;
     }
 
-    .mobile-menu-button {
+    .mobile-search-panel-button {
         display: block;
         padding: .5rem;
 		width: 10rem;
-		font- size: .9rem;
+		font-size: .9rem;
     }
 	
-	.dark .mobile-menu-button.open{
+	.dark .mobile-search-panel-button.open{
 		background-color: var(--dark-accent-primary);
 		border-color: var(--dark-accent-primary);
 	}
@@ -814,7 +817,7 @@ b {
 @supports (-webkit-touch-callout: none) {
     .search-field input,
     .search-btn,
-    .mobile-menu-button {
+    .mobile-search-panel-button {
         font-size: 16px;
     }
 }
@@ -822,7 +825,7 @@ b {
 @media (forced-colors: active) {
     .result,
     .search-btn,
-    .mobile-menu-button,
+    .mobile-search-panel-button,
     .options input[type="checkbox"] {
         border: 1px solid CanvasText;
     }

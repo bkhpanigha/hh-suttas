@@ -1,6 +1,5 @@
 import getDocumentAreas from "../getDocumentAreas.js";
 import { addNavbar } from "./addNavbar.js";
-import { initializePaliToggle } from "./initializePaliToggle.js";
 import { checkSearchUrlParam } from '../navigation/checkSearchUrlParam.js';
 
 const getSuttaNavigation = (slug, availableSuttasJson) => {
@@ -43,7 +42,7 @@ export async function buildSutta(slug, availableSuttasJson) {
 
         const converter = new showdown.Converter();
         let translator = "Bhikkhu Anīgha";
-        let html = `<div class="button-area"><button id="hide-pali" class="hide-button">Toggle Pali</button></div>`;
+        let html = window.innerWidth < 1000 ? "" : `<div class="button-area"><button id="hide-pali" class="hide-button">Toggle Pali</button></div>`;
         const sutta_title = sutta_details['title'];
         const acronym = sutta_details['id'];
 
@@ -106,16 +105,18 @@ export async function buildSutta(slug, availableSuttasJson) {
         document.title = `${acronym} ${sutta_title}`;
 
         // Initialize features
-        initializePaliToggle();
         addNavbar();
 
         // Handle buttons
-        const buttons = ['cacheButton', 'infoButton', 'downloadEpubButton', 'epubInfoButton'];
-        buttons.forEach(id => {
-            const button = document.getElementById(id);
-            if (button) button.style.display = 'none';
-        });
-
+        if (window.innerWidth > 1000) {
+            const buttons = ['cacheButton', 'infoButton', 'downloadEpubButton', 'epubInfoButton'];
+            buttons.forEach(id => {
+                const button = document.getElementById(id);
+                if (!button) return;
+                button.style.display = 'none';
+            });
+        }
+        
         // Navigation and search
         checkSearchUrlParam();
 

@@ -4,7 +4,7 @@ import { searchState } from '../userActions/searchState.js';
 export function initializeSearchEvents() {
     // Add button for mobile
     const mobileButton = document.createElement('button');
-    mobileButton.className = 'mobile-menu-button';
+    mobileButton.className = 'mobile-search-panel-button';
     mobileButton.textContent = 'Search Panel';
     document.body.insertBefore(mobileButton, document.body.firstChild);
     

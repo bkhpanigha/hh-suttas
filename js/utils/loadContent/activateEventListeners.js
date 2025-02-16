@@ -1,9 +1,3 @@
-import getDocumentAreas from "../getDocumentAreas.js";
-import { toggleTheme } from "../misc/toggleTheme.js";
-import db from "../../dexie/dexie.js";
-import { displaySuttas } from "../contentSections/displaySuttas.js";
-import { removeDiacritics } from "../misc/removeDiacritics.js";
-import { getSuttasByIds } from "../getSuttasByIds.js";
 import activateSideBySideEventListenerKeyUp from "../eventListeners/activateSideBySideEventListenerKeyUp.js";
 import { activateHomeButton } from "../eventListeners/activateHomeButton.js";
 import { activateThemeButton } from "../eventListeners/activateThemeButton.js";
@@ -21,8 +15,13 @@ import activateMessageListener from "../eventListeners/activateMessageListener.j
 import activateHashChangeListener from "../eventListeners/activateHashChangeListener.js";
 import activateHandleTextSelection from "../eventListeners/activateHandleTextSelection.js";
 import activateYoutubePreview from '../eventListeners/activateYoutubePreview.js';
+import activateWindowEventListeners from "../eventListeners/activateWindowEventListeners.js";
+import activateHamburgerMenuButtons from "../eventListeners/activateHamburgerMenuButtons.js";
+import activateSettingsButtons from "../eventListeners/activateSettingsButtons.js";
 import initializeFuse from '../eventListeners/initializeFuse.js';
 import activateTopButtonsTouchAnimation from '../eventListeners/activateTopButtonsTouchAnimation.js';
+import { initializePaliToggle } from "../eventListeners/initializePaliToggle.js";
+import initializeSideBySide from "../eventListeners/initializeSideBySide.js";
 
 export function activateEventListeners(availableSuttasJson)
 {
@@ -36,6 +35,11 @@ export function activateEventListeners(availableSuttasJson)
     activateEPUBInfoButton();
     activateDownloadEPUBButton();
     activateMessageListener();
+    activateWindowEventListeners();
+    activateHamburgerMenuButtons();
+    activateSettingsButtons();
+    initializePaliToggle();
+    
     activateTopButtonsTouchAnimation();
 	
     if (!window.location.href.endsWith("/bookmarks.html") 
@@ -50,5 +54,6 @@ export function activateEventListeners(availableSuttasJson)
         activateFilterForm();
         activateHandleTextSelection();
         activateYoutubePreview();
+        initializeSideBySide();
     }
 }
