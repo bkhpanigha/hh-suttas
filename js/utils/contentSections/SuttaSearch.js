@@ -1,6 +1,6 @@
 import { removeDiacritics } from '../misc/removeDiacritics.js';
 import { cleanVerse } from '../misc/cleanVerse.js';
-import { escapeRegExp} from '../misc/escapeRegExp.js';
+import { escapeRegExp } from '../misc/escapeRegExp.js';
 import { normalizeSpaces } from '../misc/normalizeSpaces.js';
 
 // Main search class for better data organization and caching
@@ -324,12 +324,6 @@ class SuttaSearch {
 				if (!originalMatch) continue;
 
 				let result;
-				const searchTermWords = normalizedSearchTerm.trim().split(/\s+/);
-				const searchTermLength = searchTermWords.length;
-
-				// Check if match is near the end of the text
-				const isNearEnd = this.fullText.length - originalMatch.end < Math.max(100, this.fullText.length * 0.05);
-
 				if (isComment) {
 					let verseKey = '';
 					let verseStart = 0;
@@ -343,15 +337,22 @@ class SuttaSearch {
 
 					const verseText = this.cleanedVerses.get(verseKey);
 					const verseEnd = verseStart + verseText.length;
+					const verseWords = verseText.split(/\s+/);
+
+					// Get word position of match within verse
+					const matchWordPosition = verseText.substring(0, originalMatch.start - verseStart).split(/\s+/).length;
+
+					// Check if match is within maxWords of verse end
+					const wordsFromMatchToEnd = verseWords.length - matchWordPosition;
+					const isNearEnd = wordsFromMatchToEnd < maxWords;
 
 					if (isNearEnd) {
-						// Return entire end of text if near the end
-						const startWord = Math.max(0, verseText.split(/\s+/).length - maxWords);
-						const passageStart = verseStart + verseText.split(/\s+/).slice(0, startWord).join(' ').length + (startWord > 0 ? 1 : 0);
-						const passageEnd = verseStart + verseText.length;
+						// Return passage from maxWords before verse end
+						const startWord = Math.max(0, verseWords.length - maxWords);
+						const passageStart = verseStart + verseWords.slice(0, startWord).join(' ').length + (startWord > 0 ? 1 : 0);
 
 						result = {
-							passage: this.getPassage(passageStart, passageEnd, originalMatch.start, originalMatch.end, true),
+							passage: this.getPassage(passageStart, verseEnd, originalMatch.start, originalMatch.end, true),
 							commentNb: this.getCommentNumber(verseKey)
 						};
 					} else if (verseText.split(/\s+/).length > maxWords) {
@@ -359,7 +360,7 @@ class SuttaSearch {
 						const words = verseText.split(/\s+/);
 						const matchWordIndex = verseText.substring(0, verseOffset).split(/\s+/).length;
 
-						const targetWordsBeforeMatch = Math.floor((maxWords - searchTermWords.length) / 2);
+						const targetWordsBeforeMatch = Math.floor((maxWords - term.split(/\s+/).length) / 2);
 						let startWord = Math.max(0, matchWordIndex - targetWordsBeforeMatch);
 						let endWord = Math.min(words.length, startWord + maxWords);
 
@@ -382,11 +383,20 @@ class SuttaSearch {
 						};
 					}
 				} else {
+					const searchTermWords = normalizedSearchTerm.trim().split(/\s+/);
+					const searchTermLength = searchTermWords.length;
 					const words = this.fullText.split(/\s+/);
 					const totalWords = words.length;
 
+					// Get word position of match
+					const matchWordPosition = this.fullText.substring(0, originalMatch.start).split(/\s+/).length;
+
+					// Check if match is within maxWords of end
+					const wordsFromMatchToEnd = totalWords - matchWordPosition;
+					const isNearEnd = wordsFromMatchToEnd < maxWords;
+
 					if (isNearEnd) {
-						// Return entire end of text if near the end
+						// Return passage from maxWords before end
 						const startWord = Math.max(0, totalWords - maxWords);
 						const passageStart = words.slice(0, startWord).join(' ').length;
 						const passageEnd = this.fullText.length;
