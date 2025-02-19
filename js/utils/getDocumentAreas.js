@@ -32,6 +32,9 @@ export default function getDocumentAreas()
         darkModeToggle: document.getElementById("theme"),
         paliToggle: document.getElementById("paliToggle"),
         offlineToggle: document.getElementById("offline-toggle"),
+        supportButton: document.getElementById('supportButton'),
+        feedbackButton: document.getElementById('feedbackButton'),
+        hillsideHermitageButton: document.getElementById('hillsideHermitageButton'),
     }
 
     return {

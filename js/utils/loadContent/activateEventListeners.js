@@ -5,7 +5,7 @@ import activateFilterBar from "../eventListeners/activateFilterBar.js";
 import activateFilterForm from "../eventListeners/activateFilterForm.js";
 import activateGoBackButtons from "../eventListeners/activateGoBackButtons.js";
 import activateRefreshButton from "../eventListeners/activateRefreshButton.js";
-import activateErrorButton from "../eventListeners/activateErrorButton.js";
+import activateGeneralActionButtons from "../eventListeners/activateGeneralActionButtons.js";
 import activateCacheButton from "../eventListeners/activateCacheButton.js";
 import activateInfoButton from "../eventListeners/activateInfoButton.js";
 import activateHideNotificationBoxWhenClickingOutside from "../eventListeners/activateHideNotificationBoxWhenClickingOutside.js";
@@ -28,7 +28,7 @@ export function activateEventListeners(availableSuttasJson)
     activateHomeButton();
     activateThemeButton();
     activateRefreshButton();
-    activateErrorButton();
+    activateGeneralActionButtons();
     activateCacheButton();
     activateInfoButton();
     activateHideNotificationBoxWhenClickingOutside();

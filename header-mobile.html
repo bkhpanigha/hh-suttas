@@ -28,7 +28,7 @@
 
 <div id="hamburger-menu" class="popup-menu">
     <div class="header">
-        <span>Menu</span>
+        <span class="title">Menu</span>
         <button id="hamburger-menu-close-button">
             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 15 15">
                 <path fill="currentColor"
@@ -43,10 +43,12 @@
         <li><a href="glossary.html">Glossary</a></li>
     </ul>
     <div class="downloads">
-        <span>Downloads</span>
-        <button id="downloadEpubButtonMobile" class="box-button gold">Get Ebook</button>
+        <span class="title">Downloads</span>
+        <button id="downloadEpubButtonMobile" class="box-button gold">Suttas Ebook</button>
     </div>
-    <button id="reportButton" class="box-button red">Report an error</button>
+    <button id="supportButton" class="box-button green">Support us</button>
+    <button id="feedbackButton" class="box-button blue">Give feedback</button>
+    <button id="hillsideHermitageButton" class="box-button dark-blue">Hillside Hermitage Website</button>
     <div class="links-area">
         <a href="https://www.youtube.com/channel/UCKejmWAt_kNpRMq5gQEGAqw" rel="noreferrer" target="_blank"
             class="icon-button">
@@ -55,8 +57,12 @@
                     d="m10 15l5.19-3L10 9zm11.56-7.83c.13.47.22 1.1.28 1.9c.07.8.1 1.49.1 2.09L22 12c0 2.19-.16 3.8-.44 4.83c-.25.9-.83 1.48-1.73 1.73c-.47.13-1.33.22-2.65.28c-1.3.07-2.49.1-3.59.1L12 19c-4.19 0-6.8-.16-7.83-.44c-.9-.25-1.48-.83-1.73-1.73c-.13-.47-.22-1.1-.28-1.9c-.07-.8-.1-1.49-.1-2.09L2 12c0-2.19.16-3.8.44-4.83c.25-.9.83-1.48 1.73-1.73c.47-.13 1.33-.22 2.65-.28c1.3-.07 2.49-.1 3.59-.1L12 5c4.19 0 6.8.16 7.83.44c.9.25 1.48.83 1.73 1.73" />
             </svg>
         </a>
-        <a href="https://www.hillsidehermitage.org/support-us/" rel="noreferrer" target="_blank" class="icon-button">
-            <img width="25px" height="25px" src="./images/favicon-donate.png" alt="Donate icon">
+        <a href="https://t.me/s/HillsideHermitage" rel="noreferrer" target="_blank"
+            class="icon-button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24">
+                <path fill="currentColor"
+                    d="m21.936 5.17l-3.03 14.185c-.226.999-.806 1.224-1.644.773l-4.545-3.352l-2.225 2.127c-.225.226-.451.452-.967.452l.355-4.675l8.478-7.704c.354-.355-.097-.484-.548-.193l-10.541 6.64l-4.546-1.386c-.999-.322-.999-1 .226-1.45L20.614 3.72c.87-.258 1.612.194 1.322 1.45" />
+            </svg>
         </a>
         <a href="https://github.com/bkhpanigha/hh-suttas" rel="noreferrer" target="_blank" class="icon-button">
             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24">
@@ -69,7 +75,7 @@
 
 <div id="settings" class="popup-menu">
     <div class="header">
-        <span>Settings</span>
+        <span class="title">Settings</span>
         <button id="settings-close-button">
             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 15 15">
                 <path fill="currentColor"
@@ -78,7 +84,7 @@
         </button>
     </div>
     <div class="items">
-        <span class="title">General</span>
+        <span class="item-title">General</span>
         <div>
             <label class="switch">
                 Use offline
@@ -96,7 +102,7 @@
                 </span>
             </label>
         </div>
-        <span class="title">Suttas</span>
+        <span class="item-title">Suttas</span>
         <div>
             <label class="switch">
                 Show Pali
@@ -107,5 +113,5 @@
             </label>
         </div>
     </div>
-    <button id="hardRefresh" class="box-button orange">Reset website</button>
+    <button id="resetButton" class="box-button red">Reset</button>
 </div>

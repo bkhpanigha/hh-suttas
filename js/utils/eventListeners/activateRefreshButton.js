@@ -2,7 +2,7 @@ import db from '../../dexie/dexie.js';
 
 export default function activateRefreshButton()
 {
-    const refreshButton = document.getElementById("hardRefresh");
+    const refreshButton = document.getElementById("resetButton");
     refreshButton.addEventListener("click", function () 
     {
         db.delete().then(() => {
