@@ -734,6 +734,16 @@
             "comment_path": "suttas/comment/sn/sn22/sn22.81_comment-en-anigha.json",
             "date_added": "2024-05-04T08:16:28+02:00"
         },
+        "sn22.94": {
+            "id": "SN 22.94",
+            "title": "Flowers",
+            "pali_title": "Pupphasutta",
+            "html_path": "suttas/html/sn/sn22/sn22.94_html.json",
+            "root_path": "suttas/root/sn/sn22/sn22.94_root-pli-ms.json",
+            "translation_path": "suttas/translation_en/sn/sn22/sn22.94_translation-en-anigha.json",
+            "comment_path": null,
+            "date_added": "2025-02-20T08:47:23+01:00"
+        },
         "sn22.101": {
             "id": "SN 22.101",
             "title": "The Adze",
@@ -1102,6 +1112,16 @@
             "translation_path": "suttas/translation_en/an/an7/an7.38_translation-en-anigha.json",
             "comment_path": "suttas/comment/an/an7/an7.38_comment-en-anigha.json",
             "date_added": "2024-07-03T13:38:33+02:00"
+        },
+        "an8.6": {
+            "id": "AN 8.6",
+            "title": "Worldly phenomena (2nd)",
+            "pali_title": "Dutiyalokadhammasutta",
+            "html_path": "suttas/html/an/an8/an8.6_html.json",
+            "root_path": "suttas/root/an/an8/an8.6_root-pli-ms.json",
+            "translation_path": "suttas/translation_en/an/an8/an8.6_translation-en-anigha.json",
+            "comment_path": null,
+            "date_added": "2025-02-20T08:47:23+01:00"
         },
         "an8.53": {
             "id": "AN 8.53",
