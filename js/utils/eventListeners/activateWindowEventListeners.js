@@ -6,7 +6,7 @@ export default function activateWindowEventListeners() {
   const header = document.querySelector(".mobile-header");
   let lastScrollY = window.scrollY;
 
-  window.matchMedia("(max-width: 1000px)").addEventListener("change", (event) => {
+  window.matchMedia("(max-width: 768px)").addEventListener("change", (event) => {
     if (event.matches) {
       document.getElementById("footer").innerHTML = "";
       fetchHeader("/header-mobile.html");
