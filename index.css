@@ -780,13 +780,6 @@ a:hover {
   /* Adjust as needed */
 }
 
-.dark #cacheButton,
-.dark #downloadEpubButton {
-  background-color: var(--dark-blue);
-  color: var(--off-white);
-  border-color: var(--off-white);
-}
-
 .comment {
   display: inline-block;
   margin-right: 4px;
@@ -1429,6 +1422,13 @@ bookmarkButton {
   .sutta-card-bottom {
     padding-top: 2px;
     border-top: 1px solid rgba(0, 0, 0, 0.08);
+  }
+
+  .dark #cacheButton,
+  .dark #downloadEpubButton {
+    background-color: var(--dark-blue);
+    color: var(--off-white);
+    border-color: var(--off-white);
   }
 }
 
