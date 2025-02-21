@@ -21,11 +21,14 @@ export default function activateWindowEventListeners() {
     window.addEventListener("scroll", () => {
       if (isTogglingPali) return; // Prevents the scroll event while toggling Pali
 
-      if (window.scrollY > lastScrollY) {
+      if (lastScrollY <= header?.offsetHeight) {
+        header.classList.remove("hidden");
+      } else if (window.scrollY > lastScrollY) {
         header.classList.add("hidden");
       } else {
         header.classList.remove("hidden");
       }
+  
       lastScrollY = window.scrollY;
     });
   }
