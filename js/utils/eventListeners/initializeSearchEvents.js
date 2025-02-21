@@ -1,12 +1,14 @@
 import { startSearch } from '../userActions/startSearch.js';
 import { searchState } from '../userActions/searchState.js';
 
-export function initializeSearchEvents() {
+export default function initializeSearchEvents() {
     // Add button for mobile
     const mobileButton = document.createElement('button');
     mobileButton.className = 'mobile-search-panel-button';
     mobileButton.textContent = 'Search Panel';
-    document.body.insertBefore(mobileButton, document.body.firstChild);
+	const header_placeholder = document.getElementById('header-placeholder');
+	const hamburger = document.getElementById('hamburger-menu');
+    header_placeholder.insertBefore(mobileButton, hamburger);
     
     const optionPanel = document.getElementById('optionPanel');
     const searchButton = document.getElementById('searchButton');
