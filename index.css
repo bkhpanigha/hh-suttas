@@ -1340,7 +1340,6 @@ bookmarkButton {
 }
 
 @media only screen and (max-width: 768px) {
-
   /* CSS rules for screens smaller than 768px */
   .comment-text {
     width: 300px;
@@ -1431,13 +1430,6 @@ bookmarkButton {
   .sutta-card-bottom {
     padding-top: 2px;
     border-top: 1px solid rgba(0, 0, 0, 0.08);
-  }
-
-  .dark #cacheButton,
-  .dark #downloadEpubButton {
-    background-color: var(--dark-blue);
-    color: var(--off-white);
-    border-color: var(--off-white);
   }
 }
 
