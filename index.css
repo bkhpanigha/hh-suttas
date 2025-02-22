@@ -1516,7 +1516,7 @@ bookmarkButton {
   }
 
   .title {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: normal;
   }
 
@@ -1540,7 +1540,7 @@ bookmarkButton {
     button {
       position: absolute;
       right: 15px;
-      top: 18px;
+      top: 17px;
       border: none;
       background-color: transparent;
     }
@@ -1593,7 +1593,7 @@ bookmarkButton {
     }
 
     * {
-      font-size: 20px;
+      font-size: 18px;
   
       a {
         display: flex;
@@ -1622,7 +1622,7 @@ bookmarkButton {
 
   .box-button {
     width: calc(100% - 40px);
-    margin: 20px auto;
+    margin: 15px auto;
     font-size: 16px;
     font-family: "RobotoSerif", serif;
   }
@@ -1683,6 +1683,7 @@ bookmarkButton {
   left: 10px;
   top: 1px;
   font-size: 16px !important;
+  font-family: "RobotoSerif", serif;
   color: white;
   display: none;
 }
