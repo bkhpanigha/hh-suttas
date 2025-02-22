@@ -22,6 +22,7 @@ import initializeFuse from '../eventListeners/initializeFuse.js';
 import activateTopButtonsTouchAnimation from '../eventListeners/activateTopButtonsTouchAnimation.js';
 import { initializePaliToggle } from "../eventListeners/initializePaliToggle.js";
 import initializeSideBySide from "../eventListeners/initializeSideBySide.js";
+import initializeSearchEvents from "../eventListeners/initializeSearchEvents.js";
 
 export function activateEventListeners(availableSuttasJson)
 {
@@ -39,7 +40,6 @@ export function activateEventListeners(availableSuttasJson)
     activateHamburgerMenuButtons();
     activateSettingsButtons();
     initializePaliToggle();
-    
     activateTopButtonsTouchAnimation();
 	
     if (!window.location.href.endsWith("/bookmarks.html") 
@@ -55,5 +55,9 @@ export function activateEventListeners(availableSuttasJson)
         activateHandleTextSelection();
         activateYoutubePreview();
         initializeSideBySide();
+    }
+	
+    if(window.location.href.endsWith("/search-panel.html")){
+        initializeSearchEvents();
     }
 }

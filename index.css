@@ -1339,6 +1339,7 @@ bookmarkButton {
   }
 }
 
+
 @media only screen and (max-width: 768px) {
   /* CSS rules for screens smaller than 768px */
   .comment-text {
@@ -1431,6 +1432,12 @@ bookmarkButton {
     padding-top: 2px;
     border-top: 1px solid rgba(0, 0, 0, 0.08);
   }
+
+
+  #top-buttons.hidden ~ .mobile-search-panel-button{
+    top: 5px !important;	  
+  }
+
 }
 
 @media only screen and (max-width: 600px) {
