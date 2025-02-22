@@ -6,10 +6,11 @@ export default function initializeSearchEvents() {
 	const mobileButton = document.createElement('button');
 	mobileButton.className = 'mobile-search-panel-button';
 	mobileButton.textContent = 'Search Panel';
-	const header_placeholder = document.getElementById('header-placeholder');
+	const headerPlaceholder = document.getElementById('header-placeholder');
 	const hamburger = document.getElementById('hamburger-menu');
-	header_placeholder.insertBefore(mobileButton, hamburger);
-
+	const topButtons = document.getElementById('top-buttons');
+	headerPlaceholder.insertBefore(mobileButton, hamburger);
+	
 	const optionPanel = document.getElementById('optionPanel');
 	const searchButton = document.getElementById('searchButton');
 
@@ -25,6 +26,7 @@ export default function initializeSearchEvents() {
 	mobileButton.addEventListener('click', () => {
 		optionPanel.classList.toggle('open');
 		mobileButton.classList.toggle('open');
+		topButtons.classList.add('hidden');
 	});
 
 	// Close the menu when the search button is clicked
