@@ -1679,8 +1679,8 @@ bookmarkButton {
 
 .tick {
   position: absolute;
-  left: 10px;
-  top: 1px;
+  left: 8px;
+  top: 3px;
   font-size: 16px !important;
   font-family: "RobotoSerif", serif;
   color: white;
