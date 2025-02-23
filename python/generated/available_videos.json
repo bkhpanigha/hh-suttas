@@ -1,6 +1,13 @@
 {
     "available_videos": {
         "Hillside Hermitage": {
+            "bWPZG6EapKk": {
+                "title": "Helping the Mind Understand",
+                "thumbnails": {
+                    "maxresdefault": "https://i.ytimg.com/vi/bWPZG6EapKk/maxresdefault.jpg"
+                },
+                "duration": "26:15"
+            },
             "V0za6s0td6w": {
                 "title": "What is the Purpose of my Practice",
                 "thumbnails": {
@@ -3083,6 +3090,13 @@
             }
         },
         "Samanadipa Hermitage": {
+            "yqTHzWp3KbM": {
+                "title": "What the Buddha Discovered When He Awakened to Reality",
+                "thumbnails": {
+                    "maxresdefault": "https://i.ytimg.com/vi/yqTHzWp3KbM/maxresdefault.jpg"
+                },
+                "duration": "47:17"
+            },
             "1EFP-mwMLkA": {
                 "title": "How the Perception of Not-Self (ANATTA) Wears Away Defilements",
                 "thumbnails": {
@@ -3249,7 +3263,7 @@
                 "thumbnails": {
                     "maxresdefault": "https://i.ytimg.com/vi/9LLOSZsOIt0/maxresdefault.jpg"
                 },
-                "duration": "39:09"
+                "duration": "38:57"
             },
             "32K94HGsDHQ": {
                 "title": "Early Buddhism: Authenticity and Awakening",
