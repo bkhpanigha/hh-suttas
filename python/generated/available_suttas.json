@@ -1042,6 +1042,16 @@
             "date_added": "2024-05-07T07:33:39+02:00",
             "heading": "Advice for Beginners"
         },
+        "an5.139": {
+            "id": "AN 5.139",
+            "title": "Cannot Endure",
+            "pali_title": "Akkhamasutta",
+            "html_path": "suttas/html/an/an5/an5.139_html.json",
+            "root_path": "suttas/root/an/an5/an5.139_root-pli-ms.json",
+            "translation_path": "suttas/translation_en/an/an5/an5.139_translation-en-anigha.json",
+            "comment_path": null,
+            "date_added": "2025-03-22T13:54:54+01:00"
+        },
         "an5.151": {
             "id": "AN 5.151",
             "title": "Surety in the Right Way (1st)",
