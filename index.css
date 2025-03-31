@@ -1058,10 +1058,18 @@ a:hover {
 
 .sutta-card-description {
   color: black;
-  font-size: .85rem;
+  font-size: .8rem;
   transition: color 250ms ease;
   line-height: 1.2;
 }
+
+.sutta-card-description.description{
+ 	line-height: 1.2;
+ }
+ 
+ .sutta-card-description.heading{
+ 	line-height: 1;
+ }
 
 .sutta-card-heading {
   font-size: 0.9rem;
