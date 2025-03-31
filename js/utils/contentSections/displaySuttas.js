@@ -25,31 +25,23 @@ export function displaySuttas(suttas, isSearch = false)
     }
   
     suttaArea.innerHTML += `<ul>${Object.entries(suttas).map(([sutta_id, sutta_details]) => {
-		const id = sutta_details['id'];
+		const id = sutta_details['id'].replace(/\s+/g, '');
 		const title = sutta_details['title'];
 		const pali_title = sutta_details['pali_title'];
-		const hasDescription = sutta_details['description'];
-		const hasHeading = sutta_details['heading'];
+		const hasDescriptionOrHeading = sutta_details['description'] || sutta_details['heading'];
 
-		const description = hasDescription 
+		const description = hasDescriptionOrHeading 
 			? `<hr class="sutta-card-divider"/>
-				<div class="sutta-card-description">
-					${sutta_details['description']}
-				</div>`
-			: '';
-			
-		const heading = hasHeading 
-			? `<div class="sutta-card-heading">
-					${sutta_details['heading']}
+				<div class="sutta-card-description ${sutta_details['description'] ? 'description' : 'heading'}">
+					${sutta_details['description'] || sutta_details['heading']}
 				</div>`
 			: '';
 
 		const card = `<li class="sutta-card">
-			<a href="/?q=${id.toLowerCase().replace(/\s+/g, '')}">
+			<a href="/?q=${id.toLowerCase()}">
 				<div class="sutta-card-content">
 					<div class="sutta-card-top">
 						<div class="sutta-title">${id} — ${title}</div>
-						${heading}
 					</div>
 					<div class="sutta-card-bottom">
 						<div class="sutta-pali-title">${pali_title}</div>
@@ -74,5 +66,4 @@ export function displaySuttas(suttas, isSearch = false)
 			return `${card}`;
 		}
 	}).join('')}</ul>`;
-
 }
