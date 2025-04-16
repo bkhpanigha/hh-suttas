@@ -4,49 +4,32 @@ import { showNotification } from "../userActions/showNotification.js";
 export default function activateCacheButton()
 {
     const cacheButton = document.getElementById('cacheButton');
-    const progressContainer = document.getElementById('cacheProgressContainer');
-    const progressBar = document.getElementById('cacheProgressBar');
-    const progressContainerMobile = document.getElementById('cacheProgressContainerMobile');
-    const progressBarMobile = document.getElementById('cacheProgressBarMobile');
 
     cacheButton?.addEventListener('click', () =>
     {
-        // Check if service worker is supported by the browser
+        // Check if service worker is supported and active
         if ('serviceWorker' in navigator && navigator.serviceWorker.controller)
         {
-          // Show progress bar and reset value
-          if (progressContainer) {
-            progressContainer.style.display = 'block';
-          }
-          if (progressBar) {
-            progressBar.value = 0;
-          }
-          if (progressContainerMobile) {
-            progressContainerMobile.style.display = 'block';
-          }
-          if (progressBarMobile) {
-            progressBarMobile.value = 0;
-          }
-
           // Send message to service worker to trigger caching
           try
           {
-            showNotification("Downloading for offline use...", 999999); // Keep notification until success/error
+            // Show initial progress notification (progress = 0)
+            // Duration is irrelevant here as it will be replaced by progress updates or final message
+            showNotification("Downloading for offline use...", 999999, 0);
             navigator.serviceWorker.controller.postMessage({ action: 'cacheResources' });
           }
           catch (error)
           {
             console.error("Error sending message to service worker:", error);
-            // Hide progress bar on error
-            if (progressContainer) progressContainer.style.display = 'none';
-            if (progressContainerMobile) progressContainerMobile.style.display = 'none';
-            showNotification("An error occurred initiating the download. Please refresh and try again.");
+            // Show error notification if sending the message fails
+            showNotification("An error occurred initiating the download. Please refresh and try again.", 5000);
           }
         } else if (!('serviceWorker' in navigator)) {
-            showNotification("Your browser does not support offline functionality.<br/>Please update your browser or use another one.");
+            // Browser doesn't support service workers
+            showNotification("Your browser does not support offline functionality.<br/>Please update your browser or use another one.", 8000);
         } else {
-            // Service worker might not be active yet
-             showNotification("Offline functionality is initializing. Please wait a moment and try again.");
+            // Service worker exists but isn't controlling the page yet (e.g., first load)
+             showNotification("Offline functionality is initializing. Please wait a moment and try again.", 5000);
         }
       });
 }

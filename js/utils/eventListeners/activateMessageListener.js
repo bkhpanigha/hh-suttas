@@ -3,12 +3,7 @@ import { showNotification } from "../userActions/showNotification.js";
 export default function activateMessageListener() {
     const SUCCESS_MSG = "Download successful - site available offline.";
     const FAIL_MSG = "Caching error. Please check your internet connection, clear site data, refresh the page, and try again.";
-
-    // Get references to progress bar elements (might be null if header isn't loaded)
-    const progressContainer = document.getElementById('cacheProgressContainer');
-    const progressBar = document.getElementById('cacheProgressBar');
-    const progressContainerMobile = document.getElementById('cacheProgressContainerMobile');
-    const progressBarMobile = document.getElementById('cacheProgressBarMobile');
+    const DOWNLOADING_MSG = "Downloading for offline use...";
 
     if (navigator.serviceWorker) {
         navigator.serviceWorker.addEventListener('message', event => {
@@ -16,20 +11,17 @@ export default function activateMessageListener() {
 
             switch (event.data.action) {
                 case 'cachingProgress':
-                    if (progressBar) progressBar.value = event.data.progress;
-                    if (progressBarMobile) progressBarMobile.value = event.data.progress;
-                    // Keep the "Downloading..." notification visible
-                    showNotification("Downloading for offline use...", 999999);
+                    // Update the notification with the current progress
+                    // Duration is irrelevant here as it's a progress update
+                    showNotification(DOWNLOADING_MSG, 999999, event.data.progress);
                     break;
                 case 'cachingSuccess':
-                    showNotification(SUCCESS_MSG, 5000); // Show success for 5 seconds
-                    if (progressContainer) progressContainer.style.display = 'none';
-                    if (progressContainerMobile) progressContainerMobile.style.display = 'none';
+                    // Show final success message (will replace the progress notification)
+                    showNotification(SUCCESS_MSG, 5000);
                     break;
                 case 'cachingError':
-                    showNotification(FAIL_MSG, 8000); // Show error for 8 seconds
-                    if (progressContainer) progressContainer.style.display = 'none';
-                    if (progressContainerMobile) progressContainerMobile.style.display = 'none';
+                     // Show final error message (will replace the progress notification)
+                    showNotification(FAIL_MSG, 8000);
                     break;
             }
         });
