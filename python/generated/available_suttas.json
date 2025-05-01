@@ -943,6 +943,16 @@
             "comment_path": "suttas/comment/an/an3/an3.65_comment-en-anigha.json",
             "date_added": "2024-07-03T10:37:21+02:00"
         },
+        "an3.84": {
+            "id": "AN 3.84",
+            "title": "The Vajji",
+            "pali_title": "Vajjiputtasutta",
+            "html_path": "suttas/html/an/an3/an3.84_html.json",
+            "root_path": "suttas/root/an/an3/an3.84_root-pli-ms.json",
+            "translation_path": "suttas/translation_en/an/an3/an3.84_translation-en-anigha.json",
+            "comment_path": null,
+            "date_added": "2025-05-01T09:03:45+02:00"
+        },
         "an3.94": {
             "id": "AN 3.94",
             "title": "Springtime",
