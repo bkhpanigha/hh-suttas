@@ -829,7 +829,8 @@
             "translation_path": "suttas/translation_en/sn/sn35/sn35.246_translation-en-anigha.json",
             "comment_path": "suttas/comment/sn/sn35/sn35.246_comment-en-anigha.json",
             "date_added": "2024-03-29T11:38:15+01:00",
-            "heading": "Taming the Mind"
+            "heading": "Taming the Mind",
+            "description": "To tame their mind, one must recognize when it is inclining toward passion, aversion, or carelessness in regard to any aspect of the presently arisen experience. They should perceive the danger in following this direction and not tolerate thoughts that arise from such inclinations. It is through consistent effort whenever necessary that the mind is gradually subdued, allowing the natural unfolding of seeing things as they truly are."
         },
         "sn36.6": {
             "id": "SN 36.6",
@@ -870,7 +871,8 @@
             "translation_path": "suttas/translation_en/sn/sn47/sn47.8_translation-en-anigha.json",
             "comment_path": "suttas/comment/sn/sn47/sn47.8_comment-en-anigha.json",
             "date_added": "2024-04-24T08:19:39+02:00",
-            "heading": "Sign of the Mind"
+            "heading": "Sign of the Mind",
+            "description": "To attain jhāna, one must abandon craving by cultivating intentions known to be free of passion, aversion, and distraction. This recognition is only possible by picking up the cues of the mind, for its present disposition alone determines if an action is not unbeneficial. Such discernment first requires withdrawing from coarse physical, verbal, and mental activities involving longing or aversion; then, going further, being mindful of the motivation behind one's every action and not just adopting external behaviors aligning with the letter of the precepts."
         },
         "sn55.5": {
             "id": "SN 55.5",
@@ -931,7 +933,8 @@
             "translation_path": "suttas/translation_en/an/an3/an3.63_translation-en-anigha.json",
             "comment_path": "suttas/comment/an/an3/an3.63_comment-en-anigha.json",
             "date_added": "2024-05-17T11:23:19+02:00",
-            "heading": "Walking in Jhāna"
+            "heading": "Walking in Jhāna",
+            "description": "Jhānas should not be mistaken as states of absorption attained by withdrawing from sensory inputs or focusing exclusively on something. Even while abiding in jhāna, one is capable of operating freely and perform actions such as walking, standing, sitting or lying down."
         },
         "an3.65": {
             "id": "AN 3.65",
@@ -972,7 +975,8 @@
             "translation_path": "suttas/translation_en/an/an3/an3.101_translation-en-anigha.json",
             "comment_path": "suttas/comment/an/an3/an3.101_comment-en-anigha.json",
             "date_added": "2024-04-28T04:49:30+02:00",
-            "heading": "From Coarse to Fine Defilements"
+            "heading": "From Coarse to Fine Defilements",
+            "description": "Just as a gold panner would gradually remove ever finer impurities until only gold dust remains, so too should one dedicated to the higher mind focus on giving up the coarsest form of impurities left first."
         },
         "an3.109": {
             "id": "AN 3.109",
@@ -1023,7 +1027,8 @@
             "translation_path": "suttas/translation_en/an/an4/an4.162_translation-en-anigha.json",
             "comment_path": "suttas/comment/an/an4/an4.162_comment-en-anigha.json",
             "date_added": "2024-06-28T14:00:13+02:00",
-            "heading": "Pain of the Practice Optional?"
+            "heading": "Pain of the Practice Optional?",
+            "description": "Whether one's practice is pleasant or unpleasant is not a matter of choice, but rather depends on the degree of defilements one carries. A mind that resists renunciation cannot experience it as joyful without the necessary work of removing these defilements."
         },
         "an4.163": {
             "id": "AN 4.163",
@@ -1128,7 +1133,8 @@
             "translation_path": "suttas/translation_en/an/an6/an6.68_translation-en-anigha.json",
             "comment_path": "suttas/comment/an/an6/an6.68_comment-en-anigha.json",
             "date_added": "2024-04-24T08:19:39+02:00",
-            "heading": "Impediments to Stream-Entry"
+            "heading": "Impediments to Stream-Entry",
+            "description": "Delighting in company rather than enjoying being alone in seclusion is a significant obstacle for attaining Right View, let alone realizing Nibbāna."
         },
         "an6.73": {
             "id": "AN 6.73",
@@ -1169,7 +1175,8 @@
             "translation_path": "suttas/translation_en/an/an8/an8.53_translation-en-anigha.json",
             "comment_path": "suttas/comment/an/an8/an8.53_comment-en-anigha.json",
             "date_added": "2024-05-10T06:43:55+02:00",
-            "heading": "Dhamma VS Not Dhamma"
+            "heading": "Dhamma VS Not Dhamma",
+            "description": "It is beneficial to remind oneself what qualities the Dhamma ought to foster so one's practice doesn't naturally shift elsewhere."
         },
         "an9.7": {
             "id": "AN 9.7",
@@ -1190,7 +1197,8 @@
             "translation_path": "suttas/translation_en/an/an9/an9.41_translation-en-anigha.json",
             "comment_path": "suttas/comment/an/an9/an9.41_comment-en-anigha.json",
             "date_added": "2024-04-06T13:17:13+02:00",
-            "heading": "What Leads to Samādhi"
+            "heading": "What Leads to Samādhi",
+            "description": "Renunciation is what leads to Samādhi. However, for the mind to want to leap at renunciation, one must first avoid actions that contradict it, then reflect on its value and the dangers of indulgence. It is by fostering that context long enough that the mind eventually comes to understand it as peaceful and worth leaping towards."
         },
         "an9.42": {
             "id": "AN 9.42",
