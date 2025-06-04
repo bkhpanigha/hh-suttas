@@ -2,19 +2,10 @@
 
 export default function getDocumentAreas()
 {
-    let suttaArea = null;
-    let whatsNewArea = null;
-    let filterForm = null;
-    if (!window.location.href.endsWith("/bookmarks.html") 
-	&& !window.location.href.endsWith("/glossary.html") 
-	&& !window.location.href.endsWith("/comments.html")
-	&& !window.location.href.endsWith("/search-panel.html")){
-        suttaArea = document.getElementById("sutta");
-        whatsNewArea = document.getElementById('whats-new');
-        filterForm = document.getElementById('filter-form');
-    }
-
-    const documentAreas = {
+    return {
+        suttaArea: document.getElementById("sutta"),
+        whatsNewArea: document.getElementById('whats-new'),
+        filterForm: document.getElementById('filter-form'),
         homeButton: document.getElementById("home-button") || document.getElementById("home-button-mobile"),
         themeButton: document.getElementById("theme-button"),
         hidePaliButton: document.getElementById("hide-pali"),
@@ -35,12 +26,5 @@ export default function getDocumentAreas()
         supportButton: document.getElementById('supportButton'),
         feedbackButton: document.getElementById('feedbackButton'),
         hillsideHermitageButton: document.getElementById('hillsideHermitageButton'),
-    }
-
-    return {
-        suttaArea,
-        whatsNewArea,
-        filterForm,
-        ...documentAreas,
     }
 }

@@ -42,10 +42,7 @@ export function activateEventListeners(availableSuttasJson)
     initializePaliToggle();
     activateTopButtonsTouchAnimation();
 	
-    if (!window.location.href.endsWith("/bookmarks.html") 
-    && !window.location.href.endsWith("/glossary.html") 
-    && !window.location.href.endsWith("/comments.html") 
-    && !window.location.href.endsWith("/search-panel.html")){
+    if (window.location.pathname === "/") {
         activateSideBySideEventListenerKeyUp();
         initializeFuse(availableSuttasJson);
         activateFilterBar(availableSuttasJson);
@@ -57,7 +54,7 @@ export function activateEventListeners(availableSuttasJson)
         initializeSideBySide();
     }
 	
-    if(window.location.href.endsWith("/search-panel.html")){
+    if (window.location.pathname === "/search-panel.html") {
         initializeSearchEvents();
     }
 }

@@ -619,22 +619,6 @@ a:hover {
   }
 }
 
-.foreword-link {
-  color: var(--orange-yellow);
-  text-decoration: none;
-  /* Remove any default underline */
-  text-align: center;
-  font-size: 30px;
-
-}
-
-.foreword-link:hover {
-  text-decoration: underline;
-  /* Add underline when hovered over */
-  cursor: pointer;
-  /* Change cursor to pointer on hover */
-}
-
 .button-container {
   text-align: center;
   /* Center the contents horizontally */
@@ -1188,6 +1172,7 @@ bookmarkButton {
   border-radius: 5px;
   border: none;
   cursor: pointer;
+  text-decoration: none !important;
 }
 
 .box-button:hover {
