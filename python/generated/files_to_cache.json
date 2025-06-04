@@ -32,7 +32,6 @@
     "js/dexie/dexie.js",
     "js/dexie/dist/dexie_dist.js",
     "js/fuse.js",
-    "js/rawTextContent/forewordText.js",
     "js/showdown.min.js",
     "js/utils/LoadingBarManager.js",
     "js/utils/contentSections/SuttaSearch.js",
