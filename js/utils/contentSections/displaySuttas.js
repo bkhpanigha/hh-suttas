@@ -1,8 +1,7 @@
 import DateHelper from "../DateHelper.js";
 import getDocumentAreas from "../getDocumentAreas.js";
 
-export const books =
-{
+export const books = {
   "dn": "Dīgha Nikāya",
   "mn": "Majjhima Nikāya",
   "sn": "Saṃyutta Nikāya",
@@ -10,27 +9,17 @@ export const books =
   "kn": "Khuddaka Nikāya"
 };
 
-export function displaySuttasLibrary(suttas, isFiltering = false) {
-  const { suttaArea, whatsNewArea } = getDocumentAreas();
-  suttaArea.innerHTML = "";
-  whatsNewArea.style.display = isFiltering ? "none" : "block";
+function createSuttaCard(sutta) {
+  const id = sutta.id;
+  const title = sutta.title;
+  const pali_title = sutta.pali_title;
+  const heading = sutta.heading ? `<div class="sutta-card-heading">${sutta.heading}</div>` : '';
+  const description = sutta.description
+    ? `<hr class="sutta-card-divider"/><div class="sutta-card-description">${sutta.description}</div>`
+    : '';
 
-  let currentGroup = -1;
-
-  suttaArea.innerHTML += `<ul>${Object.entries(suttas).map(([sutta_id, sutta]) => {
-    const id = sutta.id;
-    const title = sutta.title;
-    const pali_title = sutta.pali_title;
-    const hasDescription = sutta.description;
-    const hasHeading = sutta.heading;
-
-    const description = hasDescription
-      ? `<hr class="sutta-card-divider"/><div class="sutta-card-description">${sutta.description}</div>`
-      : '';
-
-    const heading = hasHeading ? `<div class="sutta-card-heading">${sutta.heading}</div>` : '';
-
-    const card = `<li class="sutta-card">
+  return `
+    <li class="sutta-card">
       <a href="/?q=${id.toLowerCase().replace(/\s+/g, '')}">
         <div class="sutta-card-content">
           <div class="sutta-card-top">
@@ -44,6 +33,17 @@ export function displaySuttasLibrary(suttas, isFiltering = false) {
         </div>
       </a>
     </li>`;
+}
+
+export function displaySuttasLibrary(suttas, isFiltering = false) {
+  const { suttaArea, whatsNewArea } = getDocumentAreas();
+  suttaArea.innerHTML = "";
+  whatsNewArea.style.display = isFiltering ? "none" : "block";
+
+  let currentGroup = -1;
+
+  const content = Object.entries(suttas).map(([sutta_id, sutta]) => {
+    const card = createSuttaCard(sutta);
 
     if (!isFiltering) {
       const nikaya = sutta_id.slice(0, 2).toLowerCase();
@@ -57,7 +57,9 @@ export function displaySuttasLibrary(suttas, isFiltering = false) {
     }
 
     return card;
-  }).join('')}</ul>`;
+  }).join('');
+
+  suttaArea.innerHTML = `<ul>${content}</ul>`;
 }
 
 export function displaySuttasHistory(suttas) {
@@ -71,36 +73,15 @@ export function displaySuttasHistory(suttas) {
   let lastGroup = null;
   let html = "<ul>";
 
-  sorted.forEach(([sutta_id, sutta]) => {
+  sorted.forEach(([_, sutta]) => {
     const daysAgo = DateHelper.getDaysAgo(sutta.date_added);
-    const id = sutta.id;
-    const title = sutta.title;
-    const pali_title = sutta.pali_title;
-    const heading = sutta.heading ? `<div class="sutta-card-heading">${sutta.heading}</div>` : '';
-    const description = sutta.description
-      ? `<hr class="sutta-card-divider"/><div class="sutta-card-description">${sutta.description}</div>`
-      : '';
 
     if (lastGroup !== daysAgo) {
       html += `<li class="sutta-group-label">Added ${daysAgo}:</li>`;
       lastGroup = daysAgo;
     }
 
-    html += `
-      <li class="sutta-card">
-        <a href="/?q=${id.toLowerCase().replace(/\s+/g, '')}">
-          <div class="sutta-card-content">
-            <div class="sutta-card-top">
-              <div class="sutta-title">${id} — ${title}</div>
-              ${heading}
-            </div>
-            <div class="sutta-card-bottom">
-              <div class="sutta-pali-title">${pali_title}</div>
-            </div>
-            ${description}
-          </div>
-        </a>
-      </li>`;
+    html += createSuttaCard(sutta);
   });
 
   html += "</ul>";
