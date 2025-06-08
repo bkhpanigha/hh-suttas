@@ -15,6 +15,7 @@ export default function getDocumentAreas()
     }
 
     const documentAreas = {
+        homeControls: document.getElementById("home-controls"),
         homeButton: document.getElementById("home-button") || document.getElementById("home-button-mobile"),
         themeButton: document.getElementById("theme-button"),
         hidePaliButton: document.getElementById("hide-pali"),
@@ -22,6 +23,7 @@ export default function getDocumentAreas()
         previous: document.getElementById("previous"),
         next: document.getElementById("next"),
         filterBar: document.getElementById("filter-bar"),
+        suttasTabSwitcher: document.getElementById("suttasTabSwitcher"),
         infoButton: document.getElementById('infoButton'),
         hamburgerMenuOpenButton: document.getElementById('hamburger-menu-open-button'),
         hamburgerMenuCloseButton: document.getElementById('hamburger-menu-close-button'),

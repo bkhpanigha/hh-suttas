@@ -38,9 +38,9 @@
  * 
  */
 
-
-import { loadWhatsNewArea } from "./js/utils/contentSections/loadWhatsNewArea.js";
-import { displaySuttas } from "./js/utils/contentSections/displaySuttas.js";
+import loadWhatsNewArea from "./js/utils/contentSections/loadWhatsNewArea.js";
+import loadHomeControls from "./js/utils/contentSections/loadHomeControls.js";
+import { displaySuttasLibrary } from "./js/utils/contentSections/displaySuttas.js";
 import { activateEventListeners } from "./js/utils/loadContent/activateEventListeners.js";
 import { fetchAvailableSuttas } from "./js/utils/loadContent/fetchAvailableSuttas.js";
 import { toggleTheme } from "./js/utils/misc/toggleTheme.js";
@@ -85,8 +85,9 @@ document.addEventListener('DOMContentLoaded', async function() {
         && !window.location.href.endsWith("/comments.html")
         && !window.location.href.endsWith("/search-panel.html")) {
           await buildSutta(null, null); // Wait here too
-          displaySuttas(availableSuttasJson);
+          displaySuttasLibrary(availableSuttasJson);
           loadWhatsNewArea(availableSuttasJson);
+          loadHomeControls();
       }
 
       // Additional setup steps
