@@ -1662,6 +1662,29 @@ bookmarkButton {
   margin-bottom: 15px;
 }
 
+.dark .tab-switch {
+  background: var(--dark-card-bg);
+  border: 1px solid var(--slate-gray);
+
+  input[type="checkbox"] {
+    + label {
+      &::before {
+        background-color: var(--deep-bronze);
+      }
+
+      span:nth-of-type(1) {
+        color: white;
+      }
+    }
+
+    &:checked + label {
+      span:nth-of-type(2) {
+        color: white;
+      }
+    }
+  }
+}
+
 .tab-switch {
   --offset: 2px;
   --radius: 4px;
