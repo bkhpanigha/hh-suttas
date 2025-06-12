@@ -852,6 +852,17 @@
             "comment_path": "suttas/comment/sn/sn40/sn40.1_comment-en-anigha.json",
             "date_added": "2024-07-13T17:34:10+02:00"
         },
+        "sn42.8": {
+            "id": "SN 42.8",
+            "title": "A Horn Blower",
+            "pali_title": "Sankhadhamasutta",
+            "html_path": "suttas/html/sn/sn42/sn42.8_html.json",
+            "root_path": "suttas/root/sn/sn42/sn42.8_root-pli-ms.json",
+            "translation_path": "suttas/translation_en/sn/sn42/sn42.8_translation-en-anigha.json",
+            "comment_path": null,
+            "date_added": "2025-06-11T17:39:36+02:00",
+            "heading": "Conditions for Brahmavihāras"
+        },
         "sn45.55": {
             "id": "SN 45.55",
             "title": "Accomplishment in attention in light of the origin (1st)",
@@ -861,6 +872,16 @@
             "translation_path": "suttas/translation_en/sn/sn45/sn45.55_translation-en-anigha.json",
             "comment_path": "suttas/comment/sn/sn45/sn45.55_comment-en-anigha.json",
             "date_added": "2024-05-19T16:21:27+02:00"
+        },
+        "sn46.6": {
+            "id": "SN 46.6",
+            "title": "Kuṇḍaliya",
+            "pali_title": "Kundaliyasutta",
+            "html_path": "suttas/html/sn/sn46/sn46.6_html.json",
+            "root_path": "suttas/root/sn/sn46/sn46.6_root-pli-ms.json",
+            "translation_path": "suttas/translation_en/sn/sn46/sn46.6_translation-en-anigha.json",
+            "comment_path": null,
+            "date_added": "2025-06-11T17:39:36+02:00"
         },
         "sn47.8": {
             "id": "SN 47.8",

@@ -80,10 +80,7 @@ document.addEventListener('DOMContentLoaded', async function() {
           const slug = document.location.search.replace("?q=", "").split("&")[0].replace(/\s/g, "").replace(/%20/g, "");
           await buildSutta(slug, availableSuttasJson); //  Wait for buildSutta to end
           checkPaliUrlParam();
-      } else if (!window.location.href.endsWith("/bookmarks.html") 
-        && !window.location.href.endsWith("/glossary.html") 
-        && !window.location.href.endsWith("/comments.html")
-        && !window.location.href.endsWith("/search-panel.html")) {
+      } else if (window.location.pathname === "/") {
           await buildSutta(null, null); // Wait here too
           displaySuttasLibrary(availableSuttasJson);
           loadWhatsNewArea(availableSuttasJson);
