@@ -4,7 +4,7 @@ import { activateThemeButton } from "../eventListeners/activateThemeButton.js";
 import activateFilterBar from "../eventListeners/activateFilterBar.js";
 import activateFilterForm from "../eventListeners/activateFilterForm.js";
 import activateGoBackButtons from "../eventListeners/activateGoBackButtons.js";
-import activateRefreshButton from "../eventListeners/activateRefreshButton.js";
+import activateResetButton from "../eventListeners/activateResetButton.js";
 import activateGeneralActionButtons from "../eventListeners/activateGeneralActionButtons.js";
 import activateCacheButton from "../eventListeners/activateCacheButton.js";
 import activateInfoButton from "../eventListeners/activateInfoButton.js";
@@ -23,12 +23,14 @@ import activateTopButtonsTouchAnimation from '../eventListeners/activateTopButto
 import { initializePaliToggle } from "../eventListeners/initializePaliToggle.js";
 import initializeSideBySide from "../eventListeners/initializeSideBySide.js";
 import initializeSearchEvents from "../eventListeners/initializeSearchEvents.js";
+import activateSidebarToggles from "../eventListeners/activateSidebarToggles.js";
 
 export function activateEventListeners(availableSuttasJson)
 {
+    activateSidebarToggles();
     activateHomeButton();
     activateThemeButton();
-    activateRefreshButton();
+    activateResetButton();
     activateGeneralActionButtons();
     activateCacheButton();
     activateInfoButton();

@@ -1,4 +1,3 @@
-import fetchFooter from "../contentSections/loadFooter.js";
 import fetchHeader from "../contentSections/loadHeader.js";
 import { isTogglingPali } from "./initializePaliToggle.js";
 
@@ -8,12 +7,10 @@ export default function activateWindowEventListeners() {
 
   window.matchMedia("(max-width: 1000px)").addEventListener("change", (event) => {
     if (event.matches) {
-      document.getElementById("footer").innerHTML = "";
       fetchHeader("/header-mobile.html");
       return;
     }
 
-    fetchFooter();
     fetchHeader("/header.html");
   });
 

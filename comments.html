@@ -52,16 +52,17 @@
 
 <body id='appbody' class="hidden">
     <div id="header-placeholder"></div>
-    <div id="progressContainer">
-        <p id="loadingText">Loading comments...</p>
-        <progress id="progressBar" value="0" max="100"></progress>
+    <div id="app-content">
+        <div id="progressContainer">
+            <p id="loadingText">Loading comments...</p>
+            <progress id="progressBar" value="0" max="100"></progress>
+        </div>
+        <div id="commentsArea"></div>
     </div>
-    <div id="commentsArea">
-    </div>
-    <div id="footer"></div>
+    <div id="right-sidebar-placeholder"></div>
     <script type="module" src="index.js"></script>
-    <script type="module" src="js/utils/contentSections/loadFooter.js"></script>
     <script type="module" src="js/utils/contentSections/loadHeader.js"></script>
+    <script type="module" src="js/utils/contentSections/loadRightSidebar.js"></script>
     <script type="module" src="comments.js"></script>
 </body>
 </html>
