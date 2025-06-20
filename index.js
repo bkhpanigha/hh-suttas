@@ -53,18 +53,13 @@ import { scrollToHash } from "./js/utils/navigation/scrollToHash.js";
 // Wait for DOM to be fully loaded -- prevents funny business
 document.addEventListener('DOMContentLoaded', async function() {
   try {
+      // NOTE: this is used to disable BFCache to prevent a bug with the open/closed state of the sidebar in history. (The function is deprecated but still works, there is also no alternative that I tried that works so well)
+      // For example: if it was open in history but closed now, going back in history with BFCache enabled (default) will have the sidebar opened again (should be closed).
+      window.addEventListener("unload", () => {});
+
       //Set up data
       const initialThemeSetting = localStorage.theme === "dark";
       const availableSuttasJson = await fetchAvailableSuttas();
-
-      // Add changes to document to improve experience for mobile
-      if (window.innerWidth < 1000) {
-        document.body.style.paddingTop = "50px";
-        const appContent = document.getElementById("app-content");
-        if (appContent) {
-          appContent.style.paddingTop = 0;
-        }
-      }
       
       // Load settings state
       document.querySelectorAll("input[type='checkbox']").forEach(checkbox => {

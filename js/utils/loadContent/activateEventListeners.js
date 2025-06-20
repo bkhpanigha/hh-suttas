@@ -1,4 +1,4 @@
-import activateSideBySideEventListenerKeyUp from "../eventListeners/activateSideBySideEventListenerKeyUp.js";
+import activateShortcuts from "../eventListeners/activateShortcuts.js";
 import { activateHomeButton } from "../eventListeners/activateHomeButton.js";
 import { activateThemeButton } from "../eventListeners/activateThemeButton.js";
 import activateFilterBar from "../eventListeners/activateFilterBar.js";
@@ -43,9 +43,9 @@ export function activateEventListeners(availableSuttasJson)
     activateSettingsButtons();
     initializePaliToggle();
     activateTopButtonsTouchAnimation();
+    activateShortcuts();
 	
     if (window.location.pathname === "/") {
-        activateSideBySideEventListenerKeyUp();
         initializeFuse(availableSuttasJson);
         activateFilterBar(availableSuttasJson);
         activateGoBackButtons();
