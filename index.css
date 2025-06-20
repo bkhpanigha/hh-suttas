@@ -1452,8 +1452,7 @@ bookmarkButton {
   }
 
   .sutta-card-top {
-    flex-wrap: wrap;
-    gap: 0;
+    gap: 8px;
   }
 
   .sutta-card-bottom {
