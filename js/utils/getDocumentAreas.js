@@ -24,9 +24,17 @@ export default function getDocumentAreas()
         settings: document.getElementById('settings'),
         darkModeToggle: document.getElementById("theme"),
         paliToggle: document.getElementById("paliToggle"),
+        sideBySideToggle: document.getElementById("sideBySide"),
+        sideBySideLabel: document.getElementById("sideBySideLabel"),
+        fullscreenButton: document.getElementById("fullscreenButton"),
         offlineToggle: document.getElementById("offline-toggle"),
         supportButton: document.getElementById('supportButton'),
         feedbackButton: document.getElementById('feedbackButton'),
+        resetButton: document.getElementById('resetButton'),
         hillsideHermitageButton: document.getElementById('hillsideHermitageButton'),
+        leftSidebar: document.getElementById("left-sidebar"),
+        rightSidebar: document.getElementById("right-sidebar"),
+        leftSidebarToggle: document.getElementById("left-sidebar-toggle"),
+        rightSidebarToggle: document.getElementById("right-sidebar-toggle"),
     }
 }

@@ -17,105 +17,105 @@
 </head>
 <body id="appbody" class="search-panel hidden">
 	<div id="header-placeholder"></div>
-	
-	<div id="panelsContainer">
-		<div class="loading-bar-container">
-			<div class="loading-bar" id="loadingBar"></div>
-		</div>
-		<div id="searchContainer">
-			<div id="optionPanel">
-				<h2>Search Settings</h2>
-				<div class="search-field">
-					<input id="searchInput" type="text" placeholder="Search terms">
-					<button id="searchButton" class="search-btn" disabled>Search</button>
+	<div id="app-content">
+		<div id="panelsContainer">
+			<div class="loading-bar-container">
+				<div class="loading-bar" id="loadingBar"></div>
+			</div>
+			<div id="searchContainer">
+				<div id="optionPanel">
+					<h2>Search Settings</h2>
+					<div class="search-field">
+						<input id="searchInput" type="text" placeholder="Search terms">
+						<button id="searchButton" class="search-btn" disabled>Search</button>
+					</div>
+					
+					<div id="configuration">
+						<div class="options-group">
+							<div id="langOption" class="options">
+								<h3>Language</h3>
+								<div class="labels-container">
+									<label><input type="checkbox" name="lang" value="en" checked> English</label>
+									<label><input type="checkbox" name="lang" value="pali"> Pāli</label>
+								</div>
+							</div>
+							<div id="bookOption" class="options">
+								<h3>Books</h3>
+								<div class="labels-container">
+									<label><input type="checkbox" name="book" value="dn" checked> DN</label>
+									<label><input type="checkbox" name="book" value="mn" checked> MN</label>
+									<label><input type="checkbox" name="book" value="sn" checked> SN</label>
+									<label><input type="checkbox" name="book" value="an" checked> AN</label>
+									<label><input type="checkbox" name="book" value="kn" checked> KN</label>
+								</div>
+							</div>
+						</div>
+						<div class="switch-options">
+							<div id="strictOption" class="options">
+								<h3>Exact Match</h3>
+								<div class="labels-container">
+									<label><input type="checkbox" name="book" value="strict"> On</label>
+								</div>	
+							</div>
+							<div id="singleResultOption" class="options">
+								<h3>Single Result</h3>
+								<div class="labels-container">
+									<label><input type="checkbox" name="book" value="single"> On</label>
+								</div>
+							</div>
+							<div id="commentsOption" class="options">
+								<h3>Comments Only</h3>
+								<div class="labels-container">
+									<label><input type="checkbox" name="comments" value="comments"> On</label>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 				
-				<div id="configuration">
-					<div class="options-group">
-						<div id="langOption" class="options">
-							<h3>Language</h3>
-							<div class="labels-container">
-								<label><input type="checkbox" name="lang" value="en" checked> English</label>
-								<label><input type="checkbox" name="lang" value="pali"> Pāli</label>
-							</div>
+				<div class="content">		
+					<div class="results">
+						<div class="result placeholder">
+							<h1>Hillside Hermitage - Sutta Search Panel</h1>
+							<br>
+							<p>
+							1. <b class="dark">Language Selection:</b> Choose your search language. Note that some Pāli terms may appear in translations and comments.
+							<br>
+							<br>
+							2. <b class="dark">Book Selection:</b> Define which books you want to search through.
+							<br>
+							<br>
+							3. <b class="dark">Exact Match:</b> Enable exact match to limit results to precise terms only. For example, if you search for "training", you'll only see results that contain that exact word, not words like "restraining".
+							<br>
+							<br>
+							4. <b class="dark">Single Result:</b> Limit display to first occurrence per sutta.
+							<br>
+							<br>
+							5. <b class="dark">Comments Only:</b> Restrict search to comments only.
+							<br>
+							<br>
+							6. <b class="dark">Search:</b> Enter your terms and press Enter.
+							<br>
+							<br>
+							<br>
+							<b class="dark">Dark Mode</b>
+							<br>
+							Enable dark mode using the button at the top of the page.
+							<br>
+							<br>
+							<b class="dark">Troubleshooting</b>
+							<br>
+							If you encounter an issue with the search, try re-enabling the "Use offline" setting. If the error persists, you may want to report it via the "Give feedback" button.
+							</p>
 						</div>
-						<div id="bookOption" class="options">
-							<h3>Books</h3>
-							<div class="labels-container">
-								<label><input type="checkbox" name="book" value="dn" checked> DN</label>
-								<label><input type="checkbox" name="book" value="mn" checked> MN</label>
-								<label><input type="checkbox" name="book" value="sn" checked> SN</label>
-								<label><input type="checkbox" name="book" value="an" checked> AN</label>
-								<label><input type="checkbox" name="book" value="kn" checked> KN</label>
-							</div>
-						</div>
-					</div>
-					<div class="switch-options">
-						<div id="strictOption" class="options">
-							<h3>Exact Match</h3>
-							<div class="labels-container">
-								<label><input type="checkbox" name="book" value="strict"> On</label>
-							</div>	
-						</div>
-						<div id="singleResultOption" class="options">
-							<h3>Single Result</h3>
-							<div class="labels-container">
-								<label><input type="checkbox" name="book" value="single"> On</label>
-							</div>
-						</div>
-						<div id="commentsOption" class="options">
-							<h3>Comments Only</h3>
-							<div class="labels-container">
-								<label><input type="checkbox" name="comments" value="comments"> On</label>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			
-			<div class="content">		
-				<div class="results">
-					<div class="result placeholder">
-						<h1>Hillside Hermitage - Sutta Search Panel</h1>
-						<br>
-						<p>
-						1. <b class="dark">Language Selection:</b> Choose your search language. Note that some Pāli terms may appear in translations and comments.
-						<br>
-						<br>
-						2. <b class="dark">Book Selection:</b> Define which books you want to search through.
-						<br>
-						<br>
-						3. <b class="dark">Exact Match:</b> Enable exact match to limit results to precise terms only. For example, if you search for "training", you'll only see results that contain that exact word, not words like "restraining".
-						<br>
-						<br>
-						4. <b class="dark">Single Result:</b> Limit display to first occurrence per sutta.
-						<br>
-						<br>
-						5. <b class="dark">Comments Only:</b> Restrict search to comments only.
-						<br>
-						<br>
-						6. <b class="dark">Search:</b> Enter your terms and press Enter.
-						<br>
-						<br>
-						<br>
-						<b class="dark">Dark Mode</b>
-						<br>
-						Enable dark mode using the button at the top of the page.
-						<br>
-						<br>
-						<b class="dark">Troubleshooting</b>
-						<br>
-						If you encounter an issue with the search, try re-enabling the "Use offline" setting. If the error persists, you may want to report it via the "Give feedback" button.
-						</p>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	
-	<div id="footer"></div>
+	<div id="right-sidebar-placeholder"></div>
 	<script type="module" src="index.js"></script>
-	<script type="module" src="js/utils/contentSections/loadFooter.js"></script>
+	<script type="module" src="js/utils/contentSections/loadRightSidebar.js"></script>
 	<script type="module" src="js/utils/contentSections/loadHeader.js"></script>
 	<script type="module" src="search-panel.js"></script>
 </body>

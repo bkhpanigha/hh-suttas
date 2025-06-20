@@ -4,7 +4,7 @@ import { buildSutta } from "../loadContent/buildSutta.js";
 export default function activateFilterForm(){
     const { filterForm, filterBar } = getDocumentAreas();
 
-    filterForm.addEventListener("submit", e => 
+    filterForm?.addEventListener("submit", e => 
     {
         e.preventDefault();
         const searchValue = searchBar.value.trim().replace(/\s/g, "");
@@ -14,7 +14,7 @@ export default function activateFilterForm(){
         }
     });
 	
-    filterForm.addEventListener('click', function () {
+    filterForm?.addEventListener('click', function () {
         filterBar.focus();
     });
 }

@@ -1,59 +1,91 @@
-<div class="links-area">
-    <a href="https://github.com/bkhpanigha/hh-suttas" rel="noreferrer" target="_blank" class="icon-button">
-		<img width="20px" src="./images/GitHub-Mark-64px-black.png" alt="GitHub icon">
-		<span class="tooltip">Source code</span>
-	</a>
-    <a href="https://www.youtube.com/channel/UCKejmWAt_kNpRMq5gQEGAqw" rel="noreferrer" target="_blank" class="icon-button">
-		<img width="20px" src="./images/favicon-youtube.png" alt="Donate icon">
-		<span class="tooltip">Youtube channel</span>
-	</a>
-    <a href="https://www.hillsidehermitage.org/support-us/" rel="noreferrer" target="_blank" class="icon-button">
-		<img width="20px" src="./images/favicon-donate.png" alt="Donate icon">
-		<span class="tooltip">Support us</span>
-	</a>
-    <div id="container">
-        <div id="buttonsContainer">
-            <button id="cacheButton" class="download-button">Use Offline</button>
-            <button id="infoButton" class="info-btn">
-                <img src="images/info-empty.256x256.png" alt="Info">
+<aside id="left-sidebar" class="sidebar left-sidebar">
+    <!-- Top section -->
+    <div class="section">
+        <div style="display: flex; justify-content: space-between;">
+            <h4 class="title">Menu</h4>
+            <button id="left-sidebar-toggle" class="sidebar-toggle left">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 512 512"><path fill="currentColor" d="M233.4 105.4c12.5-12.5 32.8-12.5 45.3 0l192 192c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L256 173.3L86.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l192-192z"/></svg>
             </button>
         </div>
-        <div id="epubButtonsContainer">
-            <button id="downloadEpubButton" class="download-button">Suttas Ebook</button>
-            <button id="epubInfoButton" class="info-btn">
-                <img src="images/info-empty.256x256.png" alt="Info">
-            </button>
-        </div>
+        <a id="home-button" class="icon-button" href="/">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="2 1 20 20" class="icon">
+                <path fill="currentColor" d="M19 21H5a1 1 0 0 1-1-1v-9H1l10.327-9.388a1 1 0 0 1 1.346 0L23 11h-3v9a1 1 0 0 1-1 1M6 19h12V9.157l-6-5.454l-6 5.454z"></path>
+            </svg>
+            <span>Home</span>
+        </a>
+        <a id="search-button" class="icon-button" href="/search-panel.html">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" class="icon">
+                <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3">
+                    <circle cx="14" cy="14" r="12"/>
+                    <path d="m23 23l7 7"/>
+                </g>
+            </svg>
+            <span>Search</span>
+        </a>        
+        <a id="bookmarks-button" class="icon-button" href="/bookmarks.html">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="icon">
+                <path fill="currentColor" d="M0 48C0 21.5 21.5 0 48 0v441.4l130.1-92.9c8.3-6 19.6-6 27.9 0l130 92.9V48H48V0h288c26.5 0 48 21.5 48 48v440c0 9-5 17.2-13 21.3s-17.6 3.4-24.9-1.8L192 397.5l-154.1 110c-7.3 5.2-16.9 5.9-24.9 1.8S0 497 0 488z"/>
+            </svg>
+            <span>Bookmarks</span>
+        </a>        
+        <a id="comments-button" class="icon-button" href="/comments.html">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" class="icon">
+                <path fill="currentColor" fill-rule="evenodd" d="M0 4a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3v6a3 3 0 0 1-3 3H4.063L1.28 15.78A.75.75 0 0 1 0 15.25zm3-1.5A1.5 1.5 0 0 0 1.5 4v9.44l1.723-1.72l.22-.22H13a1.5 1.5 0 0 0 1.5-1.5V4A1.5 1.5 0 0 0 13 2.5z" clip-rule="evenodd"/>
+            </svg>
+            <span>Comments</span>
+        </a>        
+        <a id="glossary-button" class="icon-button" href="/glossary.html">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 22" class="icon">
+                <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h6a2 2 0 0 1 2 2a2 2 0 0 1 2-2h6a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1h-6a2 2 0 0 0-2 2a2 2 0 0 0-2-2m2-14v16M7 7h1m-1 4h1m8-4h1m-1 4h1m-1 4h1"/>
+            </svg>
+            <span>Glossary</span>
+        </a>        
+        <a id="about-button" class="icon-button" href="/about.html">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22.4" height="22.4" viewBox="40 40 430 430" class="icon">
+                <path fill="currentColor" fill-rule="evenodd" d="M256 42.667C138.18 42.667 42.667 138.179 42.667 256c0 117.82 95.513 213.334 213.333 213.334c117.822 0 213.334-95.513 213.334-213.334S373.822 42.667 256 42.667m0 384c-94.105 0-170.666-76.561-170.666-170.667S161.894 85.334 256 85.334c94.107 0 170.667 76.56 170.667 170.666S350.107 426.667 256 426.667m26.714-256c0 15.468-11.262 26.667-26.497 26.667c-15.851 0-26.837-11.2-26.837-26.963c0-15.15 11.283-26.37 26.837-26.37c15.235 0 26.497 11.22 26.497 26.666m-48 64h42.666v128h-42.666z"/>
+            </svg>
+            <span>About</span>
+        </a>
     </div>
-</div>
 
-<div id="top-buttons" class="button-container">
-    <a id="home-button" class="icon-button" href="/">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="2 1 20 20"><path fill="currentColor" d="M19 21H5a1 1 0 0 1-1-1v-9H1l10.327-9.388a1 1 0 0 1 1.346 0L23 11h-3v9a1 1 0 0 1-1 1M6 19h12V9.157l-6-5.454l-6 5.454z"></path></svg>
-        <div class="icon-title">Home</div>
-    </a>
-    <a id="search-button" class="icon-button" href="/search-panel.html">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"><circle cx="14" cy="14" r="12"/><path d="m23 23l7 7"/></g></svg>
-        <div class="icon-title">Search</div>
-    </a>
-    <a id="bookmarks-button" class="icon-button" href="/bookmarks.html">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path fill="currentColor" d="M0 48C0 21.5 21.5 0 48 0v441.4l130.1-92.9c8.3-6 19.6-6 27.9 0l130 92.9V48H48V0h288c26.5 0 48 21.5 48 48v440c0 9-5 17.2-13 21.3s-17.6 3.4-24.9-1.8L192 397.5l-154.1 110c-7.3 5.2-16.9 5.9-24.9 1.8S0 497 0 488z"/></svg>
-        <div class="icon-title">Bookmarks</div>
-    </a>
-    <a id="comments-button" class="icon-button" href="/comments.html">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill="currentColor" fill-rule="evenodd" d="M0 4a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3v6a3 3 0 0 1-3 3H4.063L1.28 15.78A.75.75 0 0 1 0 15.25zm3-1.5A1.5 1.5 0 0 0 1.5 4v9.44l1.723-1.72l.22-.22H13a1.5 1.5 0 0 0 1.5-1.5V4A1.5 1.5 0 0 0 13 2.5z" clip-rule="evenodd"/></svg>
-        <div class="icon-title">Comments</div>
-    </a>
-    <a id="glossary-button" class="icon-button" href="/glossary.html">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 22"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h6a2 2 0 0 1 2 2a2 2 0 0 1 2-2h6a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1h-6a2 2 0 0 0-2 2a2 2 0 0 0-2-2m2-14v16M7 7h1m-1 4h1m8-4h1m-1 4h1m-1 4h1"/></svg>
-        <div class="icon-title">Glossary</div>
-    </a>
-    <a id="about-button" class="icon-button" href="/about.html">
-        <svg xmlns="http://www.w3.org/2000/svg" width="22.4" height="22.4" viewBox="40 40 430 430"><path fill="currentColor" fill-rule="evenodd" d="M256 42.667C138.18 42.667 42.667 138.179 42.667 256c0 117.82 95.513 213.334 213.333 213.334c117.822 0 213.334-95.513 213.334-213.334S373.822 42.667 256 42.667m0 384c-94.105 0-170.666-76.561-170.666-170.667S161.894 85.334 256 85.334c94.107 0 170.667 76.56 170.667 170.666S350.107 426.667 256 426.667m26.714-256c0 15.468-11.262 26.667-26.497 26.667c-15.851 0-26.837-11.2-26.837-26.963c0-15.15 11.283-26.37 26.837-26.37c15.235 0 26.497 11.22 26.497 26.666m-48 64h42.666v128h-42.666z"/></svg>
-        <div class="icon-title">About</div>
-    </a>
-    <div id="theme-button" class="icon-button">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="2 2 20 20"><path fill="currentColor" d="M17 3.34A10 10 0 1 1 2 12l.005-.324A10 10 0 0 1 17 3.34M8 5.072A8 8 0 0 0 12.001 20L12 4a8 8 0 0 0-4 1.072"></path></svg>
-        <div class="icon-title">Theme</div>
+    <!-- Middle section -->
+    <div class="section">
+        <h4 class="title">Downloads</h4>
+        <a id="downloadEpubButton" class="icon-button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="4 4 16 16">
+                <path fill="currentColor" d="m12 16l-5-5l1.4-1.45l2.6 2.6V4h2v8.15l2.6-2.6L17 11zm-6 4q-.825 0-1.412-.587T4 18v-3h2v3h12v-3h2v3q0 .825-.587 1.413T18 20z"/>
+            </svg>
+            <span>Suttas eBook</span>
+        </a>      
     </div>
-</div>
+
+    <!-- Bottom section -->
+    <div class="bottom-section">
+        <div class="actions">
+            <a href="https://www.hillsidehermitage.org/support-us" target="_blank">→ Support us</a>
+            <a href="https://docs.google.com/forms/d/1Ng8Csf9xYJ7UaYUyl3sGEyZ3aa2FJE_0GRS6zI6oIBM/edit" target="_blank">→ Give feedback</a>
+            <a href="https://hillsidehermitage.org" target="_blank">→ Hillside Hermitage</a>
+        </div>
+        <div class="links-area">    
+            <a href="https://www.youtube.com/channel/UCKejmWAt_kNpRMq5gQEGAqw" rel="noreferrer" target="_blank"
+                class="icon-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24">
+                    <path fill="currentColor"
+                        d="m10 15l5.19-3L10 9zm11.56-7.83c.13.47.22 1.1.28 1.9c.07.8.1 1.49.1 2.09L22 12c0 2.19-.16 3.8-.44 4.83c-.25.9-.83 1.48-1.73 1.73c-.47.13-1.33.22-2.65.28c-1.3.07-2.49.1-3.59.1L12 19c-4.19 0-6.8-.16-7.83-.44c-.9-.25-1.48-.83-1.73-1.73c-.13-.47-.22-1.1-.28-1.9c-.07-.8-.1-1.49-.1-2.09L2 12c0-2.19.16-3.8.44-4.83c.25-.9.83-1.48 1.73-1.73c.47-.13 1.33-.22 2.65-.28c1.3-.07 2.49-.1 3.59-.1L12 5c4.19 0 6.8.16 7.83.44c.9.25 1.48.83 1.73 1.73" />
+                </svg>
+            </a>
+            <a href="https://t.me/s/HillsideHermitage" rel="noreferrer" target="_blank" class="icon-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24">
+                    <path fill="currentColor"
+                        d="m21.936 5.17l-3.03 14.185c-.226.999-.806 1.224-1.644.773l-4.545-3.352l-2.225 2.127c-.225.226-.451.452-.967.452l.355-4.675l8.478-7.704c.354-.355-.097-.484-.548-.193l-10.541 6.64l-4.546-1.386c-.999-.322-.999-1 .226-1.45L20.614 3.72c.87-.258 1.612.194 1.322 1.45" />
+                </svg>
+            </a>
+            <a href="https://github.com/bkhpanigha/hh-suttas" rel="noreferrer" target="_blank" class="icon-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24">
+                    <path fill="currentColor"
+                        d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5c.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34c-.46-1.16-1.11-1.47-1.11-1.47c-.91-.62.07-.6.07-.6c1 .07 1.53 1.03 1.53 1.03c.87 1.52 2.34 1.07 2.91.83c.09-.65.35-1.09.63-1.34c-2.22-.25-4.55-1.11-4.55-4.92c0-1.11.38-2 1.03-2.71c-.1-.25-.45-1.29.1-2.64c0 0 .84-.27 2.75 1.02c.79-.22 1.65-.33 2.5-.33s1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02c.55 1.35.2 2.39.1 2.64c.65.71 1.03 1.6 1.03 2.71c0 3.82-2.34 4.66-4.57 4.91c.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2" />
+                </svg>
+            </a>
+        </div>
+    </div>
+</aside>

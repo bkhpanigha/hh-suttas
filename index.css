@@ -1,46 +1,7 @@
-@font-face {
-  font-family: "Roboto";
-  src: url("Roboto-Regular.ttf");
-}
-
-@font-face {
-  font-family: "RobotoSerif";
-  src: url("roboto-lightest.woff");
-}
-
-@font-face {
-  font-family: "RobotoSerif Medium";
-  src: url("RobotoSerif-Medium.ttf");
-}
-
-@font-face {
-  font-family: "RobotoSerif Bold";
-  src: url("RobotoSerif-Bold.ttf");
-}
-
-@font-face {
-  font-family: "Roboto Medium";
-  src: url("Roboto-Medium.ttf");
-}
-
-html.light,
-body.light {
-  background-color: var(--light-off-white);
-}
-
-html.dark,
-body.dark {
-  background-color: var(--deep-anthracite);
-}
-
-b {
-  font-family: "RobotoSerif Medium";
-  font-weight: normal;
-}
-
 :root {
   --off-white: rgb(221, 221, 221);
   --light-off-white: rgb(241, 241, 241);
+  --lighter-off-white: #f9f9f9;
   --white: #fff;
   --black: rgb(0, 0, 0);
   --dark-gray: #5a5a5a;
@@ -69,16 +30,77 @@ b {
   --deep-bronze: #7a622b;
   --slate-gray: #444444;
   --card-bg: #fafbfc;
+
+  --sidebar-background: #f0f0f0;
+  --sidebar-border: #e0e0e0;
+  --sidebar-title: gray;
+  --sidebar-text: var(--dark-brown);
+  --sidebar-text-hover: #e2e2e2;
+
+  --left-sidebar-width: 200px;
+  --right-sidebar-width: 250px;
+  --sidebar-toggle-width: 30px;
+  --sidebar-padding: 1rem;
+}
+
+html.light,
+body.light {
+  background-color: var(--lighter-off-white);
+}
+
+html.dark,
+body.dark {
+  background-color: var(--deep-anthracite);
+
+  --sidebar-background: #0e0e0e;
+  --sidebar-border: #1e1e1e;
+  --sidebar-title: #e0e0e0;
+  --sidebar-text: #bbbbbb;
+  --sidebar-text-hover: #1e1e1e;
+}
+
+@font-face {
+  font-family: "Roboto";
+  src: url("Roboto-Regular.ttf");
+}
+
+@font-face {
+  font-family: "RobotoSerif";
+  src: url("roboto-lightest.woff");
+}
+
+@font-face {
+  font-family: "RobotoSerif Medium";
+  src: url("RobotoSerif-Medium.ttf");
+}
+
+@font-face {
+  font-family: "RobotoSerif Bold";
+  src: url("RobotoSerif-Bold.ttf");
+}
+
+@font-face {
+  font-family: "Roboto Medium";
+  src: url("Roboto-Medium.ttf");
+}
+
+b {
+  font-family: "RobotoSerif Medium";
+  font-weight: normal;
 }
 
 body {
-  margin: 0 3rem;
+  margin: 0;
   font-family: "RobotoSerif", serif;
-  /* padding-top: 40px; */
 }
 
 .hide {
   display: none !important;
+}
+
+.disabled {
+  opacity: 0.25 !important;
+  cursor: default !important;
 }
 
 #filter-form-container {
@@ -233,7 +255,7 @@ body {
 
 
 .icon-button {
-  color: #3F3234;
+  color: var(--dark-brown);
   border: none;
   background: none;
   cursor: pointer;
@@ -288,6 +310,20 @@ body {
 
 p {
   margin-bottom: 1.5rem;
+}
+
+#home-controls {
+  padding-bottom: 1rem;
+}
+
+#app-content {
+  line-height: 1.5;
+
+  @media only screen and (min-width: 1000px) {
+    padding: 2rem;
+    padding-left: calc(var(--left-sidebar-width) + 10rem);
+    padding-right: calc(var(--right-sidebar-width) + 10rem);
+  }
 }
 
 #app-content ul {
@@ -444,18 +480,6 @@ dt {
   position: fixed;
   right: 10px;
   top: 10px;
-}
-
-#app-content {
-  max-width: 45rem;
-  margin: auto;
-  line-height: 1.5;
-}
-
-@media only screen and (min-width: 1200px) {
-  #app-content {
-    max-width: 65rem; /* Wider on large screens */
-  }
 }
 
 .hide-pali p .pli-lang,
@@ -693,7 +717,7 @@ a:hover {
   /* Smooth transition for the opacity */
 }
 
-#cacheButton, #downloadEpubButton, .hide-button {
+#cacheButton, .hide-button {
   position: relative;
   color: var(--charcoal);
   cursor: pointer;
@@ -710,21 +734,18 @@ a:hover {
 }
 
 #cacheButton:hover,
-#downloadEpubButton:hover,
 .hide-button:hover {
   background-color: #fff;
 }
 
-.dark #cacheButton,
-.dark #downloadEpubButton {
+.dark #cacheButton {
   background-color: var(--dark-card-bg);
   color: var(--off-white);
   border-color: var(--off-white);
   transition: background-color 250ms ease, color 250ms ease;
 }
 
-.dark #cacheButton:hover,
-.dark #downloadEpubButton:hover {
+.dark #cacheButton:hover {
   background-color: var(--light-off-white);
   color: var(--darker-brown);
 }
@@ -1185,34 +1206,39 @@ bookmarkButton {
   border: none;
   cursor: pointer;
   text-decoration: none !important;
-}
 
-.box-button:hover {
-  background-image: linear-gradient(rgb(0 0 0/20%) 0 0);
-}
+  &:hover {
+    background-image: linear-gradient(rgb(0 0 0/20%) 0 0);
+  }
 
-.red {
-  background-color: #f44336;
-}
+  &.red { 
+    background-color: #f44336; 
+  }
 
-.orange {
-  background-color: orange;
-}
+  &.orange {
+    background-color: orange;
+  }
 
-.green {
-  background-color: #348e40;
-}
+  &.green {
+    background-color: #348e40;
+  }
 
-.blue {
-  background-color: var(--dark-blue);
-}
+  &.blue {
+    background-color: var(--dark-blue);
+  }
 
-.dark-blue {
-  background-color: #093461;
-}
+  &.dark-blue {
+    background-color: #093461;
+  }
 
-.gold {
-  background-color: var(--gold);
+  &.gold {
+    background-color: var(--gold);
+  }
+
+  &.white { 
+    color: black; 
+    background-color: var(--white); 
+  }
 }
 
 .glossary-item {
@@ -1279,7 +1305,6 @@ bookmarkButton {
 
 #top-buttons .icon-button {
   display: flex;
-  flex-direction: column;
   align-items: center;
   padding: 0.4rem 0.8rem;
   color: var(--black);
@@ -1341,8 +1366,7 @@ bookmarkButton {
     margin-top: initial;
   }
   
-  .dark #cacheButton,
-  .dark #downloadEpubButton {
+  .dark #cacheButton {
     background-color: var(--dark-blue);
     color: var(--off-white);
     border-color: var(--off-white);
@@ -1766,6 +1790,7 @@ bookmarkButton {
   align-items: center;
   justify-content: space-between;
   gap: 10px;
+  cursor: pointer;
 }
 
 .switch input {
@@ -1814,4 +1839,141 @@ bookmarkButton {
 
 .switch input:checked + .slider .tick {
   display: block;
+}
+
+.sidebar {
+  padding: var(--sidebar-padding);
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+  background-color: var(--sidebar-background);
+  position: fixed;
+  top: 0;
+  height: 100vh;
+
+  .section {
+    display: flex;
+    flex-direction: column;
+    font-family: "RobotoSerif Medium", serif;
+    
+    a {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      border-radius: 10px;
+      text-decoration: none;
+      padding: 0.75rem;
+      color: var(--sidebar-text);
+
+      &:hover {
+        background-color: var(--sidebar-text-hover);
+      }
+    }
+
+    .title {
+      padding: 0.75rem;
+      padding-bottom: calc(0.75rem / 2);
+      margin: 0;
+      color: var(--sidebar-title);
+    }
+
+    span {
+      margin-top: 2px;
+    }
+  }
+
+  .sidebar-toggle {
+    height: var(--sidebar-toggle-width);
+    width: var(--sidebar-toggle-width);
+    top: 25px;
+    position: absolute;
+    color: var(--sidebar-title);
+    background: var(--sidebar-background);
+    border: 1px solid var(--sidebar-border);
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease;
+    font-size: 1rem;
+
+    &.left {
+      right: calc(var(--sidebar-toggle-width) / -2);
+      transform: rotate(270deg);
+    }
+
+    &.right {
+      left: calc(var(--sidebar-toggle-width) / -2);
+      transform: rotate(90deg);
+    }
+
+    &:hover {
+      background-color: var(--sidebar-text-hover);
+    }
+  }
+}
+
+.left-sidebar {
+  width: var(--left-sidebar-width);
+  border-right: 1px solid var(--sidebar-border);
+  gap: 1.5rem;
+  left: 0;
+
+  &.collapsed {
+    left: calc((var(--left-sidebar-width) + var(--sidebar-padding)) * -1);
+
+    .sidebar-toggle {
+      transform: rotate(90deg);
+    }
+  }
+
+  .bottom-section {
+    width: var(--left-sidebar-width);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+
+    a {
+      cursor: pointer;
+      color: var(--sidebar-text);
+    }
+
+    .actions {
+      display: flex;
+      flex-direction: column;
+      padding-bottom: 0.5rem;
+      gap: 0.5rem;
+    }
+  }
+}
+
+.right-sidebar {
+  width: var(--right-sidebar-width);
+  border-left: 1px solid var(--sidebar-border);
+  right: 0;
+
+  &.collapsed {
+    right: calc((var(--right-sidebar-width) + var(--sidebar-padding)) * -1);
+
+    .sidebar-toggle {
+      transform: rotate(270deg);
+    }
+  }
+
+  .switch {
+    padding-left: 0.75rem;
+    padding-bottom: 0.25rem;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-top: 1rem;
+    color: var(--sidebar-text);
+  }
 }

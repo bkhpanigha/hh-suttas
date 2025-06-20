@@ -3,5 +3,5 @@ import { createFuseSearch, getFuseInstance } from "../misc/createFuseSearch.js";
 
 export default async function initializeFuse(availableSuttasJson) {
   await createFuseSearch(availableSuttasJson); // Initialize Fuse.js
-  console.log("Fuse initialized");
+  console.log("[INFO] Fuse initialized");
 }
