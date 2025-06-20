@@ -43,7 +43,7 @@ async function displayBookmarks() {
   }
 
   // Container to display the bookmarks
-  const bookmarksDiv = document.getElementById('bookmarks');
+  const bookmarksDiv = document.getElementById('bookmarksList');
   if (!bookmarksDiv) {
     console.error('No div with id "bookmarks" found');
     return;
@@ -239,7 +239,7 @@ function deleteBookmark(label, bookmark) {
 
 function displayPage() {
   // TODO create a separate section for the input box
-  const bookmarksDiv = document.getElementById('bookmarks');
+  const bookmarksDiv = document.getElementById('bookmarksList');
 
   bookmarksDiv.innerHTML = '';
 
