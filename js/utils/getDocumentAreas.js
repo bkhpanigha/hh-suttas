@@ -36,5 +36,8 @@ export default function getDocumentAreas()
         rightSidebar: document.getElementById("right-sidebar"),
         leftSidebarToggle: document.getElementById("left-sidebar-toggle"),
         rightSidebarToggle: document.getElementById("right-sidebar-toggle"),
+        shortcutsModal: document.getElementById("shortcuts-modal"),
+        openButton: document.getElementById("shortcuts-button"),
+        closeButton: document.getElementById("close-shortcuts"),
     }
 }

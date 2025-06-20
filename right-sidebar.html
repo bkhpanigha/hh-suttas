@@ -49,10 +49,41 @@
           </span>
         </label>
       </div>
-      <a id="resetButton" class="icon-button">
-        <svg xmlns="http://www.w3.org/2000/svg" width="22.4" height="22.4" viewBox="0 0 512 512"><path fill="currentColor" fill-rule="evenodd" d="M256 448c-97.974 0-178.808-73.383-190.537-168.183l42.341-5.293c9.123 73.734 71.994 130.809 148.196 130.809c82.475 0 149.333-66.858 149.333-149.333S338.475 106.667 256 106.667c-50.747 0-95.581 25.312-122.567 64h79.9v42.666H64V64h42.667v71.31C141.866 91.812 195.685 64 256 64c106.039 0 192 85.961 192 192s-85.961 192-192 192" clip-rule="evenodd"/></svg>
-        <span>Reset</span>
-      </a>
+      <div>
+        <a id="shortcuts-button" class="icon-button">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <path fill="currentColor" d="M4 19q-.825 0-1.412-.587T2 17V7q0-.825.588-1.412T4 5h16q.825 0 1.413.588T22 7v10q0 .825-.587 1.413T20 19zm0-2h16V7H4zm4-1h8v-2H8zm-3-3h2v-2H5zm3 0h2v-2H8zm3 0h2v-2h-2zm3 0h2v-2h-2zm3 0h2v-2h-2zM5 10h2V8H5zm3 0h2V8H8zm3 0h2V8h-2zm3 0h2V8h-2zm3 0h2V8h-2zM4 17V7z"/>
+          </svg>
+          <span>Shortcuts</span><br/><kbd>K</kbd>
+        </a>
+        <a id="resetButton" class="icon-button">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22.4" height="22.4" viewBox="0 0 512 512">
+            <path fill="currentColor" fill-rule="evenodd" d="M256 448c-97.974 0-178.808-73.383-190.537-168.183l42.341-5.293c9.123 73.734 71.994 130.809 148.196 130.809c82.475 0 149.333-66.858 149.333-149.333S338.475 106.667 256 106.667c-50.747 0-95.581 25.312-122.567 64h79.9v42.666H64V64h42.667v71.31C141.866 91.812 195.685 64 256 64c106.039 0 192 85.961 192 192s-85.961 192-192 192" clip-rule="evenodd"/>
+          </svg>
+          <span>Reset</span>
+        </a>
+      </div>
     </div>    
   </div>
 </aside>
+
+<div id="shortcuts-modal" class="modal hide">
+  <div class="modal-content" role="dialog">
+    <div style="display: flex; justify-content: space-between;">
+      <h3 id="shortcuts-title">Keyboard Shortcuts</h3>
+      <button id="close-shortcuts" class="close-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 15 15">
+          <path fill="currentColor" d="M3.64 2.27L7.5 6.13l3.84-3.84A.92.92 0 0 1 12 2a1 1 0 0 1 1 1a.9.9 0 0 1-.27.66L8.84 7.5l3.89 3.89A.9.9 0 0 1 13 12a1 1 0 0 1-1 1a.92.92 0 0 1-.69-.27L7.5 8.87l-3.85 3.85A.92.92 0 0 1 3 13a1 1 0 0 1-1-1a.9.9 0 0 1 .27-.66L6.16 7.5L2.27 3.61A.9.9 0 0 1 2 3a1 1 0 0 1 1-1c.24.003.47.1.64.27"></path>
+        </svg>
+      </button>
+    </div>
+    <ul class="shortcuts-list">
+      <li><kbd>K</kbd> — Keyboard Shortcuts</li>
+      <li><kbd>Q</kbd> — Quiet mode</li>
+      <li><kbd>F</kbd> — Fullscreen</li>
+      <li><kbd>D</kbd> — Dark mode</li>
+      <li><kbd>P</kbd> — Pali</li>
+      <li><kbd>S</kbd> — Side by side</li>
+    </ul>
+  </div>
+</div>
