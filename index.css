@@ -102,6 +102,10 @@ b {
 body {
   margin: 0;
   font-family: "RobotoSerif", serif;
+
+  @media only screen and (max-width: 1000px) {
+    padding-top: 50px;
+  }
 }
 
 .hide {

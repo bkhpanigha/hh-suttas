@@ -60,15 +60,6 @@ document.addEventListener('DOMContentLoaded', async function() {
       //Set up data
       const initialThemeSetting = localStorage.theme === "dark";
       const availableSuttasJson = await fetchAvailableSuttas();
-
-      // Add changes to document to improve experience for mobile
-      if (window.innerWidth < 1000) {
-        document.body.style.paddingTop = "50px";
-        const appContent = document.getElementById("app-content");
-        if (appContent) {
-          appContent.style.paddingTop = 0;
-        }
-      }
       
       // Load settings state
       document.querySelectorAll("input[type='checkbox']").forEach(checkbox => {
