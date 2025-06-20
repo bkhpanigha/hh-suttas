@@ -1967,7 +1967,7 @@ bookmarkButton {
   padding-bottom: 0.25rem;
 }
 
-.right-sidebar .content {
+.right-sidebar .settings {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
