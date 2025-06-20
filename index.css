@@ -1223,33 +1223,28 @@ bookmarkButton {
   background-image: linear-gradient(rgb(0 0 0/20%) 0 0);
 }
 
-.box-button:hover.red {
+.box-button.red {
   background-color: #f44336;
 }
 
-.box-button:hover.orange {
+.box-button.orange {
   background-color: orange;
 }
 
-.box-button:hover.green {
+.box-button.green {
   background-color: #348e40;
 }
 
-.box-button:hover.blue {
+.box-button.blue {
   background-color: var(--dark-blue);
 }
 
-.box-button:hover.dark-blue {
+.box-button.dark-blue {
   background-color: #093461;
 }
 
-.box-button:hover.gold {
+.box-button.gold {
   background-color: var(--gold);
-}
-
-.box-button:hover.white {
-  color: black;
-  background-color: var(--white);
 }
 
 .glossary-item {
