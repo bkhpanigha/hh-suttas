@@ -15,10 +15,7 @@ export default function activateShortcuts() {
     closeButton,
   } = getDocumentAreas();
 
-  let modalOpen = false;
-
   const toggleShortcutsModal = () => {
-    modalOpen = !modalOpen;
     shortcutsModal.classList.toggle("hide");
   };
 
