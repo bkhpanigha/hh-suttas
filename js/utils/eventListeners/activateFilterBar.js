@@ -5,7 +5,7 @@ import { displaySuttasLibrary, displaySuttasHistory } from "../contentSections/d
 export default function activateFilterBar(availableSuttasJson) {
   const { filterBar, filterForm, suttasTabSwitcher, suttaArea } = getDocumentAreas();
 
-  filterBar?.addEventListener("input", async (e) => {
+  filterBar.addEventListener("input", async (e) => {
     const filterQuery = e.target.value.trim().toLowerCase();
     suttaArea.innerHTML = "";
 
@@ -21,7 +21,7 @@ export default function activateFilterBar(availableSuttasJson) {
     }
   });
 
-  suttasTabSwitcher?.addEventListener("change", (e) => {
+  suttasTabSwitcher.addEventListener("change", (e) => {
     if (e.target.checked) {
       filterForm.classList.add("hide");
       filterBar.value = "";

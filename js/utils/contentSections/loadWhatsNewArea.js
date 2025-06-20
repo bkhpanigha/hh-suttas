@@ -28,6 +28,7 @@ export default function loadWhatsNewArea(availableSuttasJson) {
     .sort((a, b) => new Date(b.date_added) - new Date(a.date_added))
     .slice(0, MAX_WHATS_NEW_ITEMS);
 
+    console.log(recentSuttas);
   if (recentSuttas.length === 0) return;
 
   const cardsHTML = recentSuttas.map(createSuttaCardHTML).join("");

@@ -55,6 +55,12 @@
     --ease-in: cubic-bezier(0.4, 0, 1, 1);
 }
 
+* {
+    box-sizing: border-box;
+    margin: 0;
+    font-family: "RobotoSerif";
+}
+
 body {
     margin: 0;
     min-height: 100vh;
@@ -64,10 +70,6 @@ body {
 
 p {
     margin-bottom: initial;
-}
-
-h1, h2 {
-    margin: 0;
 }
 
 h2,
@@ -137,13 +139,11 @@ h3 {
 }
 
 .search-field input {
-    --border-size: 2px;
-    --padding-horizontal: 14px;
-    width: calc(100% - var(--border-size) * 2 - var(--padding-horizontal) * 2);
-    padding: 12px var(--padding-horizontal);
+    width: 100%;
+    padding: 12px 14px;
     font-size: .9em;
     background-color: var(--input-bg);
-    border: var(--border-size) solid var(--border-color);
+    border: 2px solid var(--border-color);
     color: var(--text-primary);
     border-radius: 6px;
     transition: all var(--transition-normal) var(--ease-out);

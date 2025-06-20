@@ -52,21 +52,25 @@
 
 <body id='appbody' class="hidden">
     <div id="header-placeholder"></div>
-    <div id="app-content">
-        <div id="bookmarksArea">
-            <input type="text" placeholder="Enter new label" id="newLabelInput">
-            <button id="createLabelButton">Create Label</button>
-            <button id="downloadButton">Download Bookmarks</button>
-            <button id="uploadButton">Upload Bookmarks</button>
-            <div id="bookmarks">
-            </div>
+    <div id="bookmarksArea">
+        <input type="text" placeholder="Enter new label" id="newLabelInput">
+        <button id="createLabelButton">Create Label</button>
+        <button id="downloadButton">Download Bookmarks</button>
+        <button id="uploadButton">Upload Bookmarks</button>
+        <div id="bookmarks">
         </div>
-        <div id="bookmarks"></div>
     </div>
-    <div id="right-sidebar-placeholder"></div>
+    <div id="bookmarks">
+    </div>
+    <hr>
+    <div id="navigation" class="navigation">
+        <div id="previous"></div>
+        <div id="next"></div>
+    </div>
+    <div id="footer"></div>
     <script type="module" src="index.js"></script>
+    <script type="module" src="js/utils/contentSections/loadFooter.js"></script>
     <script type="module" src="js/utils/contentSections/loadHeader.js"></script>
-    <script type="module" src="js/utils/contentSections/loadRightSidebar.js"></script>
     <script type="module" src="bookmarks.js"></script>
 </body>
 </html>

@@ -22,9 +22,14 @@ const getSuttaNavigation = (slug, availableSuttasJson) => {
 }
 
 export async function buildSutta(slug, availableSuttasJson) {
-    const { suttaArea } = getDocumentAreas();
+    const {suttaArea} = getDocumentAreas();
+    const footer = document.getElementById('footer');
+    const originalDisplay = footer.style.display;
     
     try {
+        // Hide footer during loading
+        footer.style.display = 'none';
+
         if (!slug) {
             return;
         }
@@ -37,7 +42,7 @@ export async function buildSutta(slug, availableSuttasJson) {
 
         const converter = new showdown.Converter();
         let translator = "Bhikkhu Anīgha";
-        let html = "";
+        let html = window.innerWidth < 1000 ? "" : `<div class="button-area"><button id="hide-pali" class="hide-button">Toggle Pali</button></div>`;
         const sutta_title = sutta_details['title'];
         const acronym = sutta_details['id'];
 
@@ -101,6 +106,16 @@ export async function buildSutta(slug, availableSuttasJson) {
 
         // Initialize features
         addNavbar();
+
+        // Handle buttons
+        if (window.innerWidth > 1000) {
+            const buttons = ['cacheButton', 'infoButton', 'downloadEpubButton', 'epubInfoButton'];
+            buttons.forEach(id => {
+                const button = document.getElementById(id);
+                if (!button) return;
+                button.style.display = 'none';
+            });
+        }
         
         // Navigation and search
         checkSearchUrlParam();
@@ -109,5 +124,8 @@ export async function buildSutta(slug, availableSuttasJson) {
         console.error(error);
         suttaArea.innerHTML = `<p>Sorry, "${decodeURIComponent(slug)}" is not a valid sutta citation.
         <br><br>Note: Make sure the citation code is correct. Otherwise try finding the sutta from the home page.<br>`;
+    } finally {
+        // Always show footer
+        footer.style.display = originalDisplay;
     }
 }
