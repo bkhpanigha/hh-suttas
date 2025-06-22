@@ -1,6 +1,13 @@
 {
     "available_videos": {
         "Hillside Hermitage": {
+            "LeDJTm93QLA": {
+                "title": "No restraint, No Satipatthana",
+                "thumbnails": {
+                    "maxresdefault": "https://i.ytimg.com/vi/LeDJTm93QLA/maxresdefault.jpg"
+                },
+                "duration": "30:02"
+            },
             "ejRCxSxo_6w": {
                 "title": "Suffering has to be Understood",
                 "thumbnails": {
@@ -3448,7 +3455,7 @@
                 "duration": "42:45"
             },
             "K_NZ0AJCeu0": {
-                "title": "Early Buddhism: Understanding the Origin of Attention",
+                "title": "Understanding the Origin of Attention | Early Buddhism",
                 "thumbnails": {
                     "maxresdefault": "https://i.ytimg.com/vi/K_NZ0AJCeu0/maxresdefault.jpg"
                 },
