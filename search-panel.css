@@ -297,7 +297,6 @@ h3 {
 }
 
 .result {
-    width: 100%;
     background-color: var(--panel-bg);
     border: 1px solid var(--border-color);
     border-radius: 2px;

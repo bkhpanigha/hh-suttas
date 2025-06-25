@@ -37,6 +37,11 @@
   --sidebar-text: var(--dark-brown);
   --sidebar-text-hover: #e2e2e2;
 
+  --modal-background-color: rgba(0, 0, 0, 0.5);
+  --modal-shadow: rgba(0, 0, 0, 0.3);
+  --modal-icon: var(--light-gray);
+  --modal-icon-hover: black;
+
   --left-sidebar-width: 200px;
   --right-sidebar-width: 250px;
   --sidebar-toggle-width: 30px;
@@ -57,6 +62,11 @@ body.dark {
   --sidebar-title: #e0e0e0;
   --sidebar-text: #bbbbbb;
   --sidebar-text-hover: #1e1e1e;
+
+  --modal-background-color: rgba(255, 255, 255, 0.35);
+  --modal-shadow: rgba(0, 0, 0, 0.6);
+  --modal-icon: var(--light-gray);
+  --modal-icon-hover: white;
 }
 
 @font-face {
@@ -92,6 +102,10 @@ b {
 body {
   margin: 0;
   font-family: "RobotoSerif", serif;
+
+  @media only screen and (max-width: 1000px) {
+    padding-top: 50px;
+  }
 }
 
 .hide {
@@ -1213,33 +1227,28 @@ bookmarkButton {
   background-image: linear-gradient(rgb(0 0 0/20%) 0 0);
 }
 
-.box-button:hover.red {
+.box-button.red {
   background-color: #f44336;
 }
 
-.box-button:hover.orange {
+.box-button.orange {
   background-color: orange;
 }
 
-.box-button:hover.green {
+.box-button.green {
   background-color: #348e40;
 }
 
-.box-button:hover.blue {
+.box-button.blue {
   background-color: var(--dark-blue);
 }
 
-.box-button:hover.dark-blue {
+.box-button.dark-blue {
   background-color: #093461;
 }
 
-.box-button:hover.gold {
+.box-button.gold {
   background-color: var(--gold);
-}
-
-.box-button:hover.white {
-  color: black;
-  background-color: var(--white);
 }
 
 .glossary-item {
@@ -1957,10 +1966,78 @@ bookmarkButton {
   padding-bottom: 0.25rem;
 }
 
-.right-sidebar .content {
+.right-sidebar .settings {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
   padding-top: 1rem;
   color: var(--sidebar-text);
+}
+
+#shortcuts-title {
+  margin-top: 0;
+}
+
+.shortcuts-btn {
+  background: #eee;
+  border: none;
+  padding: 0.6em 1em;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  border-radius: 6px;
+}
+
+.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: 1000;
+  inset: 0;
+  background-color: var(--modal-background-color);
+}
+
+.modal-content {
+  background: var(--sidebar-background);
+  padding: 2rem;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 0 30px var(--modal-shadow); 
+}
+
+.shortcuts-list {
+  padding-left: 0;
+  list-style-type: none;
+}
+
+.shortcuts-list li {
+  margin: 0.4em 0;
+  font-size: 1rem;
+}
+
+kbd {
+  background: var(--sidebar-border);
+  color: var(--sidebar-text);
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-size: 0.9rem;
+  font-family: monospace;
+}
+
+.close-btn {
+  padding-top: 0;
+  height: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--modal-icon);
+  transition: color 0.2s ease;
+}
+
+.close-btn:hover {
+  color: var(--modal-icon-hover);
 }
