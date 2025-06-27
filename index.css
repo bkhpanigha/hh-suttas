@@ -1,3 +1,4 @@
+
 :root {
   --off-white: rgb(221, 221, 221);
   --light-off-white: rgb(241, 241, 241);
@@ -46,6 +47,7 @@
   --right-sidebar-width: 250px;
   --sidebar-toggle-width: 30px;
   --sidebar-padding: 1rem;
+  --base-content-width: 45rem; /* Base width for the sutta text content */
 }
 
 html.light,
@@ -105,6 +107,13 @@ body {
 
   @media only screen and (max-width: 1000px) {
     padding-top: 50px;
+  }
+}
+
+/* For body padding on smaller screens, if needed */
+@media only screen and (max-width: 1000px) {
+  body {
+    padding-top: 50px; /* This was the original rule, preserved */
   }
 }
 
@@ -330,15 +339,41 @@ p {
   padding-bottom: 1rem;
 }
 
+/* START OF MODIFIED SECTION FOR APP-CONTENT PADDING */
 #app-content {
   line-height: 1.5;
+  /* Default padding for screens < 1000px or when JS is disabled */
+  padding: 2rem; 
+  transition: padding-left 0.3s ease, padding-right 0.3s ease; /* Smooth transition */
+}
 
-  @media only screen and (min-width: 1000px) {
-    padding: 2rem;
-    padding-left: calc(var(--left-sidebar-width) + 10rem);
-    padding-right: calc(var(--right-sidebar-width) + 10rem);
+@media only screen and (min-width: 1000px) {
+  #app-content {
+    /* Default padding when both sidebars are potentially visible */
+    padding-top: 2rem; /* Keep top/bottom padding */
+    padding-bottom: 2rem; /* Keep top/bottom padding */
+    padding-left: calc(var(--left-sidebar-width) + 2rem); /* Base padding next to left sidebar */
+    padding-right: calc(var(--right-sidebar-width) + 2rem); /* Base padding next to right sidebar */
+    max-width: var(--base-content-width); /* Default max-width when both sidebars are open */
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  body.left-sidebar-is-collapsed #app-content {
+    padding-left: 2rem; /* Collapse left padding when left sidebar is hidden */
+    max-width: calc(var(--base-content-width) + var(--left-sidebar-width)); /* Expand by left sidebar width */
+  }
+
+  body.right-sidebar-is-collapsed #app-content {
+    padding-right: 2rem; /* Collapse right padding when right sidebar is hidden */
+    max-width: calc(var(--base-content-width) + var(--right-sidebar-width)); /* Expand by right sidebar width */
+  }
+
+  body.left-sidebar-is-collapsed.right-sidebar-is-collapsed #app-content {
+    max-width: calc(var(--base-content-width) + var(--left-sidebar-width) + var(--right-sidebar-width)); /* Expand by both sidebar widths */
   }
 }
+/* END OF MODIFIED SECTION FOR APP-CONTENT PADDING */
 
 #app-content ul {
   margin-top: 0rem;
