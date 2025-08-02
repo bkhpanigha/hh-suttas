@@ -17,4 +17,9 @@ export default function activateFilterForm(){
     filterForm?.addEventListener('click', function () {
         filterBar.focus();
     });
+
+    // Prevents shortcuts from triggering when typing in the filter
+    filterForm?.addEventListener("keyup", (e) => {
+        e.stopPropagation();
+    });
 }
