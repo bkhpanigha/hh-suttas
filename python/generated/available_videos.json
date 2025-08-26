@@ -1,6 +1,13 @@
 {
     "available_videos": {
         "Hillside Hermitage": {
+            "fN-5OLQTK24": {
+                "title": "Turning Discomfort Into Freedom",
+                "thumbnails": {
+                    "maxresdefault": "https://i.ytimg.com/vi/fN-5OLQTK24/maxresdefault.jpg"
+                },
+                "duration": "12:16"
+            },
             "hHFJw15OYO0": {
                 "title": "The Body You Live In vs. The Body You See",
                 "thumbnails": {
@@ -3265,6 +3272,13 @@
             }
         },
         "Samanadipa Hermitage": {
+            "S0Jcg0P93AQ": {
+                "title": "Why the Context is Where the Dhamma Applies",
+                "thumbnails": {
+                    "maxresdefault": "https://i.ytimg.com/vi/S0Jcg0P93AQ/maxresdefault.jpg"
+                },
+                "duration": "09:06"
+            },
             "ncACQ7Dbg2Y": {
                 "title": "Early Buddhism: What is Right Effort?",
                 "thumbnails": {
