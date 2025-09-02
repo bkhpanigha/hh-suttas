@@ -10,7 +10,7 @@ export default class DateHelper {
 
   static getDaysAgo(dateString) {
     const days = DateHelper.getDaysDifference(dateString);
-    if (days === 0) return "Added today";
+    if (days === 0) return "today";
     return `${days} day${days > 1 ? "s" : ""} ago`;
   }
 }
