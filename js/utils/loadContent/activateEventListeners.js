@@ -24,6 +24,7 @@ import { initializePaliToggle } from "../eventListeners/initializePaliToggle.js"
 import initializeSideBySide from "../eventListeners/initializeSideBySide.js";
 import initializeSearchEvents from "../eventListeners/initializeSearchEvents.js";
 import activateSidebarToggles from "../eventListeners/activateSidebarToggles.js";
+import activateStopInputKeyupPropagation from "../eventListeners/activateStopInputKeyupPropagation.js";
 
 export function activateEventListeners(availableSuttasJson)
 {
@@ -44,6 +45,7 @@ export function activateEventListeners(availableSuttasJson)
     initializePaliToggle();
     activateTopButtonsTouchAnimation();
     activateShortcuts();
+    activateStopInputKeyupPropagation();
 	
     if (window.location.pathname === "/") {
         initializeFuse(availableSuttasJson);
