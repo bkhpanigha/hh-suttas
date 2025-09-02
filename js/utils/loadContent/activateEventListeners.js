@@ -44,8 +44,8 @@ export function activateEventListeners(availableSuttasJson)
     activateSettingsButtons();
     initializePaliToggle();
     activateTopButtonsTouchAnimation();
-    activateShortcuts();
     activateStopInputKeyupPropagation();
+    activateShortcuts();
 	
     if (window.location.pathname === "/") {
         initializeFuse(availableSuttasJson);
