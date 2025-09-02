@@ -39,5 +39,7 @@ export default function getDocumentAreas()
         shortcutsModal: document.getElementById("shortcuts-modal"),
         openButton: document.getElementById("shortcuts-button"),
         closeButton: document.getElementById("close-shortcuts"),
+        searchInput: document.getElementById("searchInput"),
+        newLabelInput: document.getElementById("newLabelInput"),
     }
 }
