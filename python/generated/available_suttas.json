@@ -863,6 +863,16 @@
             "date_added": "2025-06-11T17:39:36+02:00",
             "heading": "Conditions for Brahmavihāras"
         },
+        "sn45.24": {
+            "id": "SN 45.24",
+            "title": "The Way (2nd)",
+            "pali_title": "Dutiyapatipadasutta",
+            "html_path": "suttas/html/sn/sn45/sn45.24_html.json",
+            "root_path": "suttas/root/sn/sn45/sn45.24_root-pli-ms.json",
+            "translation_path": "suttas/translation_en/sn/sn45/sn45.24_translation-en-anigha.json",
+            "comment_path": "suttas/comment/sn/sn45/sn45.24_comment-en-anigha.json",
+            "date_added": "2025-09-02T19:31:21+02:00"
+        },
         "sn45.55": {
             "id": "SN 45.55",
             "title": "Accomplishment in attention in light of the origin (1st)",
