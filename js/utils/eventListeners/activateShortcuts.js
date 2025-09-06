@@ -74,6 +74,8 @@ export default function activateShortcuts() {
 
     leftSidebar.classList.toggle("collapsed", shouldHide);
     rightSidebar.classList.toggle("collapsed", shouldHide);
+    document.body.classList.toggle("left-sidebar-is-collapsed", shouldHide);
+    document.body.classList.toggle("right-sidebar-is-collapsed", shouldHide);
     localStorage.isLeftSidebarHidden = shouldHide;
     localStorage.isRightSidebarHidden = shouldHide;
   };

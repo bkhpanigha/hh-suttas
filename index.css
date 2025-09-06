@@ -344,7 +344,7 @@ p {
   line-height: 1.5;
   /* Default padding for screens < 1000px or when JS is disabled */
   padding: 2rem; 
-  transition: padding-left 0.3s ease, padding-right 0.3s ease; /* Smooth transition */
+  transition: padding-left 0.3s ease, padding-right 0.3s ease, max-width 0.3s ease; /* Smooth transition */
 }
 
 @media only screen and (min-width: 1000px) {
