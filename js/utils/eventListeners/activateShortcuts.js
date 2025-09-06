@@ -91,6 +91,8 @@ export default function activateShortcuts() {
   };
 
   document.addEventListener("keyup", (e) => {
+    if (e.target.closest("input, textarea, select, [contenteditable]")) return;
+
     switch (e.key) {
       case "d":
         toggleDarkMode();

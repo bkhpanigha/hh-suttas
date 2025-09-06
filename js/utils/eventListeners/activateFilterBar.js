@@ -32,9 +32,4 @@ export default function activateFilterBar(availableSuttasJson) {
     filterForm.classList.remove("hide");
     displaySuttasLibrary(availableSuttasJson);
   });
-
-  // Prevents shortcuts from triggering when typing in the filter
-  filterBar?.addEventListener("keyup", (e) => {
-    e.stopPropagation();
-  });
 }
