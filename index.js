@@ -43,7 +43,6 @@ import loadHomeControls from "./js/utils/contentSections/loadHomeControls.js";
 import { displaySuttasLibrary } from "./js/utils/contentSections/displaySuttas.js";
 import { activateEventListeners } from "./js/utils/loadContent/activateEventListeners.js";
 import { fetchAvailableSuttas } from "./js/utils/loadContent/fetchAvailableSuttas.js";
-import { handleSidebarToggles } from "./js/utils/misc/handleSidebarToggles.js";
 import { toggleTheme } from "./js/utils/misc/toggleTheme.js";
 import { buildSutta } from "./js/utils/loadContent/buildSutta.js";
 import updateSuttaDatabase from './js/database/updateSuttaDatabase.js';
@@ -86,7 +85,6 @@ document.addEventListener('DOMContentLoaded', async function() {
       // Additional setup steps
       updateSuttaDatabase();
       activateEventListeners(availableSuttasJson);
-      handleSidebarToggles();
       toggleTheme(initialThemeSetting);
       
       // Now we can reveal the content
