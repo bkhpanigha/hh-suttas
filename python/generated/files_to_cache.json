@@ -101,7 +101,6 @@
     "js/utils/misc/getSegmentsBetweenVerses.js",
     "js/utils/misc/getVerseNumber.js",
     "js/utils/misc/getVersePrefix.js",
-    "js/utils/misc/handleSidebarToggles.js",
     "js/utils/misc/handleTextSelection.js",
     "js/utils/misc/normalizeSpaces.js",
     "js/utils/misc/processNode.js",
