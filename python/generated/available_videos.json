@@ -1,6 +1,13 @@
 {
     "available_videos": {
         "Hillside Hermitage": {
+            "FZa_xJwTtfc": {
+                "title": "To Be or Not To Be...",
+                "thumbnails": {
+                    "maxresdefault": "https://i.ytimg.com/vi/FZa_xJwTtfc/maxresdefault.jpg"
+                },
+                "duration": "18:01"
+            },
             "EfYHjZ4mZgU": {
                 "title": "Whether Householder or Monk: The Right and Wrong Way",
                 "thumbnails": {
