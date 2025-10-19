@@ -1,6 +1,13 @@
 {
     "available_videos": {
         "Hillside Hermitage": {
+            "Id6xjQhR3Xk": {
+                "title": "Suffering is always in the present",
+                "thumbnails": {
+                    "maxresdefault": "https://i.ytimg.com/vi/Id6xjQhR3Xk/maxresdefault.jpg"
+                },
+                "duration": "08:01"
+            },
             "FhNUipRotMc": {
                 "title": "Internal vs. External: How to Discern and Abandon the Hindrances",
                 "thumbnails": {
@@ -3321,6 +3328,13 @@
             }
         },
         "Samanadipa Hermitage": {
+            "aHXDBHEuc0M": {
+                "title": "No Endurance, No Wisdom",
+                "thumbnails": {
+                    "maxresdefault": "https://i.ytimg.com/vi/aHXDBHEuc0M/maxresdefault.jpg"
+                },
+                "duration": "20:26"
+            },
             "9BCt85qbwKU": {
                 "title": "Why Understanding Doubt is the Beginning of True Wisdom",
                 "thumbnails": {
