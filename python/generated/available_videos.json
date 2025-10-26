@@ -1,6 +1,13 @@
 {
     "available_videos": {
         "Hillside Hermitage": {
+            "yhJ4qip7uV4": {
+                "title": "Relaxation vs. Liberation: A Guide for Modern Buddhist Groups",
+                "thumbnails": {
+                    "maxresdefault": "https://i.ytimg.com/vi/yhJ4qip7uV4/maxresdefault.jpg"
+                },
+                "duration": "22:01"
+            },
             "Id6xjQhR3Xk": {
                 "title": "Suffering is always in the present",
                 "thumbnails": {
@@ -1665,7 +1672,7 @@
                 "thumbnails": {
                     "maxresdefault": "https://i.ytimg.com/vi/23R55C-_SKA/maxresdefault.jpg"
                 },
-                "duration": "15:47"
+                "duration": "16:10"
             },
             "mJRBymk7dG4": {
                 "title": "Jhana is Virtue",
