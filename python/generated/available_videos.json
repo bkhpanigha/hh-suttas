@@ -1,6 +1,13 @@
 {
     "available_videos": {
         "Hillside Hermitage": {
+            "XWwDMz9WTQo": {
+                "title": "Pressure and Perception: Understanding Sense Objects and Sense Bases",
+                "thumbnails": {
+                    "maxresdefault": "https://i.ytimg.com/vi/XWwDMz9WTQo/maxresdefault.jpg"
+                },
+                "duration": "21:30"
+            },
             "ee0P0gwTyns": {
                 "title": "Why You Should \"Un-absorb\" Yourself: SN 47.20 - Simile of the Pot of Oil and a Man with the Sword",
                 "thumbnails": {
@@ -3343,7 +3350,7 @@
         },
         "Samanadipa Hermitage": {
             "0PuzG18rtbY": {
-                "title": "On Death, Freedom and Appreciating Life",
+                "title": "Early Buddhism: On Death, Freedom and Appreciation",
                 "thumbnails": {
                     "maxresdefault": "https://i.ytimg.com/vi/0PuzG18rtbY/maxresdefault.jpg"
                 },
