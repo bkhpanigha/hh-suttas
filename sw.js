@@ -18,6 +18,11 @@ fetch('../../python/generated/files_to_cache.json')
   .then(data => {
     data.forEach(file => {
       filesToCache.push(file);
+    
+
+
+
+
     });
   })
   .catch(error => console.error('Error loading files_to_cache.json:', error));
