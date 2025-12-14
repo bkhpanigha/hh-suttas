@@ -1,6 +1,13 @@
 {
     "available_videos": {
         "Hillside Hermitage": {
+            "ZHovE_c83_0": {
+                "title": "The Dukkha of Delight",
+                "thumbnails": {
+                    "maxresdefault": "https://i.ytimg.com/vi/ZHovE_c83_0/maxresdefault.jpg"
+                },
+                "duration": "28:32"
+            },
             "Nyt8TM0uNpc": {
                 "title": "Subduing Compulsions",
                 "thumbnails": {
@@ -3377,6 +3384,13 @@
             }
         },
         "Samanadipa Hermitage": {
+            "YwV6U-bvSUs": {
+                "title": "The Way to Develop a Fearless and Harmonious Mind",
+                "thumbnails": {
+                    "maxresdefault": "https://i.ytimg.com/vi/YwV6U-bvSUs/maxresdefault.jpg"
+                },
+                "duration": "14:18"
+            },
             "RVlpAqz7-3k": {
                 "title": "Ownership is What Pollutes the Mind | Early Buddhism",
                 "thumbnails": {
