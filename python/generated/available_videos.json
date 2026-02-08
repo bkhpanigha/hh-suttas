@@ -1,6 +1,13 @@
 {
     "available_videos": {
         "Hillside Hermitage": {
+            "FBH53ySBqhY": {
+                "title": "Craving Is Sustained by Actions, Not Abstractions",
+                "thumbnails": {
+                    "maxresdefault": "https://i.ytimg.com/vi/FBH53ySBqhY/maxresdefault.jpg"
+                },
+                "duration": "14:23"
+            },
             "lAgIVQn5GYs": {
                 "title": "Monastic Life Across Europe — Five Seasons at Our Buddhist Monasteries",
                 "thumbnails": {
@@ -3468,6 +3475,13 @@
             }
         },
         "Samanadipa Hermitage": {
+            "Z1jmLXs8WZM": {
+                "title": "The Buddha's Instructions on Right Mindfulness",
+                "thumbnails": {
+                    "maxresdefault": "https://i.ytimg.com/vi/Z1jmLXs8WZM/maxresdefault.jpg"
+                },
+                "duration": "14:37"
+            },
             "aTKRr7Y3xA4": {
                 "title": "How Developing Noble Faculties (Indriya) Leads to Nibbāna",
                 "thumbnails": {
