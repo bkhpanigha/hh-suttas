@@ -1,6 +1,13 @@
 {
     "available_videos": {
         "Hillside Hermitage": {
+            "7gx5kArzdVI": {
+                "title": "Basic Meditations: Daily Questioning of Actions & Choices",
+                "thumbnails": {
+                    "maxresdefault": "https://i.ytimg.com/vi/7gx5kArzdVI/maxresdefault.jpg"
+                },
+                "duration": "17:50"
+            },
             "FBH53ySBqhY": {
                 "title": "Craving Is Sustained by Actions, Not Abstractions",
                 "thumbnails": {
@@ -3490,7 +3497,7 @@
                 "duration": "13:11"
             },
             "dr5cKHpOV3M": {
-                "title": "Why Trying to Escape Suffering Is a Mistake | Early Buddhism",
+                "title": "Why Trying to Escape Suffering Is a Mistake",
                 "thumbnails": {
                     "maxresdefault": "https://i.ytimg.com/vi/dr5cKHpOV3M/maxresdefault.jpg"
                 },
