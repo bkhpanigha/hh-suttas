@@ -1,17 +1,21 @@
 {
     "available_playlists": {
         "Hillside Hermitage": {
+            "PLUPMn2PfEqIwb3jSTd_KJdiQA_nAHhjUT": {
+                "name": "Mind - The Wild Animal",
+                "video_count": 8
+            },
             "PLUPMn2PfEqIznTtHJRMLWYnHm8n2Zx1RU": {
                 "name": "Useful Recaps",
                 "video_count": 12
             },
             "PLUPMn2PfEqIz0IkSCaxmvaU-0LVuYf6s0": {
                 "name": "Hillside Hermitage Sutta Studies",
-                "video_count": 17
+                "video_count": 18
             },
             "PLUPMn2PfEqIwL8QQbEYEEuMmeU0PNJsSj": {
                 "name": "Hillside Hermitage Lifestyle",
-                "video_count": 30
+                "video_count": 29
             },
             "PLUPMn2PfEqIxBzsq0Mnpk7U-U8auPCndO": {
                 "name": "Thaniyo Thero",
@@ -69,6 +73,10 @@
                 "name": "Importance of Solitude",
                 "video_count": 8
             },
+            "PLUPMn2PfEqIwTj-Sl_nIxZY0fJ1Kb_7Xz": {
+                "name": "Clarifying the Right order",
+                "video_count": 20
+            },
             "PLUPMn2PfEqIyV028a2ZL-etr7Dx6AsW33": {
                 "name": "Suffering and the End of Suffering",
                 "video_count": 8
@@ -88,6 +96,10 @@
             "PLUPMn2PfEqIykftNPgr3vhZ8f8okSVQ9G": {
                 "name": "Jhana Practice",
                 "video_count": 33
+            },
+            "PLUPMn2PfEqIwZ0mXQ6wOXdpZJ5tH5IVKl": {
+                "name": "Dhamma Interrogations",
+                "video_count": 83
             },
             "PLUPMn2PfEqIwUiJG9Zy7S-89Twlw48qD1": {
                 "name": "On Suttas",
@@ -113,7 +125,7 @@
             },
             "PLC5srPqW-H2PAHf1B_KE4ZrfUWXAGKqIS": {
                 "name": "Samanadipa Hermitage Dhamma discussions",
-                "video_count": 55
+                "video_count": 56
             }
         }
     }
