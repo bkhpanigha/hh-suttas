@@ -111,6 +111,10 @@
             }
         },
         "Samanadipa Hermitage": {
+            "PLC5srPqW-H2OmYskrCIFnRTAQYO7B7ZUL": {
+                "name": "The Gradual Training",
+                "video_count": 3
+            },
             "PLC5srPqW-H2OK51kS06lGkCPLeyiEqZPG": {
                 "name": "The Five Hindrances",
                 "video_count": 4
@@ -125,7 +129,7 @@
             },
             "PLC5srPqW-H2PAHf1B_KE4ZrfUWXAGKqIS": {
                 "name": "Samanadipa Hermitage Dhamma discussions",
-                "video_count": 56
+                "video_count": 57
             }
         }
     }

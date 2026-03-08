@@ -1,6 +1,13 @@
 {
     "available_videos": {
         "Hillside Hermitage": {
+            "m6fds_EB61A": {
+                "title": "The Salla Sutta and the End of Grief",
+                "thumbnails": {
+                    "maxresdefault": "https://i.ytimg.com/vi/m6fds_EB61A/maxresdefault.jpg"
+                },
+                "duration": "23:13"
+            },
             "L0s-q4Y5mpg": {
                 "title": "Enduring the Pressure: The Practical Meaning of Mental Purity (AN 3.121)",
                 "thumbnails": {
@@ -3489,6 +3496,13 @@
             }
         },
         "Samanadipa Hermitage": {
+            "9QRZNaGnahQ": {
+                "title": "Why the Mind is the Only Source of Happiness",
+                "thumbnails": {
+                    "maxresdefault": "https://i.ytimg.com/vi/9QRZNaGnahQ/maxresdefault.jpg"
+                },
+                "duration": "25:44"
+            },
             "wkziYGlgZ88": {
                 "title": "How the Buddha Discovered the Ending of Existence",
                 "thumbnails": {
