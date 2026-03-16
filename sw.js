@@ -63,7 +63,8 @@ async function cacheFilesInBatches(files) {
   const cache = await caches.open(cacheName);
   
   // Add the files in batches to the cache
-  for (let i = 0; i < files.length; i += BATCH_SIZE) {
+  const totalFiles = files.length;
+  for (let i = 0; i < totalFiles; i += BATCH_SIZE) {
     const batch = files.slice(i, i + BATCH_SIZE);
     let retries = 0;
     let success = false;
@@ -72,6 +73,9 @@ async function cacheFilesInBatches(files) {
       try {
         await cacheBatchWithTimeout(cache, batch); // Add the batch to the cache
         success = true;
+        // Notify progress after successful batch cache
+        const progress = Math.min(100, Math.round(((i + batch.length) / totalFiles) * 100));
+        notifyClients('cachingProgress', { progress });
       } catch (error) {
         retries++;
         if (retries === MAX_RETRIES) {
@@ -105,10 +109,11 @@ async function cacheBatchWithTimeout(cache, batch) {
   });
 }
 
-function notifyClients(action) {
+function notifyClients(action, data = {}) {
   self.clients.matchAll().then(clients => {
     clients.forEach(client => {
-      client.postMessage({ action });
+      // Include the action and any additional data in the message
+      client.postMessage({ action, ...data });
     });
   });
 }
