@@ -1,6 +1,13 @@
 {
     "available_videos": {
         "Hillside Hermitage": {
+            "3G3ZR9GbW_4": {
+                "title": "Mastering Mindfulness: Restraint, Seclusion, and the Four Foundations",
+                "thumbnails": {
+                    "maxresdefault": "https://i.ytimg.com/vi/3G3ZR9GbW_4/maxresdefault.jpg"
+                },
+                "duration": "45:52"
+            },
             "jAs8ibIKCIw": {
                 "title": "Peripheral Awareness: The Skill That Overcomes Feelings",
                 "thumbnails": {
@@ -3510,6 +3517,13 @@
             }
         },
         "Samanadipa Hermitage": {
+            "qmHnKw2Pk2Y": {
+                "title": "Why Jhāna Depends on Silence and Seclusion",
+                "thumbnails": {
+                    "maxresdefault": "https://i.ytimg.com/vi/qmHnKw2Pk2Y/maxresdefault.jpg"
+                },
+                "duration": "13:06"
+            },
             "uD5XsgJU4PY": {
                 "title": "Why Only the Brave Succeed in Buddhist Training",
                 "thumbnails": {
