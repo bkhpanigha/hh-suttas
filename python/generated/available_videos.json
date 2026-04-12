@@ -1,6 +1,13 @@
 {
     "available_videos": {
         "Hillside Hermitage": {
+            "CJCIKLiSKBo": {
+                "title": "When Search for Peace Is Actually a Form of Sensual Craving",
+                "thumbnails": {
+                    "maxresdefault": "https://i.ytimg.com/vi/CJCIKLiSKBo/maxresdefault.jpg"
+                },
+                "duration": "25:34"
+            },
             "3G3ZR9GbW_4": {
                 "title": "Mastering Mindfulness: Restraint, Seclusion, and the Four Foundations",
                 "thumbnails": {
@@ -3518,7 +3525,7 @@
         },
         "Samanadipa Hermitage": {
             "qmHnKw2Pk2Y": {
-                "title": "Why Jhāna Depends on Silence and Seclusion",
+                "title": "Why Jhāna Depends on Silence and Seclusion",
                 "thumbnails": {
                     "maxresdefault": "https://i.ytimg.com/vi/qmHnKw2Pk2Y/maxresdefault.jpg"
                 },
@@ -3593,13 +3600,6 @@
                     "maxresdefault": "https://i.ytimg.com/vi/LSIlPbVwPkk/maxresdefault.jpg"
                 },
                 "duration": "49:50"
-            },
-            "0PuzG18rtbY": {
-                "title": "Early Buddhism: Turning Fear into Freedom",
-                "thumbnails": {
-                    "maxresdefault": "https://i.ytimg.com/vi/0PuzG18rtbY/maxresdefault.jpg"
-                },
-                "duration": "07:28"
             },
             "aHXDBHEuc0M": {
                 "title": "No Endurance, No Wisdom",
