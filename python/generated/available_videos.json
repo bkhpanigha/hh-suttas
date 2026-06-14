@@ -1,6 +1,20 @@
 {
     "available_videos": {
         "Hillside Hermitage": {
+            "FWlKXPoxD6c": {
+                "title": "Buddhist Monks in Dolomites (part 1)",
+                "thumbnails": {
+                    "maxresdefault": "https://i.ytimg.com/vi/FWlKXPoxD6c/maxresdefault.jpg"
+                },
+                "duration": "10:56"
+            },
+            "1Fq63E-rsT8": {
+                "title": "Letting go of your views...",
+                "thumbnails": {
+                    "maxresdefault": "https://i.ytimg.com/vi/1Fq63E-rsT8/maxresdefault.jpg"
+                },
+                "duration": "11:49"
+            },
             "o9ED9XiNSyw": {
                 "title": "Don't Just Keep the Precepts, Train in Them",
                 "thumbnails": {
@@ -3601,6 +3615,13 @@
             }
         },
         "Samanadipa Hermitage": {
+            "50MaJhFmgNU": {
+                "title": "Understanding the Buddhist Simile of the Ocean",
+                "thumbnails": {
+                    "maxresdefault": "https://i.ytimg.com/vi/50MaJhFmgNU/maxresdefault.jpg"
+                },
+                "duration": "10:39"
+            },
             "Vz93nfLGdYk": {
                 "title": "Can Drugs Help to Unveil the Nature of Reality?",
                 "thumbnails": {
