@@ -1,6 +1,20 @@
 {
     "available_videos": {
         "Hillside Hermitage": {
+            "uSPQvw2QW20": {
+                "title": "Among Bears and Monks...",
+                "thumbnails": {
+                    "maxresdefault": "https://i.ytimg.com/vi/uSPQvw2QW20/maxresdefault.jpg"
+                },
+                "duration": "06:07"
+            },
+            "MX6VxHsixdA": {
+                "title": "No Excuses, No Refuge: The Sallekha Sutta and Existential Responsibility",
+                "thumbnails": {
+                    "maxresdefault": "https://i.ytimg.com/vi/MX6VxHsixdA/maxresdefault.jpg"
+                },
+                "duration": "42:37"
+            },
             "nLU5vE3g6i4": {
                 "title": "Should you punish your mind?",
                 "thumbnails": {
@@ -496,7 +510,7 @@
                 "thumbnails": {
                     "maxresdefault": "https://i.ytimg.com/vi/dCv4Tyk8nKw/maxresdefault.jpg"
                 },
-                "duration": "07:56"
+                "duration": "07:57"
             },
             "bWPZG6EapKk": {
                 "title": "Helping the Mind Understand",
@@ -3622,6 +3636,13 @@
             }
         },
         "Samanadipa Hermitage": {
+            "YLkofkxGfrU": {
+                "title": "Is it Necessary to Give Up Everything in Order to Be Free?",
+                "thumbnails": {
+                    "maxresdefault": "https://i.ytimg.com/vi/YLkofkxGfrU/maxresdefault.jpg"
+                },
+                "duration": "18:46"
+            },
             "50MaJhFmgNU": {
                 "title": "Understanding the Buddhist Simile of the Ocean",
                 "thumbnails": {
