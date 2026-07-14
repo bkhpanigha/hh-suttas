@@ -2,9 +2,11 @@ import getDocumentAreas from "../getDocumentAreas.js";
 
 let isTogglingPali = false; // Global boolean to prevent scroll event issues
 
-const { suttaArea, hidePaliButton, paliToggle, sideBySideLabel, sideBySideToggle } = getDocumentAreas();
+const { suttaArea } = getDocumentAreas();
 
 const setSideBySideToggleDisabled = (disable) => {
+  const sideBySideLabel = document.getElementById("sideBySideLabel");
+  const sideBySideToggle = document.getElementById("sideBySide");
   if (!sideBySideLabel || !sideBySideToggle) return;
 
   if (disable) {
@@ -83,8 +85,14 @@ export const updatePaliSetting = () => {
 }
 
 export function initializePaliToggle() {
-  hidePaliButton?.addEventListener("click", updatePaliSetting);
-  paliToggle?.addEventListener("click", updatePaliSetting);
+  // Delegated so this works even if #hide-pali/#paliToggle are injected
+  // asynchronously (header/sidebar fragments) after this runs, or get
+  // replaced later (e.g. header re-fetch on resize).
+  document.addEventListener("click", (event) => {
+    if (event.target.closest("#hide-pali, #paliToggle")) {
+      updatePaliSetting();
+    }
+  });
 }
 
 export { isTogglingPali }; // Export the variable to use in activateWindowEventListeners.js
