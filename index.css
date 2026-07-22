@@ -550,6 +550,14 @@ dt {
   overflow: hidden;
 }
 
+/* When Pali is hidden, a paragraph/heading/blockquote whose segments are all
+   untranslated has nothing visible to show, but the container itself still
+   takes up a line of vertical space (margin + line-height), reading as a
+   stray blank line. Collapse it entirely in that case. */
+#sutta.hide-pali :is(p, li, dd, h1, h2, h3, h4, h5, blockquote.gatha):has(span.segment):not(:has(span.eng-lang:not(:empty))) {
+  display: none;
+}
+
 #footer {
   text-align: center;
 }
