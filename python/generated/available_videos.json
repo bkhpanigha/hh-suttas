@@ -1,6 +1,13 @@
 {
     "available_videos": {
         "Hillside Hermitage": {
+            "CVJQDoMHfeQ": {
+                "title": "The Birth of Self: Sutta Study - SN 22.81",
+                "thumbnails": {
+                    "maxresdefault": "https://i.ytimg.com/vi/CVJQDoMHfeQ/maxresdefault.jpg"
+                },
+                "duration": "57:12"
+            },
             "KBdT2kY9WF4": {
                 "title": "Is Saying No to Your Mind Cruel?",
                 "thumbnails": {
@@ -3679,7 +3686,7 @@
                 "duration": "33:16"
             },
             "YLkofkxGfrU": {
-                "title": "Is it Necessary to Give Up Everything in Order to Be Free?",
+                "title": "Is it Necessary to Give Up Everything to Be Free?",
                 "thumbnails": {
                     "maxresdefault": "https://i.ytimg.com/vi/YLkofkxGfrU/maxresdefault.jpg"
                 },
