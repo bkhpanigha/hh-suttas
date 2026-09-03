@@ -955,6 +955,16 @@
             "comment_path": "suttas/comment/an/an2/an2.11-20_comment-en-anigha.json",
             "date_added": "2024-07-29T17:35:18+02:00"
         },
+        "an3.12": {
+            "id": "AN 3.12",
+            "title": "Memorable",
+            "pali_title": "Saraniyasutta",
+            "html_path": "suttas/html/an/an3/an3.12_html.json",
+            "root_path": "suttas/root/an/an3/an3.12_root-pli-ms.json",
+            "translation_path": "suttas/translation_en/an/an3/an3.12_translation-en-anigha.json",
+            "comment_path": null,
+            "date_added": "2026-09-03T07:15:24+02:00"
+        },
         "an3.63": {
             "id": "AN 3.63",
             "title": "At Venāgapura",
