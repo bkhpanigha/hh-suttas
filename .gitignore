@@ -421,3 +421,6 @@ suttas/comment/mn/mn149_comment.json
 suttas/comment/mn/mn150_comment.json
 suttas/comment/mn/mn151_comment.json
 suttas/comment/mn/mn152_comment.json
+suttas/translation_en_new
+suttas/comment_new
+scripts/copy_translations.sh
