@@ -70,7 +70,7 @@ async function displayBookmarks() {
       deleteSummaryButton.style.marginLeft = '10px'; // Add some margin for spacing
       deleteSummaryButton.onclick = () => {
         // Retrieve bookmarks from localStorage
-        let bookmarks = JSON.parse(localStorage.getItem('bookmarks'));
+        let bookmarks = JSON.parse(localStorage.getItem('bookmarksData')).bookmarks;
 
         // Delete the label and its bookmarks
         delete bookmarks[label];
