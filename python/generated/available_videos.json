@@ -1,6 +1,13 @@
 {
     "available_videos": {
         "Hillside Hermitage": {
+            "l9Ok2UmQJ88": {
+                "title": "Too good to be true",
+                "thumbnails": {
+                    "maxresdefault": "https://i.ytimg.com/vi/l9Ok2UmQJ88/maxresdefault.jpg"
+                },
+                "duration": "10:30"
+            },
             "tkyOK8cDk3U": {
                 "title": "Better Rebirth vs Complete Freedom",
                 "thumbnails": {
