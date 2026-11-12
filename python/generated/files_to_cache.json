@@ -129,6 +129,7 @@
     "manifest.json",
     "package-lock.json",
     "package.json",
+    "push-live.sh",
     "readMe.md",
     "right-sidebar.html",
     "roboto-lightest.woff",
