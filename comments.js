@@ -134,12 +134,15 @@ async function displayComments() {
     // Once all comments are loaded, hide the progress bar
     progressContainer.style.display = 'none';
 
-    // Switch between the collections and the most recent suttas
+    // Switch between the collections and the most recent suttas. Firefox can
+    // restore the switch's state on reload, so the first view follows it too.
     const sortSwitcher = document.getElementById('commentsSortSwitcher');
-    document.getElementById('commentsSortSwitcherContainer').hidden = false;
-    sortSwitcher.addEventListener('change', () => {
+    const showSelectedView = () => {
         commentsArea.innerHTML = sortSwitcher.checked ? mostRecentHtml() : htmlContent;
-    });
+    };
+    showSelectedView();
+    document.getElementById('commentsSortSwitcherContainer').hidden = false;
+    sortSwitcher.addEventListener('change', showSelectedView);
 }
 
 try{
