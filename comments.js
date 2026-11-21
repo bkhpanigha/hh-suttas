@@ -1,4 +1,5 @@
 import { preventFlashing } from './js/utils/navigation/preventFlashing.js';
+import DateHelper from './js/utils/DateHelper.js';
 
 var converter = new showdown.Converter();
 
@@ -55,13 +56,47 @@ async function displayComments() {
     // Wait for all the comment fetches to complete
     await Promise.all(commentPromises);
 
-    // Second loop: now that we have all the comments, generate the full HTML
-    for (const [sutta_id, sutta_details] of Object.entries(availableSuttasJson)) {
+    // A sutta's link and its comments
+    function suttaItem(sutta_id, sutta_details) {
         const id = sutta_details['id'].replace(/\s+/g, '');
         const title = sutta_details['title'];
         const heading = sutta_details['heading'] || "";
         const link = `<a href="/?q=${id.toLowerCase()}">${id}: ${title}</a>`;
         const em = heading ? `<span style="color: #7f6e0a;"><em>${heading}</em></span>` : '';
+        let item = `<li>${link}${em ? ` (${em})` : ''}`;
+
+        const comment_text = commentData[sutta_id];
+        if (comment_text) {
+            Object.entries(comment_text).forEach(([key, comment]) => {
+                if (comment.trim() !== '') {
+                    // Append comment after the corresponding Sutta link
+                    item += `<p><a href="/?q=${sutta_id}#${key}">${key}</a>: ${converter.makeHtml(comment).replace(/^<p>(.*)<\/p>$/, '$1')}</p>`;
+                }
+            });
+        }
+
+        return item + `</li>`;
+    }
+
+    // Most recent: the newest suttas first, grouped by when they were added, as in the library's History tab
+    function mostRecentHtml() {
+        const sorted = Object.entries(availableSuttasJson)
+            .sort((a, b) => new Date(b[1].date_added) - new Date(a[1].date_added));
+        let lastGroup = null;
+        let html = '<ul>';
+        for (const [sutta_id, sutta_details] of sorted) {
+            const daysAgo = DateHelper.getDaysAgo(sutta_details['date_added']);
+            if (lastGroup !== daysAgo) {
+                html += `<li class="sutta-group-label">Added ${daysAgo}:</li>`;
+                lastGroup = daysAgo;
+            }
+            html += suttaItem(sutta_id, sutta_details);
+        }
+        return html + '</ul>';
+    }
+
+    // Second loop: now that we have all the comments, generate the full HTML
+    for (const [sutta_id, sutta_details] of Object.entries(availableSuttasJson)) {
         const nikaya = sutta_id.slice(0, 2).toLowerCase();
 
         // Check if the current sutta belongs to a new group
@@ -85,22 +120,8 @@ async function displayComments() {
             }
         }
 
-        // Add the sutta and comments to the HTML
-        htmlContent += `<li>${link}${em ? ` (${em})` : ''}`;
-
-        // Retrieve the comment data and append it to the Sutta's HTML
-        const comment_text = commentData[sutta_id];
-        if (comment_text) {
-            Object.entries(comment_text).forEach(([key, comment]) => {
-                if (comment.trim() !== '') {
-                    // Append comment after the corresponding Sutta link
-                    htmlContent += `<p><a href="/?q=${sutta_id}#${key}">${key}</a>: ${converter.makeHtml(comment).replace(/^<p>(.*)<\/p>$/, '$1')}</p>`;
-                }
-            });
-        }
-
-        // Close the list item after adding the comments
-        htmlContent += `</li>`;
+        // Add the sutta and its comments to the HTML
+        htmlContent += suttaItem(sutta_id, sutta_details);
     }
 
     // Close the last <details> section if it's still open
@@ -112,6 +133,13 @@ async function displayComments() {
 
     // Once all comments are loaded, hide the progress bar
     progressContainer.style.display = 'none';
+
+    // Switch between the collections and the most recent suttas
+    const sortSwitcher = document.getElementById('commentsSortSwitcher');
+    document.getElementById('commentsSortSwitcherContainer').hidden = false;
+    sortSwitcher.addEventListener('change', () => {
+        commentsArea.innerHTML = sortSwitcher.checked ? mostRecentHtml() : htmlContent;
+    });
 }
 
 try{
