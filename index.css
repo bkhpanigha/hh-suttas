@@ -1730,7 +1730,8 @@ bookmarkButton {
   color: var(--off-white);
 }
 
-#suttasTabSwitcherContainer {
+#suttasTabSwitcherContainer,
+#commentsSortSwitcherContainer {
   margin-bottom: 15px;
 }
 
