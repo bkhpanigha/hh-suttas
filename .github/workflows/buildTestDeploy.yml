@@ -69,7 +69,7 @@ jobs:
           fi
       
       - name: Commit and push changes
-        if: env.changes_detected == 'true'
+        if: env.changes_detected == 'true' && github.event_name == 'push'
         run: |
           git add -A
           git commit -m "Auto-commit changes from GitHub Actions"
