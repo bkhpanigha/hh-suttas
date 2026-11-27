@@ -33,34 +33,15 @@ const retry = async (fn, retries = 3, delay = 1000) => {
   // Helper functions for different tests
   async function testHomePage() {
     await page.goto(`http://localhost:${port}/`);
+    await page.waitForSelector('#sutta a[href="/?q=mn1"]');
 
     // Test for element with ID 'sutta'
     const sutta = await page.$('#sutta');
     if (!sutta) throw new Error('Element with ID "sutta" not found');
 
-    // Test if the element contains a <ul>
-    const ulExists = await sutta.$('ul');
-    if (!ulExists) throw new Error('<ul> element under #sutta not found');
-
-    // Test for specific <li> content
-    const expectedLink = '/?q=mn1';
-    const expectedText = 'MN1: The Explanation of the Root';
-    const linkExists = await sutta.$eval(
-      'ul',
-      (ul, expectedLink, expectedText) => {
-        const li = [...ul.querySelectorAll('li')].find(
-          (li) =>
-            li.querySelector('a') &&
-            li.querySelector('a').getAttribute('href') === expectedLink &&
-            li.querySelector('a').textContent.includes(expectedText)
-        );
-        return !!li;
-      },
-      expectedLink,
-      expectedText
-    );
-
-    if (!linkExists) throw new Error(`No <li> found with the specific <a> tag content`);
+    // Test for the MN 1 card
+    const text = await page.$eval('#sutta a[href="/?q=mn1"] .sutta-title', (el) => el.textContent);
+    if (!text.startsWith('MN 1 ')) throw new Error(`Unexpected MN 1 card title: ${text}`);
   }
 
   async function testSuttaPage() {
@@ -82,75 +63,17 @@ const retry = async (fn, retries = 3, delay = 1000) => {
     if (!commentsExist) throw new Error('Comments with class "comment-text" not found or not hidden');
   }
 
-  async function testCitationSearch(inputCitation) {
+  async function testFilter(query, expectedCitation) {
     await page.goto(`http://localhost:${port}/`);
-
-    // Enter text into the input field with ID 'citation'
-    const inputSelector = '#citation';
-    await page.type(inputSelector, inputCitation);
-
-    try {
-      await page.waitForSelector(`a[href="/?q=${inputCitation}"]`, { timeout: 1000 });
-      const link = await page.$(`a[href="/?q=${inputCitation}"]`);
-      if (link) {
-        await link.click();
-      } else {
-        console.log('Link not found');
-      }
-    } catch (error) {
-      throw new Error(`No <a> tag found with href="/?q=${inputCitation}"`);
-    }
+    await page.waitForSelector('#sutta a[href="/?q=mn1"]'); // the filter is wired once the library is shown
+    await page.type('#filter-bar', query);
+    await page.waitForSelector(`#sutta li.sutta-card a[href="/?q=${expectedCitation}"]`, { timeout: 3000 });
   }
 
-  async function testPaliTitleSearch(inputTitle, ExpectedCitation) {
-    await page.goto(`http://localhost:${port}/`);
-
-    // Enter text into the input field with ID 'citation'
-    const inputSelector = '#citation';
-    await page.type(inputSelector, inputTitle);
-
-    try {
-      await page.waitForSelector(`a[href="/?q=${ExpectedCitation}"]`, { timeout: 1000 });
-      const link = await page.$(`a[href="/?q=${ExpectedCitation}"]`);
-      if (link) {
-        await link.click();
-      } else {
-        console.log('Link not found');
-      }
-    } catch (error) {
-      throw new Error(`No <a> tag found with href="/?q=${ExpectedCitation}"`);
-    }
-  }
   async function testAllCacheFilesReachable(jsonFilePath) {
-    const fileList = JSON.parse(fs.readFileSync(jsonFilePath));
-    const checkPromises = fileList.map(async (filePath) => {
-      const page = await browser.newPage();
-      const fullUrl = `http://localhost:${port}/${filePath}`;
-
-      try {
-        const response = await page.goto(fullUrl, {
-          waitUntil: 'networkidle2',
-          method: 'HEAD',
-          timeout: 10000, // set timeout to 10 seconds
-        });
-
-        if (response.status() === 404) {
-          throw new Error(`File at ${filePath} is not reachable, status code: ${response.status()}`);
-        }
-      } catch (error) {
-        if (error.message.includes('net::ERR_ABORTED')) {
-          console.warn(`Warning: ${error.message} for ${filePath}`);
-        } else if (error.message.includes('Navigation timeout')) {
-          console.warn(`Warning: Navigation timeout for ${filePath}`);
-        } else {
-          throw error;
-        }
-      } finally {
-        await page.close();
-      }
-    });
-
-    await Promise.all(checkPromises);
+    // The server is static, so a file is reachable exactly when it exists
+    const missing = JSON.parse(fs.readFileSync(jsonFilePath)).filter((f) => !fs.existsSync(f));
+    if (missing.length) throw new Error(`Missing cache files: ${missing.join(', ')}`);
   }
   async function testBookmarkLabelCreation() {
     await page.goto(`http://localhost:${port}/bookmarks.html`);
@@ -162,7 +85,7 @@ const retry = async (fn, retries = 3, delay = 1000) => {
     // Wait for the new label to appear in the bookmarks
     await page.waitForFunction(
       (label) => {
-        const bookmarks = document.querySelector('#bookmarks');
+        const bookmarks = document.querySelector('#bookmarksList');
         if (!bookmarks) return false;
         const summaryTags = bookmarks.querySelectorAll('summary.bookmark-text');
         return [...summaryTags].some((summary) => summary.textContent.includes(label));
@@ -172,7 +95,7 @@ const retry = async (fn, retries = 3, delay = 1000) => {
     );
 
     const labelExists = await page.evaluate((label) => {
-      const bookmarks = document.querySelector('#bookmarks');
+      const bookmarks = document.querySelector('#bookmarksList');
       if (!bookmarks) return false;
       const summaryTags = bookmarks.querySelectorAll('summary.bookmark-text');
       return [...summaryTags].some((summary) => summary.textContent.includes(label));
@@ -189,7 +112,7 @@ const retry = async (fn, retries = 3, delay = 1000) => {
     const jsonContent = {
       bookmarks: {
         unlabeled: ['mn9:11.4'],
-        similes: ['mn20:4.5-mn20:4.6'],
+        similes: ['mn20:4.5_mn20:4.6'],
       },
       updatedAt: '2024-06-25T19:47:10.162Z',
       detailsState: {
@@ -212,9 +135,11 @@ const retry = async (fn, retries = 3, delay = 1000) => {
       // Check for relevant features in the HTML
       const detailsElements = await page.$$('details');
 
+      let found = false;
       for (const details of detailsElements) {
         const summaryText = await details.$eval('summary.bookmark-text', (el) => el.textContent);
         if (summaryText.includes('similes (1)')) {
+          found = true;
           const similesText = await details.$eval('.bookmark-container p', (el) => el.textContent);
           if (
             !similesText.includes('Suppose there was a woman or man who was young, youthful, and fond of adornments.')
@@ -223,7 +148,7 @@ const retry = async (fn, retries = 3, delay = 1000) => {
           }
 
           const similesLink = await details.$eval('.bookmark-container a', (el) => el.href);
-          if (!similesLink.includes('/?q=mn20#mn20:4.5-mn20:4.6')) {
+          if (!similesLink.includes('/?q=mn20#mn20:4.5_mn20:4.6')) {
             throw new Error('Similes link not found or incorrect');
           }
 
@@ -233,6 +158,7 @@ const retry = async (fn, retries = 3, delay = 1000) => {
           }
         }
       }
+      if (!found) throw new Error('Uploaded "similes" label not found');
     });
   }
 
@@ -240,16 +166,17 @@ const retry = async (fn, retries = 3, delay = 1000) => {
   try {
     await testHomePage();
     await testSuttaPage();
-    await testCitationSearch('snp4.2');
-    await testCitationSearch('mn10');
-    await testPaliTitleSearch('sabba', 'mn2');
-    await testAllCacheFilesReachable('../../python/generated/files_to_cache.json');
+    await testFilter('snp4.2', 'snp4.2');
+    await testFilter('mn10', 'mn10');
+    await testFilter('sabba', 'mn2');
+    await testAllCacheFilesReachable('python/generated/files_to_cache.json');
     await testBookmarkLabelCreation();
     await testBookmarkJsonUpload();
 
     console.log('All tests passed successfully.');
   } catch (error) {
     console.error('Test failed: ', error);
+    process.exitCode = 1;
   } finally {
     await browser.close();
     server.close(); // Close the server when done
